@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,6 +42,7 @@
 
 </head>
 @include('fonts/sarabun')
+
 <body class="font-sarabun">
    @section('sidebar')
    <!-- side rigth bar -->
@@ -76,10 +78,16 @@
          <div class="logout-mode flex-shrink-0 max-h-14 mb-2 text-base md:text-lg sm:text-xl">
             <ul>
                <li class="hover:bg-slate-50 rounded-md">
-                  <a href="{{route('logout')}}">
-                     <i class='bx bx-log-out'></i>
-                     <span class="link-name">ออกจากระบบ</span>
-                  </a>
+                  <form method="POST" action="{{ route('logout') }}" x-data>
+                     @csrf
+                     <button type="submit" class="text-black hover:text-red-600 cursor-pointer">
+
+                        <a href="{{route('logout')}}">
+                           <i class='bx bx-log-out'></i>
+                           <span class="link-name">ออกจากระบบ</span>
+                        </a>
+                     </button>
+                  </form>
                </li>
             </ul>
          </div>
@@ -92,12 +100,15 @@
          <!-- avatar button -->
          <div class="relative flex flex-col items-end justify-end lg:flex-row" x-data="{ isOpen: false }">
             <span class="lg:mr-2 text-blue-700 ">
+               <!-- ชื่อเข้าสู่ระบบ -->
             </span>
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}" x-data>
                @csrf
-               <button type="submit" class="text-black hover:text-red-600 cursor-pointer">
-                  {{ __('[ออกจากระบบ]') }}
+               <button type="submit">
+                  <span class="text-black hover:text-red-600 cursor-pointer">
+                     {{ __('[ออกจากระบบ]') }}
+                  </span>
                </button>
             </form>
          </div>
@@ -112,4 +123,5 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <!-- sidenav -->
 <script src="{{ asset('js/script.js') }}"></script>
+
 </html>
