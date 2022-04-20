@@ -1019,9 +1019,9 @@
 
 <!-- pagination -->
 @if(Route::is('reg.search'))
-<div class="col-md-12 mt-6">
+<footer class="col-md-12 mt-6">
    {{ $searchregs->withQueryString()->links('pagination::tailwind') }}
-</div>
+</footer>
 @endif
 
 <!-- Script -->

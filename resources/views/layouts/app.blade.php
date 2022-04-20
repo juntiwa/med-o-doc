@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,10 +41,9 @@
 
 </head>
 @include('fonts/sarabun')
-
 <body class="font-sarabun">
-
    @section('sidebar')
+   <!-- side rigth bar -->
    <nav class="h-screen">
       <div class="logo-name flex flex-col justify-center items-center">
          <div class="logo-image">
@@ -53,7 +51,6 @@
          </div>
          <span class="logo_name w-44 flex items-center justify-center text-lg md:text-lg sm:text-2xl font-semibold">ระบบลงทะเบียนหนังสือ</span>
       </div>
-
       <div class="menu-items">
          <ul class="nav-links text-base md:text-lg sm:text-xl">
             <li class="@if (Route::is('reg.show')||Route::is('reg.search')) bg-slate-200 @else  @endif hover:bg-slate-50 rounded-md">
@@ -88,16 +85,13 @@
          </div>
       </div>
    </nav>
-
    <section class="dashboard ">
       <div class="top relative flex items-center justify-between space-x-3 lg:text-lg md:text-xl">
          <i class='bx bx-menu sidebar-toggle flex items-start justify-start'></i>
          <span class="p-2 lg:text-lg md:text-xl font-semibold uppercase lg:hidden">ค้นหาเอกสาร</span>
-
          <!-- avatar button -->
          <div class="relative flex flex-col items-end justify-end lg:flex-row" x-data="{ isOpen: false }">
             <span class="lg:mr-2 text-blue-700 ">
-              
             </span>
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}" x-data>
@@ -108,22 +102,14 @@
             </form>
          </div>
       </div>
-
-
       <div class="dash-content">
          <div class="overview">
             @yield('content')
          </div>
    </section>
-
-
-
 </body>
 <!-- partial -->
 <script src="{{ asset('js/app.js') }}"></script>
 <!-- sidenav -->
 <script src="{{ asset('js/script.js') }}"></script>
-
-
-
 </html>

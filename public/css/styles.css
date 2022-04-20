@@ -417,69 +417,105 @@ nav.close~.dashboard .top {
 
 @media (max-width: 1000px) {
    nav {
+      width: 0px;
+   }
+   
+   nav.close {
       width: 73px;
    }
-
-   nav.close {
-      width: 250px;
-   }
-
+   
    nav .logo_name {
       opacity: 0;
       pointer-events: none;
    }
-
+   
    nav.close .logo_name {
-      opacity: 1;
-      pointer-events: auto;
+      opacity: 0;
+      pointer-events: none;
    }
-
+   
    nav li a .link-name {
       opacity: 0;
       pointer-events: none;
    }
-
+   
    nav.close li a .link-name {
-      opacity: 1;
-      pointer-events: auto;
+      opacity: 0;
+      pointer-events: none;
    }
-
+   
    nav~.dashboard {
-      left: 73px;
-      width: calc(100% - 73px);
+      left: 0;
+      width: 100%;
    }
-
+   
    nav.close~.dashboard {
-      left: 250px;
-      width: calc(100% - 250px);
-   }
-
-   nav~.dashboard .top {
       left: 73px;
       width: calc(100% - 73px);
    }
-
-   nav.close~.dashboard .top {
-      left: 250px;
-      width: calc(100% - 250px);
+   
+   nav~.dashboard .top {
+      left: 0;
+      width: 100%;
    }
-
-   .activity .activity-data {
-      overflow-X: scroll;
+   
+   nav.close~.dashboard .top {
+      left: 0;
+      width: 100%;
    }
 }
 
 @media (max-width: 780px) {
-   .dash-content .boxes .box {
-      width: calc(100% / 2 - 15px);
-      margin-top: 15px;
+   nav {
+      width: 0px;
+   }
+   
+   nav.close {
+      width: 73px;
+   }
+   
+   nav .logo_name {
+      opacity: 0;
+      pointer-events: none;
+   }
+   
+   nav.close .logo_name {
+      opacity: 0;
+      pointer-events: none;
+   }
+   
+   nav li a .link-name {
+      opacity: 0;
+      pointer-events: none;
+   }
+   
+   nav.close li a .link-name {
+      opacity: 0;
+      pointer-events: none;
+   }
+   
+   nav~.dashboard {
+      left: 0;
+      width: 100%;
+   }
+   
+   nav.close~.dashboard {
+      left: 73px;
+      width: calc(100% - 73px);
+   }
+   
+   nav~.dashboard .top {
+      left: 0;
+      width: 100%;
+   }
+   
+   nav.close~.dashboard .top {
+      left: 0;
+      width: 100%;
    }
 }
 
 @media (max-width: 560px) {
-   .dash-content .boxes .box {
-      width: 100%;
-   }
    nav {
       width: 0px;
    }
