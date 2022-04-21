@@ -10,13 +10,29 @@
 @section('content')
 
 <!-- Main content header -->
-<div class="grid grid-rows-1 pb-5 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
+<div class="grid grid-rows-1 pb-3 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
    <div class="lg:flex lg:justify-between md:flex md:justify-between sm:grid sm:grid-cols-1 md:space-x-3">
       <!-- หัวข้อหน้าเว็บ -->
       <h1 class="text-2xl font-semibold whitespace-nowrap">ทะเบียนหนังสือส่ง</h1>
 
       <!-- switch -->
-      <div class="flex">
+      <div class="flex  hidden lg:block">
+         <div class="bg-white dark:bg-gray-800 dark:text-gray-100">
+            <div class="flex items-center justify-center space-x-2">
+               <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
+               <span class="mr-3 inline-block text-lg font-medium text-gray-900">ปิดช่องค้นหา</span>
+               <label for="toggle-example-checked" class="flex relative items-center cursor-pointer">
+                  <input type="checkbox" id="toggle-example-checked" class="sr-only" checked>
+                  <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
+               </label>
+               <span class="ml-3 inline-block text-lg font-medium text-gray-900">แสดงช่องค้นหา</span>
+               <!-- <span class="text-sm text-gray-400 dark:text-white">Dark</span> -->
+            </div>
+
+         </div>
+      </div>
+
+      <div class="flex pt-2 lg:hidden">
          <div class="bg-white dark:bg-gray-800 dark:text-gray-100">
             <div class="flex items-center justify-center space-x-2">
                <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
@@ -40,7 +56,7 @@
       <!-- Start Content -->
       <form action="{{ route('send.search') }}" method="GET">
          <!-- @csrf -->
-         <div class="grid grid-cols-1 gap-5 mt-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
+         <div class="grid grid-cols-1 gap-3 mt-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
             <!-- ชนิดหนังสือ -->
             <div class="mb-3 xl:w-full">
                <label for="sendtype" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">ชนิดหนังสือ</label>
@@ -228,7 +244,7 @@
 @endif
 
 <!-- ตาราง -->
-<div class="overflow-auto rounded-lg shadow hidden mt-6 lg:block">
+<div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
    <table class="w-full">
       <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
@@ -671,7 +687,7 @@
    @if(isset($sends))
    @if(count($sends)>0)
    @foreach($sends as $send)
-   <div class="bg-white space-y-3 p-4 rounded-lg shadow relative">
+   <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
       <div class="flex items-center space-x-2 text-base ">
          <!-- เลขที่หนังสือ -->
          <div>

@@ -51,7 +51,7 @@ class LoginController extends Controller
    public function authenticate(Request $request, AuthUserAPI $api)
    {
 
-      /* if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+      if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
          // Authentication was successful...
          // return redirect('regDoc')->with('success', "Account successfully registered.");
       } else {
@@ -66,21 +66,21 @@ class LoginController extends Controller
          return redirect()->back()
          ->withInput($request->only($this->username(), 'remember'))
          ->withErrors($errors);
-      } */
+      }
 
-      $user = $api->authenticate($request->username, $request->password);
-      if($user['reply_code'] != 0){
-         echo "not ok";
-         $errors = new MessageBag; // initiate MessageBag
+      // $user = $api->authenticate($request->username, $request->password);
+      // if($user['reply_code'] != 0){
+      //    echo "not ok";
+      //    $errors = new MessageBag; // initiate MessageBag
 
          
-         $errors = new MessageBag(['password' => ['รหัสผ่านไม่ถูก']]); // if Auth::attempt fails (wrong credentials) create a new message bag instance.
+      //    $errors = new MessageBag(['password' => ['รหัสผ่านไม่ถูก']]); // if Auth::attempt fails (wrong credentials) create a new message bag instance.
 
-         return redirect()->back()
-         ->withErrors($errors); // redirect back to the login page, using ->withErrors($errors) you send the error created above
-      }else{
-         return Redirect::route('reg.show');
-      }
+      //    return redirect()->back()
+      //    ->withErrors($errors); // redirect back to the login page, using ->withErrors($errors) you send the error created above
+      // }else{
+      //    return Redirect::route('reg.show');
+      // }
 
       // dd($user);
    }

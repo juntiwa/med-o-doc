@@ -14,7 +14,7 @@
          <label for="username" class="block font-medium text-base text-gray-700 pb-2">ชื่อผู้ใช้</label>
          <input type="text" name="username" placeholder="ชื่อ.นามสกุล 3 ตัว" id="username" class="form-control block w-full  px-3 py-1.5 text-base
                font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition  ease-in-out m-0
-             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required autofocus>
+             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" value="{{ old('username') }}" required autocomplete="username" autofocus>
          @error('username')
          <label class="text-red-500 font-medium text-base pt-2 pb-3">{{ $message }}</label>
          @enderror
@@ -22,7 +22,7 @@
          <label for="password" class="block font-medium text-base text-gray-700 pt-3 pb-2">รหัสผ่าน</label>
          <input type="password" name="password" placeholder="Password" id="password" class="form-control block w-full  px-3 py-1.5 text-base
                font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition  ease-in-out m-0
-             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required>
+             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required >
          @error('password')
          <label class="text-red-500 font-medium text-base pt-2">{{ $message }}</label>
          @enderror
