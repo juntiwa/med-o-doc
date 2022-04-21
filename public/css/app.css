@@ -13115,10 +13115,6 @@ input:checked + .toggle-bg {
     grid-column: span 1 / span 1;
   }
 
-  .md\:mt-5 {
-    margin-top: 1.25rem;
-  }
-
   .md\:flex {
     display: flex;
   }
@@ -13258,10 +13254,6 @@ input:checked + .toggle-bg {
 }
 
 @media (min-width: 1280px) {
-
-  .xl\:mt-2 {
-    margin-top: 0.5rem;
-  }
 
   .xl\:w-full {
     width: 100%;

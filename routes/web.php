@@ -29,7 +29,7 @@ Route::get('/', function () {
 })->name('login');
 
 Route::post('/login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
-
+Route::post('/logout', [AuthLoginController::class, 'logout'])->name('logout');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/index', [HomeController::class, 'index'])->name('index');
 

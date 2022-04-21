@@ -6,7 +6,6 @@ use App\Models\Jobunit;
 use App\Models\Letterreg;
 use App\Models\Letterunit;
 use App\Models\Type;
-use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -39,6 +38,7 @@ class RegController extends Controller
       $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
       foreach ($unit as $list) {
          $html .= '<option id="option" value="' . $list->unitid . '">' . $list->unitname . '</option>';
+                  
          echo $list->unitid . '<br>';
       }
       echo $html;
@@ -283,6 +283,8 @@ class RegController extends Controller
          $tyear = "-";
       }
 
+      // old input
+      $input = $request->flash();
       return view('regdoc', compact(
          'searchregs',
          'types',
@@ -295,7 +297,8 @@ class RegController extends Controller
          'fmonth',
          'tmonth',
          'fyear',
-         'tyear'
+         'tyear',
+         'input'
       ));
    }
 }
