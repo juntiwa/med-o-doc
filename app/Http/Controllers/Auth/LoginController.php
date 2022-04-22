@@ -51,22 +51,32 @@ class LoginController extends Controller
    public function authenticate(Request $request, AuthUserAPI $api)
    {
 
-      if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-         // Authentication was successful...
-         // return redirect('regDoc')->with('success', "Account successfully registered.");
-      } else {
-         $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
-         // Load user from database
-         $user = User::where($this->username(), $request->{$this->username()})->first();
+      $userregis = User::where('username',$request->username)->first();
+      if($userregis){
+         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            // Authentication was successful... 
+            return redirect('regDoc')->with('success', "Account successfully registered.");
+         } else {
+            $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
+            // Load user from database
+            // $user = User::where($this->username(), $request->{$this->username()})->first();
 
-         if ($user && !Hash::check($request->password, $user->password)) {
-            $errors = ['password' => 'รหัสผ่านผิด'];
+            if ($userregis && !Hash::check($request->password, $userregis->password)) {
+               $errors = ['password' => 'รหัสผ่านผิด'];
+            }
+
+            return redirect()->back()
+               ->withInput($request->only($this->username(), 'remember'))
+               ->withErrors($errors);
          }
-
+      }else{
+         $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
          return redirect()->back()
-         ->withInput($request->only($this->username(), 'remember'))
-         ->withErrors($errors);
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors($errors);
       }
+
+     
 
       // $user = $api->authenticate($request->username, $request->password);
       // if($user['reply_code'] != 0){

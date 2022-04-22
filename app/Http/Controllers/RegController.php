@@ -35,10 +35,17 @@ class RegController extends Controller
    {
       $typeid = $request->post('typeid');
       $unit = Jobunit::where('unitlevel', $typeid)->orderBy('unitname', 'asc')->get();
+      $sregfrom = $request->get('sregfrom');
       $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
       foreach ($unit as $list) {
          $html .= '<option id="option" value="' . $list->unitid . '">' . $list->unitname . '</option>';
-                  
+         $html .= '<option value="' . $list->unitid . '" {{(old('.$sregfrom . ')==' . $list->unitid . ')? "selected" : " "}}>' . $list->unitname . '</option>';
+
+         // if (Input::old($sregfrom) == $list->unitid) {
+         //    '<option id="option" value="' . $list->unitid . '" selected >' . $list->unitname . '</option>';
+         // } else {
+         //    '<option id="option" value="' . $list->unitid . '">' . $list->unitname . '</option>';
+         // }  
          echo $list->unitid . '<br>';
       }
       echo $html;
