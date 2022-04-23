@@ -121,7 +121,7 @@ class LoginController extends Controller
       #ตรวจสอบสิทธ์การใช้งาน -> ว่ามีสิทธิ์เข้าใช้งานหรือไม่
       $userregis = User::where('username', $request->username)->first();
       $userpermis = permission::where('username', $request->username)->first();
-      if($userpermis->username != $request->username){
+      if( !$userpermis){
          // echo "not ok";
          $errors = ['permis' => $user['reply_text']];
          return Redirect::back()->withErrors($errors)->withInput($request->all());
