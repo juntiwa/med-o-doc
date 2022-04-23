@@ -2,13 +2,15 @@
 namespace App\APIs;
 
 use App\Contracts\AuthUserAPI;
+use App\Models\User;
 use Faker\Factory;
+use Illuminate\Support\Facades\Auth;
 
 class FakeUserAPI implements AuthUserAPI
 {
    public function authenticate($username, $password)
    {
-      if ($username === $password) {
+      if (Auth::attempt(['username' => $username, 'password' => $password])) {
          return [
             "reply_code" => 0,
             "ok" => true,
@@ -25,7 +27,8 @@ class FakeUserAPI implements AuthUserAPI
             "division_name" => "ภาควิชาอายุรศาสตร์",
             "department_name" => "ภาควิชาอายุรศาสตร์",
             "office_name" => "สำนักงานภาควิชาอายุรศาสตร์",
-            "password_expires_in_days" => 62,
+            "reply_text" => "ไม่มีสิทธ์เข้าถึงระบบ กรุณาติดต่อเจ้าหน้าที่ ขอบคุณค่ะ",
+            "password_expires_in_days" => 60,
          ];
       } else {
          return [

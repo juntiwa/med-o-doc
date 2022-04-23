@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\AuthUserAPI;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
+use App\Models\permission;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Faker\Factory;
@@ -48,68 +49,107 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+      //   $this->middleware('guest')->except('logout');
     }
 
    public function authenticate(Request $request, AuthUserAPI $api)
    {
-      $userregis = User::where('username', $request->username)->first();
-      if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-         // Authentication was successful... 
-         if ([$request->username => 'admin']){
-            return redirect()->intended('activitylog');
-            // echo "test";
-         }else{
-            $username = $userregis->username;
-            $email = $userregis->email;
-            $fname = $userregis->fname;
-            $lname = $userregis->lname;
-            $description = 'เข้าสู่ระบบ';
-            $dt = Carbon::now();
-            $todaydate = $dt->toDayDateTimeString();
-            $created_at = date_create();
-            $updated_at = date_create();
+      /*  
+         $userregis = User::where('username', $request->username)->first();
+         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            // Authentication was successful... 
+            if ($request->username == 'admin'){
+               return redirect()->intended('activitylog');
+               // echo "test";
+            }else{
+               $username = $userregis->username;
+               $email = $userregis->email;
+               $fname = $userregis->fname;
+               $lname = $userregis->lname;
+               $description = 'เข้าสู่ระบบ';
+               $dt = Carbon::now();
+               $todaydate = $dt->toDayDateTimeString();
+               $created_at = date_create();
+               $updated_at = date_create();
 
-            $activityLog = [
-               'username' => $username,
-               'fname' => $fname,
-               'lname' => $lname,
-               'email' => $email,
-               'description' => $description,
-               'date_time' => $todaydate,
-               'created_at' => $created_at,
-               'updated_at' => $updated_at,
-            ];
-            activityLog::insert($activityLog);
-            return redirect('regDoc')->with('success', "Account successfully registered.");
-         }
-      } else {
-         // Load user from database
-         // $userregis = User::where('username', $request->username)->first();
+               $activityLog = [
+                  'username' => $username,
+                  'fname' => $fname,
+                  'lname' => $lname,
+                  'email' => $email,
+                  'description' => $description,
+                  'date_time' => $todaydate,
+                  'created_at' => $created_at,
+                  'updated_at' => $updated_at,
+               ];
+               activityLog::insert($activityLog);
+               return redirect('regDoc')->with('success', "Account successfully registered.");
+            }
+         } else {
+            // Load user from database
+            // $userregis = User::where('username', $request->username)->first();
+            if ($userregis && !Hash::check($request->password, $userregis->password)) {
+               $errors = ['password' => 'รหัสผ่านผิด'];
+               // echo "password";
+               return Redirect::back()->withErrors($errors)->withInput($request->all());
+            }else{
+               $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
+               // echo "username";
+               return Redirect::back()->withErrors($errors)->withInput($request->all());
+            }
+         } 
+      */
+      
+      // ----------------------------- end test user -----------------------//
+      
+      $user = $api->authenticate($request->username, $request->password);
+      $errors = ['permis' => $user['reply_text']];
+      if($user['reply_code'] != 0) {
+         $userregis = User::where('username', $request->username)->first();
          if ($userregis && !Hash::check($request->password, $userregis->password)) {
             $errors = ['password' => 'รหัสผ่านผิด'];
             // echo "password";
             return Redirect::back()->withErrors($errors)->withInput($request->all());
-         }else{
+         } else {
             $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
             // echo "username";
             return Redirect::back()->withErrors($errors)->withInput($request->all());
          }
       }
+      // return Redirect::back()->withErrors($errors)->withInput($request->all());
       
-      // $user = $api->authenticate($request->username, $request->password);
-      // if($user['reply_code'] != 0){
-      //    echo "not ok";
-      //    $errors = new MessageBag; // initiate MessageBag
+      #ตรวจสอบสิทธ์การใช้งาน -> ว่ามีสิทธิ์เข้าใช้งานหรือไม่
+      $userregis = User::where('username', $request->username)->first();
+      $userpermis = permission::first();
+      if($userpermis->username != $request->username){
+         // echo "not ok";
+         $errors = ['permis' => $user['reply_text']];
+         return Redirect::back()->withErrors($errors)->withInput($request->all());
+      }else{
+         // echo "ok";
+         $username = $userregis->username;
+         $email = $userregis->email;
+         $fname = $userregis->fname;
+         $lname = $userregis->lname;
+         $description = 'เข้าสู่ระบบ';
+         $dt = Carbon::now();
+         $todaydate = $dt->toDayDateTimeString();
+         $created_at = date_create();
+         $updated_at = date_create();
 
-
-      //    $errors = new MessageBag(['password' => ['รหัสผ่านไม่ถูก']]); // if Auth::attempt fails (wrong credentials) create a new message bag instance.
-
-      //    return redirect()->back()
-      //    ->withErrors($errors); // redirect back to the login page, using ->withErrors($errors) you send the error created above
-      // }else{
-      //    return Redirect::route('reg.show');
-      // }
+         $activityLog = [
+            'username' => $username,
+            'fname' => $fname,
+            'lname' => $lname,
+            'email' => $email,
+            'description' => $description,
+            'date_time' => $todaydate,
+            'created_at' => $created_at,
+            'updated_at' => $updated_at,
+         ];
+         activityLog::insert($activityLog);
+         return redirect('regDoc')->with('success', "Account successfully registered.");
+      }
 
       // dd($user);
    }
