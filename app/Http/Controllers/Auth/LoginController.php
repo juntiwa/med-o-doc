@@ -51,39 +51,29 @@ class LoginController extends Controller
    public function authenticate(Request $request, AuthUserAPI $api)
    {
 
-      $userregis = User::where('username',$request->username)->first();
-      if($userregis){
-         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            // Authentication was successful... 
-            return redirect('regDoc')->with('success', "Account successfully registered.");
-         } else {
+      if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+         // Authentication was successful... 
+         return redirect('regDoc')->with('success', "Account successfully registered.");
+      } else {
+         // Load user from database
+         $userregis = User::where('username', $request->username)->first();
+         if ($userregis && !Hash::check($request->password, $userregis->password)) {
+            $errors = ['password' => 'รหัสผ่านผิด'];
+            // echo "password";
+            return Redirect::back()->withErrors($errors)->withInput($request->all());
+         }else{
             $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
-            // Load user from database
-            // $user = User::where($this->username(), $request->{$this->username()})->first();
-
-            if ($userregis && !Hash::check($request->password, $userregis->password)) {
-               $errors = ['password' => 'รหัสผ่านผิด'];
-            }
-
-            return redirect()->back()
-               ->withInput($request->only($this->username(), 'remember'))
-               ->withErrors($errors);
+            // echo "username";
+            return Redirect::back()->withErrors($errors)->withInput($request->all());
          }
-      }else{
-         $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
-         return redirect()->back()
-            ->withInput($request->only($this->username(), 'remember'))
-            ->withErrors($errors);
       }
-
-     
-
+      
       // $user = $api->authenticate($request->username, $request->password);
       // if($user['reply_code'] != 0){
       //    echo "not ok";
       //    $errors = new MessageBag; // initiate MessageBag
 
-         
+
       //    $errors = new MessageBag(['password' => ['รหัสผ่านไม่ถูก']]); // if Auth::attempt fails (wrong credentials) create a new message bag instance.
 
       //    return redirect()->back()
