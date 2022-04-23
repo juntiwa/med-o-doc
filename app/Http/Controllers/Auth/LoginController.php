@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Contracts\AuthUserAPI;
 use App\Http\Controllers\Controller;
+use App\Models\activityLog;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Faker\Factory;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 
@@ -50,13 +53,34 @@ class LoginController extends Controller
 
    public function authenticate(Request $request, AuthUserAPI $api)
    {
-
+      $userregis = User::where('username', $request->username)->first();
       if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
          // Authentication was successful... 
+         $username = $userregis->username;
+         $email = $userregis->email;
+         $fname = $userregis->fname;
+         $lname = $userregis->lname;
+         $description = 'เข้าสู่ระบบ';
+         $dt = Carbon::now();
+         $todaydate = $dt->toDayDateTimeString();
+         $created_at = date_create();
+         $updated_at = date_create();
+
+         $activityLog = [
+               'username' => $username,
+               'fname' => $fname,
+               'lname' => $lname,
+               'email' => $email,
+               'description' => $description,
+               'date_time' => $todaydate,
+               'created_at' => $created_at,
+               'updated_at' => $updated_at,
+            ];
+         activityLog::insert($activityLog);
          return redirect('regDoc')->with('success', "Account successfully registered.");
       } else {
          // Load user from database
-         $userregis = User::where('username', $request->username)->first();
+         // $userregis = User::where('username', $request->username)->first();
          if ($userregis && !Hash::check($request->password, $userregis->password)) {
             $errors = ['password' => 'รหัสผ่านผิด'];
             // echo "password";
@@ -86,8 +110,32 @@ class LoginController extends Controller
    }
    public function logout(Request $request)
    {
-      Auth::logout();
 
+      $user = Auth::User();
+      Session::put('user', $user);
+      $user = Session::get('user');
+      $username = $user->username;
+      $email = $user->email;
+      $fname = $user->fname;
+      $lname = $user->lname;
+      $description = 'ออกจากระบบ';
+      $dt = Carbon::now();
+      $todaydate = $dt->toDayDateTimeString();
+      $created_at = date_create();
+      $updated_at = date_create();
+
+      $activityLog = [
+         'username' => $username,
+         'fname' => $fname,
+         'lname' => $lname,
+         'email' => $email,
+         'description' => $description,
+         'date_time' => $todaydate,
+         'created_at' => $created_at,
+         'updated_at' => $updated_at,
+      ];
+      activityLog::insert($activityLog);
+      Auth::logout();
       return Redirect::route('login');
    }
 }
