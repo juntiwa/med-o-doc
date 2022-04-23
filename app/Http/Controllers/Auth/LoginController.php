@@ -148,7 +148,13 @@ class LoginController extends Controller
             'updated_at' => $updated_at,
          ];
          activityLog::insert($activityLog);
-         return redirect('regDoc')->with('success', "Account successfully registered.");
+         if ($request->username == 'admin'
+         ) {
+            return redirect('activitylog')->with('success', "Account successfully registered.");
+            // echo "test";
+         } else {
+            return redirect('regDoc')->with('success', "Account successfully registered.");
+         }
       }
 
       // dd($user);
