@@ -120,7 +120,7 @@ class LoginController extends Controller
       
       #ตรวจสอบสิทธ์การใช้งาน -> ว่ามีสิทธิ์เข้าใช้งานหรือไม่
       $userregis = User::where('username', $request->username)->first();
-      $userpermis = permission::first();
+      $userpermis = permission::where('username', $request->username)->first();
       if($userpermis->username != $request->username){
          // echo "not ok";
          $errors = ['permis' => $user['reply_text']];
@@ -148,7 +148,13 @@ class LoginController extends Controller
             'updated_at' => $updated_at,
          ];
          activityLog::insert($activityLog);
-         return redirect('regDoc')->with('success', "Account successfully registered.");
+         if ($request->username == 'admin'
+         ) {
+            return redirect('activitylog')->with('success', "Account successfully registered.");
+            // echo "test";
+         } else {
+            return redirect('regDoc')->with('success', "Account successfully registered.");
+         }
       }
 
       // dd($user);

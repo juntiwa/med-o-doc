@@ -109,6 +109,8 @@
          <div class="relative flex flex-col items-end justify-end lg:flex-row" x-data="{ isOpen: false }">
             <span class="lg:mr-2 text-blue-700 ">
                <!-- ชื่อเข้าสู่ระบบ -->
+               {{Auth::user()->fname}}
+               {{Auth::user()->lname}}
             </span>
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}" x-data>
