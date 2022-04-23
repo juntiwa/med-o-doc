@@ -8,8 +8,11 @@
    <div class="sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg" style="width: 33%;">
       <h3 class="text-2xl mb-3 font-bold text-center">ระบบค้นหาเอกสารเก่า</h3>
       <form action="{{ route('checklogin') }}" method="POST">
-
          @csrf
+
+         @error('permis')
+         <label class="text-red-500 font-medium text-base text-center pt-2 pb-3">{{ $message }}</label>
+         @enderror
 
          <label for="username" class="block font-medium text-base text-gray-700 pb-2">ชื่อผู้ใช้</label>
          <input type="text" name="username" placeholder="ชื่อ.นามสกุล 3 ตัว" id="username" class="form-control block w-full  px-3 py-1.5 text-base
