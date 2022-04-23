@@ -56,17 +56,21 @@ class LoginController extends Controller
       $userregis = User::where('username', $request->username)->first();
       if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
          // Authentication was successful... 
-         $username = $userregis->username;
-         $email = $userregis->email;
-         $fname = $userregis->fname;
-         $lname = $userregis->lname;
-         $description = 'เข้าสู่ระบบ';
-         $dt = Carbon::now();
-         $todaydate = $dt->toDayDateTimeString();
-         $created_at = date_create();
-         $updated_at = date_create();
+         if ([$request->username => 'admin']){
+            return redirect()->intended('activitylog');
+            // echo "test";
+         }else{
+            $username = $userregis->username;
+            $email = $userregis->email;
+            $fname = $userregis->fname;
+            $lname = $userregis->lname;
+            $description = 'เข้าสู่ระบบ';
+            $dt = Carbon::now();
+            $todaydate = $dt->toDayDateTimeString();
+            $created_at = date_create();
+            $updated_at = date_create();
 
-         $activityLog = [
+            $activityLog = [
                'username' => $username,
                'fname' => $fname,
                'lname' => $lname,
@@ -76,8 +80,9 @@ class LoginController extends Controller
                'created_at' => $created_at,
                'updated_at' => $updated_at,
             ];
-         activityLog::insert($activityLog);
-         return redirect('regDoc')->with('success', "Account successfully registered.");
+            activityLog::insert($activityLog);
+            return redirect('regDoc')->with('success', "Account successfully registered.");
+         }
       } else {
          // Load user from database
          // $userregis = User::where('username', $request->username)->first();

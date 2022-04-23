@@ -55,6 +55,14 @@
       </div>
       <div class="menu-items">
          <ul class="nav-links text-base md:text-lg sm:text-xl">
+            @if (Auth::user()->username == 'admin')
+            <li class="@if (Route::is('activitylog')) bg-slate-200 @else  @endif hover:bg-slate-50 rounded-md">
+               <a href="{{route('activitylog')}}">
+                  <i class='bx bx-edit-alt'></i>
+                  <span class="link-name">Activity Log</span>
+               </a>
+            </li>
+            @endif
             <li class="@if (Route::is('reg.show')||Route::is('reg.search')) bg-slate-200 @else  @endif hover:bg-slate-50 rounded-md">
                <a href="{{route('reg.show')}}">
                   <i class='bx bx-edit-alt'></i>

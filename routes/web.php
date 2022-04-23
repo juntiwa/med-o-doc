@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Admin\ActivityLogController as AdminActivitylogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecController;
 use App\Http\Controllers\RegController;
@@ -33,20 +34,24 @@ Route::post('/logout', [AuthLoginController::class, 'logout'])->name('logout');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/index', [HomeController::class, 'index'])->name('index');
 
-// reg
+// ----------------------------- reg -----------------------//
+Route::get('activitylog',[AdminActivitylogController::class,'index'])->name('activitylog');
+
+// ----------------------------- reg -----------------------//
 Route::get('/regDoc', [RegController::class, 'index'])->name('reg.show');
 Route::post('/reg-select', [RegController::class, 'selectSearch'])->name('reg.select');
 Route::post('/reg-autocomplete', [RegController::class, 'autocompleteSearch'])->name('reg.autocomplete');
 // Route::post( '/searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
 Route::get('/searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
 
-// send
+// ----------------------------- send -----------------------//
 Route::get('/sendDoc', [SendController::class, 'index'])->name('send.show');
 Route::post('/send-select', [SendController::class, 'selectSearch'])->name('send.select');
 Route::post('/send-autocomplete', [SendController::class, 'autocompleteSearch'])->name('send.autocomplete');
 // Route::post('/searchSend', [SendController::class, 'searchSend'])->name('send.search');
 Route::get('/searchSend', [SendController::class, 'searchSend'])->name('send.search');
-// rec
+
+// ----------------------------- rec -----------------------//
 Route::get('/recDoc', [RecController::class, 'index'])->name('rec.show');
 Route::post('/rec-select', [RecController::class, 'selectSearch'])->name('rec.select');
 Route::post('/rec-autocomplete', [RecController::class, 'autocompleteSearch'])->name('rec.autocomplete');
