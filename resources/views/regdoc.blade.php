@@ -1,12 +1,8 @@
 @extends('layouts.app')
-
 @section('title', 'ลงทะเบียนหนังสือส่ง')
-
 @section('sidebar')
 @parent
-
 @endsection
-
 @section('content')
 
 <!-- Main content header -->
