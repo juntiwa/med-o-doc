@@ -1138,7 +1138,24 @@
       $('#frommonth').change(function() {
          $('#tomonth').prop('required', true);
          $('#tomonth').prop('disabled', false);
+         let frommonth = $(this).val();
+         let variable = frommonth;
+         console.log(variable);
+         if (variable !== 1) {
+            while (variable--) {
+               console.log(variable);
+               if (variable != 0) {
+                  $("#tomonth option[value=" + variable + "]").prop('hidden', true);
+               }
+               $('#frommonth').change(function() {
+                  $("#theSelect option[value=" + variable + "]").removeAttr('hidden');
+               });
+            }
+
+         }
+
       });
+
       // chenge atibute year
       $('#fromyear').change(function() {
          $('#toyear').prop('required', true);
@@ -1180,6 +1197,7 @@
       $('#frommonth').val('');
       $('#fromyear').val('');
       $('#tomonth').val('');
+
       $('#tomonth').prop('disabled', true);
       $('#toyear').val('');
       $('#toyear').prop('disabled', true);
