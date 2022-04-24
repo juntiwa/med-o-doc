@@ -11,11 +11,11 @@
 }
 
 /* @font-face {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    src: url(fonts/THSarabunNew.ttf) format('truetype');
 } */
 #ui-id-1 {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    position: absolute;
    padding: 10px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
@@ -30,7 +30,7 @@
 }
 
 #ui-id-2 {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    position: absolute;
    padding: 10px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
@@ -45,7 +45,7 @@
 }
 
 .option {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    position: absolute;
    padding: 10px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
@@ -53,7 +53,7 @@
    border-radius: 5px;
    width: 50%;
    min-height: 10vh;
-   max-height: 200px !important;
+   max-height: 100px !important;
    min-width: 200px;
    max-width: auto;
    overflow-y: auto;

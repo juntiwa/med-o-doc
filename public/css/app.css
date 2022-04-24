@@ -12322,6 +12322,9 @@ input:checked + .toggle-bg {
 .overflow-hidden {
   overflow: hidden;
 }
+.overflow-x-auto {
+  overflow-x: auto;
+}
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -12759,11 +12762,11 @@ input:checked + .toggle-bg {
 }
 
 /* @font-face {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    src: url(fonts/THSarabunNew.ttf) format('truetype');
 } */
 #ui-id-1 {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    position: absolute;
    padding: 10px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
@@ -12778,7 +12781,7 @@ input:checked + .toggle-bg {
 }
 
 #ui-id-2 {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    position: absolute;
    padding: 10px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
@@ -12793,7 +12796,7 @@ input:checked + .toggle-bg {
 }
 
 .option {
-   font-family: "THSarabunNew";
+   font-family: 'Sarabun', sans-serif;
    position: absolute;
    padding: 10px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
@@ -12801,7 +12804,7 @@ input:checked + .toggle-bg {
    border-radius: 5px;
    width: 50%;
    min-height: 10vh;
-   max-height: 200px !important;
+   max-height: 100px !important;
    min-width: 200px;
    max-width: auto;
    overflow-y: auto;
@@ -12834,6 +12837,11 @@ input:checked + .toggle-bg {
 .hover\:bg-slate-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(248 250 252 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-blue-100:hover {
@@ -12994,6 +13002,11 @@ input:checked + .toggle-bg {
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
+.dark .dark\:bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -13012,6 +13025,11 @@ input:checked + .toggle-bg {
 .dark .dark\:text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark .dark\:hover\:bg-gray-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
 
 .dark .dark\:hover\:text-white:hover {
