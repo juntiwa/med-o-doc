@@ -8,7 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Jobunit extends Model
 {
    use HasFactory;
-   
+   protected $fillable = [
+      'unitid',
+      'unitname',
+      'unitlevel',
+      'unitengname',
+      'shotunitname',
+      'datein',
+      'userin',
+      'status',
+      'updated_at',
+      'created_at'
+   ];
    // reg
    public function letterregfrom()
    {

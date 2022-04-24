@@ -216,6 +216,7 @@ return [
       'Gate' => Illuminate\Support\Facades\Gate::class,
       'Hash' => Illuminate\Support\Facades\Hash::class,
       'Http' => Illuminate\Support\Facades\Http::class,
+      'Input' => Illuminate\Support\Facades\Input::class,
       'Input' => Illuminate\Support\Facades\Request::class,
       'Js' => Illuminate\Support\Js::class,
       'Lang' => Illuminate\Support\Facades\Lang::class,

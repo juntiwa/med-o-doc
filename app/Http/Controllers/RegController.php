@@ -9,7 +9,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Input;
 use function PHPSTORM_META\type;
 
 class RegController extends Controller
@@ -47,7 +47,7 @@ class RegController extends Controller
       $sregfrom = $request->get('sregfrom');
       $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
       foreach ($unit as $list) {
-         $html .= '<option id="option" value="' . $list->unitid . '">' . $list->unitname . '</option>';
+         // $html .= '<option id="option" value="' . $list->unitid . '">' . $list->unitname . '</option>';
          $html .= '<option value="' . $list->unitid . '" {{(old('.$sregfrom . ')==' . $list->unitid . ')? "selected" : " "}}>' . $list->unitname . '</option>';
 
          // if (Input::old($sregfrom) == $list->unitid) {
@@ -63,18 +63,15 @@ class RegController extends Controller
    public function autocompleteSearch(Request $request)
    {
       $search = $request->search;
-
       if ($search == '') {
          $units = Letterunit::orderby('unitname', 'asc')->select('unitid', 'unitname')->limit(20)->get();
       } else {
          $units = Letterunit::orderby('unitname', 'asc')->select('unitid', 'unitname')->where('unitname', 'like', '%' . $search . '%')->limit(20)->get();
       }
-
       $response = array();
       foreach ($units as $unit) {
          $response[] = array("value" => $unit->unitid, "label" => $unit->unitname);
       }
-
       return response()->json($response);
    }
 

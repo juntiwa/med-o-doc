@@ -59,8 +59,7 @@
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                   <option value="">เลือกชนิดหนังสือ</option>
                   @foreach($types as $type)
-                  <!-- <option value="{{ $type->typeid }}">{{ $type->typename }}</option> -->
-                  <option value="{{$type->typeid}}" {{(old('regtype')==$type->typeid)? 'selected':''}}>{{$type->typename}}</option>
+                  <option value="{{ $type->typeid }}">{{ $type->typename }}</option>
                   @endforeach
                </select>
             </div>
@@ -68,7 +67,6 @@
             <!-- จาก -->
             <div class="mb-3 xl:w-full">
                <label for="regfrom" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">จาก</label>
-
                <select name="sregfrom" id="sregfrom" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                   <option value="">เลือกหน่วยงานที่ส่ง</option>
@@ -77,7 +75,6 @@
                <input type="text" name="iregfrom" id="iregfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                focus:outline-none " aria-label="Default select example" placeholder="ส่งจาก" value="{{ old('iregfrom') }}">
-
                <input id="idfrom" name="idfrom" class="hidden">
             </div>
 
@@ -89,12 +86,11 @@
                   <option value="">เลือกหน่วยงานที่รับ</option>
                </select>
 
-               <input type="text" value="" name="iregto" id="iregto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+               <input type="text" name="iregto" id="iregto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example" value="" placeholder="ส่งถึง">
+               focus:outline-none " aria-label="Default select example" placeholder="ส่งถึง" value="{{ old('iregto') }}">
 
                <input id="idto" name="idto" class="hidden">
-
             </div>
 
             <!-- หัวเรื่อง -->
@@ -176,7 +172,6 @@
                   <p class="col-span-5 text-red-500 mt-2 text-lg font-medium xl:whitespace-nowrap lg:whitespace-nowrap">ระบุช่วงเดือนหรือปีที่ต้องการหา เช่นระหว่างเดือน มกราคม ถึง มีนาคม หรือ ระหว่างปี 2560 ถึง 2561</p>
 
                </div>
-
             </div>
 
             <!-- button -->
@@ -1041,17 +1036,16 @@
 
 <!-- Script -->
 <script type="text/javascript">
-   // CSRF Token
    $("#iregfrom").hide();
    $("#iregto").hide();
    $("#idfrom").hide();
    $("#idto").hide();
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
+      // select option and autocomplete
       $('#regtype').change(function() {
          let typeid = jQuery(this).val();
          // console.log(typeid);
-
          if (typeid == 0) {
             jQuery("#sregto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             $("#sregfrom").show();
@@ -1139,20 +1133,41 @@
             });
          }
       });
-   });
 
-   $(document).ready(function() {
+      // chenge atibute month 
       $('#frommonth').change(function() {
          $('#tomonth').prop('required', true);
          $('#tomonth').prop('disabled', false);
       });
+      // chenge atibute year
       $('#fromyear').change(function() {
          $('#toyear').prop('required', true);
          $('#toyear').prop('disabled', false);
       });
 
+      // toggle hide show  from input
+      $("#toggle-example-checked").click(function() {
+         $("#multiCollapseExample1").toggle("slow");
+      });
+
+      // old input regtype
+      var typeold = '{{ old("regtype") }}';
+      if (typeold !== '') {
+         $('#regtype').val(typeold);
+         // this will load subcategories once you set the category value
+         $("#regtype").change();
+      }
+
+      // old input regtype
+      var frommonth = '{{ old("frommonth") }}';
+      if (frommonth !== '') {
+         $('#frommonth').val(frommonth);
+         // this will load subcategories once you set the category value
+         $("#frommonth").change();
+      }
    });
 
+   // clear input and select
    function clearit() {
       $('#regtype').val('');
       $('#sregfrom').val('');
@@ -1169,12 +1184,5 @@
       $('#toyear').val('');
       $('#toyear').prop('disabled', true);
    }
-
-   // toggle hide show  from input
-   $(document).ready(function() {
-      $("#toggle-example-checked").click(function() {
-         $("#multiCollapseExample1").toggle("slow");
-      });
-   });
 </script>
 @endsection
