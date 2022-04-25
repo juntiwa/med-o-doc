@@ -75,11 +75,10 @@ class RecController extends Controller
       $irecto = $request->get('idto');
       $irto = $request->get('irecto');
       $regtitle = $request->get('regtitle');
-      $frommonth = $request->get('frommonth');
-      $tomonth = $request->get('tomonth');
-      $fromyear = $request->get('fromyear');
-      $toyear = $request->get('toyear');
-
+      $rfrommonth = $request->get('rfrommonth');
+      $rtomonth = $request->get('rtomonth');
+      $rfromyear = $request->get('rfromyear');
+      $rtoyear = $request->get('rtoyear');
 
       $searchrecs = Letterrec::join('letterregs', 'letterrecs.regrecid', '=', 'letterregs.regrecid')->orderby('letterrecs.recdate', 'desc');
 
@@ -107,11 +106,11 @@ class RecController extends Controller
          $searchrecs  = $searchrecs->where('regtitle', 'LIKE', '%' . $regtitle . '%');
       }
 
-      if ($frommonth != '' && $tomonth != '') {
-         $searchrecs  = $searchrecs->whereBetween(DB::raw('MONTH(letterrecs.recdate)'), array($frommonth, $tomonth));
+      if ($rfrommonth != '' && $rtomonth != '') {
+         $searchrecs  = $searchrecs->whereBetween(DB::raw('MONTH(letterrecs.recdate)'), array($rfrommonth, $rtomonth));
       }
-      if ($fromyear != '' && $toyear != '') {
-         $searchrecs  = $searchrecs->whereBetween(DB::raw('Year(letterrecs.recdate)'), array($fromyear, $toyear));
+      if ($rfromyear != '' && $rtoyear != '') {
+         $searchrecs  = $searchrecs->whereBetween(DB::raw('Year(letterrecs.recdate)'), array($rfromyear, $rtoyear));
       }
 
       // Log::info($recs);
@@ -121,176 +120,13 @@ class RecController extends Controller
       // for search input
       $recyears = Letterrec::select(DB::raw('YEAR(recdate) recyear'))->groupby(DB::raw('YEAR(recdate)'))->get();
 
-      // แสดงข้อมูลที่ค้นหา บนตาราง
-      $jobunits = Jobunit::all();
-      $letterunits = Letterunit::all();
-
-      // ชนิดหนังสือ
-      if ($rectype != null) {
-         foreach ($types as $type) {
-            if ($rectype == $type->typeid) {
-               $typename = $type->typename;
-               if ($rectype == 0) {
-                  if ($srecfrom == null && $srecto == null) {
-                     $recfrom = "-";
-                     $recto = "-";
-                  } elseif ($srecfrom != null && $srecto == null) {
-                     foreach ($jobunits as $jobunit) {
-                        if ($srecfrom == $jobunit->unitid) {
-                           $recfrom = $jobunit->unitname;
-                        }
-                        $recto = "-";
-                     }
-                  } elseif ($srecfrom == null && $srecto != null) {
-                     foreach ($jobunits as $jobunit) {
-                        $recfrom = "-";
-                        if ($srecto == $jobunit->unitid) {
-                           $recto = $jobunit->unitname;
-                        }
-                     }
-                  } else {
-                     foreach ($jobunits as $jobunit) {
-                        if ($srecfrom == $jobunit->unitid) {
-                           $recfrom = $jobunit->unitname;
-                        }
-                        if ($srecto == $jobunit->unitid) {
-                           $recto = $jobunit->unitname;
-                        }
-                     }
-                  }
-               } else {
-                  if ($irfrom == null && $irto == null) {
-                     $recfrom = "-";
-                     $recto = "-";
-                  } elseif ($irfrom != null && $irto == null) {
-                     $recfrom = $irfrom;
-                     $recto = "-";
-                  } elseif ($irfrom == null && $irto != null) {
-                     $recfrom = "-";
-                     $recto = $irto;
-                  } else {
-                     $recfrom = $irfrom;
-                     $recto = $irto;
-                  }
-               }
-            }
-         }
-      } else {
-         $typename = "-";
-         $recfrom = "-";
-         $recto = "-";
-      }
-
-      // เดือน
-      switch ($frommonth) {
-         case "01":
-            $fmonth = "มกราคม";
-            break;
-         case "02":
-            $fmonth = "กุมภาพันธ์";
-            break;
-         case "03":
-            $fmonth = "มีนาคม";
-            break;
-         case "04":
-            $fmonth = "เมษายน";
-            break;
-         case "05":
-            $fmonth = "พฤษภาคม";
-            break;
-         case "06":
-            $fmonth = "มิถุนายน";
-            break;
-         case "07":
-            $fmonth = "กรกฎาคม";
-            break;
-         case "08":
-            $fmonth = "สิงหาคม";
-            break;
-         case "09":
-            $fmonth = "กันยายน";
-            break;
-         case "10":
-            $fmonth = "ตุลาคม";
-            break;
-         case "11":
-            $fmonth = "พฤศจิกายน";
-            break;
-         case "12":
-            $fmonth = "ธันวาคม";
-            break;
-         default:
-            $fmonth = "-";
-      }
-
-      switch ($tomonth) {
-         case "01":
-            $tmonth = "มกราคม";
-            break;
-         case "02":
-            $tmonth = "กุมภาพันธ์";
-            break;
-         case "03":
-            $tmonth = "มีนาคม";
-            break;
-         case "04":
-            $tmonth = "เมษายน";
-            break;
-         case "05":
-            $tmonth = "พฤษภาคม";
-            break;
-         case "06":
-            $tmonth = "มิถุนายน";
-            break;
-         case "07":
-            $tmonth = "กรกฎาคม";
-            break;
-         case "08":
-            $tmonth = "สิงหาคม";
-            break;
-         case "09":
-            $tmonth = "กันยายน";
-            break;
-         case "10":
-            $tmonth = "ตุลาคม";
-            break;
-         case "11":
-            $tmonth = "พฤศจิกายน";
-            break;
-         case "12":
-            $tmonth = "ธันวาคม";
-            break;
-         default:
-            $tmonth = "-";
-      }
-
-
-      // ปี
-      if ($fromyear != null) {
-         $fyear = $fromyear + 543;
-      } else {
-         $fyear = "-";
-      }
-
-      if ($toyear != null) {
-         $tyear = $toyear + 543;
-      } else {
-         $tyear = "-";
-      }
-
+      // old input
+      $input = $request->flash();
       return view('recdoc', compact(
          'searchrecs',
          'types',
          'recyears',
-
-         'typename',
-         'recfrom',
-         'recto',
-         'regtitle',
-         'fmonth',
-         'tmonth',
-         'fyear',
-         'tyear'
+         'input'         
       ));
    }
 }

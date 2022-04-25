@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
+use SebastianBergmann\Environment\Console;
+
 use function PHPSTORM_META\type;
 
 class RegController extends Controller
@@ -36,19 +38,42 @@ class RegController extends Controller
       // for search input
       $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
 
-
       return view('regdoc', compact('regs', 'types',  'regyears'));
    }
 
-   public function selectSearch(Request $request)
+   public function selectSearchfrom(Request $request)
+   {
+      $sregfrom = $request->post('sregfrom');
+      $typeid = $request->post('typeid');
+      $unit = Jobunit::where('unitlevel', $typeid)->orderBy('unitname', 'asc')->get();
+      
+      echo ("<script type='text/javascript'> console.log($sregfrom);</script>");
+      
+      $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
+      foreach ($unit as $list) {
+         $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
+         echo $list->unitid . '<br>';
+      }
+      echo $html;
+   }
+   public function selectSearchto(Request $request)
    {
       $typeid = $request->post('typeid');
       $unit = Jobunit::where('unitlevel', $typeid)->orderBy('unitname', 'asc')->get();
       $sregfrom = $request->get('sregfrom');
+      function console_log($sregfrom, $with_script_tags = true)
+      {
+         $js_code = 'console.log(' . json_encode($sregfrom, JSON_HEX_TAG) .
+         ');';
+         if ($with_script_tags) {
+            $js_code = '<script>' . $js_code . '</script>';
+         }
+         echo $js_code;
+      }
       $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
       foreach ($unit as $list) {
          // $html .= '<option id="option" value="' . $list->unitid . '">' . $list->unitname . '</option>';
-         $html .= '<option value="' . $list->unitid . '" {{(old('.$sregfrom . ')==' . $list->unitid . ')? "selected" : " "}}>' . $list->unitname . '</option>';
+         $html .= '<option value="' . $list->unitid . '" {{(old(' . $sregfrom . ')==' . $list->unitid . ')? "selected" : " "}}>' . $list->unitname . '</option>';
 
          // if (Input::old($sregfrom) == $list->unitid) {
          //    '<option id="option" value="' . $list->unitid . '" selected >' . $list->unitname . '</option>';
@@ -125,6 +150,7 @@ class RegController extends Controller
       if ($frommonth != '' && $tomonth != '') {
          $searchregs  = $searchregs->whereBetween(DB::raw('MONTH(regdate)'), array($frommonth, $tomonth));
       }
+      
       if ($fromyear != '' && $toyear != '') {
          $searchregs  = $searchregs->whereBetween(DB::raw('Year(regdate)'), array($fromyear, $toyear));
       }
@@ -135,166 +161,6 @@ class RegController extends Controller
 
       // for search input
       $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
-      // Log::info(url()->current());
-
-      // แสดงข้อมูลที่ค้นหา บนตาราง
-      $jobunits = Jobunit::all();
-      $letterunits = Letterunit::all();
-      // ชนิดหนังสือ
-      if ($regtype != null) {
-         foreach ($types as $type) {
-            if ($regtype == $type->typeid) {
-               $typename = $type->typename;
-               if($regtype == 0){
-                  if ($sregfrom == null && $sregto == null) {
-                     $regfrom = "-";
-                     $regto = "-";
-                  } elseif ($sregfrom != null && $sregto == null) {
-                     foreach ($jobunits as $jobunit) {
-                        if ($sregfrom == $jobunit->unitid) {
-                           $regfrom = $jobunit->unitname;
-                        }
-                        $regto = "-";
-                     }
-                  } elseif ($sregfrom == null && $sregto != null) {
-                     foreach ($jobunits as $jobunit) {
-                        $regfrom = "-";
-                        if ($sregto == $jobunit->unitid) {
-                           $regto = $jobunit->unitname;
-                        }
-                     }
-                  } else {
-                     foreach ($jobunits as $jobunit) {
-                        if ($sregfrom == $jobunit->unitid) {
-                           $regfrom = $jobunit->unitname;
-                        }
-                        if ($sregto == $jobunit->unitid) {
-                           $regto = $jobunit->unitname;
-                        }
-                     }
-                  }
-               }else{
-                  if ($irfrom == null && $irto == null) {
-                     $regfrom = "-";
-                     $regto = "-";
-                  } elseif ($irfrom != null && $irto == null) {
-                     $regfrom = $irfrom;
-                     $regto = "-";
-                  } elseif ($irfrom == null && $irto != null) {
-                     $regfrom = "-";
-                     $regto = $irto;
-                  } else{
-                     $regfrom = $irfrom;
-                     $regto = $irto ;
-                  }
-               }
-               
-            }
-         }
-      } else {
-         $typename = "-";
-         $regfrom = "-";
-         $regto = "-";
-      }
-
-      // เดือน
-
-      switch ($frommonth) {
-         case "01":
-            $fmonth = "มกราคม";
-            break;
-         case "02":
-            $fmonth = "กุมภาพันธ์";
-            break;
-         case "03":
-            $fmonth = "มีนาคม";
-            break;
-         case "04":
-            $fmonth = "เมษายน";
-            break;
-         case "05":
-            $fmonth = "พฤษภาคม";
-            break;
-         case "06":
-            $fmonth = "มิถุนายน";
-            break;
-         case "07":
-            $fmonth = "กรกฎาคม";
-            break;
-         case "08":
-            $fmonth = "สิงหาคม";
-            break;
-         case "09":
-            $fmonth = "กันยายน";
-            break;
-         case "10":
-            $fmonth = "ตุลาคม";
-            break;
-         case "11":
-            $fmonth = "พฤศจิกายน";
-            break;
-         case "12":
-            $fmonth = "ธันวาคม";
-            break;
-         default:
-            $fmonth = "-";
-
-         
-      }
-
-      switch ($tomonth) {
-         case "01":
-            $tmonth = "มกราคม";
-            break;
-         case "02":
-            $tmonth = "กุมภาพันธ์";
-            break;
-         case "03":
-            $tmonth = "มีนาคม";
-            break;
-         case "04":
-            $tmonth = "เมษายน";
-            break;
-         case "05":
-            $tmonth = "พฤษภาคม";
-            break;
-         case "06":
-            $tmonth = "มิถุนายน";
-            break;
-         case "07":
-            $tmonth = "กรกฎาคม";
-            break;
-         case "08":
-            $tmonth = "สิงหาคม";
-            break;
-         case "09":
-            $tmonth = "กันยายน";
-            break;
-         case "10":
-            $tmonth = "ตุลาคม";
-            break;
-         case "11":
-            $tmonth = "พฤศจิกายน";
-            break;
-         case "12":
-            $tmonth = "ธันวาคม";
-            break;
-         default:
-            $tmonth = "-";
-      }
-
-      // ปี
-      if ($fromyear != null) {
-         $fyear = $fromyear + 543;
-      } else {
-         $fyear = "-";
-      }
-
-      if ($toyear != null) {
-         $tyear = $toyear + 543;
-      } else {
-         $tyear = "-";
-      }
 
       // old input
       $input = $request->flash();
@@ -302,15 +168,7 @@ class RegController extends Controller
          'searchregs',
          'types',
          'regyears',
-         
-         'typename',
-         'regfrom',
-         'regto',
-         'regtitle',
-         'fmonth',
-         'tmonth',
-         'fyear',
-         'tyear',
+         'sregfrom',
          'input'
       ));
    }
