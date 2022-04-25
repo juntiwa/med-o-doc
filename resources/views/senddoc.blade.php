@@ -110,7 +110,7 @@
             </div>
 
             <!-- ลงทะเบียนเมื่อ -->
-            <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
+            <div class="mb-3 xl:w-full md:col-span-2 lg:col-span-4">
                <label for="send" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">ส่งเมื่อ</label>
                <div class="grid grid-cols-5 gap-4 ">
 
@@ -189,11 +189,11 @@
                      focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 ">ค้นหา</button>
                   </div>
 
-                  <div class="grid col-span-1 gap-4">
+                 <!--  <div class="grid col-span-1 gap-4">
                      <button type="button" class="inline-block px-4 py-2 bg-red-600 text-white  
                      leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg 
                      focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 " id="clearlist" onclick="javascript:clearit();">ล้างข้อมูล</button>
-                  </div>
+                  </div> -->
                </div>
             </div>
          </div>
@@ -1004,11 +1004,8 @@
 
 <!-- Script -->
 <script type="text/javascript">
-   // CSRF Token
-   $("#isendfrom").hide();
-   $("#isendto").hide();
-   $("#idfrom").hide();
-   $("#idto").hide();
+   $('#isendfrom').addClass('hidden');
+   $('#isendto').addClass('hidden');
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
       $('#sendtype').change(function() {
@@ -1017,10 +1014,6 @@
 
          if (typeid == 0) {
             jQuery("#ssendto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
-            $("#ssendfrom").show();
-            $("#isendfrom").hide();
-            $("#ssendto").show();
-            $("#isendto").hide();
             jQuery.ajax({
                url: '/send-select',
                type: 'post',
@@ -1039,11 +1032,10 @@
                }
             });
          } else {
-            $("#ssendfrom").hide();
-            $("#isendfrom").show();
-            $("#ssendto").hide();
-            $("#isendto").show();
-
+            $('#ssendfrom').addClass('hidden');
+            $('#isendfrom').removeClass('hidden');
+            $('#ssendto').addClass('hidden');
+            $('#isendto').removeClass('hidden');
             $(document).ready(function() {
                $("#isendfrom").autocomplete({
                   source: function(request, response) {
