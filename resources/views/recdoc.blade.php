@@ -77,11 +77,11 @@
                   <option value="">เลือกหน่วยงานที่ส่ง</option>
                </select>
 
-               <input type="text" value="" name="irecfrom" id="irecfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+               <input type="text" name="irecfrom" id="irecfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example " placeholder="ส่งจาก">
+               focus:outline-none " aria-label="Default select example " placeholder="ส่งจาก" value="{{ old('irecfrom') }}">
 
-               <input type="hidden" id="idfrom" name="idfrom">
+               <input type=" hidden" id="idfrom" name="idfrom">
             </div>
 
             <!-- ถึง -->
@@ -94,9 +94,9 @@
 
                <input type="text" value="" name="irecto" id="irecto" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example " placeholder="ส่งถึง">
+               focus:outline-none " aria-label="Default select example " placeholder="ส่งถึง" value="{{ old('irecto') }}">
 
-               <input id="idto" name="idto">
+               <input id=" idto" name="idto">
 
             </div>
 
@@ -105,7 +105,7 @@
                <label for="regtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base">*</span></label>
                <input type="text" name="regtitle" id="regtitle" class=" form-control block w-full px-3 py-1.5 text-lg text-gray-800 font-medium
                bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required>
+               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('regtitle') }}">
             </div>
 
             <!-- ลงทะเบียนเมื่อ -->
@@ -113,7 +113,7 @@
                <label for="rec" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">รับเมื่อ</label>
                <div class="grid grid-cols-5 gap-4 ">
 
-                  <select name="frommonth" id="frommonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  <select name="rfrommonth" id="rfrommonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example ">
                      <!-- <option>เดือน</option> -->
                      <option value="" selected disabled>เดือน</option>
@@ -131,7 +131,7 @@
                      <option value="12">ธันวาคม</option>
                   </select>
 
-                  <select name="fromyear" id="fromyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  <select name="rfromyear" id="rfromyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <option value="" selected disabled>ปี</option>
 
@@ -147,8 +147,7 @@
 
                   <span class=" flex justify-center items-center text-lg text-gray-800 font-medium">ถึง</span>
 
-
-                  <select disabled name="tomonth" id="tomonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  <select disabled name="rtomonth" id="rtomonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <!-- <option>เดือน</option> -->
                      <option value="" selected disabled>เดือน</option>
@@ -179,7 +178,6 @@
                      @endforeach
                   </select>
 
-                  <p class="col-span-5 text-red-500 mt-2 text-lg font-medium xl:whitespace-nowrap lg:whitespace-nowrap">ระบุช่วงเดือนหรือปีที่ต้องการหา เช่นระหว่างเดือน มกราคม ถึง มีนาคม หรือ ระหว่างปี 2560 ถึง 2561</p>
                </div>
 
             </div>
@@ -204,44 +202,6 @@
       </form>
    </div>
 </div>
-
-<!-- data search -->
-@if(Route::is('rec.search'))
-<p class="text-lg text-gray-800 font-medium mt-5">
-   <span class="font-semibold">ชนิดหนังสือ :</span>
-   <span class="font-medium pr-2">
-      {{$typename}}
-   </span>
-
-   <span class="font-semibold">จาก :</span>
-   <span class="font-medium pr-2">
-      {{$recfrom}}
-   </span>
-   <span class="font-semibold"> ถึง :</span>
-   <span class="font-medium pr-2">
-      {{$recto}}
-   </span>
-   <span class="font-semibold">หัวเรื่อง : </span>
-   <span class="font-medium pr-2">
-      {{$regtitle}}
-   </span>
-   <span class="font-semibold">ช่วงเวลา : </span>
-   <span class="font-medium pr-2 ">
-      เดือน
-      {{$fmonth}}
-      ปี
-      {{$fyear}}
-
-      ถึง
-
-      เดือน
-      {{$tmonth}}
-      ปี
-      {{$tyear}}
-
-   </span>
-</p>
-@endif
 
 <!-- ตาราง -->
 <div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
@@ -1120,17 +1080,58 @@
          }
       });
 
-   });
-
-   $(document).ready(function() {
-      $('#frommonth').change(function() {
-         $('#tomonth').prop('required', true);
-         $('#tomonth').prop('disabled', false);
+      // change attibute month
+      $('#rfrommonth').change(function() {
+         $('#rtomonth').prop('required', true);
+         $('#rtomonth').prop('disabled', false);
       });
-      $('#fromyear').change(function() {
+      // chenge attibute year
+      $('#rfromyear').change(function() {
          $('#toyear').prop('required', true);
          $('#toyear').prop('disabled', false);
       });
+
+      // toggle hide show  from input
+      $("#toggle-example-checked").click(function() {
+         $("#multiCollapseExample1").toggle("slow");
+      });
+
+      // old input rectype
+      var typeold = '{{ old("rectype") }}';
+      if (typeold !== '') {
+         $('#rectype').val(typeold);
+         // this will load subcategories once you set the category value
+         $("#rectype").change();
+      }
+
+      // old input rfrommonth
+      var rfrommonth = '{{ old("rfrommonth") }}';
+      if (rfrommonth !== '') {
+         $('#rfrommonth').val(rfrommonth);
+         // this will load subcategories once you set the category value
+         $("#rfrommonth").change();
+      }
+      // old input rtomonth
+      var rtomonth = '{{ old("rtomonth") }}';
+      if (rtomonth !== '') {
+         $('#rtomonth').val(rtomonth);
+         // this will load subcategories once you set the category value
+         $("#rtomonth").change();
+      }
+      // old input rfromyear
+      var rfromyear = '{{ old("rfromyear") }}';
+      if (rfromyear !== '') {
+         $('#rfromyear').val(rfromyear);
+         // this will load subcategories once you set the category value
+         $("#rfromyear").change();
+      }
+      // old input rtoyear
+      var rtoyear = '{{ old("rtoyear") }}';
+      if (rtoyear !== '') {
+         $('#rtoyear').val(rtoyear);
+         // this will load subcategories once you set the category value
+         $("#rtoyear").change();
+      }
    });
 
    function clearit() {
@@ -1142,20 +1143,13 @@
       $("#srecto").html('<option value="">เลือกหน่วยงานที่รับ</option>');
       $('#irecto').val('');
       $('#regtitle').val('');
-      $('#frommonth').val('');
-      $('#fromyear').val('');
-      $('#tomonth').val('');
-      $('#tomonth').prop('disabled', true);
+      $('#rfrommonth').val('');
+      $('#rfromyear').val('');
+      $('#rtomonth').val('');
+      $('#rtomonth').prop('disabled', true);
       $('#toyear').val('');
       $('#toyear').prop('disabled', true);
    }
-
-   // toggle hide show  from input
-   $(document).ready(function() {
-      $("#toggle-example-checked").click(function() {
-         $("#multiCollapseExample1").toggle("slow");
-      });
-   });
 </script>
 
 @endsection

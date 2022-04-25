@@ -34,12 +34,13 @@ Route::post('/logout', [AuthLoginController::class, 'logout'])->name('logout');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/index', [HomeController::class, 'index'])->name('index');
 
-// ----------------------------- reg -----------------------//
+// ----------------------------- activitylog -----------------------//
 Route::get('activitylog',[AdminActivitylogController::class,'index'])->name('activitylog');
 
 // ----------------------------- reg -----------------------//
 Route::get('/regDoc', [RegController::class, 'index'])->name('reg.show');
-Route::post('/reg-select', [RegController::class, 'selectSearch'])->name('reg.select');
+Route::post('/reg-select-from', [RegController::class, 'selectSearchfrom'])->name('reg.select.from');
+Route::post('/reg-select-to', [RegController::class, 'selectSearchto'])->name('reg.select.to');
 Route::post('/reg-autocomplete', [RegController::class, 'autocompleteSearch'])->name('reg.autocomplete');
 // Route::post( '/searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
 Route::get('/searchReg', [RegController::class, 'searchRegis'])->name('reg.search');

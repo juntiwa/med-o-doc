@@ -169,8 +169,6 @@
                      @endif
                      @endforeach
                   </select>
-                  <p class="col-span-5 text-red-500 mt-2 text-lg font-medium xl:whitespace-nowrap lg:whitespace-nowrap">ระบุช่วงเดือนหรือปีที่ต้องการหา เช่นระหว่างเดือน มกราคม ถึง มีนาคม หรือ ระหว่างปี 2560 ถึง 2561</p>
-
                </div>
             </div>
 
@@ -194,45 +192,6 @@
       </form>
    </div>
 </div>
-
-<!-- data search -->
-@if(Route::is('reg.search'))
-<p class="text-lg text-gray-800 font-medium mt-5">
-   <span class="font-semibold">ชนิดหนังสือ :</span>
-   <span class="font-medium pr-2">
-      {{$typename}}
-   </span>
-
-   <span class="font-semibold">จาก :</span>
-   <span class="font-medium pr-2">
-      {{$regfrom}}
-   </span>
-   <span class="font-semibold"> ถึง :</span>
-   <span class="font-medium pr-2">
-      {{$regto}}
-   </span>
-   <span class="font-semibold">หัวเรื่อง : </span>
-   <span class="font-medium pr-2">
-      {{$regtitle}}
-   </span>
-   <span class="font-semibold">ช่วงเวลา : </span>
-   <span class="font-medium pr-2 ">
-      เดือน
-      {{$fmonth}}
-      ปี
-      {{$fyear}}
-
-      ถึง
-
-      เดือน
-      {{$tmonth}}
-      ปี
-      {{$tyear}}
-
-   </span>
-</p>
-@endif
-
 
 <!-- ตาราง -->
 <div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
@@ -1053,7 +1012,7 @@
             $("#sregto").show();
             $("#iregto").hide();
             jQuery.ajax({
-               url: '/reg-select',
+               url: '/reg-select-from',
                type: 'post',
                data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                success: function(result) {
@@ -1062,7 +1021,7 @@
             });
 
             jQuery.ajax({
-               url: '/reg-select',
+               url: '/reg-select-to',
                type: 'post',
                data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                success: function(result) {
@@ -1073,7 +1032,6 @@
             $('#option').each(function() {
                $("select").size("10");
             });
-
 
          } else {
             $("#sregfrom").hide();
@@ -1134,7 +1092,7 @@
          }
       });
 
-      // chenge atibute month 
+      // chenge attibute month 
       $('#frommonth').change(function() {
          $('#tomonth').prop('required', true);
          $('#tomonth').prop('disabled', false);
@@ -1145,18 +1103,17 @@
             while (variable--) {
                console.log(variable);
                if (variable != 0) {
-                  $("#tomonth option[value=" + variable + "]").prop('hidden', true);
+                  $("#tomonth option[value=" + variable + "]").prop('disabled', true);
                }
                $('#frommonth').change(function() {
-                  $("#theSelect option[value=" + variable + "]").removeAttr('hidden');
+                  $("#tomonth option[value=" + variable + "]").prop('disabled', false);
+                  $('#tomonth').val("");
                });
             }
-
          }
-
       });
 
-      // chenge atibute year
+      // chenge attibute year
       $('#fromyear').change(function() {
          $('#toyear').prop('required', true);
          $('#toyear').prop('disabled', false);
@@ -1174,16 +1131,36 @@
          // this will load subcategories once you set the category value
          $("#regtype").change();
       }
-
-      // old input regtype
+      
+      // old input frommonth
       var frommonth = '{{ old("frommonth") }}';
       if (frommonth !== '') {
          $('#frommonth').val(frommonth);
          // this will load subcategories once you set the category value
          $("#frommonth").change();
       }
+      // old input tomonth
+      var tomonth = '{{ old("tomonth") }}';
+      if (tomonth !== '') {
+         $('#tomonth').val(tomonth);
+         // this will load subcategories once you set the category value
+         $("#tomonth").change();
+      }
+      // old input fromyear
+      var fromyear = '{{ old("fromyear") }}';
+      if (fromyear !== '') {
+         $('#fromyear').val(fromyear);
+         // this will load subcategories once you set the category value
+         $("#fromyear").change();
+      }
+      // old input toyear
+      var toyear = '{{ old("toyear") }}';
+      if (toyear !== '') {
+         $('#toyear').val(toyear);
+         // this will load subcategories once you set the category value
+         $("#toyear").change();
+      }
    });
-
    // clear input and select
    function clearit() {
       $('#regtype').val('');
@@ -1197,7 +1174,6 @@
       $('#frommonth').val('');
       $('#fromyear').val('');
       $('#tomonth').val('');
-
       $('#tomonth').prop('disabled', true);
       $('#toyear').val('');
       $('#toyear').prop('disabled', true);

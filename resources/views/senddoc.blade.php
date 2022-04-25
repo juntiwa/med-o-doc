@@ -80,7 +80,7 @@
 
                <input type="text" value="" name="isendfrom" id="isendfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example " placeholder="ส่งจาก">
+               focus:outline-none " aria-label="Default select example " placeholder="ส่งจาก" value="{{ old('isendfrom') }}">
 
                <input type="hidden" id="idfrom" name="idfrom">
             </div>
@@ -95,7 +95,7 @@
 
                <input type="text" value="" name="isendto" id="isendto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example" placeholder="ส่งถึง">
+               focus:outline-none " aria-label="Default select example" placeholder="ส่งถึง" value="{{ old('isendto') }}">
 
                <input id="idto" name="idto">
 
@@ -106,7 +106,7 @@
                <label for="regtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base">*</span></label>
                <input type="text" name="regtitle" id="regtitle" class=" form-control block w-full px-3 py-1.5 text-lg text-gray-800 font-medium
                bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required>
+               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('regtitle') }}">
             </div>
 
             <!-- ลงทะเบียนเมื่อ -->
@@ -114,7 +114,7 @@
                <label for="send" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">ส่งเมื่อ</label>
                <div class="grid grid-cols-5 gap-4 ">
 
-                  <select name="frommonth" id="frommonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  <select name="sfrommonth" id="sfrommonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <!-- <option>เดือน</option> -->
                      <option value="" selected disabled>เดือน</option>
@@ -132,7 +132,7 @@
                      <option value="12">ธันวาคม</option>
                   </select>
 
-                  <select name="fromyear" id="fromyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  <select name="sfromyear" id="sfromyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <option value="" selected disabled>ปี</option>
                      @foreach($sendyears as $sendyear)
@@ -147,7 +147,7 @@
 
                   <span class=" flex justify-center items-center text-lg text-gray-800 font-medium">ถึง</span>
 
-                  <select disabled name="tomonth" id="tomonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  <select disabled name="stomonth" id="stomonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <!-- <option>เดือน</option> -->
                      <option value="" selected disabled>เดือน</option>
@@ -165,7 +165,7 @@
                      <option value="12">ธันวาคม</option>
                   </select>
 
-                  <select disabled name="toyear" id="toyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  <select disabled name="stoyear" id="stoyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <option value="" selected disabled>ปี</option>
                      @foreach($sendyears as $sendyear)
@@ -177,11 +177,7 @@
                      @endif
                      @endforeach
                   </select>
-
-                  <p class="col-span-5 text-red-500 mt-2 text-lg font-medium xl:whitespace-nowrap lg:whitespace-nowrap">ระบุช่วงเดือนหรือปีที่ต้องการหา เช่นระหว่างเดือน มกราคม ถึง มีนาคม หรือ ระหว่างปี 2560 ถึง 2561</p>
-
                </div>
-
             </div>
 
             <!-- button -->
@@ -204,44 +200,6 @@
       </form>
    </div>
 </div>
-
-<!-- data search -->
-@if(Route::is('send.search'))
-<p class="text-lg text-gray-800 font-medium mt-5">
-   <span class="font-semibold">ชนิดหนังสือ :</span>
-   <span class="font-medium pr-2">
-      {{$typename}}
-   </span>
-
-   <span class="font-semibold">จาก :</span>
-   <span class="font-medium pr-2">
-      {{$sendfrom}}
-   </span>
-   <span class="font-semibold"> ถึง :</span>
-   <span class="font-medium pr-2">
-      {{$sendto}}
-   </span>
-   <span class="font-semibold">หัวเรื่อง : </span>
-   <span class="font-medium pr-2">
-      {{$regtitle}}
-   </span>
-   <span class="font-semibold">ช่วงเวลา : </span>
-   <span class="font-medium pr-2 ">
-      เดือน
-      {{$fmonth}}
-      ปี
-      {{$fyear}}
-
-      ถึง
-
-      เดือน
-      {{$tmonth}}
-      ปี
-      {{$tyear}}
-
-   </span>
-</p>
-@endif
 
 <!-- ตาราง -->
 <div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
@@ -682,7 +640,6 @@
 
 <!-- card -->
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
-
    <!-- ก่อนค้นหา -->
    @if(isset($sends))
    @if(count($sends)>0)
@@ -1045,7 +1002,6 @@
 </div>
 @endif
 
-
 <!-- Script -->
 <script type="text/javascript">
    // CSRF Token
@@ -1141,17 +1097,59 @@
          }
       });
 
-   });
+      // change attibute month
+      $('#sfrommonth').change(function() {
+         $('#stomonth').prop('required', true);
+         $('#stomonth').prop('disabled', false);
+      });
 
-   $(document).ready(function() {
-      $('#frommonth').change(function() {
-         $('#tomonth').prop('required', true);
-         $('#tomonth').prop('disabled', false);
+      // chenge attibute year
+      $('#sfromyear').change(function() {
+         $('#stoyear').prop('required', true);
+         $('#stoyear').prop('disabled', false);
       });
-      $('#fromyear').change(function() {
-         $('#toyear').prop('required', true);
-         $('#toyear').prop('disabled', false);
+
+      // toggle hide show  from input
+      $("#toggle-example-checked").click(function() {
+         $("#multiCollapseExample1").toggle("slow");
       });
+
+      // old input sendtype
+      var typeold = '{{ old("sendtype") }}';
+      if (typeold !== '') {
+         $('#sendtype').val(typeold);
+         // this will load subcategories once you set the category value
+         $("#sendtype").change();
+      }
+
+      // old input sfrommonth
+      var sfrommonth = '{{ old("sfrommonth") }}';
+      if (sfrommonth !== '') {
+         $('#sfrommonth').val(sfrommonth);
+         // this will load subcategories once you set the category value
+         $("#sfrommonth").change();
+      }
+      // old input stomonth
+      var stomonth = '{{ old("stomonth") }}';
+      if (stomonth !== '') {
+         $('#stomonth').val(stomonth);
+         // this will load subcategories once you set the category value
+         $("#stomonth").change();
+      }
+      // old input sfromyear
+      var sfromyear = '{{ old("sfromyear") }}';
+      if (sfromyear !== '') {
+         $('#sfromyear').val(sfromyear);
+         // this will load subcategories once you set the category value
+         $("#sfromyear").change();
+      }
+      // old input stoyear
+      var stoyear = '{{ old("stoyear") }}';
+      if (stoyear !== '') {
+         $('#stoyear').val(stoyear);
+         // this will load subcategories once you set the category value
+         $("#stoyear").change();
+      }
    });
 
    function clearit() {
@@ -1163,20 +1161,13 @@
       $("#ssendto").html('<option value="">เลือกหน่วยงานที่รับ</option>');
       $('#isendto').val('');
       $('#regtitle').val('');
-      $('#frommonth').val('');
-      $('#fromyear').val('');
-      $('#tomonth').val('');
-      $('#tomonth').prop('disabled', true);
-      $('#toyear').val('');
-      $('#toyear').prop('disabled', true);
+      $('#sfrommonth').val('');
+      $('#sfromyear').val('');
+      $('#stomonth').val('');
+      $('#stomonth').prop('disabled', true);
+      $('#stoyear').val('');
+      $('#stoyear').prop('disabled', true);
    }
-
-   // toggle hide show  from input
-   $(document).ready(function() {
-      $("#toggle-example-checked").click(function() {
-         $("#multiCollapseExample1").toggle("slow");
-      });
-   });
 </script>
 
 @endsection
