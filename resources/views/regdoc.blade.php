@@ -102,7 +102,7 @@
             </div>
 
             <!-- ลงทะเบียนเมื่อ -->
-            <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
+            <div class="mb-3 xl:w-full md:col-span-2 lg:col-span-4">
                <label for="regdate" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">ลงทะเบียนเมื่อ</label>
                <div class="grid grid-cols-5 gap-4 ">
 
@@ -181,11 +181,11 @@
                      focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 ">ค้นหา</button>
                   </div>
 
-                  <div class="grid col-span-1 gap-4">
+                  <!-- <div class="grid col-span-1 gap-4">
                      <button type="button" class="inline-block px-4 py-2 bg-red-600 text-white  
                      leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg 
                      focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 " id="clearlist" onclick="javascript:clearit();">ล้างข้อมูล</button>
-                  </div>
+                  </div> -->
                </div>
             </div>
          </div>
@@ -995,10 +995,9 @@
 
 <!-- Script -->
 <script type="text/javascript">
-   $("#iregfrom").hide();
-   $("#iregto").hide();
-   $("#idfrom").hide();
-   $("#idto").hide();
+   $('#iregfrom').addClass('hidden');
+   $('#iregto').addClass('hidden');
+   $('input[name="iregfrom"]').attr('hiddened', 'hiddened');
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
       // select option and autocomplete
@@ -1007,10 +1006,6 @@
          // console.log(typeid);
          if (typeid == 0) {
             jQuery("#sregto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
-            $("#sregfrom").show();
-            $("#iregfrom").hide();
-            $("#sregto").show();
-            $("#iregto").hide();
             jQuery.ajax({
                url: '/reg-select-from',
                type: 'post',
@@ -1034,11 +1029,10 @@
             });
 
          } else {
-            $("#sregfrom").hide();
-            $("#iregfrom").show();
-            $("#sregto").hide();
-            $("#iregto").show();
-
+            $('#sregfrom').addClass('hidden');
+            $('#iregfrom').removeClass('hidden');
+            $('#sregto').addClass('hidden');
+            $('#iregto').removeClass('hidden');
             $(document).ready(function() {
                $("#iregfrom").autocomplete({
                   source: function(request, response) {
@@ -1098,10 +1092,10 @@
          $('#tomonth').prop('disabled', false);
          let frommonth = $(this).val();
          let variable = frommonth;
-         console.log(variable);
+         // console.log(variable);
          if (variable !== 1) {
             while (variable--) {
-               console.log(variable);
+               // console.log(variable);
                if (variable != 0) {
                   $("#tomonth option[value=" + variable + "]").prop('disabled', true);
                }
@@ -1131,7 +1125,7 @@
          // this will load subcategories once you set the category value
          $("#regtype").change();
       }
-      
+
       // old input frommonth
       var frommonth = '{{ old("frommonth") }}';
       if (frommonth !== '') {
