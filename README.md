@@ -63,3 +63,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 "# doc_search" 
+
+## Install project after clone
+1. git clone https://github.com/juntiwa/doc_search.git
+2. composer install
+3. npm install
+4. cp .env.example .env
+5. php artisan key:generate
+6. edit database on .env file
+7. php artisan migrate
+8. php artisan db:seed 
+
