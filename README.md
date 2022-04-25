@@ -73,4 +73,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 6. edit database on .env file
 7. php artisan migrate
 8. php artisan db:seed 
+9. edit vendor\laravel\ui\auth-backend\AuthenticatesUsers.php function username() email -> username
 
