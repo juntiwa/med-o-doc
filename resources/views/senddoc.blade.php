@@ -78,11 +78,10 @@
                   <option value="">เลือกหน่วยงานที่ส่ง</option>
                </select>
 
-               <input type="text" value="" name="isendfrom" id="isendfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+               <input type="text" name="isendfrom" id="isendfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example " placeholder="ส่งจาก" value="{{ old('isendfrom') }}">
+               focus:outline-none" aria-label="Default select example " placeholder="ส่งจาก" value="{{ old('isendfrom') }}">
 
-               <input type="hidden" id="idfrom" name="idfrom">
             </div>
 
             <!-- ถึง -->
@@ -93,12 +92,9 @@
                   <option value="">เลือกหน่วยงานที่รับ</option>
                </select>
 
-               <input type="text" value="" name="isendto" id="isendto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+               <input type="text" name="isendto" id="isendto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                focus:outline-none " aria-label="Default select example" placeholder="ส่งถึง" value="{{ old('isendto') }}">
-
-               <input id="idto" name="idto">
-
             </div>
 
             <!-- หัวเรื่อง -->
@@ -189,7 +185,7 @@
                      focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 ">ค้นหา</button>
                   </div>
 
-                 <!--  <div class="grid col-span-1 gap-4">
+                  <!--  <div class="grid col-span-1 gap-4">
                      <button type="button" class="inline-block px-4 py-2 bg-red-600 text-white  
                      leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg 
                      focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 " id="clearlist" onclick="javascript:clearit();">ล้างข้อมูล</button>
@@ -1013,20 +1009,38 @@
          // console.log(typeid);
 
          if (typeid == 0) {
+            $('#ssendfrom').removeClass('hidden');
+            $('#isendfrom').addClass('hidden');
+            $('#ssendto').removeClass('hidden');
+            $('#isendto').addClass('hidden');
+
+            $('#isendfrom').val('');
+            $('#isendto').val('');
+            var ssendfrom = <?= json_encode($ssendfrom,  JSON_HEX_TAG); ?>;
+
             jQuery("#ssendto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             jQuery.ajax({
-               url: '/send-select',
+               url: '/send-select-from',
                type: 'post',
-               data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               data: {
+                  typeid: typeid,
+                  ssendfrom: ssendfrom
+               },
                success: function(result) {
                   jQuery('#ssendfrom').html(result)
                }
             });
 
+            var ssendto = <?= json_encode($ssendto,  JSON_HEX_TAG); ?>;
             jQuery.ajax({
-               url: '/send-select',
+               url: '/send-select-to',
                type: 'post',
-               data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               data: {
+                  typeid: typeid,
+                  ssendto: ssendto
+               },
                success: function(result) {
                   jQuery('#ssendto').html(result)
                }
@@ -1036,6 +1050,9 @@
             $('#isendfrom').removeClass('hidden');
             $('#ssendto').addClass('hidden');
             $('#isendto').removeClass('hidden');
+            $('#ssendfrom').val('');
+            $('#ssendto').val('');
+
             $(document).ready(function() {
                $("#isendfrom").autocomplete({
                   source: function(request, response) {
@@ -1056,7 +1073,7 @@
                   select: function(event, ui) {
                      // Set selection
                      $('#isendfrom').val(ui.item.label); // display the selected text
-                     $('#idfrom').val(ui.item.value); // save selected id to input
+                     // $('#idfrom').val(ui.item.value); // save selected id to input
                      return false;
                   }
                });
@@ -1080,7 +1097,7 @@
                   select: function(event, ui) {
                      // Set selection
                      $('#isendto').val(ui.item.label); // display the selected text
-                     $('#idto').val(ui.item.value); // save selected id to input
+                     // $('#idto').val(ui.item.value); // save selected id to input
 
                      return false;
                   }

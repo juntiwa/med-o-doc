@@ -80,8 +80,6 @@
                <input type="text" name="irecfrom" id="irecfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                focus:outline-none " aria-label="Default select example " placeholder="ส่งจาก" value="{{ old('irecfrom') }}">
-
-               <input type=" hidden" id="idfrom" name="idfrom">
             </div>
 
             <!-- ถึง -->
@@ -92,12 +90,9 @@
                   <option value="">เลือกหน่วยงานที่รับ</option>
                </select>
 
-               <input type="text" value="" name="irecto" id="irecto" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+               <input type="text" name="irecto" id="irecto" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                focus:outline-none " aria-label="Default select example " placeholder="ส่งถึง" value="{{ old('irecto') }}">
-
-               <input id=" idto" name="idto">
-
             </div>
 
             <!-- หัวเรื่อง -->
@@ -995,33 +990,48 @@
          // console.log(typeid);
 
          if (typeid == 0) {
+            $('#srecfrom').removeClass('hidden');
+            $('#irecfrom').addClass('hidden');
+            $('#srecto').removeClass('hidden');
+            $('#irecto').addClass('hidden');
+
+            $('#irecfrom').val('');
+            $('#irecto').val('');
+            var srecfrom = <?= json_encode($srecfrom,  JSON_HEX_TAG); ?>;
             jQuery("#srecto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
-            $("#srecfrom").show();
-            $("#irecfrom").hide();
-            $("#srecto").show();
-            $("#irecto").hide();
             jQuery.ajax({
-               url: '/rec-select',
+               url: '/rec-select-from',
                type: 'post',
-               data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               data: {
+                  typeid: typeid,
+                  srecfrom: srecfrom
+               },
                success: function(result) {
                   jQuery('#srecfrom').html(result)
                }
             });
 
+            var srecto = <?= json_encode($srecto,  JSON_HEX_TAG); ?>;
             jQuery.ajax({
-               url: '/rec-select',
+               url: '/rec-select-to',
                type: 'post',
-               data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               data: {
+                  typeid: typeid,
+                  srecto: srecto
+               },
                success: function(result) {
                   jQuery('#srecto').html(result)
                }
             });
          } else {
-            $("#srecfrom").hide();
-            $("#irecfrom").show();
-            $("#srecto").hide();
-            $("#irecto").show();
+            $('#srecfrom').addClass('hidden');
+            $('#irecfrom').removeClass('hidden');
+            $('#srecto').addClass('hidden');
+            $('#irecto').removeClass('hidden');
+            $('#srecfrom').val('');
+            $('#srecto').val('');
 
             $(document).ready(function() {
                $("#irecfrom").autocomplete({
@@ -1043,7 +1053,7 @@
                   select: function(event, ui) {
                      // Set selection
                      $('#irecfrom').val(ui.item.label); // display the selected text
-                     $('#idfrom').val(ui.item.value); // save selected id to input
+                     // $('#idfrom').val(ui.item.value); // save selected id to input
                      return false;
                   }
                });
@@ -1067,7 +1077,7 @@
                   select: function(event, ui) {
                      // Set selection
                      $('#irecto').val(ui.item.label); // display the selected text
-                     $('#idto').val(ui.item.value); // save selected id to input
+                     // $('#idto').val(ui.item.value); // save selected id to input
 
                      return false;
                   }

@@ -74,8 +74,8 @@
 
                <input type="text" name="iregfrom" id="iregfrom" class=" form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example" placeholder="ส่งจาก" value="{{ old('iregfrom') }}">
-               <input id="idfrom" name="idfrom" class="hidden">
+               focus:outline-none " placeholder="ส่งจาก" value="{{ old('iregfrom') }}">
+
             </div>
 
             <!-- ถึง -->
@@ -90,7 +90,6 @@
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                focus:outline-none " aria-label="Default select example" placeholder="ส่งถึง" value="{{ old('iregto') }}">
 
-               <input id="idto" name="idto" class="hidden">
             </div>
 
             <!-- หัวเรื่อง -->
@@ -634,7 +633,6 @@
 
 <!-- card -->
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
-
    <!-- ก่อนค้นหา -->
    @if(isset($regs))
    @if(count($regs)>0)
@@ -972,10 +970,7 @@
                </svg>
                @endif
             </a>
-
-
             @endif
-
          </div>
       </div>
    </div>
@@ -1005,83 +1000,95 @@
          let typeid = jQuery(this).val();
          // console.log(typeid);
          if (typeid == 0) {
+            $('#sregfrom').removeClass('hidden');
+            $('#iregfrom').addClass('hidden');
+            $('#sregto').removeClass('hidden');
+            $('#iregto').addClass('hidden');
+
+            $('#iregfrom').val('');
+            $('#iregto').val('');
+            var sregfrom = <?= json_encode($sregfrom,  JSON_HEX_TAG); ?>;
+            // console.log(sregfrom)
             jQuery("#sregto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             jQuery.ajax({
                url: '/reg-select-from',
                type: 'post',
-               data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}, sregfrom = ' + $(this).val(),
+               data: {
+                  typeid: typeid,
+                  sregfrom: sregfrom
+               },
                success: function(result) {
-                  jQuery('#sregfrom').html(result)
+                  jQuery('#sregfrom').html(result);
                }
             });
-
+            var sregto = <?= json_encode($sregto,  JSON_HEX_TAG); ?>;
+            // console.log(sregto)
             jQuery.ajax({
                url: '/reg-select-to',
                type: 'post',
-               data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               data: {
+                  typeid: typeid,
+                  sregto: sregto
+               },
                success: function(result) {
                   jQuery('#sregto').html(result)
                }
             });
-
-            $('#option').each(function() {
-               $("select").size("10");
-            });
-
          } else {
             $('#sregfrom').addClass('hidden');
             $('#iregfrom').removeClass('hidden');
             $('#sregto').addClass('hidden');
             $('#iregto').removeClass('hidden');
-            $(document).ready(function() {
-               $("#iregfrom").autocomplete({
-                  source: function(request, response) {
-                     // Fetch data
-                     $.ajax({
-                        url: "{{route('reg.autocomplete')}}",
-                        type: 'post',
-                        dataType: "json",
-                        data: {
-                           _token: CSRF_TOKEN,
-                           search: request.term
-                        },
-                        success: function(data) {
-                           response(data);
-                        }
-                     });
-                  },
-                  select: function(event, ui) {
-                     // Set selection
-                     $('#iregfrom').val(ui.item.label); // display the selected text
-                     $('#idfrom').val(ui.item.value); // save selected id to input
-                     return false;
-                  }
-               });
+            $('#sregfrom').val('');
+            $('#sregto').val('');
+            $("#iregfrom").autocomplete({
+               source: function(request, response) {
+                  // Fetch data
+                  $.ajax({
+                     url: "{{route('reg.autocomplete')}}",
+                     type: 'post',
+                     dataType: "json",
+                     data: {
+                        _token: CSRF_TOKEN,
+                        search: request.term
+                     },
+                     success: function(data) {
+                        response(data);
+                     }
+                  });
+               },
+               select: function(event, ui) {
+                  // Set selection
+                  $('#iregfrom').val(ui.item.label); // display the selected text
+                  // $('#idfrom').val(ui.item.value); // save selected id to input
+                  return false;
+               }
+            });
 
-               $("#iregto").autocomplete({
-                  source: function(request, response) {
-                     // Fetch data
-                     $.ajax({
-                        url: "{{route('reg.autocomplete')}}",
-                        type: 'post',
-                        dataType: "json",
-                        data: {
-                           _token: CSRF_TOKEN,
-                           search: request.term
-                        },
-                        success: function(data) {
-                           response(data);
-                        }
-                     });
-                  },
-                  select: function(event, ui) {
-                     // Set selection
-                     $('#iregto').val(ui.item.label); // display the selected text
-                     $('#idto').val(ui.item.value); // save selected id to input
-
-                     return false;
-                  }
-               });
+            $("#iregto").autocomplete({
+               source: function(request, response) {
+                  // Fetch data
+                  $.ajax({
+                     url: "{{route('reg.autocomplete')}}",
+                     type: 'post',
+                     dataType: "json",
+                     data: {
+                        _token: CSRF_TOKEN,
+                        search: request.term
+                     },
+                     success: function(data) {
+                        response(data);
+                     }
+                  });
+               },
+               select: function(event, ui) {
+                  // Set selection
+                  $('#iregto').val(ui.item.label); // display the selected text
+                  // $('#idto').val(ui.item.value); // save selected id to input
+                  return false;
+               }
             });
          }
       });
@@ -1090,21 +1097,6 @@
       $('#frommonth').change(function() {
          $('#tomonth').prop('required', true);
          $('#tomonth').prop('disabled', false);
-         let frommonth = $(this).val();
-         let variable = frommonth;
-         // console.log(variable);
-         if (variable !== 1) {
-            while (variable--) {
-               // console.log(variable);
-               if (variable != 0) {
-                  $("#tomonth option[value=" + variable + "]").prop('disabled', true);
-               }
-               $('#frommonth').change(function() {
-                  $("#tomonth option[value=" + variable + "]").prop('disabled', false);
-                  $('#tomonth').val("");
-               });
-            }
-         }
       });
 
       // chenge attibute year
@@ -1155,6 +1147,7 @@
          $("#toyear").change();
       }
    });
+
    // clear input and select
    function clearit() {
       $('#regtype').val('');
@@ -1173,4 +1166,5 @@
       $('#toyear').prop('disabled', true);
    }
 </script>
+
 @endsection
