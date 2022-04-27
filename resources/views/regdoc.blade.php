@@ -344,7 +344,7 @@
                   -
                </p>
                @else
-               <a href="files/{{date('Y',strtotime($reg->regdate))}}/{{ $reg->regdoc }}" target=" _blank" class="grid justify-items-center">
+               <a href="/private-files" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($reg->regdoc, PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
