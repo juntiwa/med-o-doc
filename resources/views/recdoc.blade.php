@@ -110,7 +110,7 @@
                   <select name="rfrommonth" id="rfrommonth" class="form-select appearance-none grid grid-cols-2 w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example ">
                      <!-- <option>เดือน</option> -->
-                     <option value="" selected disabled>เดือน</option>
+                     <option value="" selected>เดือน</option>
                      <option value="1">มกราคม</option>
                      <option value="2">กุมภาพันธ์</option>
                      <option value="3">มีนาคม</option>
@@ -1138,6 +1138,50 @@
          // this will load subcategories once you set the category value
          $("#rtoyear").change();
       }
+
+      $('#rfrommonth').change(function() {
+         let frommonthid = jQuery(this).val();
+         let fmid = frommonthid - 1;
+         console.log(fmid);
+         $("#rtomonth").val('');
+         $("#rtomonth option:disabled").removeAttr("disabled");
+         if (fmid < 0) {
+            $("#rtomonth").val('');
+            $("#rtomonth").attr("disabled", "disabled");
+         }
+         if (fmid != 0) {
+            // console.log("loop ok");
+            let step = fmid;
+            // console.log(step)
+            for (let step = 1; step <= fmid; step++) {
+               // Runs 5 times, with values of step 0 through 4.
+               // console.log('Walking east one step');
+               $("#rtomonth option[value='" + step + "']").attr("disabled", "disabled");
+            }
+         }
+      });
+
+      $('#rfromyear').change(function() {
+         let fromyearid = jQuery(this).val();
+         let yid = fromyearid - 1;
+         console.log(yid);
+         $("#rtoyear").val('');
+         $("#rtoyear option:disabled").removeAttr("disabled");
+         if (fmid < 0) {
+            $("#rtoyear").val('');
+            $("#rtoyear").attr("disabled", "disabled");
+         }
+         if (yid != 0) {
+            // console.log("loop ok");
+            let step = yid;
+            // console.log(step)
+            for (let step = 1; step <= yid; step++) {
+               // Runs 5 times, with values of step 0 through 4.
+               // console.log('Walking east one step');
+               $("#rtoyear option[value='" + step + "']").attr("disabled", "disabled");
+            }
+         }
+      });
    });
 
    function clearit() {

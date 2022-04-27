@@ -1007,7 +1007,6 @@
       $('#sendtype').change(function() {
          let typeid = jQuery(this).val();
          // console.log(typeid);
-
          if (typeid == 0) {
             $('#ssendfrom').removeClass('hidden');
             $('#isendfrom').addClass('hidden');
@@ -1158,6 +1157,50 @@
          $('#stoyear').val(stoyear);
          // this will load subcategories once you set the category value
          $("#stoyear").change();
+      }
+   });
+
+   $('#sfrommonth').change(function() {
+      let frommonthid = jQuery(this).val();
+      let fmid = frommonthid - 1;
+      console.log(fmid);
+      $("#stomonth").val('');
+      $("#stomonth option:disabled").removeAttr("disabled");
+      if (fmid < 0) {
+         $("#stomonth").val('');
+         $("#stomonth").attr("disabled", "disabled");
+      }
+      if (fmid != 0) {
+         // console.log("loop ok");
+         let step = fmid;
+         // console.log(step)
+         for (let step = 1; step <= fmid; step++) {
+            // Runs 5 times, with values of step 0 through 4.
+            // console.log('Walking east one step');
+            $("#stomonth option[value='" + step + "']").attr("disabled", "disabled");
+         }
+      }
+   });
+
+   $('#sfromyear').change(function() {
+      let fromyearid = jQuery(this).val();
+      let yid = fromyearid - 1;
+      console.log(yid);
+      $("#stoyear").val('');
+      $("#stoyear option:disabled").removeAttr("disabled");
+      if (fmid < 0) {
+         $("#stoyear").val('');
+         $("#stoyear").attr("disabled", "disabled");
+      }
+      if (yid != 0) {
+         // console.log("loop ok");
+         let step = yid;
+         // console.log(step)
+         for (let step = 1; step <= yid; step++) {
+            // Runs 5 times, with values of step 0 through 4.
+            // console.log('Walking east one step');
+            $("#stoyear option[value='" + step + "']").attr("disabled", "disabled");
+         }
       }
    });
 
