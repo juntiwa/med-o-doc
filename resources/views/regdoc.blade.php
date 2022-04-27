@@ -1093,6 +1093,14 @@
          }
       });
 
+      // old input regtype
+      var typeold = '{{ old("regtype") }}';
+      if (typeold !== '') {
+         $('#regtype').val(typeold);
+         // this will load subcategories once you set the category value
+         $("#regtype").change();
+      }
+
       // chenge attibute month 
       $('#frommonth').change(function() {
          $('#tomonth').prop('required', true);
@@ -1109,14 +1117,6 @@
       $("#toggle-example-checked").click(function() {
          $("#multiCollapseExample1").toggle("slow");
       });
-
-      // old input regtype
-      var typeold = '{{ old("regtype") }}';
-      if (typeold !== '') {
-         $('#regtype').val(typeold);
-         // this will load subcategories once you set the category value
-         $("#regtype").change();
-      }
 
       // old input frommonth
       var frommonth = '{{ old("frommonth") }}';
@@ -1146,6 +1146,50 @@
          // this will load subcategories once you set the category value
          $("#toyear").change();
       }
+
+      $('#frommonth').change(function() {
+         let frommonthid = jQuery(this).val();
+         let fmid = frommonthid - 1;
+         console.log(fmid);
+         $("#tomonth").val('');
+         $("#tomonth option:disabled").removeAttr("disabled");
+         if (fmid < 0) {
+            $("#tomonth").val('');
+            $("#tomonth").attr("disabled", "disabled");
+         }
+         if (fmid != 0) {
+            // console.log("loop ok");
+            let step = fmid;
+            // console.log(step)
+            for (let step = 1; step <= fmid; step++) {
+               // Runs 5 times, with values of step 0 through 4.
+               // console.log('Walking east one step');
+               $("#tomonth option[value='" + step + "']").attr("disabled", "disabled");
+            }
+         }
+      });
+
+      $('#fromyear').change(function() {
+         let fromyearid = jQuery(this).val();
+         let yid = fromyearid - 1;
+         console.log(yid);
+         $("#toyear").val('');
+         $("#toyear option:disabled").removeAttr("disabled");
+         if (fmid < 0) {
+            $("#toyear").val('');
+            $("#toyear").attr("disabled", "disabled");
+         }
+         if (yid != 0) {
+            // console.log("loop ok");
+            let step = yid;
+            // console.log(step)
+            for (let step = 1; step <= yid; step++) {
+               // Runs 5 times, with values of step 0 through 4.
+               // console.log('Walking east one step');
+               $("#toyear option[value='" + step + "']").attr("disabled", "disabled");
+            }
+         }
+      });
    });
 
    // clear input and select
