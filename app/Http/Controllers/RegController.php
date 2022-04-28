@@ -40,8 +40,13 @@ class RegController extends Controller
       $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
       $sregfrom = $request->get('sregfrom');
       $sregto = $request->get('sregto');
-      
 
+      foreach($regs as $reg){
+         $filename = $reg->regdoc;
+         $ext = substr(strrchr($filename, '.'), 1);
+      // Log::info($ext);
+      }
+      
       return view('regdoc', compact('regs', 'types',  'regyears', 'sregfrom', 'sregto'));
    }
 
@@ -186,26 +191,23 @@ class RegController extends Controller
       ));
    }
 
-   public function openfile($regdate,$regdoc){
-      $regs = Letterreg::orderby('regdate', 'desc');
-      Log::info("out loop");
-      $fileyear = date('Y',strtotime($regdate));
-      $filename = $regdoc;
-      return Storage::response('files/'. $fileyear . $filename);
-      Log::info("in loop");
-         
+   public function openfile($year,$type,$regdoc){
+      $filename = explode('.', $regdoc)[0];
+      $ext = substr(strrchr($regdoc, '.'), 1);
+      Log::info($year);
+      Log::info($regdoc);
       
-      // $path = Storage::response('files/2018/2018-07-03_08-50-27_1.pdf');
-      // Log::info($path);
-      // if(Auth::user()){
-      //    $pathname = "/files";
-      //    Log::info("test ok");
-      //    return view('regdoc',compact('pathname'));
-      // }else{
-      //    Log::info("test not ok");
 
-      // }
+      $file = ('files/'. $year.'/') . $filename .'.'. $type;
+      Log::info($file);
+      Log::info(response()->download($file));
+      if (file_exists($file)) {
+         return Storage::response($file);
+
+         // return response()->download($file);
+      } else {
+         abort(404, 'File not found!');
+      }
       
-      // return Storage::response('files/2018/2018-07-03_08-50-27_1.pdf');
    }
 }

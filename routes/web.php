@@ -7,6 +7,7 @@ use App\Http\Controllers\RecController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\SendController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,7 +45,10 @@ Route::post('reg-select-to', [RegController::class, 'selectSearchto'])->name('re
 Route::post('reg-autocomplete', [RegController::class, 'autocompleteSearch'])->name('reg.autocomplete');
 // Route::post( '/searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
 Route::get('searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
-Route::get('open-files/{regdate}/{regdoc}',[RegController::class,'openfile'])->name('open.file');
+Route::get('open-files/{year}/{type}/{regdoc}',[RegController::class,'openfile'])->name('open.file');
+// Route::get('open-files/{regdoc}',function($recdoc){
+//    Log::info($recdoc);
+// });
 
 // ----------------------------- send -----------------------//
 Route::get('sendDoc', [SendController::class, 'index'])->name('send.show');
