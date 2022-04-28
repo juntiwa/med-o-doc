@@ -97,10 +97,10 @@
 
             <!-- หัวเรื่อง -->
             <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
-               <label for="regtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base">*</span></label>
-               <input type="text" name="regtitle" id="regtitle" class=" form-control block w-full px-3 py-1.5 text-lg text-gray-800 font-medium
+               <label for="rregtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base">*</span></label>
+               <input type="text" name="rregtitle" id="rregtitle" class=" form-control block w-full px-3 py-1.5 text-lg text-gray-800 font-medium
                bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('regtitle') }}">
+               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('rregtitle') }}">
             </div>
 
             <!-- ลงทะเบียนเมื่อ -->

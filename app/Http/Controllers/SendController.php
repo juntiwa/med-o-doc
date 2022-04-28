@@ -105,7 +105,7 @@ class SendController extends Controller
       $isendfrom = $request->get('isendfrom');
       $ssendto = $request->get('ssendto');
       $isendto = $request->get('isendto');
-      $regtitle = $request->get('regtitle');
+      $sregtitle = $request->get('sregtitle');
       $sfrommonth = $request->get('sfrommonth');
       $stomonth = $request->get('stomonth');
       $sfromyear = $request->get('sfromyear');
@@ -149,8 +149,8 @@ class SendController extends Controller
          $searchsends  = $searchsends->where('sendtoid', $tuid);
       }
 
-      if ($regtitle != '') {
-         $searchsends  = $searchsends->where('regtitle', 'LIKE', '%' . $regtitle . '%');
+      if ($sregtitle != '') {
+         $searchsends  = $searchsends->where('regtitle', 'LIKE', '%' . $sregtitle . '%');
       }
 
       if ($sfrommonth != '' && $stomonth != '') {

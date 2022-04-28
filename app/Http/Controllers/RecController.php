@@ -104,7 +104,7 @@ class RecController extends Controller
       $irecfrom = $request->get('irecfrom');
       $srecto = $request->get('srecto');
       $irecto = $request->get('irecto');
-      $regtitle = $request->get('regtitle');
+      $rregtitle = $request->get('rregtitle');
       $rfrommonth = $request->get('rfrommonth');
       $rtomonth = $request->get('rtomonth');
       $rfromyear = $request->get('rfromyear');
@@ -145,8 +145,8 @@ class RecController extends Controller
          $searchrecs  = $searchrecs->where('rectoid', $tuid);
       }
 
-      if ($regtitle != '') {
-         $searchrecs  = $searchrecs->where('regtitle', 'LIKE', '%' . $regtitle . '%');
+      if ($rregtitle != '') {
+         $searchrecs  = $searchrecs->where('regtitle', 'LIKE', '%' . $rregtitle . '%');
       }
 
       if ($rfrommonth != '' && $rtomonth != '') {
