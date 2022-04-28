@@ -44,7 +44,7 @@ Route::post('reg-select-to', [RegController::class, 'selectSearchto'])->name('re
 Route::post('reg-autocomplete', [RegController::class, 'autocompleteSearch'])->name('reg.autocomplete');
 // Route::post( '/searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
 Route::get('searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
-Route::get('private-files',[RegController::class,'openfile'])->name('open.file');
+Route::get('open-files/{regdate}/{regdoc}',[RegController::class,'openfile'])->name('open.file');
 
 // ----------------------------- send -----------------------//
 Route::get('sendDoc', [SendController::class, 'index'])->name('send.show');

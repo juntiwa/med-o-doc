@@ -11,6 +11,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 use function PHPSTORM_META\type;
 
@@ -39,8 +40,9 @@ class RegController extends Controller
       $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
       $sregfrom = $request->get('sregfrom');
       $sregto = $request->get('sregto');
-      $filepath = "/file";
-      return view('regdoc', compact('regs', 'types',  'regyears', 'sregfrom', 'sregto', 'filepath'));
+      
+
+      return view('regdoc', compact('regs', 'types',  'regyears', 'sregfrom', 'sregto'));
    }
 
    public function selectSearchfrom(Request $request)
@@ -184,11 +186,26 @@ class RegController extends Controller
       ));
    }
 
-   public function openfile(){
-      // $filepath = "/files";
-      // return view('regdoc',compact('filepath'));
+   public function openfile($regdate,$regdoc){
+      $regs = Letterreg::orderby('regdate', 'desc');
+      Log::info("out loop");
+      $fileyear = date('Y',strtotime($regdate));
+      $filename = $regdoc;
+      return Storage::response('files/'. $fileyear . $filename);
+      Log::info("in loop");
+         
+      
+      // $path = Storage::response('files/2018/2018-07-03_08-50-27_1.pdf');
+      // Log::info($path);
+      // if(Auth::user()){
+      //    $pathname = "/files";
+      //    Log::info("test ok");
+      //    return view('regdoc',compact('pathname'));
+      // }else{
+      //    Log::info("test not ok");
 
-      return \Storage::response('files/2018/2018-07-03_08-50-27_1.pdf');
-
+      // }
+      
+      // return Storage::response('files/2018/2018-07-03_08-50-27_1.pdf');
    }
 }
