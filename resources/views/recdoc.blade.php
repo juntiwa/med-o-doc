@@ -1,12 +1,8 @@
 @extends('layouts.app')
-
 @section('title', 'ทะเบียนหนังสือรับ')
-
 @section('sidebar')
 @parent
-
 @endsection
-
 @section('content')
 
 <!-- Main content header -->
@@ -334,7 +330,8 @@
                   -
                </p>
                @else
-               <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc }}" target=" _blank" class="grid justify-items-center">
+
+               <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc)[1] }}/{{ explode('.', $rec->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($rec->regdoc , PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -371,7 +368,7 @@
                   -
                </p>
                @else
-               <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc2 }}" target=" _blank" class="grid justify-items-center">
+               <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc2)[1] }}/{{ explode('.', $rec->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($rec->regdoc2 , PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -535,7 +532,8 @@
                   -
                </p>
                @else
-               <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc }}" target=" _blank" class="grid justify-items-center">
+
+               <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc)[1] }}/{{ explode('.', $rec->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($rec->regdoc , PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -572,7 +570,7 @@
                   -
                </p>
                @else
-               <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc2 }}" target=" _blank" class="grid justify-items-center">
+               <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc2)[1] }}/{{ explode('.', $rec->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($rec->regdoc2 , PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -617,7 +615,6 @@
 
 <!-- card -->
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
-
    <!-- ก่อนค้นหา -->
    @if(isset($recs))
    @if(count($recs)>0)
@@ -724,7 +721,7 @@
                -
             </p>
             @else
-            <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc }}" target=" _blank" class="grid justify-items-center">
+            <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc)[1] }}/{{ explode('.', $rec->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($rec->regdoc , PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -760,7 +757,7 @@
                -
             </p>
             @else
-            <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc2 }}" target=" _blank" class="grid justify-items-center">
+            <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc2)[1] }}/{{ explode('.', $rec->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($rec->regdoc2 , PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -799,7 +796,7 @@
    @if(isset($searchrecs))
    @if(count($searchrecs)>0)
    @foreach($searchrecs as $rec)
-   <div class="bg-white space-y-3 p-4 rounded-lg shadow relative">
+   <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
       <div class="flex items-center space-x-2 text-base ">
          <!-- เลขที่หนังสือ -->
          <div>
@@ -901,7 +898,7 @@
                -
             </p>
             @else
-            <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc }}" target=" _blank" class="grid justify-items-center">
+            <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc)[1] }}/{{ explode('.', $rec->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($rec->regdoc , PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -937,7 +934,7 @@
                -
             </p>
             @else
-            <a href="files/{{date('Y',strtotime($rec->recdate))}}/{{ $rec->regdoc2 }}" target=" _blank" class="grid justify-items-center">
+            <a href="/open-files/{{date('Y',strtotime($rec->recdate))}}/{{ explode('.', $rec->regdoc2)[1] }}/{{ explode('.', $rec->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($rec->regdoc2 , PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->

@@ -9,6 +9,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class SendController extends Controller
 {
@@ -177,5 +178,15 @@ class SendController extends Controller
          'ssendto',
          'input'
       ));
+   }
+   public function openfile($year, $type, $senddoc)
+   {
+      $path = 'files/' . $year . '/' . $senddoc . '.' . $type;
+      if (Storage::exists($path)) {
+         return Storage::response($path);
+      } else {
+         // dd('File is Not Exists');
+         return view('errors.404');
+      }
    }
 }
