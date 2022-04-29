@@ -1,12 +1,8 @@
 @extends('layouts.app')
-
 @section('title', 'ทะเบียนหนังสือรับ')
-
 @section('sidebar')
 @parent
-
 @endsection
-
 @section('content')
 
 <!-- Main content header -->
@@ -619,7 +615,6 @@
 
 <!-- card -->
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
-
    <!-- ก่อนค้นหา -->
    @if(isset($recs))
    @if(count($recs)>0)
