@@ -7,8 +7,6 @@ use App\Models\Letterreg;
 use App\Models\Letterunit;
 use App\Models\Type;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -192,22 +190,12 @@ class RegController extends Controller
    }
 
    public function openfile($year,$type,$regdoc){
-      $filename = explode('.', $regdoc)[0];
-      $ext = substr(strrchr($regdoc, '.'), 1);
-      Log::info($year);
-      Log::info($regdoc);
-      
-
-      $file = ('files/'. $year.'/') . $filename .'.'. $type;
-      Log::info($file);
-      Log::info(response()->download($file));
-      if (file_exists($file)) {
-         return Storage::response($file);
-
-         // return response()->download($file);
+      $path = 'files/' . $year . '/' . $regdoc . '.' . $type;
+      if (Storage::exists($path)) {
+         return Storage::response($path);
       } else {
-         abort(404, 'File not found!');
+         // dd('File is Not Exists');
+         return view('errors.404');
       }
-      
    }
 }
