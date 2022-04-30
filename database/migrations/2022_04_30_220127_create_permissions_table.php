@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->nullable();
-            $table->timestamps();
-        });
+      Schema::create('permissions', function (Blueprint $table) {
+         $table->id();
+         $table->string('username')->nullable();
+         $table->string('permission')->nullable();
+         $table->timestamps();
+      });
     }
 
     /**
