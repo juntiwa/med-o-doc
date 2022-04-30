@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
-use App\Http\Controllers\Admin\ActivityLogController as AdminActivitylogController;
+use App\Http\Controllers\Admin\AdminController as AdminController;
 use App\Http\Controllers\RecController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\SendController;
@@ -24,11 +24,13 @@ Auth::routes();
 Route::get('/', function () {
    return view('auth.login');
 })->name('login');
-Route::post('/login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
-Route::post('/logout', [AuthLoginController::class, 'logout'])->name('logout');
+Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
+Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
 
-// ----------------------------- activitylog -----------------------//
-Route::get('activitylog',[AdminActivitylogController::class,'index'])->name('activitylog');
+// ----------------------------- admin -----------------------//
+Route::get('activitylog',[AdminController::class, 'index'])->name('activitylog');
+Route::get('permission', [AdminController::class, 'permis'])->name('permission');
+Route::post('permission/savepermiss', [AdminController::class, 'create'])->name('save.permis');
 
 // ----------------------------- reg -----------------------//
 Route::get('regDoc', [RegController::class, 'index'])->name('reg.show');

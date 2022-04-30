@@ -19,12 +19,17 @@
    <script src="https://cdn.tailwindcss.com"></script>
    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
 
-   <!-- for paginate -->
+   <!-- paginate -->
    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
    <!-- Boxicons -->
    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
+   <!-- unicons -->
+   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/solid.css">
+   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
+   <script src="https://unicons.iconscout.com/release/v4.0.0/script/monochrome/bundle.js"></script>
 
    <!-- CSS -->
    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -32,6 +37,10 @@
 
    <!-- sidenav -->
    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+
+   <!-- daisyui -->
+   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.3/dist/full.css" rel="stylesheet" type="text/css" />
+   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 
    <!-- tailwind flowbite -->
    <script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>
@@ -58,8 +67,14 @@
             @if (Auth::user()->username == 'admin')
             <li class="@if (Route::is('activitylog')) bg-slate-200 @else  @endif hover:bg-slate-50 rounded-md">
                <a href="{{route('activitylog')}}">
-                  <i class='bx bx-edit-alt'></i>
+                  <i class="fa-regular fa-rectangle-list"></i>
                   <span class="link-name">Activity Log</span>
+               </a>
+            </li>
+            <li class="@if (Route::is('permission')) bg-slate-200 @else  @endif hover:bg-slate-50 rounded-md">
+               <a href="{{route('permission')}}">
+                  <i class="uil uil-file-check-alt"></i>
+                  <span class="link-name">สิทธิ์การเข้าถึงระบบ</span>
                </a>
             </li>
             @endif
@@ -89,7 +104,6 @@
                   <form method="POST" action="{{ route('logout') }}" x-data>
                      @csrf
                      <button type="submit" class="text-black hover:text-red-600 cursor-pointer">
-
                         <a href="{{route('logout')}}">
                            <i class='bx bx-log-out'></i>
                            <span class="link-name">ออกจากระบบ</span>
@@ -102,9 +116,9 @@
       </div>
    </nav>
    <section class="dashboard ">
-      <div class="top relative flex items-center justify-between space-x-3 lg:text-lg md:text-xl">
+      <div class="top relative flex items-center justify-between space-x-3 text-lg">
          <i class='bx bx-menu sidebar-toggle flex items-start justify-start'></i>
-         <span class="p-2 lg:text-lg md:text-xl font-semibold uppercase lg:hidden">ค้นหาเอกสาร</span>
+         <span class="p-2 text-xl font-semibold uppercase lg:hidden">ค้นหาเอกสาร</span>
          <!-- avatar button -->
          <div class="relative flex flex-col items-end justify-end lg:flex-row" x-data="{ isOpen: false }">
             <span class="lg:mr-2 text-blue-700 ">
