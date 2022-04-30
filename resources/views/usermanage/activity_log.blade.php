@@ -1,54 +1,110 @@
 @extends('layouts.app')
-@section('title', 'ลงทะเบียนหนังสือส่ง')
+@section('title', 'Activity Log')
 @section('sidebar')
 @parent
 @endsection
 @section('content')
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-   <table class="w-full text-base text-left text-gray-500 dark:text-gray-400">
-      <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<!-- ตาราง -->
+<div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
+   <table class="w-full">
+      <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
-            <th scope="col" class="px-6 py-3">
-               ลำดับ
-            </th>
-            <th scope="col" class="px-6 py-3">
-               ชื่อผู้ใช้
-            </th>
-            <th scope="col" class="px-6 py-3">
-               Email
-            </th>
-            <th scope="col" class="px-6 py-3">
-               Action
-            </th>
-            <th scope="col" class="px-6 py-3">
-               เมื่อ
-            </th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลำดับ </th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ชื่อผู้ใช้ </th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">EMAIL</th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ACTION</th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เมื่อ</th>
          </tr>
       </thead>
-      <tbody>
+      @if(isset($activityLog))
+      <tbody class="divide-y divide-gray-100">
+         @if(count($activityLog)>0)
          @foreach ($activityLog as $key => $item)
-         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="px-6 py-4">
+         <tr class="bg-white">
+            <!-- ลำดับ -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ ++$key }}
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+            <!-- username ผู้ใช้งาน -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->username }}
-            </th>
-
-            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+            </td>
+            <!-- email ผู้ใช้งาน -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->email }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-               {{ $item->description }}
+            <!-- action -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+               @if ($item->description == "เข้าสู่ระบบ" )
+               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
+                        bg-opacity-50">{{$item->description}}</span>
+               @else
+               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
+                        bg-opacity-50">{{$item->description}}</span>
+               @endif
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+            <!-- เมื่อ -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->date_time }}
             </td>
+
          </tr>
          @endforeach
+         @else
+         <tr class="bg-white">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+               <p class="font-bold text-red-600">
+                  ไม่พบข้อมูล
+               </p>
+            </td>
+         </tr>
+         @endif
       </tbody>
+      @endif
    </table>
 </div>
 
+<!-- card -->
+<div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
+   <!-- ก่อนค้นหา -->
+   @if(isset($activityLog))
+   @if(count($activityLog)>0)
+   @foreach ($activityLog as $key => $item)
+   <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
+
+      <div class="flex text-base justify-between">
+         <div>
+            <p class="text-blue-500 text-base font-semibold hover:underline">
+               {{ $item->username }}
+            </p>
+         </div>
+         <div>
+            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
+               @if ($item->description == "เข้าสู่ระบบ" )
+               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
+                        bg-opacity-50">{{$item->description}}</span>
+               @else
+               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
+                        bg-opacity-50">{{$item->description}}</span>
+               @endif
+            </span>
+         </div>
+      </div>
+      <!-- จาก -->
+      <div class="flex text-gray-700">
+         {{ $item->email }}
+      </div>
+   </div>
+   @endforeach
+   @else
+   <p class="text-red-500">ไม่พบข้อมูล</p>
+   @endif
+   @endif
+</div>
+
+
+<div class="col-md-12 mt-6">
+   {{ $activityLog->withQueryString()->links('pagination::tailwind') }}
+</div>
 @endsection
