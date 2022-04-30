@@ -7,11 +7,10 @@
 
 <!-- Main content header -->
 <div class="grid grid-rows-1 pb-3 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
-   <div class="lg:flex lg:justify-between md:flex md:justify-between sm:grid sm:grid-cols-1 md:space-x-3">
+   <div class="lg:flex lg:justify-between md:flex md:justify-between md:space-x-3 sm:grid sm:grid-cols-1 mt-3">
       <h1 class="text-2xl font-semibold whitespace-nowrap">ลงทะเบียนส่งหนังสือ</h1>
-
       <!-- switch -->
-      <div class="flex  hidden lg:block">
+      <div class="flex pt-2 ">
          <div class="bg-white dark:bg-gray-800 dark:text-gray-100">
             <div class="flex items-center justify-center space-x-2">
                <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
@@ -23,23 +22,6 @@
                <span class="ml-3 inline-block text-lg font-medium text-gray-900">แสดงช่องค้นหา</span>
                <!-- <span class="text-sm text-gray-400 dark:text-white">Dark</span> -->
             </div>
-
-         </div>
-      </div>
-
-      <div class="flex pt-2 lg:hidden">
-         <div class="bg-white dark:bg-gray-800 dark:text-gray-100">
-            <div class="flex items-center justify-center space-x-2">
-               <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
-               <span class="mr-3 inline-block text-lg font-medium text-gray-900">ปิดช่องค้นหา</span>
-               <label for="toggle-example-checked" class="flex relative items-center cursor-pointer">
-                  <input type="checkbox" id="toggle-example-checked" class="sr-only" checked>
-                  <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
-               </label>
-               <span class="ml-3 inline-block text-lg font-medium text-gray-900">แสดงช่องค้นหา</span>
-               <!-- <span class="text-sm text-gray-400 dark:text-white">Dark</span> -->
-            </div>
-
          </div>
       </div>
    </div>
