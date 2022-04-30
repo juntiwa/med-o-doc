@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Admin\ActivityLogController as AdminActivitylogController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\SendController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
