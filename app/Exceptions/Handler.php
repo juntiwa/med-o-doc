@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Models\activityLog;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -43,8 +46,36 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
+      /* $this->reportable(function (Throwable $e) {
             //
-        });
+        }); */
+
+      $this->renderable(function (\Exception $e) {
+         if ($e->getPrevious() instanceof \Illuminate\Session\TokenMismatchException) {
+            $user = Session::get('user');
+            $username = $user->username;
+            $email = $user->email;
+            $fname = $user->fname;
+            $lname = $user->lname;
+            $description = 'ออกจากระบบ';
+            $dt = Carbon::now();
+            $todaydate = $dt->toDayDateTimeString();
+            $created_at = date_create();
+            $updated_at = date_create();
+
+            $activityLog = [
+               'username' => $username,
+               'fname' => $fname,
+               'lname' => $lname,
+               'email' => $email,
+               'description' => $description,
+               'date_time' => $todaydate,
+               'created_at' => $created_at,
+               'updated_at' => $updated_at,
+            ];
+            activityLog::insert($activityLog);
+            return redirect()->route('login');
+         };
+      });
     }
 }
