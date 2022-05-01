@@ -30,7 +30,8 @@ Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
 // ----------------------------- admin -----------------------//
 Route::get('activitylog',[AdminController::class, 'index'])->name('activitylog');
 Route::get('permission', [AdminController::class, 'permis'])->name('permission');
-Route::post('permission/savepermiss', [AdminController::class, 'create'])->name('save.permis');
+Route::post('permission/savepermiss', [ AdminController::class, 'create'])->name('save.permis');
+Route::get('delete_permis/{id}', [AdminController::class, 'delete'])->name('delete.permis');
 
 // ----------------------------- reg -----------------------//
 Route::get('regDoc', [RegController::class, 'index'])->name('reg.show');
