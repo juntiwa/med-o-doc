@@ -32,6 +32,8 @@ Route::get('activitylog',[AdminController::class, 'index'])->name('activitylog')
 Route::get('permission', [AdminController::class, 'permis'])->name('permission');
 Route::post('permission/savepermiss', [ AdminController::class, 'create'])->name('save.permis');
 Route::get('delete_permis/{id}', [AdminController::class, 'delete'])->name('delete.permis');
+Route::get('activity_log_export', [AdminController::class, 'export'])->name('activitylog.export');
+Route::get('delete_activitylog', [AdminController::class, 'deleteActivity'])->name('delete.activitylog');
 
 // ----------------------------- reg -----------------------//
 Route::get('regDoc', [RegController::class, 'index'])->name('reg.show');

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ActivityLogsExport;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -55,48 +59,16 @@ class AdminController extends Controller
    }
 
    /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
-   public function store(Request $request)
-   {
-      //
-   }
-
-   /**
-    * Display the specified resource.
+    * Remove the specified resource from storage.
     *
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function show($id)
+   public function delete($id)
    {
-      //
-   }
+      $permis = Permission::where('id', $id)->firstorfail()->delete();
 
-   /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
-   public function edit($id)
-   {
-      //
-   }
-
-   /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
-   public function update(Request $request, $id)
-   {
-      //
+      return redirect()->route('permission');
    }
 
    /**
@@ -105,10 +77,21 @@ class AdminController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function delete($id)
+   public function deleteActivity()
    {
-      $permis = Permission::where('id',$id)->firstorfail()->delete();
-      
-      return redirect()->route('permission');
+      $activityLog = activityLog::truncate();
+      $maxId = DB::table('activity_logs')->max('id');
+      DB::statement('ALTER TABLE users AUTO_INCREMENT=' . intval($maxId + 1) . ';');
+      return redirect()->route('activitylog');
+   }
+
+   /**
+    * @return \Illuminate\Support\Collection
+    */
+   public function export()
+   {
+      $time_now = Carbon::now()->format('Y_m_d');
+      $filename = 'activity_log_'.$time_now.'.xlsx';
+      return Excel::download(new ActivityLogsExport, $filename  );
    }
 }
