@@ -12,7 +12,7 @@
          ลบ <i class="uil uil-trash-alt pl-2 text-lg"></i>
       </button>
    </a>
-    <a href="{{ route('activitylog.export') }}">
+   <a href="{{ route('activitylog.export') }}">
       <button type="button" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-base  leading-tight 
          uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none 
          focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out">
@@ -30,7 +30,7 @@
          <tr>
             <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลำดับ </th>
             <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ชื่อผู้ใช้ </th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">EMAIL</th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ภาควิชา</th>
             <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ACTION</th>
             <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เมื่อ</th>
          </tr>
@@ -50,16 +50,16 @@
             </td>
             <!-- email ผู้ใช้งาน -->
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
-               {{ $item->email }}
+               {{ $item->program_name }}
             </td>
             <!-- action -->
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
-               @if ($item->description == "เข้าสู่ระบบ" )
+               @if ($item->description == "login" )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$item->description}}</span>
+                        bg-opacity-50">{{$item->action}}</span>
                @else
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$item->description}}</span>
+                        bg-opacity-50">{{$item->action}}</span>
                @endif
             </td>
             <!-- เมื่อ -->
@@ -99,19 +99,19 @@
          </div>
          <div>
             <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
-               @if ($item->description == "เข้าสู่ระบบ" )
+               @if ($item->description == "login" )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$item->description}}</span>
+                        bg-opacity-50">{{$item->action}}</span>
                @else
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$item->description}}</span>
+                        bg-opacity-50">{{$item->action}}</span>
                @endif
             </span>
          </div>
       </div>
       <!-- จาก -->
       <div class="flex text-gray-700">
-         {{ $item->email }}
+         {{ $item->program_name }}
       </div>
    </div>
    @endforeach
