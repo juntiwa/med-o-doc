@@ -10,7 +10,7 @@
       <form action="{{ route('checklogin') }}" method="POST">
          @csrf
 
-         @error('permis')
+         @error('message')
          <label class="text-red-500 font-medium text-base text-center pt-2 pb-3">{{ $message }}</label>
          @enderror
 

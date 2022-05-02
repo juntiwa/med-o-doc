@@ -54,71 +54,13 @@ class LoginController extends Controller
     }
 
    public function authenticate(Request $request, AuthUserAPI $api)
-   {
-      /* $user = $api->authenticate($request->username, $request->password);
-      $errors = ['permis' => $user['reply_text']];
-      if ($user['reply_code'] != 0) {
-         $userregis = User::where('username', $request->username)->first();
-         if ($userregis && !Hash::check($request->password, $userregis->password)) {
-            $errors = ['password' => 'รหัสผ่านผิด'];
-            // echo "password";
-            return Redirect::back()->withErrors($errors)->withInput($request->all());
-         } else {
-            $errors = [$this->username() => ('ไม่พบชื่อผู้ใช้ ตรวจสอบชื่อผู้ใช้')];
-            // echo "username";
-            return Redirect::back()->withErrors($errors)->withInput($request->all());
-         }
-      }
-      // return Redirect::back()->withErrors($errors)->withInput($request->all());
-
-      #ตรวจสอบสิทธ์การใช้งาน -> ว่ามีสิทธิ์เข้าใช้งานหรือไม่
-      $userregis = User::where('username', $request->username)->first();
-      $userpermis = permission::where('username', $request->username)->first();
-      if (!$userpermis) {
-         // echo "not ok";
-         $errors = ['permis' => $user['reply_text']];
-         return Redirect::back()->withErrors($errors)->withInput($request->all());
-      } else {
-         // echo "ok";
-         $username = $userregis->username;
-         $email = $userregis->email;
-         $fname = $userregis->fname;
-         $lname = $userregis->lname;
-         $description = 'เข้าสู่ระบบ';
-         $dt = Carbon::now();
-         $todaydate = $dt->toDayDateTimeString();
-         $created_at = date_create();
-         $updated_at = date_create();
-
-         $activityLog = [
-            'username' => $username,
-            'fname' => $fname,
-            'lname' => $lname,
-            'email' => $email,
-            'description' => $description,
-            'date_time' => $todaydate,
-            'created_at' => $created_at,
-            'updated_at' => $updated_at,
-         ];
-         activityLog::insert($activityLog);
-         if (
-            $request->username == $userpermis->username && $userpermis->permission == "ผู้ดูแลระบบ"
-         ) {
-            return redirect('activitylog')->with('success', "Account successfully registered.");
-            // echo "test";
-         } else {
-            return redirect('regDoc')->with('success', "Account successfully registered.");
-         }
-      } */
-      
-      // ----------------------------- end test user -----------------------//
-      
+   {      
       /* Authen siriraj user */
       $sirirajUser = $api->authenticate($request->username, $request->password);
       if($sirirajUser['reply_code'] != 0)
       {
          #ถ้าไม่เท่ากับ 0 => ชื่อผู้ใช้หรือรหัสผ่านผิด
-         $errors = ['permis' => $sirirajUser['reply_text']];
+         $errors = ['message' => $sirirajUser['reply_text']];
          return Redirect::back()->withErrors($errors)->withInput($request->all());
       }
 
@@ -126,7 +68,7 @@ class LoginController extends Controller
       #ไม่ใช่ "สนง.ภาควิชาอายุรศาสตร์" return to login page with error message
       if($sirirajUser['office_name'] != "สนง.ภาควิชาอายุรศาสตร์")
       {
-         $errors = ['permis' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
+         $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
          return Redirect::back()->withErrors($errors)->withInput($request->all());
       }
       #เป็นเจ้าหน้าที่ "สนง.ภาควิชาอายุรศาสตร์" check condition 
@@ -137,7 +79,7 @@ class LoginController extends Controller
          #ไม่ตรงกัน return to login page with error message
          if (!$user) 
          {
-            $errors = ['permis' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
+            $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
             return Redirect::back()->withErrors($errors)->withInput($request->all());
          }
          #ตรงกัน save avtivity log to activitylog table
