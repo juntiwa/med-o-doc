@@ -55,7 +55,7 @@
 <body class="font-sarabun">
    @section('sidebar')
    <!-- side rigth bar -->
-   <nav class="h-screen">
+   <nav class="h-screen ">
       <div class="logo-name flex flex-col justify-center items-center">
          <div class="logo-image">
             <img src="images/search.png" alt="">
@@ -116,7 +116,7 @@
       </div>
    </nav>
    <section class="dashboard ">
-      <div class="top relative flex items-center justify-between space-x-3 text-lg">
+      <div class="top relative flex items-center justify-between space-x-3 text-lg border-b-2">
          <i class='bx bx-menu sidebar-toggle flex items-start justify-start'></i>
          <span class="p-2 text-xl font-semibold uppercase lg:hidden">ค้นหาเอกสาร</span>
          <!-- avatar button -->
@@ -133,7 +133,7 @@
                      {{ __('[ออกจากระบบ]') }}
                   </span>
                </button>
-            </form>
+               </form>
          </div>
       </div>
       <div class="dash-content">

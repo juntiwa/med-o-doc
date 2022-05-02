@@ -185,9 +185,9 @@
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ชนิดหนังสือ</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">จาก</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ถึง</th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">รับวันที่</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ2</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">รับวันที่</th>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ</th>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ2</th>
          </tr>
       </thead>
       <!-- ยังไม่ค้นหา -->
@@ -296,11 +296,11 @@
                @endif
             </td>
             <!-- รับวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top lg:text-center">
                @if ($rec->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{\Carbon\Carbon::parse($rec->recdate)->thaidate()}}
+               {{Carbon::parse($rec->recdate)->thaidate()}}
                @endif
             </td>
             <!-- เอกสารแนบ1 -->
@@ -502,7 +502,7 @@
                @if ($rec->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{\Carbon\Carbon::parse($rec->recdate)->thaidate()}}
+               {{Carbon::parse($rec->recdate)->thaidate()}}
                @endif
             </td>
             <!-- เอกสารแนบ1 -->
@@ -621,7 +621,7 @@
             @if ($rec->recdate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{\Carbon\Carbon::parse($rec->recdate)->thaidate()}}
+            {{Carbon::parse($rec->recdate)->thaidate()}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->
@@ -798,7 +798,7 @@
             @if ($rec->recdate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{\Carbon\Carbon::parse($rec->recdate)->thaidate()}}
+            {{Carbon::parse($rec->recdate)->thaidate()}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->
