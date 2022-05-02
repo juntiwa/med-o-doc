@@ -204,6 +204,7 @@ return [
       'Blade' => Illuminate\Support\Facades\Blade::class,
       'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
       'Bus' => Illuminate\Support\Facades\Bus::class,
+      'Carbon' => Illuminate\Support\Carbon::class, 
       'Cache' => Illuminate\Support\Facades\Cache::class,
       'Config' => Illuminate\Support\Facades\Config::class,
       'Cookie' => Illuminate\Support\Facades\Cookie::class,

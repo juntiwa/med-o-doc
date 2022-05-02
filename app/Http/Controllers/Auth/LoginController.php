@@ -98,7 +98,7 @@ class LoginController extends Controller
 
             if($user->role_name == "ผู้ดูแลระบบ")
             {
-               Log::info("admin");
+               // Log::info("admin");
                return redirect('activitylog')->with('success', "Account successfully registered.");
             }
             else

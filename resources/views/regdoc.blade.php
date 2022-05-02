@@ -184,10 +184,10 @@
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ชนิดหนังสือ</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">จาก</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ถึง</th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลงวันที่</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลงวันที่</th>
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ส่งวันที่</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ1</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ2</th>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ1</th>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ2</th>
          </tr>
       </thead>
       <!-- ก่อนค้นหา -->
@@ -304,19 +304,19 @@
                @endif
             </td>
             <!-- ลงวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium  align-text-top lg:text-center">
                @if ($reg->regdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{\Carbon\Carbon::parse($reg->regdate)->thaidate();}}
+               {{Carbon::parse($reg->regdate)->thaidate();}}
                @endif
             </td>
             <!-- ส่งวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium  align-text-top lg:text-center">
                @if ($reg->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{\Carbon\Carbon::parse($reg->recdate)->thaidate()}}
+               {{Carbon::parse($reg->recdate)->thaidate()}}
                @endif
             </td>
             <!-- เอกสารแนบ1 -->
@@ -522,7 +522,7 @@
                @if ($reg->regdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{\Carbon\Carbon::parse($reg->regdate)->thaidate();}}
+               {{Carbon::parse($reg->regdate)->thaidate();}}
                @endif
             </td>
             <!-- ส่งวันที่ -->
@@ -530,7 +530,7 @@
                @if ($reg->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{\Carbon\Carbon::parse($reg->recdate)->thaidate()}}
+               {{Carbon::parse($reg->recdate)->thaidate()}}
                @endif
             </td>
             <!-- เอกสารแนบ1 -->
@@ -645,7 +645,7 @@
             @if ($reg->regdate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{\Carbon\Carbon::parse($reg->regdate)->thaidate();}}
+            {{Carbon::parse($reg->regdate)->thaidate();}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->
@@ -813,7 +813,7 @@
             @if ($reg->regdate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{\Carbon\Carbon::parse($reg->regdate)->thaidate();}}
+            {{Carbon::parse($reg->regdate)->thaidate();}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->
