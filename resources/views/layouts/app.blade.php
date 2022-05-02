@@ -64,7 +64,7 @@
       </div>
       <div class="menu-items">
          <ul class="nav-links text-base md:text-lg sm:text-xl">
-            @if (Auth::user()->username == 'admin')
+            @if (Auth::user()->role_name == "ผู้ดูแลระบบ")
             <li class="@if (Route::is('activitylog')) bg-slate-200 @else  @endif hover:bg-slate-50 rounded-md">
                <a href="{{route('activitylog')}}">
                   <i class="fa-regular fa-rectangle-list"></i>
@@ -123,8 +123,7 @@
          <div class="relative flex flex-col items-end justify-end lg:flex-row" x-data="{ isOpen: false }">
             <span class="lg:mr-2 text-blue-700 ">
                <!-- ชื่อเข้าสู่ระบบ -->
-               {{Auth::user()->fname}}
-               {{Auth::user()->lname}}
+               {{Auth::user()->username}}
             </span>
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}" x-data>

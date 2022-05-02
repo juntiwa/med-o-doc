@@ -10,25 +10,25 @@ class FakeUserAPI implements AuthUserAPI
 {
    public function authenticate($username, $password)
    {
-      if (Auth::attempt(['username' => $username, 'password' => $password])) {
+      // Auth::attempt(['username' => $username, 'password' => $password])
+      if ($username === $password) {
          return [
-            "reply_code" => 0,
             "ok" => true,
             "found" => true,
-            "username" => "juntima.nuc",
-            "email" => "juntima.nuc@mahidol.ac.th",
-            "name" => "นางสาว จันทิมา นุชโยธิน",
-            "name_en" => "Miss JUNTIMA NUCHYOTHIN",
-            "org_id" => "1004xxxx",
-            "remark" => "สำนักงานภาควิชาอายุรศาสตร์ ภาควิชาอายุรศาสตร์",
-            "tel_no" => "",
-            "active" => 1,
+            "login" => "juntima.nuc",
+            "org_id" => "100xxxx",
+            "full_name" => "น.ส. จันทิมา นุชโยธิน",
+            "full_name_en" => "Miss JUNTIMA NUCHYOTIN",
             "position_name" => "นักวิชาการคอมพิวเตอร์",
-            "division_name" => "ภาควิชาอายุรศาสตร์",
-            "department_name" => "ภาควิชาอายุรศาสตร์",
-            "office_name" => "สำนักงานภาควิชาอายุรศาสตร์",
-            "reply_text" => "ไม่มีสิทธ์เข้าถึงระบบ กรุณาติดต่อเจ้าหน้าที่ ขอบคุณค่ะ",
-            "password_expires_in_days" => 60,
+            "division_name" => "ภ.อายุรศาสตร์",
+            "department_name" => "ภ.อายุรศาสตร์",
+            "office_name" => "สนง.ภาควิชาอายุรศาสตร์",
+            "email" => "",
+            "password_expires_in_days" => 46,
+            "remark" => "สนง.ภาควิชาอายุรศาสตร์ ภ.อายุรศาสตร์",
+            "name" => "น.ส. จันทิมา นุชโยธิน",
+            "name_en" => "Miss JUNTIMA NUCHYOTIN",
+            "reply_code" => 0,
          ];
       } else {
          return [

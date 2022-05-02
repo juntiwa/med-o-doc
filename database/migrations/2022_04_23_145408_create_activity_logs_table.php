@@ -16,10 +16,8 @@ return new class extends Migration
       Schema::create('activity_logs', function (Blueprint $table) {
          $table->id();
          $table->string('username')->nullable();
-         $table->string('fname')->nullable();
-         $table->string('lname')->nullable();
-         $table->string('email')->nullable();
-         $table->string('description')->nullable();
+         $table->string('program_name')->nullable();
+         $table->string('action')->nullable();
          $table->string('date_time')->nullable();
          $table->timestamps();
       });
