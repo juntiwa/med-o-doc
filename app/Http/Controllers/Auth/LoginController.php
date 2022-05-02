@@ -148,7 +148,7 @@ class LoginController extends Controller
             'updated_at' => $updated_at,
          ];
          activityLog::insert($activityLog);
-         if ($request->username == 'admin'
+         if ($request->username == $userpermis->username && $userpermis->permission == "ผู้ดูแลระบบ"
          ) {
             return redirect('activitylog')->with('success', "Account successfully registered.");
             // echo "test";
