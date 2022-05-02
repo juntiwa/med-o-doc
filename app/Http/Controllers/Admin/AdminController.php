@@ -6,6 +6,7 @@ use App\Exports\ActivityLogsExport;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,7 @@ class AdminController extends Controller
 
    public function permis()
    {
-      $permiss = Permission::paginate(50);
+      $permiss = User::paginate(50);
       return view('usermanage.permission', compact('permiss'));
    }
 
@@ -51,9 +52,9 @@ class AdminController extends Controller
          'permis' => 'required',
       ]);
 
-      Permission::create([
+      User::create([
          'username'      => $request->username,
-         'permission'      => $request->permis,
+         'role_name'      => $request->permis,
       ]);
       return redirect()->route('permission');
    }
@@ -66,7 +67,7 @@ class AdminController extends Controller
     */
    public function delete($id)
    {
-      $permis = Permission::where('id', $id)->firstorfail()->delete();
+      $permis = User::where('id', $id)->firstorfail()->delete();
 
       return redirect()->route('permission');
    }
