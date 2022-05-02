@@ -6,7 +6,7 @@
 @section('content')
 <div class="flex flex-row-reverse mt-6">
    <a href="{{route('delete.activitylog')}}" onclick="return confirm('Are you sure to want to delete it?')">
-      <button class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded 
+      <button class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-base leading-tight uppercase rounded 
       shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 
       active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-6">
          ลบ <i class="uil uil-trash-alt pl-2 text-lg"></i>
@@ -29,10 +29,10 @@
       <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
             <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลำดับ </th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ชื่อผู้ใช้ </th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ชื่อผู้ใช้ </th>
             <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ภาควิชา</th>
             <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ACTION</th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เมื่อ</th>
+            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">เมื่อ</th>
          </tr>
       </thead>
       @if(isset($activityLog))
@@ -41,20 +41,20 @@
          @foreach ($activityLog as $key => $item)
          <tr class="bg-white">
             <!-- ลำดับ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
                {{ ++$key }}
             </td>
             <!-- username ผู้ใช้งาน -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top ">
                {{ $item->username }}
             </td>
             <!-- email ผู้ใช้งาน -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
                {{ $item->program_name }}
             </td>
             <!-- action -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
-               @if ($item->description == "login" )
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
+               @if ($item->action == "login" )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
                         bg-opacity-50">{{$item->action}}</span>
                @else
