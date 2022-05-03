@@ -204,7 +204,6 @@
                @else
                {{$send->regtitle}}
                @endif
-
             </td>
             <!-- ชนิดหนังสือ -->
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center">
@@ -302,7 +301,7 @@
                @if ($send->senddate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{Carbon::parse($send->senddate)->thaidate()}}
+               {{$send->thaidate()}}
                @endif
             </td>
             <!-- รับวันที่ -->
@@ -310,7 +309,7 @@
                @if ($send->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{Carbon::parse($send->recdate)->thaidate()}}
+               {{$send->thairecdate()}}
                @endif
             </td>
             <!-- เอกสารแนบ1 -->
@@ -513,7 +512,7 @@
                @if ($send->senddate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{Carbon::parse($send->senddate)->thaidate()}}
+               {{$send->thaidate()}}
                @endif
             </td>
             <!-- รับวันที่ -->
@@ -521,7 +520,7 @@
                @if ($send->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
-               {{Carbon::parse($send->recdate)->thaidate()}}
+               {{$send->thairecdate()}}
                @endif
             </td>
             <!-- เอกสารแนบ1 -->
@@ -640,7 +639,7 @@
             @if ($send->senddate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{Carbon::parse($send->senddate)->thaidate()}}
+            {{$send->thaidate()}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->
@@ -814,7 +813,7 @@
             @if ($send->senddate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{Carbon::parse($send->senddate)->thaidate()}}
+            {{$send->thaidate()}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->

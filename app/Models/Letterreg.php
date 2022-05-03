@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 class Letterreg extends Model
@@ -22,6 +23,9 @@ class Letterreg extends Model
       
    ];
 
+   public function thaidate(){
+      return Carbon::parse($this->regdate)->thaidate();
+   }
 
    //  type 1 เรื่อง มีได้ 1 ภาคเท่านั้น
     public function types(){
