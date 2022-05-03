@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Letterrec extends Model
 {
    use HasFactory;
+
+   public function thaidate()
+   {
+      return Carbon::parse($this->recdate)->thaidate();
+   }
 
    // สำหรับ regtitle
    public function letterregs()
