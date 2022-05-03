@@ -15,7 +15,7 @@ class FakeUserAPI implements AuthUserAPI
          return [
             "ok" => true,
             "found" => true,
-            "login" => "juntima.nuc",
+            "login" => "test",
             "org_id" => "100xxxx",
             "full_name" => "น.ส. จันทิมา นุชโยธิน",
             "full_name_en" => "Miss JUNTIMA NUCHYOTIN",

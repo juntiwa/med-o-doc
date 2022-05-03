@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->nullable();
-            $table->string('role_name')->nullable();
+            $table->boolean('is_admin')->nullable();
             $table->timestamps();
         });
     }

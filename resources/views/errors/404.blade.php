@@ -19,7 +19,7 @@
 <body class="font-k2d">
    <div class="flex h-screen justify-center items-center bg-slate-200">
       <div class="text-center">
-         <p class=" text-red-500 text-3xl font-semibold">ไม่พบไฟล์เอกสาร</p>
+         <p class=" text-red-500 text-3xl font-semibold">ไม่พบข้อมูล</p>
          <img src="{{asset('images/error-404.png')}}" class="h-96" alt="">
       </div>
    </div>
