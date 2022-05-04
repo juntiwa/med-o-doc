@@ -9,7 +9,9 @@ use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
@@ -78,11 +80,24 @@ class AdminController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function deleteActivity()
+   public function deleteActivity(Request $request)
    {
       $activityLog = activityLog::truncate();
       $maxId = DB::table('activity_logs')->max('id');
       DB::statement('ALTER TABLE users AUTO_INCREMENT=' . intval($maxId + 1) . ';');
+
+      $login_activity = new activityLog;
+      $login_activity->username = Auth::user()->username;
+      $login_activity->program_name = 'med_edu';
+      $login_activity->subject = 'Admin delete activity log successfully';
+      $login_activity->url = URL::current();
+      $login_activity->method = $request->method();
+      $login_activity->ip = $request->ip();
+      $login_activity->user_agent = $request->header('user-agent');
+      $login_activity->action = 'Delete activity log';
+      $dt = Carbon::now();
+      $login_activity->date_time = $dt->toDayDateTimeString();
+      $login_activity->save();
       return redirect()->route('activitylog');
    }
 

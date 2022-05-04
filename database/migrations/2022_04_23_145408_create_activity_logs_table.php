@@ -17,6 +17,11 @@ return new class extends Migration
          $table->id();
          $table->string('username')->nullable();
          $table->string('program_name')->nullable();
+         $table->string('subject')->nullable();
+         $table->string('url')->nullable();
+         $table->string('method')->nullable();
+         $table->string('ip')->nullable();
+         $table->string('user_agent')->nullable();
          $table->string('action')->nullable();
          $table->string('date_time')->nullable();
          $table->timestamps();
