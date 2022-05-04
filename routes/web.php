@@ -25,7 +25,8 @@ Route::get('/', function () {
    return view('auth.login');
 })->name('login');
 Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
-Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
+Route::post('logout', [ AuthLoginController::class, 'logout'])->name('logout');
+Route::post('check-timeout', [AuthLoginController::class, 'update'])->name('check-timeout');
 
 // ----------------------------- admin -----------------------//
 Route::get('activitylog',[AdminController::class, 'index'])->name('activitylog');

@@ -133,7 +133,7 @@
                      {{ __('[ออกจากระบบ]') }}
                   </span>
                </button>
-               </form>
+            </form>
          </div>
       </div>
       <div class="dash-content">
@@ -154,5 +154,7 @@
       }
    });
 </script>
+
+<script src="{{ asset('js/useCeckSesionTimeout.js') }}"></script>
 
 </html>

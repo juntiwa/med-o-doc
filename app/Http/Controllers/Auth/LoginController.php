@@ -125,4 +125,8 @@ class LoginController extends Controller
 
       return Redirect::route('login');
    }
+
+   public function update(){
+      return ['active' => true];
+   }
 }
