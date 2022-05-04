@@ -19,7 +19,7 @@
       <a href="{{ route('login') }}" class="pb-12 font-sarabun text-xl text-blue-800 
       hover:text-red-500 hover:text-shadow-md">กลับสู่หน้าหลัก</a>
 
-      <img class=" h-64" src="{{asset('images/500.png')}}" alt="">
+      <img class=" h-64" src="{{asset('images/419.png')}}" alt="">
    </div>
 
 </body>
