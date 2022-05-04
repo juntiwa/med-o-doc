@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>404 - Not found</title>
-   <!-- Styles -->
-   <link rel="stylesheet" href="{{asset('css/app.css')}}">
-   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-
-   <!-- icon -->
-   <link rel="icon" href="{{asset('images/search.png')}}" type="image/x-icon">
-
-   <!-- Scripts -->
-   <script src="{{ asset('js/app.js') }}" defer></script>
+   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+   <link rel="stylesheet" href="{{ asset('css/app.css')}}">
 </head>
+@include('fonts/sarabun')
 @include('fonts/k2d')
 
-<body class="font-k2d">
-   <div class="flex h-screen justify-center items-center bg-slate-200">
-      <div class="text-center">
-         <p class=" text-red-500 text-3xl font-semibold">ไม่พบข้อมูล</p>
-         <img src="{{asset('images/error-404.png')}}" class="h-96" alt="">
-      </div>
+<body class=" bg-slate-200">
+   <div class="container mx-auto flex flex-col justify-center items-center h-screen">
+      <p class="text-6xl text-blue-800 font-bold font-k2d pb-7 text-shadow-md">404</p>
+      <p class="text-4xl text-gray-800 font-k2d pb-6">Not found</p>
+      <p class="text-xl text-center text-gray-700 font-sarabun w-2/5 leading-loose pb-3">ขออภัยค่ะ ไม่พบข้อมูลที่คุณต้องการ กรุณาติดต่อผู้ดูแลระบบ
+         <span class="font-bold text-red-500">ติดต่อหน่วยเวชสารสนเทศ ภาควิชาอายุรศาสตร์ </span>
+      </p>
+      <a href="{{ route('reg.show') }}" class="pb-12 font-sarabun text-xl text-blue-800 
+      hover:text-red-500 hover:text-shadow-md">กลับสู่หน้าหลัก</a>
+
+      <img class=" h-64" src="{{asset('images/404.png')}}" alt="">
    </div>
+
 </body>
 
 </html>
