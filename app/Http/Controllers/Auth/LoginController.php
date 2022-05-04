@@ -96,7 +96,7 @@ class LoginController extends Controller
             $login_activity->date_time = $dt->toDayDateTimeString();
             $login_activity->save();
 
-            if($user->is_admin == "true")
+            if($user->is_admin == "1")
             {
                // Log::info("admin");
                return redirect('activitylog')->with('success', "Account successfully registered.");

@@ -64,7 +64,7 @@
       </div>
       <div class="menu-items">
          <ul class="nav-links text-base md:text-lg sm:text-xl">
-            @if (Auth::user()->role_name == "ผู้ดูแลระบบ")
+            @if (Auth::user()->is_admin == "1")
             <li class="@if (Route::is('activitylog')) bg-slate-200 @else  @endif hover:bg-slate-50 rounded-md">
                <a href="{{route('activitylog')}}">
                   <i class="fa-regular fa-rectangle-list"></i>
