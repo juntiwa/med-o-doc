@@ -45,95 +45,68 @@
 
 </form>
 
-<!-- ตาราง -->
-<div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block ">
-   <table class="w-full">
-      <thead class="bg-gray-50 border-b-2 border-gray-200">
-         <tr>
-            <th class="w-12 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลำดับ </th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ชื่อผู้ใช้ </th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">สิทธิ์เข้าถึง</th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลบ</th>
-         </tr>
-      </thead>
-      @if(isset($permiss))
-      <tbody class="divide-y divide-gray-100">
-         @if(count($permiss)>0)
-         @foreach ($permiss as $key => $item)
-         <tr class="bg-white">
-            <!-- ลำดับ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
-               {{ ++$key }}
-            </td>
-            <!-- username ผู้ใช้งาน -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
-               {{ $item->username }}
-            </td>
-            <!-- email ผู้ใช้งาน -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
-               {{ $item->role_name }}
-            </td>
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
-               <a href="{{url('delete_permis/'.$item->id)}}" onclick="return confirm('Are you sure to want to delete it?')">
-                  <button class="inline-block px-6 py-2.5 bg-yellow-500 text-white font-medium text-base leading-tight uppercase rounded 
-                     shadow-md hover:bg-yellow-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 
-                     active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out">
-                     ลบ <i class="uil uil-trash-alt pl-2 text-lg"></i>
-                  </button>
-               </a>
-            </td>
-
-         </tr>
-         @endforeach
-         @else
-         <tr class="bg-white">
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
-               <p class="font-bold text-red-600">
-                  ไม่พบข้อมูล
-               </p>
-            </td>
-         </tr>
-         @endif
-      </tbody>
-      @endif
-   </table>
-</div>
-
-<!-- card -->
-<div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
-   <!-- ก่อนค้นหา -->
+<table class="border-collapse w-full">
+   <thead>
+      <tr>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">#</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Username</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Full Name</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Role</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Status</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Edit</th>
+      </tr>
+   </thead>
    @if(isset($permiss))
-   @if(count($permiss)>0)
-   @foreach ($permiss as $key => $item)
-   <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
+   <tbody>
+      @if(count($permiss)>0)
+      @foreach ($permiss as $key => $item)
+      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">#</span>
+            {{ ++$key }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Username</span>
+            {{ $item->username }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Full Name</span>
+            {{ $item->full_name }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Role</span>
 
-      <div class="flex text-base justify-between">
-         <div>
-            <p class="text-blue-500 text-base font-semibold hover:underline">
-               {{ $item->username }}
-            </p>
-         </div>
-         <div class="flex text-gray-700">
-            {{ $item->role_name }}
-         </div>
-
-      </div>
-      <div class="flex justify-end">
-         <a href="{{url('delete_permis/'.$item->id)}}" onclick="return confirm('Are you sure to want to delete it?')">
-            <button class="inline-block px-6 py-2.5 bg-yellow-500 text-white font-medium text-base leading-tight uppercase rounded 
-                     shadow-md hover:bg-yellow-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 
-                     active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out">
-               ลบ <i class="uil uil-trash-alt pl-2 text-lg"></i>
-            </button>
-         </a>
-      </div>
-   </div>
-   @endforeach
-   @else
-   <p class="text-red-500">ไม่พบข้อมูล</p>
+            @if ($item->is_admin == "1" )
+            <span class="rounded text-emerald-400 text-base ">Admin</span>
+            @else
+            <span class="rounded text-red-400 text-base ">User</span>
+            @endif
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Status</span>
+            @if ($item->status == "Active" )
+            <span class="rounded text-emerald-400 text-base ">{{$item->status}}</span>
+            @else
+            <span class="rounded text-red-400 text-base ">{{$item->status}}</span>
+            @endif
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Edit</span>
+            <a href="{{route('edit.permis', $item->id)}}" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
+         </td>
+      </tr>
+      @endforeach
+      @else
+      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Company name</span>
+            ไม่พบข้อมูล
+         </td>
+      </tr>
+      @endif
+   </tbody>
    @endif
-   @endif
-</div>
+</table>
 
 <div class="col-md-12 mt-6">
    {{ $permiss->withQueryString()->links('pagination::tailwind') }}

@@ -155,6 +155,6 @@
    });
 </script>
 
-<script src="{{ asset('js/useCeckSesionTimeout.js') }}"></script>
+<!-- <script src="{{ asset('js/useCheckSessionTimeout.js') }}"></script> -->
 
 </html>

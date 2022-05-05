@@ -67,11 +67,37 @@ class AdminController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function delete($id)
+   public function edit($id)
    {
-      $permis = User::where('id', $id)->firstorfail()->delete();
+      $user = User::find($id);
+      return view('usermanage.editPermission', compact('user'));
+   }
 
-      return redirect()->route('permission');
+   /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+   public function update(Request $request, $id)
+   {
+      // Validation for required fields (and using some regex to validate our numeric value)
+      $request->validate([
+         'username' => 'required',
+         'full_name' => 'required',
+         'role' => 'required',
+         'status' => 'required',
+      ]);
+      $user = User::find($id);
+      // Getting values from the blade template form
+      $user->username =  $request->username;
+      $user->full_name = $request->full_name;
+      $user->is_admin = $request->role;
+      $user->status = $request->status;
+      $user->save();
+
+      return redirect('permission')->with('success', 'User updated.'); // -> resources/views/stocks/index.blade.php
    }
 
    /**
