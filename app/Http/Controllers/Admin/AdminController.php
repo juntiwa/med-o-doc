@@ -104,10 +104,24 @@ class AdminController extends Controller
    /**
     * @return \Illuminate\Support\Collection
     */
-   public function export()
+   public function export(Request $request)
    {
-      $time_now = Carbon::now()->format('Y_m_d');
+      $time_now = Carbon::now()->format('Y_m_d_H:i:s');
       $filename = 'activity_log_'.$time_now.'.xlsx';
+
+      $login_activity = new activityLog;
+      $login_activity->username = Auth::user()->username;
+      $login_activity->program_name = 'med_edu';
+      $login_activity->subject = 'Admin export data activity log successfully';
+      $login_activity->url = URL::current();
+      $login_activity->method = $request->method();
+      $login_activity->ip = $request->ip();
+      $login_activity->user_agent = $request->header('user-agent');
+      $login_activity->action = 'Export data activity log';
+      $dt = Carbon::now();
+      $login_activity->date_time = $dt->toDayDateTimeString();
+      $login_activity->save();
+
       return Excel::download(new ActivityLogsExport, $filename  );
    }
 }

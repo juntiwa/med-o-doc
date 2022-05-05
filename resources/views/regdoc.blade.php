@@ -641,7 +641,7 @@
             @if ($reg->regdate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{$reg->thaidate();}}
+            {{$reg->thaidate()}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->
@@ -809,7 +809,7 @@
             @if ($reg->regdate == "0000-00-00" || null )
             ไม่ระบุ
             @else
-            {{$reg->thaidate();}}
+            {{$reg->thaidate()}}
             @endif
          </div>
          <!-- ชนิดหนังสือ -->

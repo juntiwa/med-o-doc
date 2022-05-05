@@ -84,8 +84,17 @@ class LoginController extends Controller
          #ตรงกัน save avtivity log to activitylog table
          else
          {
-            Auth::login($user); #ให้ login
+            #ให้ login
+            Auth::login($user); 
             // Log::info("test");
+            #update fullname to user table
+            if(Auth::user()->full_name != $sirirajUser['full_name'])
+            {
+               User::where('username', Auth::user()->username)->update([
+                  'full_name' => $sirirajUser['full_name']
+               ]);
+            }
+
             $login_activity = new activityLog;
             $login_activity->username = Auth::user()->username;
             $login_activity->program_name = 'med_edu';
