@@ -9,7 +9,9 @@ use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
@@ -65,11 +67,37 @@ class AdminController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function delete($id)
+   public function edit($id)
    {
-      $permis = User::where('id', $id)->firstorfail()->delete();
+      $user = User::find($id);
+      return view('usermanage.editPermission', compact('user'));
+   }
 
-      return redirect()->route('permission');
+   /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+   public function update(Request $request, $id)
+   {
+      // Validation for required fields (and using some regex to validate our numeric value)
+      $request->validate([
+         'username' => 'required',
+         'full_name' => 'required',
+         'role' => 'required',
+         'status' => 'required',
+      ]);
+      $user = User::find($id);
+      // Getting values from the blade template form
+      $user->username =  $request->username;
+      $user->full_name = $request->full_name;
+      $user->is_admin = $request->role;
+      $user->status = $request->status;
+      $user->save();
+
+      return redirect('permission')->with('success', 'User updated.'); // -> resources/views/stocks/index.blade.php
    }
 
    /**
@@ -78,21 +106,48 @@ class AdminController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function deleteActivity()
+   public function deleteActivity(Request $request)
    {
       $activityLog = activityLog::truncate();
       $maxId = DB::table('activity_logs')->max('id');
       DB::statement('ALTER TABLE users AUTO_INCREMENT=' . intval($maxId + 1) . ';');
+
+      $login_activity = new activityLog;
+      $login_activity->username = Auth::user()->username;
+      $login_activity->program_name = 'med_edu';
+      $login_activity->subject = 'Admin delete activity log successfully';
+      $login_activity->url = URL::current();
+      $login_activity->method = $request->method();
+      $login_activity->ip = $request->ip();
+      $login_activity->user_agent = $request->header('user-agent');
+      $login_activity->action = 'Delete activity log';
+      $dt = Carbon::now();
+      $login_activity->date_time = $dt->toDayDateTimeString();
+      $login_activity->save();
       return redirect()->route('activitylog');
    }
 
    /**
     * @return \Illuminate\Support\Collection
     */
-   public function export()
+   public function export(Request $request)
    {
-      $time_now = Carbon::now()->format('Y_m_d');
+      $time_now = Carbon::now()->format('Y_m_d_H:i:s');
       $filename = 'activity_log_'.$time_now.'.xlsx';
+
+      $login_activity = new activityLog;
+      $login_activity->username = Auth::user()->username;
+      $login_activity->program_name = 'med_edu';
+      $login_activity->subject = 'Admin export data activity log successfully';
+      $login_activity->url = URL::current();
+      $login_activity->method = $request->method();
+      $login_activity->ip = $request->ip();
+      $login_activity->user_agent = $request->header('user-agent');
+      $login_activity->action = 'Export data activity log';
+      $dt = Carbon::now();
+      $login_activity->date_time = $dt->toDayDateTimeString();
+      $login_activity->save();
+
       return Excel::download(new ActivityLogsExport, $filename  );
    }
 }

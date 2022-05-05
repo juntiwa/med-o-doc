@@ -25,13 +25,15 @@ Route::get('/', function () {
    return view('auth.login');
 })->name('login');
 Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
-Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
+Route::post('logout', [ AuthLoginController::class, 'logout'])->name('logout');
+Route::post('check-timeout', [AuthLoginController::class, 'update'])->name('check-timeout');
 
 // ----------------------------- admin -----------------------//
 Route::get('activitylog',[AdminController::class, 'index'])->name('activitylog');
 Route::get('permission', [AdminController::class, 'permis'])->name('permission');
 Route::post('permission/savepermiss', [ AdminController::class, 'create'])->name('save.permis');
-Route::get('delete_permis/{id}', [AdminController::class, 'delete'])->name('delete.permis');
+Route::get('edit_permis/{id}', [AdminController::class, 'edit'])->name('edit.permis');
+Route::post('update_permis/{id}', [AdminController::class, 'update'])->name('update.permis');
 Route::get('activity_log_export', [AdminController::class, 'export'])->name('activitylog.export');
 Route::get('delete_activitylog', [AdminController::class, 'deleteActivity'])->name('delete.activitylog');
 

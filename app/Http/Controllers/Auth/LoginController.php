@@ -18,8 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\MessageBag;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
@@ -85,18 +84,36 @@ class LoginController extends Controller
          #ตรงกัน save avtivity log to activitylog table
          else
          {
-            Auth::login($user); #ให้ login
+            #ให้ login
+            Auth::login($user); 
             // Log::info("test");
-            
+            #update fullname to user table
+            if(Auth::user()->full_name != $sirirajUser['full_name'])
+            {
+               User::where('username', Auth::user()->username)->update([
+                  'full_name' => $sirirajUser['full_name']
+               ]);
+            }
+
             $login_activity = new activityLog;
             $login_activity->username = Auth::user()->username;
             $login_activity->program_name = 'med_edu';
+            if (Auth::user()->is_admin == "1") {
+               $login_activity->subject = 'Admin login successfully';
+            }
+            else {
+               $login_activity->subject = 'User login successfully';
+            }
+            $login_activity->url = URL::current();
+            $login_activity->method = $request->method();
+            $login_activity->ip = $request->ip();
+            $login_activity->user_agent = $request->header('user-agent');
             $login_activity->action = 'login';
             $dt = Carbon::now();
             $login_activity->date_time = $dt->toDayDateTimeString();
             $login_activity->save();
 
-            if($user->is_admin == "true")
+            if($user->is_admin == "1")
             {
                // Log::info("admin");
                return redirect('activitylog')->with('success', "Account successfully registered.");
@@ -116,6 +133,15 @@ class LoginController extends Controller
       $login_activity = new activityLog;
       $login_activity->username = Auth::user()->username;
       $login_activity->program_name = 'med_edu';
+      if (Auth::user()->is_admin == "1") {
+         $login_activity->subject = 'Admin logout successfully';
+      } else {
+         $login_activity->subject = 'User logout successfully';
+      }
+      $login_activity->url = URL::current();
+      $login_activity->method = $request->method();
+      $login_activity->ip = $request->ip();
+      $login_activity->user_agent = $request->header('user-agent');
       $login_activity->action = 'logout';
       $dt = Carbon::now();
       $login_activity->date_time = $dt->toDayDateTimeString();
@@ -124,5 +150,9 @@ class LoginController extends Controller
       Session::forget('user');
 
       return Redirect::route('login');
+   }
+
+   public function update(){
+      return ['active' => true];
    }
 }

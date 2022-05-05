@@ -13,7 +13,8 @@ class ActivityLogsExport implements FromCollection, WithHeadings
     */
    public function collection()
    {
-      return activityLog::select("id", "username", "email","description","date_time")->get();
+      return activityLog::select('id','username','program_name','subject','url','method'
+      ,'ip','user_agent','action','date_time')->get();
    }
 
    /**
@@ -23,6 +24,6 @@ class ActivityLogsExport implements FromCollection, WithHeadings
     */
    public function headings(): array
    {
-      return ["ID", "Username","Email", "Description", "Date_Time"];
+      return ["ID", "Username","Program Name", "Description", "URL","Method", "IP", "User Agent", "Action", "Date Time"];
    }
 }

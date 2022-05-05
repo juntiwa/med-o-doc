@@ -23,103 +23,85 @@
 </div>
 
 
-<!-- ตาราง -->
-<div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
-   <table class="w-full">
-      <thead class="bg-gray-50 border-b-2 border-gray-200">
-         <tr>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลำดับ </th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ชื่อผู้ใช้ </th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ภาควิชา</th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ACTION</th>
-            <th class="w-24 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">เมื่อ</th>
-         </tr>
-      </thead>
-      @if(isset($activityLog))
-      <tbody class="divide-y divide-gray-100">
-         @if(count($activityLog)>0)
-         @foreach ($activityLog as $key => $item)
-         <tr class="bg-white">
-            <!-- ลำดับ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
-               {{ ++$key }}
-            </td>
-            <!-- username ผู้ใช้งาน -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top ">
-               {{ $item->username }}
-            </td>
-            <!-- email ผู้ใช้งาน -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
-               {{ $item->program_name }}
-            </td>
-            <!-- action -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top text-center">
-               @if ($item->action == "login" )
-               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$item->action}}</span>
-               @else
-               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$item->action}}</span>
-               @endif
-            </td>
-            <!-- เมื่อ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
-               {{ $item->date_time }}
-            </td>
-
-         </tr>
-         @endforeach
-         @else
-         <tr class="bg-white">
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
-               <p class="font-bold text-red-600">
-                  ไม่พบข้อมูล
-               </p>
-            </td>
-         </tr>
-         @endif
-      </tbody>
-      @endif
-   </table>
-</div>
-
-<!-- card -->
-<div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
-   <!-- ก่อนค้นหา -->
+<table class="border-collapse w-full overflow-auto block mt-7">
+   <thead>
+      <tr>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">ลำดับ</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Username</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Program Name</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">คำอธิบาย</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">URL</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Method</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">User Agent</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Action</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tr-lg">Date Time</th>
+      </tr>
+   </thead>
    @if(isset($activityLog))
-   @if(count($activityLog)>0)
-   @foreach ($activityLog as $key => $item)
-   <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
+   <tbody>
+      @if(count($activityLog)>0)
+      @foreach ($activityLog as $key => $item)
+      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">ลำดับ</span>
+            {{ ++$key }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Username</span>
+            {{ $item->username }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Program Name</span>
+            {{ $item->program_name }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">หัวข้อ</span>
+            {{ $item->subject }}
+         </td>
+         <td class="w-full lg:w-14 p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">URL</span>
+            {{ $item->url }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Method</span>
 
-      <div class="flex text-base justify-between">
-         <div>
-            <p class="text-blue-500 text-base font-semibold hover:underline">
-               {{ $item->username }}
-            </p>
-         </div>
-         <div>
-            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
-               @if ($item->description == "login" )
-               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$item->action}}</span>
-               @else
-               <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$item->action}}</span>
-               @endif
-            </span>
-         </div>
-      </div>
-      <!-- จาก -->
-      <div class="flex text-gray-700">
-         {{ $item->program_name }}
-      </div>
-   </div>
-   @endforeach
-   @else
-   <p class="text-red-500">ไม่พบข้อมูล</p>
+            @if ($item->method == "POST" )
+            <span class="rounded text-emerald-400 text-base ">{{ $item->method }}</span>
+            @else
+            <span class="rounded text-red-400 text-base ">{{ $item->method }}</span>
+            @endif
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">User Agent</span>
+            {{ $item->user_agent }}
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Action</span>
+            @if ($item->action == "login" )
+            <span class="rounded text-emerald-400 text-base ">{{$item->action}}</span>
+            @else
+            <span class="rounded text-red-400 text-base ">{{$item->action}}</span>
+            @endif
+         </td>
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Date Time</span>
+            {{ $item->thaidate() }}
+         </td>
+      </tr>
+      @endforeach
+      @else
+      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Company name</span>
+            ไม่พบข้อมูล
+         </td>
+      </tr>
+      @endif
+   </tbody>
    @endif
-   @endif
-</div>
+</table>
+
+
 
 
 <div class="col-md-12 mt-6">
