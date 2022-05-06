@@ -16,8 +16,8 @@
             <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
             <select required class="select select-bordered w-full max-w-xs text-base font-normal" name="permis" id="permis1">
                <option disabled selected>--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>
-               <option value="ผู้ใช้งานทั่วไป">ผู้ใช้งานทั่วไป</option>
+               <option value="1">ผู้ดูแลระบบ</option>
+               <option value="0">ผู้ใช้งานทั่วไป</option>
             </select>
          </div>
       </div>
@@ -45,7 +45,7 @@
 
 </form>
 
-<table class="border-collapse w-full">
+<table  class="border-collapse w-full">
    <thead>
       <tr>
          <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">#</th>
@@ -138,8 +138,8 @@
             '<select required class = "select select-bordered w-full max-w-xs text-base font-normal" name="permis" id="permis' + counter +
             '">' +
             '<option disabled selected >--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>' +
-            '<option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>' +
-            '<option value="ผู้ใช้งานทั่วไป">ผู้ใช้งานทั่วไป</option>' +
+            '<option value="1">ผู้ดูแลระบบ</option>' +
+            '<option value="0">ผู้ใช้งานทั่วไป</option>' +
             '</select>');
 
          newInputDiv.appendTo("#InputGroup");

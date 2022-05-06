@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -54,10 +55,14 @@ class AdminController extends Controller
          'permis' => 'required',
       ]);
 
-      User::create([
-         'username'      => $request->username,
-         'role_name'      => $request->permis,
-      ]);
+      Log::info($request);
+
+      $user = new User;
+      // Getting values from the blade template form
+      $user->username =  $request->username;
+      $user->is_admin = $request->permis;
+      $user->status = 'Active';
+      $user->save();
       return redirect()->route('permission');
    }
 
@@ -84,18 +89,27 @@ class AdminController extends Controller
    {
       // Validation for required fields (and using some regex to validate our numeric value)
       $request->validate([
-         'username' => 'required',
-         'full_name' => 'required',
          'role' => 'required',
          'status' => 'required',
       ]);
       $user = User::find($id);
       // Getting values from the blade template form
-      $user->username =  $request->username;
-      $user->full_name = $request->full_name;
       $user->is_admin = $request->role;
       $user->status = $request->status;
       $user->save();
+
+      $login_activity = new activityLog;
+      $login_activity->username = Auth::user()->username;
+      $login_activity->program_name = 'med_edu';
+      $login_activity->subject = 'Admin edit permission successfully';
+      $login_activity->url = URL::current();
+      $login_activity->method = $request->method();
+      $login_activity->ip = $request->ip();
+      $login_activity->user_agent = $request->header('user-agent');
+      $login_activity->action = 'Edit permission user';
+      $dt = Carbon::now();
+      $login_activity->date_time = $dt->toDayDateTimeString();
+      $login_activity->save();
 
       return redirect('permission')->with('success', 'User updated.'); // -> resources/views/stocks/index.blade.php
    }
