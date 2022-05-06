@@ -12141,6 +12141,9 @@ input:checked + .toggle-bg {
 .h-64 {
   height: 16rem;
 }
+.h-full {
+  height: 100%;
+}
 .max-h-full {
   max-height: 100%;
 }
@@ -12598,6 +12601,9 @@ input:checked + .toggle-bg {
 }
 .pl-5 {
   padding-left: 1.25rem;
+}
+.pt-9 {
+  padding-top: 2.25rem;
 }
 .text-left {
   text-align: left;
@@ -13225,6 +13231,10 @@ input:checked + .toggle-bg {
     display: flex;
   }
 
+  .md\:grid {
+    display: grid;
+  }
+
   .md\:w-screen {
     width: 100vw;
   }
@@ -13257,6 +13267,10 @@ input:checked + .toggle-bg {
 
   .md\:pt-10 {
     padding-top: 2.5rem;
+  }
+
+  .md\:text-left {
+    text-align: left;
   }
 
   .md\:text-lg {

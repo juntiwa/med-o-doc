@@ -23,13 +23,12 @@
 </div>
 
 
-<table class="border-collapse w-full overflow-auto block mt-7">
+<table class="border-collapse w-full overflow-auto block mt-7 hidden lg:block">
    <thead>
       <tr>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">ลำดับ</th>
+         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">#</th>
          <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Username</th>
          <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Program Name</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">คำอธิบาย</th>
          <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">URL</th>
          <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Method</th>
          <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">User Agent</th>
@@ -43,7 +42,7 @@
       @foreach ($activityLog as $key => $item)
       <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">ลำดับ</span>
+            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">#</span>
             {{ ++$key }}
          </td>
          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
@@ -53,10 +52,6 @@
          <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Program Name</span>
             {{ $item->program_name }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">หัวข้อ</span>
-            {{ $item->subject }}
          </td>
          <td class="w-full lg:w-14 p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
             <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">URL</span>
@@ -101,9 +96,62 @@
    @endif
 </table>
 
+<!-- card -->
+<div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
+   @if(isset($activityLog))
+   @if(count($activityLog)>0)
+   @foreach($activityLog as $key => $item)
+   <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
+      <div class="flex items-center space-x-2 text-base ">
+         <!-- username -->
+         <div>
+            <p class="text-blue-500 text-base font-semibold hover:underline">
+               {{ $item->username }}
+            </p>
+         </div>
+      </div>
+      <div class="flex text-base justify-between">
+         <!-- program_name -->
+         <div class="text-gray-700">
+            {{ $item->thaidate() }}
+         </div>
+         <!-- ชนิดหนังสือ -->
+         <div>
+            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
+               @if ($item->method == "POST" )
+               <span class="rounded text-emerald-400 text-base ">{{ $item->method }}</span>
+               @else
+               <span class="rounded text-red-400 text-base ">{{ $item->method }}</span>
+               @endif
+            </span>
+         </div>
+      </div>
+      <div class="flex text-gray-700">
+         @if ($item->action == "login" )
+         <span class="rounded text-emerald-400 text-base ">{{$item->action}}</span>
+         @else
+         <span class="rounded text-red-400 text-base ">{{$item->action}}</span>
+         @endif
+      </div>
+      <div class="text-base text-gray-700">
+         {{ $item->user_agent }}
+      </div>
 
+      <div class="flex text-base text-gray-700 pt-10">
+         <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
+            {{ $item->url }}
+         </div>
+      </div>
+   </div>
+   @endforeach
+   @else
+   <p class="text-red-500">ไม่พบข้อมูล</p>
+   @endif
+   @endif
 
+</div>
 
+<!-- pagination -->
 <div class="col-md-12 mt-6">
    {{ $activityLog->withQueryString()->links('pagination::tailwind') }}
 </div>
