@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\activityLog;
 use App\Models\Jobunit;
 use App\Models\Letterreg;
 use App\Models\Letterunit;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 use function PHPSTORM_META\type;
 
@@ -39,11 +43,21 @@ class RegController extends Controller
       $sregfrom = $request->get('sregfrom');
       $sregto = $request->get('sregto');
 
-      foreach($regs as $reg){
-         $filename = $reg->regdoc;
-         $ext = substr(strrchr($filename, '.'), 1);
-      // Log::info($ext);
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เข้าสู่หน้า "ลงทะเบียนส่งหนังสือ"';
+      } else {
+         $log_activity->action = 'User เข้าสู่หน้า "ลงทะเบียนส่งหนังสือ"';
       }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
       
       return view('regdoc', compact('regs', 'types',  'regyears', 'sregfrom', 'sregto'));
    }
@@ -67,6 +81,7 @@ class RegController extends Controller
       }
       echo $html;
    }
+
    public function selectSearchto(Request $request)
    {
       $typeid = $request->post('typeid');
@@ -179,6 +194,23 @@ class RegController extends Controller
 
       // old input
       $input = $request->flash();
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin ค้นหาเอกสาร "ลงทะเบียนส่งหนังสือ"';
+      } else {
+         $log_activity->action = 'User ค้นหาเอกสาร "ลงทะเบียนส่งหนังสือ"';
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       return view('regdoc', compact(
          'searchregs',
          'types',
@@ -189,13 +221,30 @@ class RegController extends Controller
       ));
    }
 
-   public function openfile($year,$type,$regdoc){
+   public function openfile(Request $request, $year,$type,$regdoc){
       $path = 'files/' . $year . '/' . $regdoc . '.' . $type;
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $regdoc . '.' . $type;
+      } else {
+         $log_activity->action = 'User เปิดไฟล์ ' . $regdoc . '.' . $type;
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       if (Storage::exists($path)) {
          return Storage::response($path);
       } else {
          // dd('File is Not Exists');
-         return view('errors.404');
+         abort(404);
       }
    }
 }

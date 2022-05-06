@@ -33,18 +33,17 @@ class AdminController extends Controller
     */
    public function index(Request $request)
    {
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
-      $login_activity->subject = 'Admin เข้าสู่หน้า activity log สำเร็จ';
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'Admin เข้าสู่หน้า activity log';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin เข้าสู่หน้า activity log';
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
 
       $activityLog = activityLog::paginate(50);
       
@@ -58,18 +57,17 @@ class AdminController extends Controller
     */
    public function permis(Request $request)
    {
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
-      $login_activity->subject = 'Admin เข้าสู่หน้าข้อมูลสิทธิ์ผู้ใช้งานสำเร็จ';
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'Admin เข้าสู่หน้าข้อมูลสิทธิ์ผู้ใช้งาน';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin เข้าสู่หน้าข้อมูลสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
 
       $permiss = User::paginate(50);
       return view('usermanage.permission', compact('permiss'));
@@ -82,25 +80,24 @@ class AdminController extends Controller
     */
    public function create(Request $request)
    {
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
-      $login_activity->subject = 'Admin เพิ่มข้อมูลสิทธิ์ผู้ใช้งานสำเร็จ';
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'Admin เพิ่มข้อมูลสิทธิ์ผู้ใช้งาน';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin เพิ่มข้อมูลสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
 
       $request->validate([
          'username' => 'required|string|max:255',
          'permis' => 'required',
       ]);
 
-      Log::info($request);
+      // Log::info($request);
 
       $user = new User;
       // Getting values from the blade template form
@@ -120,18 +117,17 @@ class AdminController extends Controller
     */
    public function edit(Request $request, $id)
    {
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
-      $login_activity->subject = 'Admin เข้าสู่หน้าแก้ไขสิทธิ์ผู้ใช้งานสำเร็จ';
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'Admin เข้าสู่หน้าแก้ไขสิทธิ์ผู้ใช้งาน';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin เข้าสู่หน้าแก้ไขสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
 
       $user = User::find($id);
       return view('usermanage.editPermission', compact('user'));
@@ -146,18 +142,17 @@ class AdminController extends Controller
     */
    public function update(Request $request, $id)
    {
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
-      $login_activity->subject = 'Admin แก้ไขสิทธิ์ผู้ใช้งานสำเร็จ';
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'Admin แก้ไขสิทธิ์ผู้ใช้งาน';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin แก้ไขสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
 
       // Validation for required fields (and using some regex to validate our numeric value)
       $request->validate([
@@ -185,18 +180,17 @@ class AdminController extends Controller
       $maxId = DB::table('activity_logs')->max('id');
       DB::statement('ALTER TABLE users AUTO_INCREMENT=' . intval($maxId + 1) . ';');
 
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
-      $login_activity->subject = 'Admin ลบข้อมูล activity log สำเร็จ';
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'Admin ลบข้อมูล activity log';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin ลบข้อมูล activity log';
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
       return redirect()->route('activitylog');
    }
 
@@ -210,18 +204,17 @@ class AdminController extends Controller
       $time_now = Carbon::now()->format('Y_m_d_H:i:s');
       $filename = 'activity_log_'.$time_now.'.xlsx';
 
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
-      $login_activity->subject = 'Admin export ข้อมูล activity log สำเร็จ';
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'Admin export ข้อมูล activity log';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin export ข้อมูล activity log';
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
 
       return Excel::download(new ActivityLogsExport, $filename  );
    }

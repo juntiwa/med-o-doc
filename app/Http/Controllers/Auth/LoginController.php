@@ -95,23 +95,21 @@ class LoginController extends Controller
                ]);
             }
 
-            $login_activity = new activityLog;
-            $login_activity->username = Auth::user()->username;
-            $login_activity->program_name = 'med_edu';
+            $log_activity = new activityLog;
+            $log_activity->username = Auth::user()->username;
+            $log_activity->program_name = 'med_edu';
+            $log_activity->url = URL::current();
+            $log_activity->method = $request->method();
+            $log_activity->user_agent = $request->header('user-agent');
             if (Auth::user()->is_admin == "1") {
-               $login_activity->subject = 'Admin login successfully';
+               $log_activity->action = 'Admin login';
+            } else {
+               $log_activity->action = 'User login';
             }
-            else {
-               $login_activity->subject = 'User login successfully';
-            }
-            $login_activity->url = URL::current();
-            $login_activity->method = $request->method();
-            $login_activity->ip = $request->ip();
-            $login_activity->user_agent = $request->header('user-agent');
-            $login_activity->action = 'login';
+            
             $dt = Carbon::now();
-            $login_activity->date_time = $dt->toDayDateTimeString();
-            $login_activity->save();
+            $log_activity->date_time = $dt->toDayDateTimeString();
+            $log_activity->save();
 
             if($user->is_admin == "1")
             {
@@ -129,23 +127,22 @@ class LoginController extends Controller
    }
    public function logout(Request $request)
    {
-
-      $login_activity = new activityLog;
-      $login_activity->username = Auth::user()->username;
-      $login_activity->program_name = 'med_edu';
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $login_activity->subject = 'Admin logout successfully';
+         $log_activity->action = 'Admin logout';
       } else {
-         $login_activity->subject = 'User logout successfully';
+         $log_activity->action = 'User logout';
       }
-      $login_activity->url = URL::current();
-      $login_activity->method = $request->method();
-      $login_activity->ip = $request->ip();
-      $login_activity->user_agent = $request->header('user-agent');
-      $login_activity->action = 'logout';
+
       $dt = Carbon::now();
-      $login_activity->date_time = $dt->toDayDateTimeString();
-      $login_activity->save();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       Auth::logout();
       Session::forget('user');
 
