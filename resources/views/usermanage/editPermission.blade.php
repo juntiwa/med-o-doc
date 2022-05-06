@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 
-<form action="{{route('update.permis', $user->id)}}" method="POST">
+<form action="{{route('update.permis', $user->id)}}" class="mt-6" method="POST">
    @csrf
    <!-- component -->
    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">

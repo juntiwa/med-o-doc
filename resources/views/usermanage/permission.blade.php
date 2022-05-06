@@ -45,7 +45,7 @@
 
 </form>
 
-<table  class="border-collapse w-full">
+<table class="border-collapse w-full hidden lg:block">
    <thead>
       <tr>
          <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">#</th>
@@ -107,6 +107,60 @@
    </tbody>
    @endif
 </table>
+
+<!-- card -->
+<div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
+   @if(isset($permiss))
+   @if(count($permiss)>0)
+   @foreach($permiss as $key => $item)
+   <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
+      <div class="flex items-center space-x-2 text-base ">
+         <!-- username -->
+         <div>
+            <p class="text-blue-500 text-base font-semibold hover:underline">
+               {{ $item->username }}
+            </p>
+         </div>
+      </div>
+      <div class="flex text-base justify-between">
+         <!-- program_name -->
+         <div class="text-gray-700">
+            {{ $item->full_name }}
+         </div>
+         <!-- ชนิดหนังสือ -->
+         <div>
+            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
+               @if ($item->is_admin == "1" )
+               <span class="rounded text-emerald-400 text-base">Admin</span>
+               @else
+               <span class="rounded text-red-400 text-base">User</span>
+               @endif
+            </span>
+         </div>
+      </div>
+      <div class="flex text-gray-700 text-base">
+         สถานะการใช้งาน : 
+         @if ($item->status == "Active" )
+         <span class="rounded text-emerald-400 text-base "> {{$item->status}}</span>
+         @else
+         <span class="rounded text-red-400 text-base "> {{$item->status}}</span>
+         @endif
+      </div>
+
+      <div class="flex text-base text-gray-700 pt-10">
+         <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
+            <a href="{{route('edit.permis', $item->id)}}" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
+
+         </div>
+      </div>
+   </div>
+   @endforeach
+   @else
+   <p class="text-red-500">ไม่พบข้อมูล</p>
+   @endif
+   @endif
+
+</div>
 
 <div class="col-md-12 mt-6">
    {{ $permiss->withQueryString()->links('pagination::tailwind') }}
