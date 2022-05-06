@@ -216,6 +216,6 @@ class AdminController extends Controller
       $log_activity->date_time = $dt->toDayDateTimeString();
       $log_activity->save();
 
-      return Excel::download(new ActivityLogsExport, $filename  );
+      return Excel::download(new ActivityLogsExport, $filename);
    }
 }

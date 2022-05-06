@@ -67,19 +67,21 @@ class LoginController extends Controller
       #ไม่ใช่ "สนง.ภาควิชาอายุรศาสตร์" return to login page with error message
       if($sirirajUser['office_name'] != "สนง.ภาควิชาอายุรศาสตร์")
       {
-         $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
-         return Redirect::back()->withErrors($errors)->withInput($request->all());
+         abort(403);
+         // $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
+         // return Redirect::back()->withErrors($errors)->withInput($request->all());
       }
       #เป็นเจ้าหน้าที่ "สนง.ภาควิชาอายุรศาสตร์" check condition 
       else
       {
          #authen username from table user = login from sirirajuser
-         $user = User::where('username', $sirirajUser['login'])->first();
+         $user = User::where('username', $sirirajUser['login'])->where('status','Active')->first();
          #ไม่ตรงกัน return to login page with error message
          if (!$user) 
          {
-            $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
-            return Redirect::back()->withErrors($errors)->withInput($request->all());
+            abort(403);
+            // $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
+            // return Redirect::back()->withErrors($errors)->withInput($request->all());
          }
          #ตรงกัน save avtivity log to activitylog table
          else
