@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\activityLog;
 use App\Models\Jobunit;
 use App\Models\Letterrec;
 use App\Models\Letterunit;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class RecController extends Controller
 {
@@ -36,6 +40,23 @@ class RecController extends Controller
       $recyears = Letterrec::select(DB::raw('YEAR(recdate) recyear'))->groupby(DB::raw('YEAR(recdate)'))->get();
       $srecfrom = $request->get('srecfrom');
       $srecto = $request->get('srecto');
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เข้าสู่หน้า "ทะเบียนหนังสือรับ"';
+      } else {
+         $log_activity->action = 'User เข้าสู่หน้า "ทะเบียนหนังสือรับ"';
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       return view('recdoc', compact('recs', 'types', 'recyears', 'srecfrom', 'srecto'));
    }
 
@@ -164,6 +185,22 @@ class RecController extends Controller
       // for search input
       $recyears = Letterrec::select(DB::raw('YEAR(recdate) recyear'))->groupby(DB::raw('YEAR(recdate)'))->get();
 
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin ค้นหาเอกสาร "ทะเบียนหนังสือรับ"';
+      } else {
+         $log_activity->action = 'User ค้นหาเอกสาร "ทะเบียนหนังสือรับ"';
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       // old input
       $input = $request->flash();
       return view('recdoc', compact(
@@ -176,9 +213,26 @@ class RecController extends Controller
       ));
    }
 
-   public function openfile($year, $type, $recdoc)
+   public function openfile(Request $request, $year, $type, $recdoc)
    {
       $path = 'files/' . $year . '/' . $recdoc . '.' . $type;
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $recdoc . '.' . $type;
+      } else {
+         $log_activity->action = 'User เปิดไฟล์ ' . $recdoc . '.' . $type;
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       if (Storage::exists($path)) {
          return Storage::response($path);
       } else {

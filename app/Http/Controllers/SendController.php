@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\activityLog;
 use App\Models\Jobunit;
 use App\Models\Lettersend;
 use App\Models\Letterunit;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class SendController extends Controller
 {
@@ -37,6 +41,23 @@ class SendController extends Controller
       $sendyears = Lettersend::select(DB::raw('YEAR(senddate) sendyear'))->groupby(DB::raw('YEAR(senddate)'))->get();
       $ssendfrom = $request->get('ssendfrom');
       $ssendto = $request->get('ssendto');
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เข้าสู่หน้า "ทะเบียนหนังสือส่ง"';
+      } else {
+         $log_activity->action = 'User เข้าสู่หน้า "ทะเบียนหนังสือส่ง"';
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       return view('senddoc', compact('sends', 'types', 'sendyears', 'ssendfrom', 'ssendto'));
    }
 
@@ -168,6 +189,23 @@ class SendController extends Controller
 
       // for search input
       $sendyears = Lettersend::select(DB::raw('YEAR(senddate) sendyear'))->groupby(DB::raw('YEAR(senddate)'))->get();
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin ค้นหาเอกสาร "ทะเบียนหนังสือส่ง"';
+      } else {
+         $log_activity->action = 'User ค้นหาเอกสาร "ทะเบียนหนังสือส่ง"';
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       // old input
       $input = $request->flash();
       return view('senddoc', compact(
@@ -179,9 +217,26 @@ class SendController extends Controller
          'input'
       ));
    }
-   public function openfile($year, $type, $senddoc)
+   public function openfile(Request $request, $year, $type, $senddoc)
    {
       $path = 'files/' . $year . '/' . $senddoc . '.' . $type;
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $senddoc . '.' . $type;
+      } else {
+         $log_activity->action = 'User เปิดไฟล์ ' . $senddoc . '.' . $type;
+      }
+
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
       if (Storage::exists($path)) {
          return Storage::response($path);
       } else {
