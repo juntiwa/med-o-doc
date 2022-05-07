@@ -1079,18 +1079,6 @@
          }
       });
 
-      // change attibute month
-      $('#sfrommonth').change(function() {
-         $('#stomonth').prop('required', true);
-         $('#stomonth').prop('disabled', false);
-      });
-
-      // chenge attibute year
-      $('#sfromyear').change(function() {
-         $('#stoyear').prop('required', true);
-         $('#stoyear').prop('disabled', false);
-      });
-
       // toggle hide show  from input
       $("#toggle-example-checked").click(function() {
          $("#multiCollapseExample1").toggle("slow");
@@ -1100,7 +1088,7 @@
       var typeold = '{{ old("sendtype") }}';
       if (typeold !== '') {
          $('#sendtype').val(typeold);
-         // this will load subcategories once you set the category value
+         
          $("#sendtype").change();
       }
 
@@ -1108,92 +1096,74 @@
       var sfrommonth = '{{ old("sfrommonth") }}';
       if (sfrommonth !== '') {
          $('#sfrommonth').val(sfrommonth);
-         // this will load subcategories once you set the category value
-         $("#sfrommonth").change();
+         
+
       }
       // old input stomonth
       var stomonth = '{{ old("stomonth") }}';
       if (stomonth !== '') {
          $('#stomonth').val(stomonth);
-         // this will load subcategories once you set the category value
-         $("#stomonth").change();
+         
+         $('#stomonth').prop('required', true);
+         $('#stomonth').prop('disabled', false);
       }
       // old input sfromyear
       var sfromyear = '{{ old("sfromyear") }}';
       if (sfromyear !== '') {
          $('#sfromyear').val(sfromyear);
-         // this will load subcategories once you set the category value
-         $("#sfromyear").change();
+         
+
       }
       // old input stoyear
       var stoyear = '{{ old("stoyear") }}';
       if (stoyear !== '') {
          $('#stoyear').val(stoyear);
-         // this will load subcategories once you set the category value
-         $("#stoyear").change();
+         
+         $('#stoyear').prop('required', true);
+         $('#stoyear').prop('disabled', false);
       }
    });
 
    $('#sfrommonth').change(function() {
-      let frommonthid = jQuery(this).val();
-      let fmid = frommonthid - 1;
-      console.log(fmid);
-      $("#stomonth").val('');
-      $("#stomonth option:disabled").removeAttr("disabled");
-      if (fmid < 0) {
-         $("#stomonth").val('');
-         $("#stomonth").attr("disabled", "disabled");
-      }
-      if (fmid != 0) {
-         // console.log("loop ok");
-         let step = fmid;
-         // console.log(step)
-         for (let step = 1; step <= fmid; step++) {
-            // Runs 5 times, with values of step 0 through 4.
-            // console.log('Walking east one step');
-            $("#stomonth option[value='" + step + "']").attr("disabled", "disabled");
-         }
-      }
+      $('#stomonth').val('')
+      $('#stomonth').prop('required', true);
+      $('#stomonth').prop('disabled', false);
+      var frommonthid = parseInt($(this).val())
+      $("#stomonth > option").filter(function() {
+         return $(this).attr("value") < frommonthid
+      }).prop('disabled', true);
+
+      $("#stomonth > option").filter(function() {
+         return $(this).attr("value") >= frommonthid
+      }).prop('disabled', false);
    });
 
    $('#sfromyear').change(function() {
-      let fromyearid = jQuery(this).val();
-      let yid = fromyearid - 1;
-      console.log(yid);
-      $("#stoyear").val('');
-      $("#stoyear option:disabled").removeAttr("disabled");
-      if (fmid < 0) {
-         $("#stoyear").val('');
-         $("#stoyear").attr("disabled", "disabled");
-      }
-      if (yid != 0) {
-         // console.log("loop ok");
-         let step = yid;
-         // console.log(step)
-         for (let step = 1; step <= yid; step++) {
-            // Runs 5 times, with values of step 0 through 4.
-            // console.log('Walking east one step');
-            $("#stoyear option[value='" + step + "']").attr("disabled", "disabled");
-         }
-      }
-   });
+      $('#stoyear').val('')
+      $('#stoyear').prop('required', true);
+      $('#stoyear').prop('disabled', false);
+      var fromyearid = parseInt($(this).val());
+      $("#stoyear > option").filter(function() {
+         return $(this).attr("value") < fromyearid
+      }).prop('disabled', true);
 
-   function clearit() {
-      $('#sendtype').val('');
-      $('#ssendfrom').val('');
-      $("#ssendfrom").html('<option value="">เลือกหน่วยงานที่ส่ง</option>');
-      $('#isendfrom').val('');
-      $('#ssendto').val('');
-      $("#ssendto").html('<option value="">เลือกหน่วยงานที่รับ</option>');
-      $('#isendto').val('');
-      $('#regtitle').val('');
-      $('#sfrommonth').val('');
-      $('#sfromyear').val('');
-      $('#stomonth').val('');
-      $('#stomonth').prop('disabled', true);
-      $('#stoyear').val('');
-      $('#stoyear').prop('disabled', true);
-   }
+      $("#stoyear > option").filter(function() {
+         return $(this).attr("value") >= fromyearid
+      }).prop('disabled', false);
+
+      $('#stoyear').change(function() {
+         var toyearid = parseInt($(this).val())
+         $('#stomonth').val('')
+         if (toyearid > fromyearid) {
+            $("#stomonth > option").prop('disabled', false);
+         } else {
+            var frommonthid = $('#sfrommonth option:selected').val()
+            $("#stomonth > option").filter(function() {
+               return $(this).attr("value") < frommonthid
+            }).prop('disabled', true);
+         }
+      });
+   });
 </script>
 
 @endsection
