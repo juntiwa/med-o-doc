@@ -21176,7 +21176,7 @@ g[aria-describedby="id-22-description"] {
 .content-page {
    overflow: hidden;
    margin-left: 260px;
-   padding: 105px 15px 0px;
+   padding: 60px 15px 0px;
    min-height: 100vh;
    -webkit-transition: all 0.3s ease-in-out;
    -moz-transition: all 0.3s ease-in-out;
@@ -21201,7 +21201,7 @@ g[aria-describedby="id-22-description"] {
 @media (max-width: 1299px) {
    .content-page {
       margin-left: 0;
-      padding: 100px 15px 0;
+      padding: 60px 15px 0;
    }
 }
 
