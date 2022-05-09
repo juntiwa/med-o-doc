@@ -20,38 +20,37 @@
    <table class="w-full">
       <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
-            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">#</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Username</th>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">#</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Username</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Full Name</th>
-            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Role</th>
-            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">status</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Role</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">status</th>
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Edit</th>
          </tr>
       </thead>
-      <!-- ก่อนค้นหา -->
       @if(isset($permiss))
       <tbody class="divide-y divide-gray-100 items-start">
          @if(count($permiss)>0)
          @foreach($permiss as $key => $item)
          <tr class="bg-white">
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top flex justify-center">
                {{++$key}}
             </td>
             <!-- หัวเรื่อง -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap ">
                {{ $item->username }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
                {{ $item->full_name }}
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
                @if ($item->is_admin == "1" )
                <p class="table-row__p-status status--red status text-base">Admin</p>
                @else
                <p class="table-row__p-status status--yellow status text-base">User</p>
                @endif
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
                @if ($item->status == "Active" )
                <p class="table-row__status status--green status text-base">{{$item->status}}</p>
                @else

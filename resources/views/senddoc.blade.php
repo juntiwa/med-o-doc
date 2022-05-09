@@ -9,7 +9,7 @@
 <div class="grid grid-rows-1 pb-3 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
    <div class="lg:flex lg:justify-between md:flex md:justify-between md:space-x-3 sm:grid sm:grid-cols-1 mt-3">
       <!-- หัวข้อหน้าเว็บ -->
-      <h1 class="text-2xl font-semibold whitespace-nowrap">ทะเบียนหนังสือส่ง</h1>
+      <h1 class="text-2xl font-semibold whitespace-normal">ทะเบียนหนังสือส่ง</h1>
 
       <!-- switch -->
       <div class="flex pt-2 ">
@@ -17,7 +17,7 @@
             <div class="flex items-center justify-center space-x-2">
                <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
                <span class="mr-3 inline-block text-lg font-medium text-gray-900">ปิดช่องค้นหา</span>
-               <label for="toggle-example-checked" class="flex relative items-center cursor-pointer">
+               <label for="toggle-example-checked" class="flex relative items-center cursor-pointer m-0">
                   <input type="checkbox" id="toggle-example-checked" class="sr-only" checked>
                   <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
                </label>
@@ -157,7 +157,7 @@
 
             <!-- button -->
             <div class=" mb-3 xl:w-full md:col-span-1 md:pt-10 lg:pt-0">
-               <div class=" grid grid-cols-2 gap-4 text-lg font-light whitespace-nowrap">
+               <div class=" grid grid-cols-2 gap-4 text-lg font-light whitespace-normal">
                   <div class="grid col-span-1 gap-4">
                      <button type="submit" class="inline-block px-4 py-2 bg-green-500 text-white 
                      leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg 
@@ -206,7 +206,7 @@
                @endif
             </td>
             <!-- ชนิดหนังสือ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal flex justify-center">
                <!-- join types show typename -->
                @if ($send->sendtype == null )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
@@ -391,7 +391,7 @@
          @endforeach
          @else
          <tr class="bg-white">
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal">
                <p class="font-bold text-red-600">
                   ไม่พบข้อมูล
                </p>
@@ -417,7 +417,7 @@
 
             </td>
             <!-- ชนิดหนังสือ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal flex justify-center">
                <!-- join types show typename -->
                @if ($send->sendtype == null )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
@@ -508,7 +508,7 @@
                @endif
             </td>
             <!-- ส่งวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top lg:text-center">
                @if ($send->senddate == "0000-00-00" || null )
                ไม่ระบุ
                @else
@@ -516,7 +516,7 @@
                @endif
             </td>
             <!-- รับวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top lg:text-center">
                @if ($send->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
@@ -602,7 +602,7 @@
          @endforeach
          @else
          <tr class="bg-white">
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal">
                <p class="font-bold text-red-600">
                   ไม่พบข้อมูล
                </p>
@@ -644,7 +644,7 @@
          </div>
          <!-- ชนิดหนังสือ -->
          <div>
-            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
+            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-normal">
                <!-- join types show typename -->
                @if ($send->sendtype == null )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
@@ -818,7 +818,7 @@
          </div>
          <!-- ชนิดหนังสือ -->
          <div>
-            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
+            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-normal">
                <!-- join types show typename -->
                @if ($send->sendtype == null )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 

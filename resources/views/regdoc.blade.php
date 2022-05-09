@@ -8,14 +8,14 @@
 <!-- Main content header -->
 <div class="grid grid-rows-1 pb-3 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
    <div class="lg:flex lg:justify-between md:flex md:justify-between md:space-x-3 sm:grid sm:grid-cols-1 mt-3">
-      <h1 class="text-2xl font-semibold whitespace-nowrap">ลงทะเบียนส่งหนังสือ</h1>
+      <h1 class="text-2xl font-semibold whitespace-normal">ลงทะเบียนส่งหนังสือ</h1>
       <!-- switch -->
       <div class="flex pt-2 ">
          <div class="bg-white dark:bg-gray-800 dark:text-gray-100">
             <div class="flex items-center justify-center space-x-2">
                <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
                <span class="mr-3 inline-block text-lg font-medium text-gray-900">ปิดช่องค้นหา</span>
-               <label for="toggle-example-checked" class="flex relative items-center cursor-pointer">
+               <label for="toggle-example-checked" class="flex relative items-center cursor-pointer m-0">
                   <input type="checkbox" id="toggle-example-checked" class="sr-only" checked>
                   <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
                </label>
@@ -155,7 +155,7 @@
 
             <!-- button -->
             <div class=" mb-3 xl:w-full md:col-span-1 md:pt-10 lg:pt-0">
-               <div class=" grid grid-cols-2 gap-4 text-lg font-light whitespace-nowrap">
+               <div class=" grid grid-cols-2 gap-4 text-lg font-light whitespace-normal">
                   <div class="grid col-span-1 gap-4">
                      <button type="submit" class="inline-block px-4 py-2 bg-green-500 text-white 
                      leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg 
@@ -179,7 +179,7 @@
    <table class="w-full">
       <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
-            <th class="w-20 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">เลขที่หนังสือ</th>
+            <th class="w-14 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">เลขที่หนังสือ</th>
             <th class="w-80 lg:w-96 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">หัวเรื่อง</th>
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ชนิดหนังสือ</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">จาก</th>
@@ -197,7 +197,7 @@
          @foreach($regs as $reg)
          <tr class="bg-white">
             <!-- เลขที่หนังสือ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top">
+            <td class="p-3 text-base text-gray-800 whitespace-normal font-medium align-text-top">
                @if ($reg->regid == null )
                ไม่ระบุ
                @else
@@ -213,7 +213,7 @@
                @endif
             </td>
             <!-- ชนิดหนังสือ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal flex justify-center text-center">
                <!-- join types show typename -->
                @if ($reg->regtype == null )
                <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
@@ -390,7 +390,7 @@
          @endforeach
          @else
          <tr class="bg-white">
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal">
                <p class="font-bold text-red-600">
                   ไม่พบข้อมูล
                </p>
@@ -407,7 +407,7 @@
          @foreach($searchregs as $reg)
          <tr class="bg-white">
             <!-- เลขที่หนังสือ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top">
                @if ($reg->regid == null )
                ไม่ระบุ
                @else
@@ -423,7 +423,7 @@
                @endif
             </td>
             <!-- ชนิดหนังสือ -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal flex justify-center ">
                <!-- join types show typename -->
                @if ($reg->regtype == null )
                <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
@@ -514,7 +514,7 @@
                @endif
             </td>
             <!-- ลงวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top lg:text-center">
                @if ($reg->regdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
@@ -522,7 +522,7 @@
                @endif
             </td>
             <!-- ส่งวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top lg:text-center">
                @if ($reg->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
@@ -604,7 +604,7 @@
          @endforeach
          @else
          <tr class="bg-white">
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal">
                <p class="font-bold text-red-600">
                   ไม่พบข้อมูล
                </p>
@@ -646,7 +646,7 @@
          </div>
          <!-- ชนิดหนังสือ -->
          <div>
-            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
+            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-normal">
                <!-- join types show typename -->
                @if ($reg->regtype == null )
                <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
@@ -814,7 +814,7 @@
          </div>
          <!-- ชนิดหนังสือ -->
          <div>
-            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
+            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-normal">
                <!-- join types show typename -->
                @if ($reg->regtype == null )
                <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
@@ -1071,7 +1071,7 @@
       var typeold = '{{ old("regtype") }}';
       if (typeold !== '') {
          $('#regtype').val(typeold);
-         
+
          $("#regtype").change();
       }
 
@@ -1084,13 +1084,13 @@
       var frommonth = '{{ old("frommonth") }}';
       if (frommonth !== '') {
          $('#frommonth').val(frommonth);
-         
+
       }
       // old input tomonth
       var tomonth = '{{ old("tomonth") }}';
       if (tomonth !== '') {
          $('#tomonth').val(tomonth);
-         
+
          $('#tomonth').prop('required', true);
          $('#tomonth').prop('disabled', false);
       }
@@ -1098,13 +1098,13 @@
       var fromyear = '{{ old("fromyear") }}';
       if (fromyear !== '') {
          $('#fromyear').val(fromyear);
-         
+
       }
       // old input toyear
       var toyear = '{{ old("toyear") }}';
       if (toyear !== '') {
          $('#toyear').val(toyear);
-         
+
          $('#toyear').prop('required', true);
          $('#toyear').prop('disabled', false);
       }
