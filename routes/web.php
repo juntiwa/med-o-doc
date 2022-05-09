@@ -31,6 +31,7 @@ Route::post('check-timeout', [AuthLoginController::class, 'update'])->name('chec
 // ----------------------------- admin -----------------------//
 Route::get('activitylog',[AdminController::class, 'index'])->name('activitylog');
 Route::get('permission', [AdminController::class, 'permis'])->name('permission');
+Route::get('permission/addPermis', [AdminController::class, 'add'])->name('addPermis');
 Route::post('permission/savepermiss', [ AdminController::class, 'create'])->name('save.permis');
 Route::get('edit_permis/{id}', [AdminController::class, 'edit'])->name('edit.permis');
 Route::post('update_permis/{id}', [AdminController::class, 'update'])->name('update.permis');

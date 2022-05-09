@@ -10797,7 +10797,7 @@ a.text-light-gray:focus {
 }
 
 .sidebar-default .iq-sidebar-menu .iq-menu li a:hover {
-   color: #01041b;
+   color: #FF7E41;
 }
 
 .sidebar-default .iq-sidebar-menu .iq-menu li a:hover svg {
@@ -10842,7 +10842,7 @@ a.text-light-gray:focus {
 }
 
 .sidebar-default .iq-sidebar-menu .iq-menu>li.active>a {
-   color: #01041b;
+   color: #FF7E41;
    text-decoration: none;
    background: #f4f5fa;
 }
