@@ -73,6 +73,24 @@ class AdminController extends Controller
       return view('usermanage.permission', compact('permiss'));
    }
 
+   public function add(Request $request)
+   {
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin เข้าสู่หน้าเพิ่มข้อมูลสิทธิ์ผู้ใช้งาน';
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
+
+      $permiss = User::paginate(50);
+      return view('usermanage.addPermission', compact('permiss'));
+   }
+
    /**
     * Show the form for creating a new resource.
     *

@@ -4,7 +4,7 @@
 @parent
 @endsection
 @section('content')
-<div class="flex flex-row-reverse mt-6">
+<div class="flex flex-row-reverse">
    <a href="{{route('delete.activitylog')}}" onclick="return confirm('Are you sure to want to delete it?')">
       <button class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-base leading-tight uppercase rounded 
       shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 
@@ -23,78 +23,67 @@
 </div>
 
 
-<table class="border-collapse w-full overflow-auto block mt-7 hidden lg:block">
-   <thead>
-      <tr>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">#</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Username</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Program Name</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">URL</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Method</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">User Agent</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Action</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tr-lg">Date Time</th>
-      </tr>
-   </thead>
-   @if(isset($activityLog))
-   <tbody>
-      @if(count($activityLog)>0)
-      @foreach ($activityLog as $key => $item)
-      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">#</span>
-            {{ ++$key }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Username</span>
-            {{ $item->username }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Program Name</span>
-            {{ $item->program_name }}
-         </td>
-         <td class="w-full lg:w-14 p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">URL</span>
-            {{ $item->url }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Method</span>
-
-            @if ($item->method == "POST" )
-            <span class="rounded text-emerald-400 text-base ">{{ $item->method }}</span>
-            @else
-            <span class="rounded text-red-400 text-base ">{{ $item->method }}</span>
-            @endif
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">User Agent</span>
-            {{ $item->user_agent }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Action</span>
-            @if ($item->action == "login" )
-            <span class="rounded text-emerald-400 text-base ">{{$item->action}}</span>
-            @else
-            <span class="rounded text-red-400 text-base ">{{$item->action}}</span>
-            @endif
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Date Time</span>
-            {{ $item->thaidate() }}
-         </td>
-      </tr>
-      @endforeach
-      @else
-      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Company name</span>
-            ไม่พบข้อมูล
-         </td>
-      </tr>
+<!-- ตาราง -->
+<div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
+   <table class="w-full">
+      <thead class="bg-gray-50 border-b-2 border-gray-200">
+         <tr>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">#</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Username</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Program Name</th>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">URL</th>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Method</th>
+            <th class="w-80 lg:w-96 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">User Agent</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Action</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Date time</th>
+         </tr>
+      </thead>
+      <!-- ก่อนค้นหา -->
+      @if(isset($activityLog))
+      <tbody class="divide-y divide-gray-100 items-start">
+         @if(count($activityLog)>0)
+         @foreach($activityLog as $key => $item)
+         <tr class="bg-white">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top">
+               {{++$key}}
+            </td>
+            <!-- หัวเรื่อง -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center ">
+               {{ $item->username }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               {{ $item->program_name }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               {{ $item->url }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               {{ $item->method }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               {{ $item->user_agent }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               {{ $item->action }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               {{ $item->date_time }}
+            </td>
+         </tr>
+         @endforeach
+         @else
+         <tr class="bg-white">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+               <p class="font-bold text-red-600">
+                  ไม่พบข้อมูล
+               </p>
+            </td>
+         </tr>
+         @endif
+      </tbody>
       @endif
-   </tbody>
-   @endif
-</table>
+   </table>
+</div>
 
 <!-- card -->
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">

@@ -1,112 +1,116 @@
 @extends('layouts.app')
-@section('title', 'Activity Log')
+@section('title', 'สิทธิ์การเข้าถึงระบบ')
 @section('sidebar')
 @parent
 @endsection
 @section('content')
-<form action="{{route('save.permis')}}" method="post">
-   @csrf
-   <div id="InputGroup" class="mt-6 p-6 grid grid-cols-1 gap-4 ">
-      <div id="InputDiv1" class="flex justify-start">
-         <div class="mb-3 xl:w-96 pr-5">
-            <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 1</label>
-            <input required type="text" name="username" id="username1" placeholder="กรอกชื่อ . นามสกุล 3 ตัว" class="input input-bordered w-full max-w-xs text-base font-normal" value="">
-         </div>
-         <div class="mb-3 xl:w-96 pl-5">
-            <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select required class="select select-bordered w-full max-w-xs text-base font-normal" name="permis" id="permis1">
-               <option disabled selected>--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="1">ผู้ดูแลระบบ</option>
-               <option value="0">ผู้ใช้งานทั่วไป</option>
-            </select>
-         </div>
-      </div>
-   </div>
 
-   <div class="mt-2 p-6 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4">
-      <button class="inline-block px-6 py-2.5 bg-teal-500 text-white font-medium text-base leading-tight uppercase rounded 
-      shadow-md hover:bg-teal-600 hover:shadow-lg focus:bg-teal-600 focus:shadow-lg focus:outline-none focus:ring-0 
-      active:bg-teal-700 active:shadow-lg transition duration-150 ease-in-out" type=" submit">
-         บันทึกข้อมูล <i class="uil uil-file-bookmark-alt pl-2 text-lg"></i>
+<div class="btnAddmember">
+   <form action="{{route('addPermis')}}" method="get">
+      <button type="submit" class="addMember flex justify-center items-center">
+         <svg class="add_member" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+            <path d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM616 200h-48v-48C568 138.8 557.3 128 544 128s-24 10.75-24 24v48h-48C458.8 200 448 210.8 448 224s10.75 24 24 24h48v48C520 309.3 530.8 320 544 320s24-10.75 24-24v-48h48C629.3 248 640 237.3 640 224S629.3 200 616 200z" />
+         </svg>
+         <p class=" text-base text-white">Add member</p>
       </button>
+   </form>
+</div>
+<!-- ตาราง -->
+<div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
+   <table class="w-full">
+      <thead class="bg-gray-50 border-b-2 border-gray-200">
+         <tr>
+            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">#</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Username</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Full Name</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Role</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">status</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Edit</th>
+         </tr>
+      </thead>
+      <!-- ก่อนค้นหา -->
+      @if(isset($permiss))
+      <tbody class="divide-y divide-gray-100 items-start">
+         @if(count($permiss)>0)
+         @foreach($permiss as $key => $item)
+         <tr class="bg-white">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top">
+               {{++$key}}
+            </td>
+            <!-- หัวเรื่อง -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center ">
+               {{ $item->username }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               {{ $item->full_name }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               @if ($item->is_admin == "1" )
+               <p class="table-row__p-status status--red status text-base">Admin</p>
+               @else
+               <p class="table-row__p-status status--yellow status text-base">User</p>
+               @endif
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               @if ($item->status == "Active" )
+               <p class="table-row__status status--green status text-base">{{$item->status}}</p>
+               @else
+               <p class="table-row__status text-base">{{$item->status}}</p>
+               @endif
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium text-center align-text-top ">
+               <a href="{{route('edit.permis', $item->id)}}">
+                  <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+                     <g>
+                        <g>
+                           <path d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161    C517.311,117.944,517.314,83.55,496.063,62.299z" style="fill: rgb(1, 185, 209);"></path>
+                        </g>
+                     </g>
+                     <g>
+                        <g>
+                           <path d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143    l117.512-21.763L22.012,376.747z" style="fill: rgb(1, 185, 209);"></path>
+                        </g>
+                     </g>
+                     <g>
+                        <g>
+                           <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568   " style="fill: rgb(1, 185, 209);"></polygon>
+                        </g>
+                     </g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                     <g></g>
+                  </svg>
+               </a>
 
-      <button class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-base leading-tight uppercase rounded 
-      shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 
-      active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" id='addButton'>
-         เพิ่มช่องกรอกข้อมูล <i class="uil uil-plus-circle pl-2 text-lg"></i>
-      </button>
+            </td>
 
-      <button class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-base leading-tight uppercase rounded 
-      shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 
-      active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" id='removeButton'>
-         ลบช่องกรอกข้อมูล <i class="uil uil-minus-circle pl-2 text-lg"></i>
-      </button>
-   </div>
-
-</form>
-
-<table class="border-collapse w-full hidden lg:block">
-   <thead>
-      <tr>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center rounded-tl-lg">#</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Username</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Full Name</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell">Role</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Status</th>
-         <th class="p-3 font-bold uppercase bg-gray-50 border border-gray-200 text-slate-600 hidden lg:table-cell text-center">Edit</th>
-      </tr>
-   </thead>
-   @if(isset($permiss))
-   <tbody>
-      @if(count($permiss)>0)
-      @foreach ($permiss as $key => $item)
-      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">#</span>
-            {{ ++$key }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Username</span>
-            {{ $item->username }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Full Name</span>
-            {{ $item->full_name }}
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Role</span>
-
-            @if ($item->is_admin == "1" )
-            <span class="rounded text-emerald-400 text-base ">Admin</span>
-            @else
-            <span class="rounded text-red-400 text-base ">User</span>
-            @endif
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Status</span>
-            @if ($item->status == "Active" )
-            <span class="rounded text-emerald-400 text-base ">{{$item->status}}</span>
-            @else
-            <span class="rounded text-red-400 text-base ">{{$item->status}}</span>
-            @endif
-         </td>
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50  block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Edit</span>
-            <a href="{{route('edit.permis', $item->id)}}" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
-         </td>
-      </tr>
-      @endforeach
-      @else
-      <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-gray-50 block lg:table-cell relative lg:static">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-base font-bold uppercase">Company name</span>
-            ไม่พบข้อมูล
-         </td>
-      </tr>
+         </tr>
+         @endforeach
+         @else
+         <tr class="bg-white">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+               <p class="font-bold text-red-600">
+                  ไม่พบข้อมูล
+               </p>
+            </td>
+         </tr>
+         @endif
+      </tbody>
       @endif
-   </tbody>
-   @endif
-</table>
+   </table>
+</div>
 
 <!-- card -->
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
@@ -139,7 +143,7 @@
          </div>
       </div>
       <div class="flex text-gray-700 text-base">
-         สถานะการใช้งาน : 
+         สถานะการใช้งาน :
          @if ($item->status == "Active" )
          <span class="rounded text-emerald-400 text-base "> {{$item->status}}</span>
          @else
@@ -150,7 +154,6 @@
       <div class="flex text-base text-gray-700 pt-10">
          <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
             <a href="{{route('edit.permis', $item->id)}}" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
-
          </div>
       </div>
    </div>
@@ -166,51 +169,4 @@
    {{ $permiss->withQueryString()->links('pagination::tailwind') }}
 </div>
 
-<script type="text/javascript">
-   $(document).ready(function() {
-
-      var counter = 2;
-
-      $("#addButton").click(function() {
-
-         if (counter > 10) {
-            alert("Only 10 textboxes allow");
-            return false;
-         }
-
-         var newInputDiv = $(document.createElement('div'))
-            .attr("id", 'InputDiv' + counter)
-            .attr("class", 'flex justify-start');
-
-         newInputDiv.after().html('<div class="mb-3 xl:w-96 pr-5">' +
-            '<label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน ' + counter + ' </label>' +
-            '<input required type="text" name="username" id="username' + counter +
-            '" placeholder="กรอกชื่อ . นามสกุล 3 ตัว" class="input input-bordered w-full max-w-xs text-base font-normal" value="">' +
-            '</div>' +
-            '<div class="mb-3 xl:w-96 pl-5">' +
-            '<label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">เลือกสิทธิ์การใช้งาน</label>' +
-            '<select required class = "select select-bordered w-full max-w-xs text-base font-normal" name="permis" id="permis' + counter +
-            '">' +
-            '<option disabled selected >--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>' +
-            '<option value="1">ผู้ดูแลระบบ</option>' +
-            '<option value="0">ผู้ใช้งานทั่วไป</option>' +
-            '</select>');
-
-         newInputDiv.appendTo("#InputGroup");
-         counter++;
-      });
-
-      $("#removeButton").click(function() {
-         if (counter == 1) {
-            alert("No more textbox to remove");
-            return false;
-         }
-
-         counter--;
-
-         $("#InputDiv" + counter).remove();
-
-      });
-   });
-</script>
 @endsection
