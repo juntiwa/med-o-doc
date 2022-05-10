@@ -32,7 +32,7 @@ class FakeUserAPI implements AuthUserAPI
          ];
       } else {
          return [
-            "reply_code" => "1",
+            "reply_code" => 1,
             "reply_text" => "Username or Password is incorrect",
             "found" => "false",
          ];
