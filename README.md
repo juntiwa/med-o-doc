@@ -13,8 +13,8 @@
 3. npm install
 4. cp .env.example .env
 5. php artisan key:generate
-6. edit database on .env file
+6. edit DB_DATABASE (line 14), DB_USERNAME (line 15), DB_PASSWORD (line16) on .env file
 7. php artisan migrate
-8. php artisan db:seed 
-9. edit vendor\laravel\ui\auth-backend\AuthenticatesUsers.php function username() email -> username
+8. php artisan db:seed
+9. run project
 
