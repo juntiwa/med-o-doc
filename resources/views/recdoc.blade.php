@@ -77,9 +77,11 @@
             <!-- หัวเรื่อง -->
             <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
                <label for="rregtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base">*</span></label>
-               <input type="text" name="rregtitle" id="rregtitle" class=" form-control block w-full px-3 py-1.5 text-lg text-gray-800 font-medium
-               bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('rregtitle') }}">
+               <input type="text" name="rregtitle" id="rregtitle" class=" form-control appearance-none block w-full 
+                        px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 disabled:border-slate-200
+                        required:bg-white rounded transition ease-in-out m-0 required:border-red-600
+                        focus:text-gray-700 focus:bg-white focus:border-red-600
+                        focus:outline-none" aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('rregtitle') }}">
             </div>
 
             <!-- ลงทะเบียนเมื่อ -->
@@ -88,7 +90,7 @@
                <div class="grid grid-cols-5 gap-4 ">
                   <select name="rfrommonth" id="rfrommonth" class="form-select appearance-none grid grid-cols-2 w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example ">
-                     <!-- <option>เดือน</option> -->
+
                      <option value="" selected>เดือน</option>
                      <option value="1">มกราคม</option>
                      <option value="2">กุมภาพันธ์</option>
@@ -106,7 +108,7 @@
 
                   <select name="rfromyear" id="rfromyear" class="form-select appearance-none grid grid-cols-2 w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                     <option value="" selected disabled>ปี</option>
+                     <option value="" selected>ปี</option>
 
                      @foreach($recyears as $recyear)
                      @if($recyear->recyear == "0000")
@@ -120,8 +122,11 @@
 
                   <span class=" flex justify-center items-center text-lg text-gray-800 font-medium">ถึง</span>
 
-                  <select disabled name="rtomonth" id="rtomonth" class="form-select appearance-none grid grid-cols-2 w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-                     rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                  <select disabled name="rtomonth" id="rtomonth" class="form-select appearance-none block w-full 
+                        px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 disabled:border-slate-200
+                        required:bg-white rounded transition ease-in-out m-0 required:border-red-600
+                        focus:text-gray-700 focus:bg-white focus:border-red-600
+                        focus:outline-none" aria-label="Default select example">
                      <!-- <option>เดือน</option> -->
                      <option value="" selected disabled>เดือน</option>
                      <option value="1">มกราคม</option>
@@ -138,8 +143,11 @@
                      <option value="12">ธันวาคม</option>
                   </select>
 
-                  <select disabled name="rtoyear" id="rtoyear" class="form-select appearance-none grid grid-cols-2 w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-                     rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                  <select disabled name="rtoyear" id="rtoyear" class="form-select appearance-none block w-full 
+                        px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 disabled:border-slate-200
+                        required:bg-white rounded transition ease-in-out m-0 required:border-red-600
+                        focus:text-gray-700 focus:bg-white focus:border-red-600
+                        focus:outline-none" aria-label="Default select example">
                      <option value="" selected disabled>ปี</option>
                      @foreach($recyears as $recyear)
                      @if($recyear->recyear == "0000")
@@ -1047,32 +1055,32 @@
       var typeold = '{{ old("rectype") }}';
       if (typeold !== '') {
          $('#rectype').val(typeold);
-         
+
       }
 
       // old input rfrommonth
       var rfrommonth = '{{ old("rfrommonth") }}';
       if (rfrommonth !== '') {
          $('#rfrommonth').val(rfrommonth);
-         
+
       }
       // old input rtomonth
       var rtomonth = '{{ old("rtomonth") }}';
       if (rtomonth !== '') {
          $('#rtomonth').val(rtomonth);
-         
+
       }
       // old input rfromyear
       var rfromyear = '{{ old("rfromyear") }}';
       if (rfromyear !== '') {
          $('#rfromyear').val(rfromyear);
-         
+
       }
       // old input rtoyear
       var rtoyear = '{{ old("rtoyear") }}';
       if (rtoyear !== '') {
          $('#rtoyear').val(rtoyear);
-         
+
       }
    });
 
@@ -1080,6 +1088,11 @@
       $('#rtomonth').val('')
       $('#rtomonth').prop('required', true);
       $('#rtomonth').prop('disabled', false);
+      let fmid = $(this).val();
+      if (fmid == '') {
+         $("#rtomonth").val('');
+         $("#rtomonth").attr("disabled", "disabled");
+      }
       var frommonthid = parseInt($(this).val())
       $("#rtomonth > option").filter(function() {
          return $(this).attr("value") < frommonthid
@@ -1094,6 +1107,11 @@
       $('#rtoyear').val('')
       $('#rtoyear').prop('required', true);
       $('#rtoyear').prop('disabled', false);
+      let fmid = $(this).val();
+      if (fmid == '') {
+         $("#rtoyear").val('');
+         $("#rtoyear").attr("disabled", "disabled");
+      }
       var fromyearid = parseInt($(this).val());
       $("#rtoyear > option").filter(function() {
          return $(this).attr("value") < fromyearid

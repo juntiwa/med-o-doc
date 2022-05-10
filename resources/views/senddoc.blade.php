@@ -79,9 +79,11 @@
             <!-- หัวเรื่อง -->
             <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
                <label for="sregtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base">*</span></label>
-               <input type="text" name="sregtitle" id="sregtitle" class=" form-control block w-full px-3 py-1.5 text-lg text-gray-800 font-medium
-               bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('sregtitle') }}">
+               <input type="text" name="sregtitle" id="sregtitle" class=" form-control appearance-none block w-full 
+                        px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 
+                        required:bg-white rounded transition ease-in-out m-0 required:border-red-600
+                        focus:text-gray-700 focus:bg-white focus:border-red-600
+                        focus:outline-none " aria-label="Default select example" placeholder="หัวเรื่อง" required value="{{ old('sregtitle') }}">
             </div>
 
             <!-- ลงทะเบียนเมื่อ -->
@@ -92,7 +94,7 @@
                   <select name="sfrommonth" id="sfrommonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <!-- <option>เดือน</option> -->
-                     <option value="" selected disabled>เดือน</option>
+                     <option value="" selected>เดือน</option>
                      <option value="1">มกราคม</option>
                      <option value="2">กุมภาพันธ์</option>
                      <option value="3">มีนาคม</option>
@@ -109,7 +111,7 @@
 
                   <select name="sfromyear" id="sfromyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                     <option value="" selected disabled>ปี</option>
+                     <option value="" selected>ปี</option>
                      @foreach($sendyears as $sendyear)
                      @if($sendyear->sendyear == "0000")
                      @else
@@ -122,8 +124,11 @@
 
                   <span class=" flex justify-center items-center text-lg text-gray-800 font-medium">ถึง</span>
 
-                  <select disabled name="stomonth" id="stomonth" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-                        rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                  <select disabled name="stomonth" id="stomonth" class="form-select appearance-none block w-full 
+                        px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 disabled:border-slate-200
+                        required:bg-white rounded transition ease-in-out m-0 required:border-red-600
+                        focus:text-gray-700 focus:bg-white focus:border-red-600
+                        focus:outline-none" aria-label="Default select example">
                      <!-- <option>เดือน</option> -->
                      <option value="" selected disabled>เดือน</option>
                      <option value="1">มกราคม</option>
@@ -140,8 +145,11 @@
                      <option value="12">ธันวาคม</option>
                   </select>
 
-                  <select disabled name="stoyear" id="stoyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-                        rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                  <select disabled name="stoyear" id="stoyear" class="form-select appearance-none block w-full 
+                        px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 disabled:border-slate-200
+                        required:bg-white rounded transition ease-in-out m-0 required:border-red-600
+                        focus:text-gray-700 focus:bg-white focus:border-red-600
+                        focus:outline-none" aria-label="Default select example">
                      <option value="" selected disabled>ปี</option>
                      @foreach($sendyears as $sendyear)
                      @if($sendyear->sendyear == "0000")
@@ -1088,7 +1096,6 @@
       var typeold = '{{ old("sendtype") }}';
       if (typeold !== '') {
          $('#sendtype').val(typeold);
-         
          $("#sendtype").change();
       }
 
@@ -1096,14 +1103,11 @@
       var sfrommonth = '{{ old("sfrommonth") }}';
       if (sfrommonth !== '') {
          $('#sfrommonth').val(sfrommonth);
-         
-
       }
       // old input stomonth
       var stomonth = '{{ old("stomonth") }}';
       if (stomonth !== '') {
          $('#stomonth').val(stomonth);
-         
          $('#stomonth').prop('required', true);
          $('#stomonth').prop('disabled', false);
       }
@@ -1111,14 +1115,11 @@
       var sfromyear = '{{ old("sfromyear") }}';
       if (sfromyear !== '') {
          $('#sfromyear').val(sfromyear);
-         
-
       }
       // old input stoyear
       var stoyear = '{{ old("stoyear") }}';
       if (stoyear !== '') {
          $('#stoyear').val(stoyear);
-         
          $('#stoyear').prop('required', true);
          $('#stoyear').prop('disabled', false);
       }
@@ -1128,6 +1129,11 @@
       $('#stomonth').val('')
       $('#stomonth').prop('required', true);
       $('#stomonth').prop('disabled', false);
+      let fmid = $(this).val();
+      if (fmid == '') {
+         $("#stomonth").val('');
+         $("#stomonth").attr("disabled", "disabled");
+      }
       var frommonthid = parseInt($(this).val())
       $("#stomonth > option").filter(function() {
          return $(this).attr("value") < frommonthid
@@ -1142,6 +1148,11 @@
       $('#stoyear').val('')
       $('#stoyear').prop('required', true);
       $('#stoyear').prop('disabled', false);
+      let fmid = $(this).val();
+      if (fmid == '') {
+         $("#stoyear").val('');
+         $("#stoyear").attr("disabled", "disabled");
+      }
       var fromyearid = parseInt($(this).val());
       $("#stoyear > option").filter(function() {
          return $(this).attr("value") < fromyearid

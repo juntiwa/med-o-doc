@@ -11,14 +11,16 @@
 
    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css'>
 
-   <!-- Favicon -->
+   <!-- css -->
    <link rel="stylesheet" href="{{ asset('assets/css/backend.css?v=1.0.0')}}">
+   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/status.css') }}" rel="stylesheet">
+
+   <!-- unicons -->
    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/solid.css">
    <script src="https://unicons.iconscout.com/release/v4.0.0/script/monochrome/bundle.js"></script>
    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/status.css') }}" rel="stylesheet">
 
    <!-- tailwind flowbite -->
    <script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>
@@ -166,10 +168,9 @@
 
    <!-- app JavaScript -->
    <script src="{{ asset('assets/js/app.js')}}"></script>
+   
    <!-- ✅ load jQuery ✅ -->
    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-   <!-- ✅ load jQuery UI ✅ -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script>
       $.ajaxSetup({
