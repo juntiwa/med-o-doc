@@ -103,3 +103,21 @@ svg.add_member {
    margin-right: 15px;
 }
 
+.badge {
+   border-radius: 10px;
+   font-size: 12px;
+   line-height: 1;
+   padding: .5rem 1rem;
+   font-weight: normal;
+}
+
+.badge-opacity-danger {
+   background: #ffcbc7;
+   color: #f72222;
+}
+
+.badge-opacity-warning {
+   background: #fff2d6;
+   color: #cc8c00;
+}
+

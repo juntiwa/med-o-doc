@@ -63,7 +63,11 @@
                {{ $item->url }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
-               {{ $item->method }}
+               @if($item->method == "POST")
+               <div class="badge badge-opacity-danger text-base">{{ $item->method }}</div>
+               @else
+               <div class="badge badge-opacity-warning text-base">{{ $item->method }}</div>
+               @endif
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
                {{ $item->user_agent }}

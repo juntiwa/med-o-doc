@@ -14,7 +14,7 @@
    font-family: 'Sarabun', sans-serif;
    src: url(fonts/THSarabunNew.ttf) format('truetype');
 } */
-#ui-id-1 {
+ul#ui-id-1.ui-menu {
    font-family: 'Sarabun', sans-serif;
    position: absolute;
    padding: 10px;
