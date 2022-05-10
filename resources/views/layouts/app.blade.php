@@ -6,7 +6,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta name="csrf-token" content="{{ csrf_token() }}">
-   <title>@yield('title') - ระบบค้นหาเอกสารเก่า</title>
+   <title>@yield('title') - MED DMC ระบบค้นหาเอกสารเก่า</title>
    <link rel="icon" href="{{asset('images/search.png')}}" type="image/x-icon">
 
    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css'>
@@ -29,7 +29,7 @@
 </head>
 @include('fonts/sarabun')
 
-<body class="font-sarabun">
+<body class="font-sarabun bg-white">
    <!-- Wrapper Start -->
    @section('sidebar')
    <div class="wrapper">
