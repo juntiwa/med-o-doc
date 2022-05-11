@@ -218,17 +218,17 @@
                <!-- join types show typename -->
                @if ($send->sendtype == null )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
-                        bg-opacity-50">ไม่ระบุ</span>
+                        bg-opacity-50 text-center">ไม่ระบุ</span>
                @else
                @if ($send->types['typeid'] == 0 )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$send->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$send->types['typename']}}</span>
                @elseif ($send->types['typeid'] == 3 )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$send->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$send->types['typename']}}</span>
                @else
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg 
-                        bg-opacity-50">อื่น ๆ</span>
+                        bg-opacity-50 text-center">อื่น ๆ</span>
                @endif
                @endif
             </td>
@@ -987,7 +987,7 @@
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
       $('#sendtype').change(function() {
-         let typeid = jQuery(this).val();
+         let typeid = parseInt($(this).val());
          // console.log(typeid);
          if (typeid == 0) {
             $('#ssendfrom').removeClass('hidden');
@@ -1168,7 +1168,7 @@
          if (toyearid > fromyearid) {
             $("#stomonth > option").prop('disabled', false);
          } else {
-            var frommonthid = $('#sfrommonth option:selected').val()
+            var frommonthid = parseInt($('#sfrommonth option:selected').val())
             $("#stomonth > option").filter(function() {
                return $(this).attr("value") < frommonthid
             }).prop('disabled', true);

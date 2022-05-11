@@ -610,17 +610,17 @@
                <!-- join types show typename -->
                @if ($rec->regtype == null )
                <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
-                        bg-opacity-50">ไม่ระบุ</span>
+                        bg-opacity-50 text-center">ไม่ระบุ</span>
                @else
                @if ($rec->types['typeid'] == 0 )
                <span class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$rec->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$rec->types['typename']}}</span>
                @elseif ($rec->types['typeid'] == 3 )
                <span class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$rec->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$rec->types['typename']}}</span>
                @else
                <span class="p-1.5 uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg 
-                        bg-opacity-50">อื่น ๆ</span>
+                        bg-opacity-50 text-center">อื่น ๆ</span>
                @endif
                @endif
             </span>
@@ -946,7 +946,7 @@
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
       $('#rectype').change(function() {
-         let typeid = jQuery(this).val();
+         let typeid = parseInt($(this).val());
          // console.log(typeid);
 
          if (typeid == 0) {
@@ -1127,7 +1127,7 @@
          if (toyearid > fromyearid) {
             $("#rtomonth > option").prop('disabled', false);
          } else {
-            var frommonthid = $('#rfrommonth option:selected').val()
+            var frommonthid = parseInt($('#rfrommonth option:selected').val())
             $("#rtomonth > option").filter(function() {
                return $(this).attr("value") < frommonthid
             }).prop('disabled', true);

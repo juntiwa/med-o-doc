@@ -41,7 +41,11 @@
                {{ $item->username }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               @if($item->full_name == '')
+               <p class="table-row__p-status status--red text-base">ระหว่างรอ update</p>
+               @else
                {{ $item->full_name }}
+               @endif
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
                @if ($item->is_admin == "1" )
@@ -92,7 +96,6 @@
                      <g></g>
                   </svg>
                </a>
-
             </td>
 
          </tr>
@@ -120,23 +123,63 @@
       <div class="flex items-center space-x-2 text-base ">
          <!-- username -->
          <div>
-            <p class="text-blue-500 text-base font-semibold hover:underline">
+            <p class="text-blue-500 text-lg font-semibold hover:underline">
                {{ $item->username }}
             </p>
          </div>
+         <div>
+            <a href="{{route('edit.permis', $item->id)}}">
+               <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+                  <g>
+                     <g>
+                        <path d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161    C517.311,117.944,517.314,83.55,496.063,62.299z" style="fill: rgb(1, 185, 209);"></path>
+                     </g>
+                  </g>
+                  <g>
+                     <g>
+                        <path d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143    l117.512-21.763L22.012,376.747z" style="fill: rgb(1, 185, 209);"></path>
+                     </g>
+                  </g>
+                  <g>
+                     <g>
+                        <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568   " style="fill: rgb(1, 185, 209);"></polygon>
+                     </g>
+                  </g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+                  <g></g>
+               </svg>
+            </a>
+         </div>
       </div>
       <div class="flex text-base justify-between">
-         <!-- program_name -->
+         <!-- full_name -->
          <div class="text-gray-700">
+            @if($item->full_name == '')
+            <p class="table-row__p-status status--red text-base">ระหว่างรอ update</p>
+            @else
             {{ $item->full_name }}
+            @endif
          </div>
-         <!-- ชนิดหนังสือ -->
+         <!-- role -->
          <div>
             <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
                @if ($item->is_admin == "1" )
-               <span class="rounded text-emerald-400 text-base">Admin</span>
+               <p class="table-row__p-status status--red status text-base">Admin</p>
                @else
-               <span class="rounded text-red-400 text-base">User</span>
+               <p class="table-row__p-status status--yellow status text-base">User</p>
                @endif
             </span>
          </div>
@@ -144,17 +187,13 @@
       <div class="flex text-gray-700 text-base">
          สถานะการใช้งาน :
          @if ($item->status == "Active" )
-         <span class="rounded text-emerald-400 text-base "> {{$item->status}}</span>
+         <p class="table-row__status status--green status text-base pl-3">{{$item->status}}</p>
          @else
-         <span class="rounded text-red-400 text-base "> {{$item->status}}</span>
+         <p class="table-row__status text-base pl-3">{{$item->status}}</p>
          @endif
       </div>
 
-      <div class="flex text-base text-gray-700 pt-10">
-         <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
-            <a href="{{route('edit.permis', $item->id)}}" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
-         </div>
-      </div>
+
    </div>
    @endforeach
    @else

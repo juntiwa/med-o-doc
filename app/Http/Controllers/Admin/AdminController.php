@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -98,31 +99,35 @@ class AdminController extends Controller
     */
    public function create(Request $request)
    {
-      $log_activity = new activityLog;
-      $log_activity->username = Auth::user()->username;
-      $log_activity->program_name = 'med_edu';
-      $log_activity->url = URL::current();
-      $log_activity->method = $request->method();
-      
-      $log_activity->user_agent = $request->header('user-agent');
-      $log_activity->action = 'Admin เพิ่มข้อมูลสิทธิ์ผู้ใช้งาน';
-      $dt = Carbon::now();
-      $log_activity->date_time = $dt->toDayDateTimeString();
-      $log_activity->save();
-
       $request->validate([
          'username' => 'required|string|max:255',
          'permis' => 'required',
       ]);
 
       // Log::info($request);
+      $user = User::where('username', '=', $request->username)->first();
+      if ($user === null) {
+         $user = new User;
+         // Getting values from the blade template form
+         $user->username =  $request->username;
+         $user->is_admin = $request->permis;
+         $user->status = 'Active';
+         $user->save();
+      }else{
+         $errors = ['message' => 'มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
+         return Redirect::back()->withErrors($errors)->withInput($request->all());
+      }
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
 
-      $user = new User;
-      // Getting values from the blade template form
-      $user->username =  $request->username;
-      $user->is_admin = $request->permis;
-      $user->status = 'Active';
-      $user->save();
+      $log_activity->user_agent = $request->header('user-agent');
+      $log_activity->action = 'Admin เพิ่มข้อมูลสิทธิ์ผู้ใช้งาน';
+      $dt = Carbon::now();
+      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->save();
 
       return redirect()->route('permission');
    }

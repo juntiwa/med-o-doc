@@ -117,20 +117,16 @@
          <!-- ชนิดหนังสือ -->
          <div>
             <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
-               @if ($item->method == "POST" )
-               <span class="rounded text-emerald-400 text-base ">{{ $item->method }}</span>
+               @if($item->method == "POST")
+               <div class="badge badge-opacity-danger text-base">{{ $item->method }}</div>
                @else
-               <span class="rounded text-red-400 text-base ">{{ $item->method }}</span>
+               <div class="badge badge-opacity-warning text-base">{{ $item->method }}</div>
                @endif
             </span>
          </div>
       </div>
-      <div class="flex text-gray-700">
-         @if ($item->action == "login" )
-         <span class="rounded text-emerald-400 text-base ">{{$item->action}}</span>
-         @else
-         <span class="rounded text-red-400 text-base ">{{$item->action}}</span>
-         @endif
+      <div class="flex text-base text-gray-700">
+         {{ $item->action }}
       </div>
       <div class="text-base text-gray-700">
          {{ $item->user_agent }}

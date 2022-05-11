@@ -223,17 +223,17 @@
                <!-- join types show typename -->
                @if ($reg->regtype == null )
                <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
-                        bg-opacity-50">ไม่ระบุ</span>
+                        bg-opacity-50 text-center">ไม่ระบุ</span>
                @else
                @if ($reg->types['typeid'] == 0 )
                <span class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$reg->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$reg->types['typename']}}</span>
                @elseif ($reg->types['typeid'] == 3 )
                <span class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$reg->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$reg->types['typename']}}</span>
                @else
                <span class="p-1.5 uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg 
-                        bg-opacity-50">อื่น ๆ</span>
+                        bg-opacity-50 text-center">อื่น ๆ</span>
                @endif
                @endif
             </td>
@@ -977,7 +977,7 @@
    $(document).ready(function() {
       // select option and autocomplete
       $('#regtype').change(function() {
-         let typeid = jQuery(this).val();
+         let typeid = parseInt($(this).val());
          // console.log(typeid);
          if (typeid == 0) {
             $('#sregfrom').removeClass('hidden');
@@ -1155,7 +1155,7 @@
          if (toyearid > fromyearid) {
             $("#tomonth > option").prop('disabled', false);
          } else {
-            var frommonthid = $('#frommonth option:selected').val()
+            var frommonthid = parseInt($('#frommonth option:selected').val())
             $("#tomonth > option").filter(function() {
                return $(this).attr("value") < frommonthid
             }).prop('disabled', true);
