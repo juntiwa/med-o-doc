@@ -36,10 +36,10 @@
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">#</th>
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Username</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Program Name</th>
+            <th class="w-80 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Action</th>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">URL</th>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Method</th>
-            <th class="w-80 lg:w-96 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">User Agent</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Action</th>
+            <!-- <th class="w-48 lg:w-96 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">User Agent</th> -->
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Date time</th>
          </tr>
       </thead>
@@ -59,6 +59,9 @@
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
                {{ $item->program_name }}
             </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
+               {{ $item->action }}
+            </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
                {{ $item->url }}
             </td>
@@ -69,12 +72,10 @@
                <div class="badge badge-opacity-warning text-base">{{ $item->method }}</div>
                @endif
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
+            <!-- <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
                {{ $item->user_agent }}
-            </td>
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
-               {{ $item->action }}
-            </td>
+            </td> -->
+
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
                {{ $item->date_time }}
             </td>
@@ -150,7 +151,7 @@
 </div>
 
 <!-- pagination -->
-<div class="col-md-12 mt-6">
+<div class="col-md-12 mt-6 mb-6">
    {{ $activityLog->withQueryString()->links('pagination::tailwind') }}
 </div>
 @endsection

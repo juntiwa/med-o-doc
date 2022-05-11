@@ -975,7 +975,7 @@
 
 <!-- pagination -->
 @if(Route::is('send.search'))
-<div class="col-md-12 mt-6">
+<div class="col-md-12 mt-6 mb-6">
    {{ $searchsends->withQueryString()->links('pagination::tailwind') }}
 </div>
 @endif

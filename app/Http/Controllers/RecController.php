@@ -185,6 +185,166 @@ class RecController extends Controller
       // for search input
       $recyears = Letterrec::select(DB::raw('YEAR(recdate) recyear'))->groupby(DB::raw('YEAR(recdate)'))->get();
 
+      // แสดงข้อมูลที่ค้นหา บนตาราง
+      $jobunits = Jobunit::all();
+      $letterunits = Letterunit::all();
+
+      // ชนิดหนังสือ
+      if ($rectype != null) {
+         foreach ($types as $type) {
+            if ($rectype == $type->typeid) {
+               $typename = $type->typename;
+               if ($rectype == 0) {
+                  if ($srecfrom == null && $srecto == null) {
+                     $recfrom = "-";
+                     $recto = "-";
+                  } elseif ($srecfrom != null && $srecto == null) {
+                     foreach ($jobunits as $jobunit) {
+                        if ($srecfrom == $jobunit->unitid) {
+                           $recfrom = $jobunit->unitname;
+                        }
+                        $recto = "-";
+                     }
+                  } elseif ($srecfrom == null && $srecto != null) {
+                     foreach ($jobunits as $jobunit) {
+                        $recfrom = "-";
+                        if ($srecto == $jobunit->unitid) {
+                           $recto = $jobunit->unitname;
+                        }
+                     }
+                  } else {
+                     foreach ($jobunits as $jobunit) {
+                        if ($srecfrom == $jobunit->unitid) {
+                           $recfrom = $jobunit->unitname;
+                        }
+                        if ($srecto == $jobunit->unitid) {
+                           $recto = $jobunit->unitname;
+                        }
+                     }
+                  }
+               } else {
+                  if ($irecfrom == null && $irecto == null) {
+                     $recfrom = "-";
+                     $recto = "-";
+                  } elseif ($irecfrom != null && $irecto == null) {
+                     $recfrom = $irecfrom;
+                     $recto = "-";
+                  } elseif ($irecfrom == null && $irecto != null) {
+                     $recfrom = "-";
+                     $recto = $irecto;
+                  } else {
+                     $recfrom = $irecfrom;
+                     $recto = $irecto;
+                  }
+               }
+            }
+         }
+      } else {
+         $typename = "-";
+         $recfrom = "-";
+         $recto = "-";
+      }
+
+      // เดือน
+      switch ($rfrommonth) {
+         case "01":
+            $fmonth = "มกราคม";
+            break;
+         case "02":
+            $fmonth = "กุมภาพันธ์";
+            break;
+         case "03":
+            $fmonth = "มีนาคม";
+            break;
+         case "04":
+            $fmonth = "เมษายน";
+            break;
+         case "05":
+            $fmonth = "พฤษภาคม";
+            break;
+         case "06":
+            $fmonth = "มิถุนายน";
+            break;
+         case "07":
+            $fmonth = "กรกฎาคม";
+            break;
+         case "08":
+            $fmonth = "สิงหาคม";
+            break;
+         case "09":
+            $fmonth = "กันยายน";
+            break;
+         case "10":
+            $fmonth = "ตุลาคม";
+            break;
+         case "11":
+            $fmonth = "พฤศจิกายน";
+            break;
+         case "12":
+            $fmonth = "ธันวาคม";
+            break;
+         default:
+            $fmonth = "-";
+      }
+
+      switch ($rtomonth) {
+         case "01":
+            $tmonth = "มกราคม";
+            break;
+         case "02":
+            $tmonth = "กุมภาพันธ์";
+            break;
+         case "03":
+            $tmonth = "มีนาคม";
+            break;
+         case "04":
+            $tmonth = "เมษายน";
+            break;
+         case "05":
+            $tmonth = "พฤษภาคม";
+            break;
+         case "06":
+            $tmonth = "มิถุนายน";
+            break;
+         case "07":
+            $tmonth = "กรกฎาคม";
+            break;
+         case "08":
+            $tmonth = "สิงหาคม";
+            break;
+         case "09":
+            $tmonth = "กันยายน";
+            break;
+         case "10":
+            $tmonth = "ตุลาคม";
+            break;
+         case "11":
+            $tmonth = "พฤศจิกายน";
+            break;
+         case "12":
+            $tmonth = "ธันวาคม";
+            break;
+         default:
+            $tmonth = "-";
+      }
+
+
+      // ปี
+      if ($rfromyear != null) {
+         $fyear = $rfromyear + 543;
+      } else {
+         $fyear = "-";
+      }
+
+      if ($rtoyear != null) {
+         $tyear = $rtoyear + 543;
+      } else {
+         $tyear = "-";
+      }
+
+      $searchLog = ' ชนิดหนังสือ : ' . $typename . ' จาก  : ' . $recfrom . ' ถึง  : ' . $recto . ' หัวเรื่อง  : ' . $rregtitle .
+      ' เมื่อ  : ' . $fmonth . $fyear . ' ถึง  : ' . $tmonth . $tyear;
+
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
       $log_activity->program_name = 'med_edu';
@@ -192,9 +352,9 @@ class RecController extends Controller
       $log_activity->method = $request->method();
       $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $log_activity->action = 'Admin ค้นหาเอกสาร "ทะเบียนหนังสือรับ"';
+         $log_activity->action = 'Admin ค้นหาเอกสาร "ทะเบียนหนังสือรับ"' . $searchLog;
       } else {
-         $log_activity->action = 'User ค้นหาเอกสาร "ทะเบียนหนังสือรับ"';
+         $log_activity->action = 'User ค้นหาเอกสาร "ทะเบียนหนังสือรับ"' . $searchLog;
       }
 
       $dt = Carbon::now();

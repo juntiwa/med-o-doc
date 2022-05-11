@@ -195,6 +195,163 @@ class RegController extends Controller
       // old input
       $input = $request->flash();
 
+      // แสดงข้อมูลค้นหาเอกสาร
+      $jobunits = Jobunit::all();
+      $letterunits = Letterunit::all();
+      // ชนิดหนังสือ
+      if ($regtype != null) {
+         foreach ($types as $type) {
+            if ($regtype == $type->typeid) {
+               $typename = $type->typename;
+               if ($regtype == 0) {
+                  if ($sregfrom == null && $sregto == null) {
+                     $regfrom = "-";
+                     $regto = "-";
+                  } elseif ($sregfrom != null && $sregto == null) {
+                     foreach ($jobunits as $jobunit) {
+                        if ($sregfrom == $jobunit->unitid) {
+                           $regfrom = $jobunit->unitname;
+                        }
+                        $regto = "-";
+                     }
+                  } elseif ($sregfrom == null && $sregto != null) {
+                     foreach ($jobunits as $jobunit) {
+                        $regfrom = "-";
+                        if ($sregto == $jobunit->unitid) {
+                           $regto = $jobunit->unitname;
+                        }
+                     }
+                  } else {
+                     foreach ($jobunits as $jobunit) {
+                        if ($sregfrom == $jobunit->unitid) {
+                           $regfrom = $jobunit->unitname;
+                        }
+                        if ($sregto == $jobunit->unitid) {
+                           $regto = $jobunit->unitname;
+                        }
+                     }
+                  }
+               } else {
+                  if ($iregfrom == null && $iregto == null) {
+                     $regfrom = "-";
+                     $regto = "-";
+                  } elseif ($iregfrom != null && $iregto == null) {
+                     $regfrom = $iregfrom;
+                     $regto = "-";
+                  } elseif ($iregfrom == null && $iregto != null) {
+                     $regfrom = "-";
+                     $regto = $iregto;
+                  } else {
+                     $regfrom = $iregfrom;
+                     $regto = $iregto;
+                  }
+               }
+            }
+         }
+      } else {
+         $typename = "-";
+         $regfrom = "-";
+         $regto = "-";
+      }
+
+      // เดือน
+
+      switch ($frommonth) {
+         case "01":
+            $fmonth = "มกราคม";
+            break;
+         case "02":
+            $fmonth = "กุมภาพันธ์";
+            break;
+         case "03":
+            $fmonth = "มีนาคม";
+            break;
+         case "04":
+            $fmonth = "เมษายน";
+            break;
+         case "05":
+            $fmonth = "พฤษภาคม";
+            break;
+         case "06":
+            $fmonth = "มิถุนายน";
+            break;
+         case "07":
+            $fmonth = "กรกฎาคม";
+            break;
+         case "08":
+            $fmonth = "สิงหาคม";
+            break;
+         case "09":
+            $fmonth = "กันยายน";
+            break;
+         case "10":
+            $fmonth = "ตุลาคม";
+            break;
+         case "11":
+            $fmonth = "พฤศจิกายน";
+            break;
+         case "12":
+            $fmonth = "ธันวาคม";
+            break;
+         default:
+            $fmonth = "-";
+      }
+
+      switch ($tomonth) {
+         case "01":
+            $tmonth = "มกราคม";
+            break;
+         case "02":
+            $tmonth = "กุมภาพันธ์";
+            break;
+         case "03":
+            $tmonth = "มีนาคม";
+            break;
+         case "04":
+            $tmonth = "เมษายน";
+            break;
+         case "05":
+            $tmonth = "พฤษภาคม";
+            break;
+         case "06":
+            $tmonth = "มิถุนายน";
+            break;
+         case "07":
+            $tmonth = "กรกฎาคม";
+            break;
+         case "08":
+            $tmonth = "สิงหาคม";
+            break;
+         case "09":
+            $tmonth = "กันยายน";
+            break;
+         case "10":
+            $tmonth = "ตุลาคม";
+            break;
+         case "11":
+            $tmonth = "พฤศจิกายน";
+            break;
+         case "12":
+            $tmonth = "ธันวาคม";
+            break;
+         default:
+            $tmonth = "-";
+      }
+
+      // ปี
+      if ($fromyear != null) {
+         $fyear = $fromyear + 543;
+      } else {
+         $fyear = "-";
+      }
+
+      if ($toyear != null) {
+         $tyear = $toyear + 543;
+      } else {
+         $tyear = "-";
+      }
+      $searchLog = ' ชนิดหนังสือ : ' . $typename . ' จาก  : ' . $regfrom . ' ถึง  : ' . $regto . ' หัวเรื่อง  : ' . $regtitle .
+      ' เมื่อ  : ' . $fmonth . $fyear . ' ถึง  : ' . $tmonth . $tyear ;
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
       $log_activity->program_name = 'med_edu';
@@ -202,9 +359,9 @@ class RegController extends Controller
       $log_activity->method = $request->method();
       $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $log_activity->action = 'Admin ค้นหาเอกสาร "ลงทะเบียนส่งหนังสือ"';
+         $log_activity->action = 'Admin ค้นหาเอกสาร "ลงทะเบียนส่งหนังสือ"' . $searchLog;
       } else {
-         $log_activity->action = 'User ค้นหาเอกสาร "ลงทะเบียนส่งหนังสือ"';
+         $log_activity->action = 'User ค้นหาเอกสาร "ลงทะเบียนส่งหนังสือ"' . $searchLog;
       }
 
       $dt = Carbon::now();

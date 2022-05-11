@@ -190,6 +190,166 @@ class SendController extends Controller
       // for search input
       $sendyears = Lettersend::select(DB::raw('YEAR(senddate) sendyear'))->groupby(DB::raw('YEAR(senddate)'))->get();
 
+      // แสดงข้อมูลที่ค้นหา บนตาราง
+      $jobunits = Jobunit::all();
+      $letterunits = Letterunit::all();
+
+      // ชนิดหนังสือ
+      if ($sendtype != null) {
+         foreach ($types as $type) {
+            if ($sendtype == $type->typeid) {
+               $typename = $type->typename;
+               if ($sendtype == 0) {
+                  if ($ssendfrom == null && $ssendto == null) {
+                     $sendfrom = "-";
+                     $sendto = "-";
+                  } elseif ($ssendfrom != null && $ssendto == null) {
+                     foreach ($jobunits as $jobunit) {
+                        if ($ssendfrom == $jobunit->unitid) {
+                           $sendfrom = $jobunit->unitname;
+                        }
+                        $sendto = "-";
+                     }
+                  } elseif ($ssendfrom == null && $ssendto != null) {
+                     foreach ($jobunits as $jobunit) {
+                        $sendfrom = "-";
+                        if ($ssendto == $jobunit->unitid) {
+                           $sendto = $jobunit->unitname;
+                        }
+                     }
+                  } else {
+                     foreach ($jobunits as $jobunit) {
+                        if ($ssendfrom == $jobunit->unitid) {
+                           $sendfrom = $jobunit->unitname;
+                        }
+                        if ($ssendto == $jobunit->unitid) {
+                           $sendto = $jobunit->unitname;
+                        }
+                     }
+                  }
+               } else {
+                  if ($isendfrom == null && $isendto == null) {
+                     $sendfrom = "-";
+                     $sendto = "-";
+                  } elseif ($isendfrom != null && $isendto == null) {
+                     $sendfrom = $isendfrom;
+                     $sendto = "-";
+                  } elseif ($isendfrom == null && $isendto != null) {
+                     $sendfrom = "-";
+                     $sendto = $isendto;
+                  } else {
+                     $sendfrom = $isendfrom;
+                     $sendto = $isendto;
+                  }
+               }
+            }
+         }
+      } else {
+         $typename = "-";
+         $sendfrom = "-";
+         $sendto = "-";
+      }
+
+
+      // เดือน
+
+      switch ($sfromyear) {
+         case "01":
+            $fmonth = "มกราคม";
+            break;
+         case "02":
+            $fmonth = "กุมภาพันธ์";
+            break;
+         case "03":
+            $fmonth = "มีนาคม";
+            break;
+         case "04":
+            $fmonth = "เมษายน";
+            break;
+         case "05":
+            $fmonth = "พฤษภาคม";
+            break;
+         case "06":
+            $fmonth = "มิถุนายน";
+            break;
+         case "07":
+            $fmonth = "กรกฎาคม";
+            break;
+         case "08":
+            $fmonth = "สิงหาคม";
+            break;
+         case "09":
+            $fmonth = "กันยายน";
+            break;
+         case "10":
+            $fmonth = "ตุลาคม";
+            break;
+         case "11":
+            $fmonth = "พฤศจิกายน";
+            break;
+         case "12":
+            $fmonth = "ธันวาคม";
+            break;
+         default:
+            $fmonth = "-";
+      }
+
+      switch ($stomonth) {
+         case "01":
+            $tmonth = "มกราคม";
+            break;
+         case "02":
+            $tmonth = "กุมภาพันธ์";
+            break;
+         case "03":
+            $tmonth = "มีนาคม";
+            break;
+         case "04":
+            $tmonth = "เมษายน";
+            break;
+         case "05":
+            $tmonth = "พฤษภาคม";
+            break;
+         case "06":
+            $tmonth = "มิถุนายน";
+            break;
+         case "07":
+            $tmonth = "กรกฎาคม";
+            break;
+         case "08":
+            $tmonth = "สิงหาคม";
+            break;
+         case "09":
+            $tmonth = "กันยายน";
+            break;
+         case "10":
+            $tmonth = "ตุลาคม";
+            break;
+         case "11":
+            $tmonth = "พฤศจิกายน";
+            break;
+         case "12":
+            $tmonth = "ธันวาคม";
+            break;
+         default:
+            $tmonth = "-";
+      }
+
+      // ปี
+      if ($sfromyear != null) {
+         $fyear = $sfromyear + 543;
+      } else {
+         $fyear = "-";
+      }
+
+      if ($stoyear != null) {
+         $tyear = $stoyear + 543;
+      } else {
+         $tyear = "-";
+      }
+
+      $searchLog = ' ชนิดหนังสือ : ' . $typename . ' จาก  : ' . $sendfrom . ' ถึง  : ' . $sendto . ' หัวเรื่อง  : ' . $sregtitle .
+      ' เมื่อ  : ' . $fmonth . $fyear . ' ถึง  : ' . $tmonth . $tyear;
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
       $log_activity->program_name = 'med_edu';
@@ -197,9 +357,9 @@ class SendController extends Controller
       $log_activity->method = $request->method();
       $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $log_activity->action = 'Admin ค้นหาเอกสาร "ทะเบียนหนังสือส่ง"';
+         $log_activity->action = 'Admin ค้นหาเอกสาร "ทะเบียนหนังสือส่ง"' . $searchLog;
       } else {
-         $log_activity->action = 'User ค้นหาเอกสาร "ทะเบียนหนังสือส่ง"';
+         $log_activity->action = 'User ค้นหาเอกสาร "ทะเบียนหนังสือส่ง"' . $searchLog;
       }
 
       $dt = Carbon::now();

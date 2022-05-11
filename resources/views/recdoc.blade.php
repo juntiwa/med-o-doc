@@ -934,7 +934,7 @@
 </div>
 
 @if(Route::is('rec.search'))
-<div class="col-md-12 mt-6">
+<div class="col-md-12 mt-6 mb-6">
    {{ $searchrecs->withQueryString()->links('pagination::tailwind') }}
 </div>
 @endif

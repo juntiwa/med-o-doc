@@ -164,7 +164,7 @@
 
 </div>
 
-<div class="col-md-12 mt-6">
+<div class="col-md-12 mt-6 mb-6">
    {{ $permiss->withQueryString()->links('pagination::tailwind') }}
 </div>
 

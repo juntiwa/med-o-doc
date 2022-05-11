@@ -107,7 +107,7 @@
 
                   <select name="fromyear" id="fromyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                     <option value="" selected >ปี</option>
+                     <option value="" selected>ปี</option>
                      @foreach($regyears as $regyear)
                      @if($regyear->regyear == "0000")
                      @else
@@ -963,9 +963,9 @@
 
 <!-- pagination -->
 @if(Route::is('reg.search'))
-<footer class="col-md-12 mt-6">
+<div class="col-md-12 mt-6 mb-6">
    {{ $searchregs->withQueryString()->links('pagination::tailwind') }}
-</footer>
+</div>
 @endif
 
 <!-- Script -->
