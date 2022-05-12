@@ -6,7 +6,7 @@
    <div class="max-w-6xl mx-auto">
       <div class="flex flex-col items-center md:flex-row ">
          <div class="w-full space-y-5 md:w-3/5 md:pr-16 hidden md:block lg:block">
-            <p class="font-medium text-green-400 uppercase">MED DMC ระบบค้นหาเอกสารเก่า</p>
+            <p class="font-medium text-green-400 uppercase">ระบบค้นหาเอกสารเก่า</p>
             <h2 class="text-xl font-extrabold text-black sm:text-2xl md:text-4xl leading-loose">
                ระบบค้นหาเอกสารเก่า ภาควิชาอายุรศาสตร์
             </h2>

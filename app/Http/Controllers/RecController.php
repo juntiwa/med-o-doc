@@ -136,11 +136,11 @@ class RecController extends Controller
       foreach ($units as $unit) {
          $unitname = $unit->unitname;
          // Log::info($unitname);
-         if ($unitname == $irecfrom) {
+         if (stripos($unitname, $irecfrom) !== FALSE) {
             $fuid = $unit->unitid;
             // Log::info("f" . $fuid);
          }
-         if ($unitname == $irecto) {
+         if (stripos($unitname, $irecto) !== FALSE) {
             $tuid = $unit->unitid;
             // Log::info("t" . $tuid);
          }
@@ -327,8 +327,6 @@ class RecController extends Controller
          default:
             $tmonth = "-";
       }
-
-
       // ปี
       if ($rfromyear != null) {
          $fyear = $rfromyear + 543;
@@ -343,7 +341,7 @@ class RecController extends Controller
       }
 
       $searchLog = ' ชนิดหนังสือ : ' . $typename . ' จาก  : ' . $recfrom . ' ถึง  : ' . $recto . ' หัวเรื่อง  : ' . $rregtitle .
-      ' เมื่อ  : ' . $fmonth . $fyear . ' ถึง  : ' . $tmonth . $tyear;
+      ' เมื่อ  : เดือน ' . $fmonth . 'ปี ' . $fyear . ' ถึง  : เดือน ' . $tmonth . 'ปี ' . $tyear;
 
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;

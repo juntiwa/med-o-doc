@@ -137,19 +137,21 @@ class RegController extends Controller
       $toyear = $request->get('toyear');
 
       $units = Letterunit::all();
+      // Log::info("f" . $iregfrom);
 
       foreach ($units as $unit) {
          $unitname = $unit->unitname;
          // Log::info($unitname);
-         if ($unitname == $iregfrom) {
+         if (stripos($unitname, $iregfrom) !== FALSE) {
             $fuid = $unit->unitid;
             // Log::info("f" . $fuid);
          }
-         if ($unitname == $iregto) {
+         if (stripos($unitname, $iregto) !== FALSE) {
             $tuid = $unit->unitid;
             // Log::info("t" . $tuid);
          }
       }
+            Log::info("f" . $fuid);
 
       $searchregs = Letterreg::orderby('regdate', 'desc');
 
@@ -255,7 +257,6 @@ class RegController extends Controller
       }
 
       // เดือน
-
       switch ($frommonth) {
          case "01":
             $fmonth = "มกราคม";
@@ -351,7 +352,7 @@ class RegController extends Controller
          $tyear = "-";
       }
       $searchLog = ' ชนิดหนังสือ : ' . $typename . ' จาก  : ' . $regfrom . ' ถึง  : ' . $regto . ' หัวเรื่อง  : ' . $regtitle .
-      ' เมื่อ  : ' . $fmonth . $fyear . ' ถึง  : ' . $tmonth . $tyear ;
+      ' เมื่อ  : เดือน ' . $fmonth . 'ปี ' . $fyear . ' ถึง  : เดือน ' . $tmonth . 'ปี ' . $tyear;
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
       $log_activity->program_name = 'med_edu';

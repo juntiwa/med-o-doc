@@ -6,7 +6,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta name="csrf-token" content="{{ csrf_token() }}">
-   <title>@yield('title') - MED DMC ระบบค้นหาเอกสารเก่า</title>
+   <title>@yield('title') - ระบบค้นหาเอกสารเก่า</title>
    <link rel="icon" href="{{asset('images/search.png')}}" type="image/x-icon">
 
    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css'>
@@ -39,7 +39,7 @@
       <div class="iq-sidebar sidebar-default border-r-2 shadow-sm ">
          <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
             <img src="{{ asset('images/search.png')}}" class="img-fluid light-logo" alt="logo">
-            <h5 class="logo-title light-logo ml-3">MED DMS</h5>
+            <h5 class="logo-title light-logo ml-3">MED</h5>
             <div class="iq-menu-bt-sidebar ml-0">
                <!-- <i class="las la-bars wrapper-menu"></i> -->
                <i class="uil uil-bars wrapper-menu"></i>
@@ -132,7 +132,7 @@
                   <i class="uil uil-bars wrapper-menu"></i>
                   <a href="#" class="header-logo">
                      <img src="{{ asset('images/search.png')}}" class="img-fluid rounded-normal" alt="logo">
-                     <h5 class="logo-title ml-3 font-medium text-base">MED DMS</h5>
+                     <h5 class="logo-title ml-3 font-medium text-base">MED</h5>
                   </a>
                </div>
                <div class="d-flex align-items-center ">

@@ -138,11 +138,11 @@ class SendController extends Controller
       foreach ($units as $unit) {
          $unitname = $unit->unitname;
          // Log::info($unitname);
-         if ($unitname == $isendfrom) {
+         if (stripos($unitname, $isendfrom) !== FALSE) {
             $fuid = $unit->unitid;
             // Log::info("f" . $fuid);
          }
-         if ($unitname == $isendto) {
+         if (stripos($unitname, $isendto) !== FALSE) {
             $tuid = $unit->unitid;
             // Log::info("t" . $tuid);
          }
@@ -253,7 +253,7 @@ class SendController extends Controller
 
       // เดือน
 
-      switch ($sfromyear) {
+      switch ($sfrommonth) {
          case "01":
             $fmonth = "มกราคม";
             break;
@@ -349,7 +349,7 @@ class SendController extends Controller
       }
 
       $searchLog = ' ชนิดหนังสือ : ' . $typename . ' จาก  : ' . $sendfrom . ' ถึง  : ' . $sendto . ' หัวเรื่อง  : ' . $sregtitle .
-      ' เมื่อ  : ' . $fmonth . $fyear . ' ถึง  : ' . $tmonth . $tyear;
+      ' เมื่อ  : เดือน ' . $fmonth .'ปี ' . $fyear . ' ถึง  : เดือน ' . $tmonth .'ปี '. $tyear;
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
       $log_activity->program_name = 'med_edu';

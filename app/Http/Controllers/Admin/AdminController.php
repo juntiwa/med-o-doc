@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\Console\Input\Input;
 
 class AdminController extends Controller
 {
@@ -105,7 +106,7 @@ class AdminController extends Controller
       ]);
 
       // Log::info($request);
-      $user = User::where('username', '=', $request->username)->first();
+      $user = User::where('username', $request->username)->first();
       if ($user === null) {
          $user = new User;
          // Getting values from the blade template form
@@ -114,7 +115,8 @@ class AdminController extends Controller
          $user->status = 'Active';
          $user->save();
       }else{
-         $errors = ['message' => 'มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
+         $username =  $request->username;
+         $errors = ['message' => $username.' มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
          return Redirect::back()->withErrors($errors)->withInput($request->all());
       }
       $log_activity = new activityLog;

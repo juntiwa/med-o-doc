@@ -1077,7 +1077,6 @@
       var typeold = '{{ old("regtype") }}';
       if (typeold !== '') {
          $('#regtype').val(typeold);
-
          $("#regtype").change();
       }
 

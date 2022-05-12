@@ -201,6 +201,7 @@ return [
    //  ])->toArray(),
    'aliases' => [
       'Auth' => Illuminate\Support\Facades\Auth::class,
+      'Input' => Illuminate\Support\Facades\Request::class,
       'Excel' => Maatwebsite\Excel\Facades\Excel::class, 
       'Route' => Illuminate\Support\Facades\Route::class,
    ],
