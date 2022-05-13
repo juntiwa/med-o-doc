@@ -171,12 +171,6 @@
                      leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg 
                      focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 ">ค้นหา</button>
                   </div>
-
-                  <!--  <div class="grid col-span-1 gap-4">
-                     <button type="button" class="inline-block px-4 py-2 bg-red-600 text-white  
-                     leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg 
-                     focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 " id="clearlist" onclick="javascript:clearit();">ล้างข้อมูล</button>
-                  </div> -->
                </div>
             </div>
          </div>
@@ -1133,7 +1127,11 @@
    });
 
    $('#sfrommonth').change(function() {
-      $('#stomonth').val('')
+      var frommonthid = parseInt($(this).val())
+      var tomonthid = parseInt($('#stomonth option:selected').val())
+      if (tomonthid < frommonthid) {
+         $('#stomonth').val('')
+      }
       $('#stomonth').prop('required', true);
       $('#stomonth').prop('disabled', false);
       let fmid = $(this).val();
@@ -1141,7 +1139,6 @@
          $("#stomonth").val('');
          $("#stomonth").attr("disabled", "disabled");
       }
-      var frommonthid = parseInt($(this).val())
       $("#stomonth > option").filter(function() {
          return $(this).attr("value") < frommonthid
       }).prop('disabled', true);
@@ -1151,7 +1148,11 @@
    });
 
    $('#sfromyear').change(function() {
-      $('#stoyear').val('')
+      var fromyearid = parseInt($(this).val());
+      var toyearid = parseInt($('#stoyear option:selected').val())
+      if (toyearid < fromyearid) {
+         $('#stoyear').val('')
+      }
       $('#stoyear').prop('required', true);
       $('#stoyear').prop('disabled', false);
       let fmid = $(this).val();
@@ -1159,7 +1160,6 @@
          $("#stoyear").val('');
          $("#stoyear").attr("disabled", "disabled");
       }
-      var fromyearid = parseInt($(this).val());
       $("#stoyear > option").filter(function() {
          return $(this).attr("value") < fromyearid
       }).prop('disabled', true);

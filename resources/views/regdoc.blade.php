@@ -107,19 +107,15 @@
 
                   <select name="fromyear" id="fromyear" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                     <option value="" selected>ปี</option>
-                     <option value="" selected>ปี</option>
-                     <option value="2017">2560</option>
-                     <option value="2018">2561</option>
-                     <option value="2019">2562</option>
-                     <!-- @foreach($regyears as $regyear)
+                     <option value="" selected disabled>ปี</option>
+                     @foreach($regyears as $regyear)
                      @if($regyear->regyear == "0000")
                      @else
                      <option value="{{$regyear->regyear}}">
                         {{ $regyear->regyear + 543 }}
                      </option>
                      @endif
-                     @endforeach -->
+                     @endforeach
                   </select>
 
                   <span class="flex justify-center items-center text-lg text-gray-800 font-medium">ถึง</span>
@@ -151,18 +147,14 @@
                         focus:text-gray-700 focus:bg-white focus:border-red-600
                         focus:outline-none" aria-label="Default select example">
                      <option value="" selected>ปี</option>
-                     <option value="" selected>ปี</option>
-                     <option value="2017">2560</option>
-                     <option value="2018">2561</option>
-                     <option value="2019">2562</option>
-                     <!-- @foreach($regyears as $regyear)
+                     @foreach($regyears as $regyear)
                      @if($regyear->regyear == "0000")
                      @else
                      <option value="{{$regyear->regyear}}">
                         {{ $regyear->regyear + 543 }}
                      </option>
                      @endif
-                     @endforeach -->
+                     @endforeach
                   </select>
                </div>
             </div>
@@ -175,12 +167,6 @@
                      leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg 
                      focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 ">ค้นหา</button>
                   </div>
-
-                  <!-- <div class="grid col-span-1 gap-4">
-                     <button type="button" class="inline-block px-4 py-2 bg-red-600 text-white  
-                     leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg 
-                     focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 " id="clearlist" onclick="javascript:clearit();">ล้างข้อมูล</button>
-                  </div> -->
                </div>
             </div>
          </div>
@@ -1127,7 +1113,11 @@
    });
 
    $('#frommonth').change(function() {
-      $('#tomonth').val('')
+      var frommonthid = parseInt($(this).val())
+      var tomonthid = parseInt($('#tomonth option:selected').val())
+      if (tomonthid < frommonthid) {
+         $('#tomonth').val('')
+      }
       $('#tomonth').prop('required', true);
       $('#tomonth').prop('disabled', false);
       let fmid = $(this).val();
@@ -1135,7 +1125,6 @@
          $("#tomonth").val('');
          $("#tomonth").attr("disabled", "disabled");
       }
-      var frommonthid = parseInt($(this).val())
       $("#tomonth > option").filter(function() {
          return $(this).attr("value") < frommonthid
       }).prop('disabled', true);
@@ -1145,7 +1134,11 @@
    });
 
    $('#fromyear').change(function() {
-      $('#toyear').val('')
+      var fromyearid = parseInt($(this).val());
+      var toyearid = parseInt($('#toyear option:selected').val())
+      if (toyearid < fromyearid) {
+         $('#toyear').val('')
+      }
       $('#toyear').prop('required', true);
       $('#toyear').prop('disabled', false);
       let fmid = $(this).val();
@@ -1153,7 +1146,6 @@
          $("#toyear").val('');
          $("#toyear").attr("disabled", "disabled");
       }
-      var fromyearid = parseInt($(this).val());
       $("#toyear > option").filter(function() {
          return $(this).attr("value") < fromyearid
       }).prop('disabled', true);
