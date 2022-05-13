@@ -151,7 +151,7 @@ class RegController extends Controller
             // Log::info("t" . $tuid);
          }
       }
-            Log::info("f" . $fuid);
+            // Log::info("f" . $fuid);
 
       $searchregs = Letterreg::orderby('regdate', 'desc');
 

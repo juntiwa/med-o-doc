@@ -109,15 +109,17 @@
                   <select name="rfromyear" id="rfromyear" class="form-select appearance-none grid grid-cols-2 w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                      rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
                      <option value="" selected>ปี</option>
-
-                     @foreach($recyears as $recyear)
+                     <option value="2017">2560</option>
+                     <option value="2018">2561</option>
+                     <option value="2019">2562</option>
+                     <!-- @foreach($recyears as $recyear)
                      @if($recyear->recyear == "0000")
                      @else
                      <option value="{{$recyear->recyear}}">
                         {{ $recyear->recyear + 543 }}
                      </option>
                      @endif
-                     @endforeach
+                     @endforeach -->
                   </select>
 
                   <span class=" flex justify-center items-center text-lg text-gray-800 font-medium">ถึง</span>
@@ -149,14 +151,18 @@
                         focus:text-gray-700 focus:bg-white focus:border-red-600
                         focus:outline-none" aria-label="Default select example">
                      <option value="" selected disabled>ปี</option>
-                     @foreach($recyears as $recyear)
+                     <option value="" selected>ปี</option>
+                     <option value="2017">2560</option>
+                     <option value="2018">2561</option>
+                     <option value="2019">2562</option>
+                     <!-- @foreach($recyears as $recyear)
                      @if($recyear->recyear == "0000")
                      @else
                      <option value="{{$recyear->recyear}}">
                         {{ $recyear->recyear + 543 }}
                      </option>
                      @endif
-                     @endforeach
+                     @endforeach -->
                   </select>
 
                </div>
@@ -1062,25 +1068,32 @@
       var rfrommonth = '{{ old("rfrommonth") }}';
       if (rfrommonth !== '') {
          $('#rfrommonth').val(rfrommonth);
-
+         $("#rtomonth > option").filter(function() {
+            return $(this).attr("value") < rfrommonth
+         }).prop('disabled', true);
       }
       // old input rtomonth
       var rtomonth = '{{ old("rtomonth") }}';
       if (rtomonth !== '') {
          $('#rtomonth').val(rtomonth);
-
+         $('#rtomonth').prop('required', true);
+         $('#rtomonth').prop('disabled', false);
       }
       // old input rfromyear
       var rfromyear = '{{ old("rfromyear") }}';
       if (rfromyear !== '') {
          $('#rfromyear').val(rfromyear);
-
+         // console.log(rfromyear)
+         $("#rtoyear > option").filter(function() {
+            return $(this).attr("value") < rfromyear
+         }).prop('disabled', true);
       }
       // old input rtoyear
       var rtoyear = '{{ old("rtoyear") }}';
       if (rtoyear !== '') {
          $('#rtoyear').val(rtoyear);
-
+         $('#rtoyear').prop('required', true);
+         $('#rtoyear').prop('disabled', false);
       }
    });
 
@@ -1097,7 +1110,6 @@
       $("#rtomonth > option").filter(function() {
          return $(this).attr("value") < frommonthid
       }).prop('disabled', true);
-
       $("#rtomonth > option").filter(function() {
          return $(this).attr("value") >= frommonthid
       }).prop('disabled', false);
@@ -1123,16 +1135,39 @@
 
       $('#rtoyear').change(function() {
          var toyearid = parseInt($(this).val())
-         $('#rtomonth').val('')
          if (toyearid > fromyearid) {
             $("#rtomonth > option").prop('disabled', false);
          } else {
             var frommonthid = parseInt($('#rfrommonth option:selected').val())
+            var tomonthid = parseInt($('#rtomonth option:selected').val())
+            if (tomonthid < frommonthid) {
+               $('#rtomonth').val('')
+            }
             $("#rtomonth > option").filter(function() {
                return $(this).attr("value") < frommonthid
             }).prop('disabled', true);
          }
       });
+   });
+
+   $('#rtoyear').change(function() {
+      var fromyearid = parseInt($('#rfromyear option:selected').val());
+      $("#rtoyear > option").filter(function() {
+         return $(this).attr("value") < fromyearid
+      }).prop('disabled', true);
+      var toyearid = parseInt($(this).val())
+      if (toyearid > fromyearid) {
+         $("#rtomonth > option").prop('disabled', false);
+      } else {
+         var frommonthid = parseInt($('#rfrommonth option:selected').val())
+         var tomonthid = parseInt($('#rtomonth option:selected').val())
+         if (tomonthid < frommonthid) {
+            $('#rtomonth').val('')
+         }
+         $("#rtomonth > option").filter(function() {
+            return $(this).attr("value") < frommonthid
+         }).prop('disabled', true);
+      }
    });
 </script>
 

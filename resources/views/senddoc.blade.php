@@ -78,7 +78,7 @@
 
             <!-- หัวเรื่อง -->
             <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
-               <label for="sregtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base">*</span></label>
+               <label for="sregtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง<span class=" text-red-500 text-base ml-1">*</span></label>
                <input type="text" name="sregtitle" id="sregtitle" class=" form-control appearance-none block w-full 
                         px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 
                         required:bg-white rounded transition ease-in-out m-0 required:border-red-600
@@ -1103,6 +1103,9 @@
       var sfrommonth = '{{ old("sfrommonth") }}';
       if (sfrommonth !== '') {
          $('#sfrommonth').val(sfrommonth);
+         $("#stomonth > option").filter(function() {
+            return $(this).attr("value") < sfrommonth
+         }).prop('disabled', true);
       }
       // old input stomonth
       var stomonth = '{{ old("stomonth") }}';
@@ -1115,6 +1118,10 @@
       var sfromyear = '{{ old("sfromyear") }}';
       if (sfromyear !== '') {
          $('#sfromyear').val(sfromyear);
+         // console.log(sfromyear)
+         $("#stoyear > option").filter(function() {
+            return $(this).attr("value") < sfromyear
+         }).prop('disabled', true);
       }
       // old input stoyear
       var stoyear = '{{ old("stoyear") }}';
@@ -1138,7 +1145,6 @@
       $("#stomonth > option").filter(function() {
          return $(this).attr("value") < frommonthid
       }).prop('disabled', true);
-
       $("#stomonth > option").filter(function() {
          return $(this).attr("value") >= frommonthid
       }).prop('disabled', false);
@@ -1164,16 +1170,39 @@
 
       $('#stoyear').change(function() {
          var toyearid = parseInt($(this).val())
-         $('#stomonth').val('')
          if (toyearid > fromyearid) {
             $("#stomonth > option").prop('disabled', false);
          } else {
             var frommonthid = parseInt($('#sfrommonth option:selected').val())
+            var tomonthid = parseInt($('#stomonth option:selected').val())
+            if (tomonthid < frommonthid) {
+               $('#stomonth').val('')
+            }
             $("#stomonth > option").filter(function() {
                return $(this).attr("value") < frommonthid
             }).prop('disabled', true);
          }
       });
+   });
+
+   $('#stoyear').change(function() {
+      var fromyearid = parseInt($('#sfromyear option:selected').val());
+      $("#stoyear > option").filter(function() {
+         return $(this).attr("value") < fromyearid
+      }).prop('disabled', true);
+      var toyearid = parseInt($(this).val())
+      if (toyearid > fromyearid) {
+         $("#stomonth > option").prop('disabled', false);
+      } else {
+         var frommonthid = parseInt($('#sfrommonth option:selected').val())
+         var tomonthid = parseInt($('#stomonth option:selected').val())
+         if (tomonthid < frommonthid) {
+            $('#stomonth').val('')
+         }
+         $("#stomonth > option").filter(function() {
+            return $(this).attr("value") < frommonthid
+         }).prop('disabled', true);
+      }
    });
 </script>
 

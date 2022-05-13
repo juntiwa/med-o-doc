@@ -100,23 +100,37 @@ class AdminController extends Controller
     */
    public function create(Request $request)
    {
-      $request->validate([
-         'username' => 'required|string|max:255',
-         'permis' => 'required',
-      ]);
+      $usern = $request->post('username');
+      $permis = $request->post('permis');
+      $usern1 = $request->post('username1');
+      $permis1 = $request->post('permis1');
 
       // Log::info($request);
-      $user = User::where('username', $request->username)->first();
+      $user = User::where('username', $usern);
+      if ($usern1 != '') {
+         $user  = $user->orWhere('username', $usern1);
+      }
+      $user = $user->first();
       if ($user === null) {
          $user = new User;
          // Getting values from the blade template form
-         $user->username =  $request->username;
-         $user->is_admin = $request->permis;
+         $user->username =  $usern;
+         $user->is_admin = $permis;
          $user->status = 'Active';
          $user->save();
+         if ($usern1 != '') {
+            $user->username =  $usern1;
+            $user->is_admin = $permis1;
+            $user->status = 'Active';
+            $user->save();
+         }
       }else{
-         $username =  $request->username;
-         $errors = ['message' => $username.' มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
+         $msgusern =  $usern;
+         $errors = ['message' => $msgusern . ' มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
+         if ($usern1 != '') {
+            $msgusern1 =  $usern1;
+            $errors = ['message' => $msgusern1 . ' มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
+         }         
          return Redirect::back()->withErrors($errors)->withInput($request->all());
       }
       $log_activity = new activityLog;
