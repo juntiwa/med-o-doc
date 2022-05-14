@@ -41,7 +41,7 @@
 
 <body class="font-sarabun bg-white">
    @section('sidebar')
-   <div class="navbar bg-slate-50">
+   <div class="navbar bg-slate-50 sticky top-0 z-50 shadow-sm">
       <div class="navbar-start">
          <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost lg:hidden">

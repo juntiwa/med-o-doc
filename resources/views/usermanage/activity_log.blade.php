@@ -34,13 +34,13 @@
       <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">#</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Username</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Username</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Program Name</th>
-            <th class="w-80 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Action</th>
+            <th class="w-60 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Action</th>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">URL</th>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Method</th>
             <!-- <th class="w-48 lg:w-96 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">User Agent</th> -->
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Date time</th>
+            <th class="w-40 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Date time</th>
          </tr>
       </thead>
       <!-- ก่อนค้นหา -->
@@ -53,10 +53,10 @@
                {{++$key}}
             </td>
             <!-- หัวเรื่อง -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap flex justify-center ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap  ">
                {{ $item->username }}
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top ">
                {{ $item->program_name }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
@@ -67,9 +67,11 @@
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
                @if($item->method == "POST")
-               <div class="badge badge-opacity-danger text-base">{{ $item->method }}</div>
+               <div class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
+                        bg-opacity-50 text-center">{{ $item->method }}</div>
                @else
-               <div class="badge badge-opacity-warning text-base">{{ $item->method }}</div>
+               <div class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
+                        bg-opacity-50 text-center">{{ $item->method }}</div>
                @endif
             </td>
             <!-- <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
@@ -77,7 +79,7 @@
             </td> -->
 
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
-               {{ $item->date_time }}
+               {{ $item->thaidate() }}
             </td>
          </tr>
          @endforeach
@@ -101,12 +103,22 @@
    @if(count($activityLog)>0)
    @foreach($activityLog as $key => $item)
    <div class="bg-white space-y-3 p-4 rounded-lg shadow-sm relative">
-      <div class="flex items-center space-x-2 text-base ">
+      <div class="flex justify-between items-center space-x-2 text-base ">
          <!-- username -->
          <div>
             <p class="text-blue-500 text-base font-semibold hover:underline">
                {{ $item->username }}
             </p>
+         </div>
+         <!-- ชนิดหนังสือ -->
+         <div>
+            @if($item->method == "POST")
+            <div class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
+                        bg-opacity-50 text-center">{{ $item->method }}</div>
+            @else
+            <div class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
+                        bg-opacity-50 text-center">{{ $item->method }}</div>
+            @endif
          </div>
       </div>
       <div class="flex text-base justify-between">
@@ -114,18 +126,9 @@
          <div class="text-gray-700">
             {{ $item->thaidate() }}
          </div>
-         <!-- ชนิดหนังสือ -->
-         <div>
-            <span class="p-1.5 text-base font-medium uppercase tracking-wider whitespace-nowrap">
-               @if($item->method == "POST")
-               <div class="badge badge-opacity-danger text-base">{{ $item->method }}</div>
-               @else
-               <div class="badge badge-opacity-warning text-base">{{ $item->method }}</div>
-               @endif
-            </span>
-         </div>
+
       </div>
-      <div class="flex text-base text-gray-700">
+      <div class="flex text-base text-gray-700 font-medium">
          {{ $item->action }}
       </div>
       <div class="text-base text-gray-700">

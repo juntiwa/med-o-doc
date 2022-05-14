@@ -174,7 +174,7 @@ class AdminController extends Controller
          return Redirect::back()->withErrors($errors)->withInput($request->all());
          dd($errors);
       }
-      /* $log_activity = new activityLog;
+      $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
       $log_activity->program_name = 'med_edu';
       $log_activity->url = URL::current();
@@ -186,7 +186,7 @@ class AdminController extends Controller
       $log_activity->date_time = $dt->toDayDateTimeString();
       $log_activity->save();
 
-      return redirect()->route('permission'); */
+      return redirect()->route('permission');
    }
 
    /**

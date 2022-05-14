@@ -6,12 +6,12 @@
    <div class="max-w-6xl mx-auto">
       <div class="flex flex-col items-center md:flex-row ">
          <div class="w-full space-y-5 md:w-3/5 md:pr-16 hidden md:block lg:block">
-            <p class="font-medium text-green-400 uppercase">ระบบค้นหาเอกสารเก่า</p>
+            <p class="font-medium text-base text-green-400 uppercase">ระบบค้นหาเอกสารเก่า</p>
             <h2 class="text-xl font-extrabold text-black sm:text-2xl md:text-4xl leading-loose">
                ระบบค้นหาเอกสารเก่า ภาควิชาอายุรศาสตร์
             </h2>
-            <p class="text-lg text-gray-600 md:pr-16">กรณีเข้าสู่ระบบไม่ได้กรุณาล้าง cache browser และเข้าสู่ระบบอีกครั้ง
-               หากพบปัญหาในการใช้งานอื่น ๆ ติดต่อหน่วยเวชสารสนเทศ ภาควิชาอายุรศาสตร์ โทร. 02-4198260 (ในเวลาราชการ) </p>
+            <p class="text-lg text-gray-600 md:pr-16">
+               หากพบปัญหาในการใช้งาน ติดต่อหน่วยเวชสารสนเทศ ภาควิชาอายุรศาสตร์ โทร. 02-4198260 (ในเวลาราชการ) </p>
          </div>
 
          <div class="w-full mt-16 md:mt-0 md:w-2/5">

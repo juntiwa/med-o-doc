@@ -12,6 +12,6 @@ class activityLog extends Model
 
    public function thaidate()
    {
-      return Carbon::parse($this->date_time)->thaidate('j F Y เวลา H:i:s');
+      return Carbon::parse($this->date_time)->thaidate('j F Y H:i:s');
    }
 }
