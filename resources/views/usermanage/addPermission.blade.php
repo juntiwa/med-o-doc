@@ -192,7 +192,7 @@
    $(document).ready(function() {
       $('#permis').change(function() {
          let permis = $(this).val();
-         console.log(permis)
+         // console.log(permis)
          if (permis !== '') {
             $("#InputDiv1").show();
          } else {
@@ -201,7 +201,7 @@
       });
       $('#permis1').change(function() {
          let permis = $(this).val();
-         console.log(permis)
+         // console.log(permis)
          if (permis !== '') {
             $("#InputDiv2").show();
          } else {
@@ -210,7 +210,7 @@
       });
       $('#permis2').change(function() {
          let permis = $(this).val();
-         console.log(permis)
+         // console.log(permis)
          if (permis !== '') {
             $("#InputDiv3").show();
          } else {
@@ -219,7 +219,7 @@
       });
       $('#permis3').change(function() {
          let permis = $(this).val();
-         console.log(permis)
+         // console.log(permis)
          if (permis !== '') {
             $("#InputDiv4").show();
          } else {
@@ -228,7 +228,7 @@
       });
       $('#permis4').change(function() {
          let permis = $(this).val();
-         console.log(permis)
+         // console.log(permis)
          if (permis !== '') {
             $("#InputDiv5").show();
          } else {
@@ -239,7 +239,7 @@
       // requiered
       $('input[name=username1]').change(function() {
          let username1 = $(this).val();
-         console.log(username1)
+         // console.log(username1)
          if (username1 !== '') {
             $('#permis1').prop('required', true);
          } else {
@@ -256,7 +256,7 @@
 
       $('input[name=username2]').change(function() {
          let username2 = $(this).val();
-         console.log(username2)
+         // console.log(username2)
          if (username2 !== '') {
             $('#permis2').prop('required', true);
          } else {
@@ -273,7 +273,7 @@
 
       $('input[name=username3]').change(function() {
          let username3 = $(this).val();
-         console.log(username3)
+         // console.log(username3)
          if (username3 !== '') {
             $('#permis3').prop('required', true);
          } else {
@@ -290,7 +290,7 @@
 
       $('input[name=username4]').change(function() {
          let username4 = $(this).val();
-         console.log(username4)
+         // console.log(username4)
          if (username4 !== '') {
             $('#permis4').prop('required', true);
          } else {
@@ -307,7 +307,7 @@
 
       $('input[name=username5]').change(function() {
          let username5 = $(this).val();
-         console.log(username5)
+         // console.log(username5)
          if (username5 !== '') {
             $('#permis5').prop('required', true);
          } else {
