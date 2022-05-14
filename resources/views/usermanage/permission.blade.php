@@ -4,7 +4,7 @@
 @parent
 @endsection
 @section('content')
-
+{!! Toastr::message() !!}
 <div class="btnAddmember">
    <form action="{{route('addPermis')}}" method="get">
       <button type="submit" class="addMember flex justify-center items-center">

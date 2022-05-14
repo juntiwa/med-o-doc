@@ -4,7 +4,7 @@
 @parent
 @endsection
 @section('content')
-
+{!! Toastr::message() !!}
 <form action="{{route('update.permis', $user->id)}}" class="mt-6" method="POST">
    @csrf
    <!-- component -->

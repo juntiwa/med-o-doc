@@ -4,7 +4,7 @@
 @parent
 @endsection
 @section('content')
-
+{!! Toastr::message() !!}
 <!-- Main content header -->
 <div class="grid grid-rows-1 pb-3 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
    <div class="lg:flex lg:justify-between md:flex md:justify-between md:space-x-3 sm:grid sm:grid-cols-1 mt-3">

@@ -4,6 +4,7 @@
 @parent
 @endsection
 @section('content')
+{!! Toastr::message() !!}
 <div class="flex flex-row-reverse mr-3">
    <a href="{{route('delete.activitylog')}}" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่ ?')">
       <button class="flex flex-row justify-center items-center w-full px-4 py-3 font-medium text-white
@@ -25,7 +26,6 @@
          Export
       </button>
    </form>
-
 </div>
 
 <!-- ตาราง -->

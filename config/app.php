@@ -204,6 +204,7 @@ return [
       'Input' => Illuminate\Support\Facades\Request::class,
       'Excel' => Maatwebsite\Excel\Facades\Excel::class, 
       'Route' => Illuminate\Support\Facades\Route::class,
+      'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
    ],
 
    #api

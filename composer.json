@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "brian2694/laravel-toastr": "^5.57",
         "chumpol/laravel-thaidate": "^1.0",
         "flynsarmy/csv-seeder": "2.*",
         "guzzlehttp/guzzle": "^7.2",

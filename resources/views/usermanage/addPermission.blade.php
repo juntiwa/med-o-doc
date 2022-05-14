@@ -4,7 +4,7 @@
 @parent
 @endsection
 @section('content')
-
+{!! Toastr::message() !!}
 <form action="{{route('save.permis')}}" method="post">
    @csrf
 
