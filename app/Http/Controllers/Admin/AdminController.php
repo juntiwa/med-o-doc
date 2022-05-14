@@ -100,40 +100,81 @@ class AdminController extends Controller
     */
    public function create(Request $request)
    {
-      $usern = $request->post('username');
+      $user = $request->post('username');
       $permis = $request->post('permis');
-      $usern1 = $request->post('username1');
+      $user1 = $request->post('username1');
       $permis1 = $request->post('permis1');
+      $user2 = $request->post('username2');
+      $permis2 = $request->post('permis2');
+      $user3 = $request->post('username3');
+      $permis3 = $request->post('permis3');
+      $user4 = $request->post('username4');
+      $permis4 = $request->post('permis4');
+      $user5 = $request->post('username5');
+      $permis5 = $request->post('permis5');
 
       // Log::info($request);
-      $user = User::where('username', $usern);
-      if ($usern1 != '') {
-         $user  = $user->orWhere('username', $usern1);
+      $users = User::where('username', '=', $user);
+      if ($user1 != '') {
+         $users  = $users->orWhere('username', '=', $user1);
       }
-      $user = $user->first();
-      if ($user === null) {
-         $user = new User;
-         // Getting values from the blade template form
-         $user->username =  $usern;
-         $user->is_admin = $permis;
-         $user->status = 'Active';
-         $user->save();
-         if ($usern1 != '') {
-            $user->username =  $usern1;
-            $user->is_admin = $permis1;
-            $user->status = 'Active';
-            $user->save();
+      $users = $users->first();
+      if($users === null){
+         $data = [
+            ['username' => $user, 'is_admin' => $permis, 'status' => 'Active'], 
+         ];
+
+         if ($user1 != '') {
+            $data[] =  ['username' => $user1, 'is_admin' => $permis1, 'status' => 'Active'];
          }
+         if ($user2 != '') {
+            $data[] =  ['username' => $user2, 'is_admin' => $permis2, 'status' => 'Active'];
+         }
+         if ($user3 != '') {
+            $data[] =  ['username' => $user3, 'is_admin' => $permis3, 'status' => 'Active'];
+         }
+         if ($user4 != '') {
+            $data[] =  ['username' => $user4, 'is_admin' => $permis4, 'status' => 'Active'];
+         }
+         if ($user5 != '') {
+            $data[] =  ['username' => $user5, 'is_admin' => $permis5, 'status' => 'Active'];
+         }
+         User::insert($data);
+         dd("yes");
       }else{
-         $msgusern =  $usern;
-         $errors = ['message' => $msgusern . ' มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
-         if ($usern1 != '') {
-            $msgusern1 =  $usern1;
-            $errors = ['message' => $msgusern1 . ' มีชื่อผู้ใช้งานนี้อยู่แล้ว'];
-         }         
+         if(User::where('username', '=', $user)->exists()){
+            $errors['user'] = ['user' => $user . ' มีแล้วชื่อนี้อยู่แล้ว'];
+         }
+         if ($user1 != '') {
+            if (User::where('username', '=', $user1)->exists()) {
+               $errors['user1'] =  ['user1' => $user1 . ' มีแล้วชื่อนี้อยู่แล้ว'];
+            }
+         }
+         if ($user2 != '') {
+            if (User::where('username', '=', $user2)->exists()) {
+               $errors['user2'] =  ['user2' => $user2 . ' มีแล้วชื่อนี้อยู่แล้ว'];
+            }
+         }
+         if ($user3 != '') {
+            if (User::where('username', '=', $user3)->exists()) {
+               $errors['user3'] =  ['user3' => $user3 . ' มีแล้วชื่อนี้อยู่แล้ว'];
+            }
+         }
+         if ($user4 != '') {
+            if (User::where('username', '=', $user4)->exists()) {
+               $errors['user4'] =  ['user4' => $user4 . ' มีแล้วชื่อนี้อยู่แล้ว'];
+            }
+         }
+         if ($user5 != '') {
+            if (User::where('username', '=', $user5)->exists()) {
+               $errors['user5'] =  ['user5' => $user5 . ' มีแล้วชื่อนี้อยู่แล้ว'];
+            }
+         }
+         
          return Redirect::back()->withErrors($errors)->withInput($request->all());
+         dd($errors);
       }
-      $log_activity = new activityLog;
+      /* $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
       $log_activity->program_name = 'med_edu';
       $log_activity->url = URL::current();
@@ -145,7 +186,7 @@ class AdminController extends Controller
       $log_activity->date_time = $dt->toDayDateTimeString();
       $log_activity->save();
 
-      return redirect()->route('permission');
+      return redirect()->route('permission'); */
    }
 
    /**
