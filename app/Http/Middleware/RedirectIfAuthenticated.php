@@ -18,17 +18,15 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
-    {
-        $guards = empty($guards) ? [null] : $guards;
+   public function handle($request, Closure $next, $guard = null)
+   {
+      if (Auth::guard($guard)->check() && Auth::user()->is_admin == 1) {
+         return redirect()->route('activitylog');
+      }else{
+         return redirect()->route('reg.show');
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-               Artisan::call('cache:clear');
-               abort(400);
-            }
-        }
+      }
 
-        return $next($request);
-    }
+      return $next($request);
+   }
 }

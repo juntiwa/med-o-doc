@@ -36,6 +36,7 @@
    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
 </head>
 
 @include('fonts/sarabun')
@@ -129,6 +130,20 @@
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
    });
+</script>
+<script type="text/javascript">
+   function noBack() {
+      window.history.forward()
+   }
+
+   noBack();
+   window.onload = noBack;
+   window.onpageshow = function(evt) {
+      if (evt.persisted) noBack()
+   }
+   window.onunload = function() {
+      void(0)
+   }
 </script>
 
 </html>

@@ -934,64 +934,64 @@
 
 <!-- Script -->
 <script type="text/javascript">
-   $('#isendfrom').addClass('hidden');
-   $('#isendto').addClass('hidden');
+   $('#irecfrom').addClass('hidden');
+   $('#irecto').addClass('hidden');
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
-      $('#sendtype').change(function() {
+      $('#rectype').change(function() {
          let typeid = parseInt($(this).val());
          // console.log(typeid);
          if (typeid == 0) {
-            $('#ssendfrom').removeClass('hidden');
-            $('#isendfrom').addClass('hidden');
-            $('#ssendto').removeClass('hidden');
-            $('#isendto').addClass('hidden');
+            $('#srecfrom').removeClass('hidden');
+            $('#irecfrom').addClass('hidden');
+            $('#srecto').removeClass('hidden');
+            $('#irecto').addClass('hidden');
 
-            $('#isendfrom').val('');
-            $('#isendto').val('');
-            var ssendfrom = <?= json_encode($ssendfrom,  JSON_HEX_TAG); ?>;
+            $('#irecfrom').val('');
+            $('#irecto').val('');
+            var srecfrom = <?= json_encode($srecfrom,  JSON_HEX_TAG); ?>;
 
-            jQuery("#ssendto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
+            jQuery("#srecto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             jQuery.ajax({
-               url: '/send-select-from',
+               url: '/rec-select-from',
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
                   typeid: typeid,
-                  ssendfrom: ssendfrom
+                  srecfrom: srecfrom
                },
                success: function(result) {
-                  jQuery('#ssendfrom').html(result)
+                  jQuery('#srecfrom').html(result)
                }
             });
 
-            var ssendto = <?= json_encode($ssendto,  JSON_HEX_TAG); ?>;
+            var srecto = <?= json_encode($srecto,  JSON_HEX_TAG); ?>;
             jQuery.ajax({
-               url: '/send-select-to',
+               url: '/rec-select-to',
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
                   typeid: typeid,
-                  ssendto: ssendto
+                  srecto: srecto
                },
                success: function(result) {
-                  jQuery('#ssendto').html(result)
+                  jQuery('#srecto').html(result)
                }
             });
          } else {
-            $('#ssendfrom').addClass('hidden');
-            $('#isendfrom').removeClass('hidden');
-            $('#ssendto').addClass('hidden');
-            $('#isendto').removeClass('hidden');
-            $('#ssendfrom').val('');
-            $('#ssendto').val('');
+            $('#srecfrom').addClass('hidden');
+            $('#irecfrom').removeClass('hidden');
+            $('#srecto').addClass('hidden');
+            $('#irecto').removeClass('hidden');
+            $('#srecfrom').val('');
+            $('#srecto').val('');
 
             $(document).ready(function() {
-               $("#isendfrom").autocomplete({
+               $("#irecfrom").autocomplete({
                   source: function(request, response) {
                      // Fetch data
                      $.ajax({
-                        url: "{{route('send.autocomplete')}}",
+                        url: "{{route('rec.autocomplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -1005,17 +1005,17 @@
                   },
                   select: function(event, ui) {
                      // Set selection
-                     $('#isendfrom').val(ui.item.label); // display the selected text
+                     $('#irecfrom').val(ui.item.label); // display the selected text
                      // $('#idfrom').val(ui.item.value); // save selected id to input
                      return false;
                   }
                });
 
-               $("#isendto").autocomplete({
+               $("#irecto").autocomplete({
                   source: function(request, response) {
                      // Fetch data
                      $.ajax({
-                        url: "{{route('send.autocomplete')}}",
+                        url: "{{route('rec.autocomplete')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
@@ -1029,7 +1029,7 @@
                   },
                   select: function(event, ui) {
                      // Set selection
-                     $('#isendto').val(ui.item.label); // display the selected text
+                     $('#irecto').val(ui.item.label); // display the selected text
                      // $('#idto').val(ui.item.value); // save selected id to input
 
                      return false;
@@ -1044,11 +1044,11 @@
          $("#multiCollapseExample1").toggle("slow");
       });
 
-      // old input sendtype
-      var typeold = '{{ old("sendtype") }}';
+      // old input rectype
+      var typeold = '{{ old("rectype") }}';
       if (typeold !== '') {
-         $('#sendtype').val(typeold);
-         $("#sendtype").change();
+         $('#rectype').val(typeold);
+         $("#rectype").change();
       }
 
       // old input rfrommonth
