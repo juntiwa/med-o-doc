@@ -1164,14 +1164,15 @@
          return $(this).attr("value") >= fromyearid
       }).prop('disabled', false);
 
-      // check to year > || = fromyear disabled to month
-      if (toyearid >= fromyearid) {
+      // check to year >  fromyear disabled to month
+      if (toyearid > fromyearid) {
+         $("#tomonth > option").prop('disabled', false);
+      } else {
          var frommonthid = parseInt($('#frommonth option:selected').val())
          var tomonthid = parseInt($('#tomonth option:selected').val())
          if (tomonthid < frommonthid) {
-            $("#tomonth").val('');
+            $('#tomonth').val('')
          }
-
          $("#tomonth > option").filter(function() {
             return $(this).attr("value") < frommonthid
          }).prop('disabled', true);

@@ -1174,19 +1174,21 @@
          return $(this).attr("value") >= fromyearid
       }).prop('disabled', false);
 
-      // check to year > || = fromyear disabled to month
-      if (toyearid >= fromyearid) {
+      // check to year > fromyear disabled to month
+      if (toyearid > fromyearid) {
+         $("#stomonth > option").prop('disabled', false);
+      } else {
          var frommonthid = parseInt($('#sfrommonth option:selected').val())
          var tomonthid = parseInt($('#stomonth option:selected').val())
          if (tomonthid < frommonthid) {
-            $("#stomonth").val('');
+            $('#stomonth').val('')
          }
-
          $("#stomonth > option").filter(function() {
             return $(this).attr("value") < frommonthid
          }).prop('disabled', true);
       }
-      
+
+
       $('#stoyear').change(function() {
          var toyearid = parseInt($(this).val())
          if (toyearid > fromyearid) {
