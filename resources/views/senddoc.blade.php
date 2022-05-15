@@ -1150,24 +1150,43 @@
    $('#sfromyear').change(function() {
       var fromyearid = parseInt($(this).val());
       var toyearid = parseInt($('#stoyear option:selected').val())
+      // set att
+      $('#stoyear').prop('required', true);
+      $('#stoyear').prop('disabled', false);
+      // ถึงปี < จากปี ถึงปีจะ set value null
       if (toyearid < fromyearid) {
          $('#stoyear').val('')
       }
-      $('#stoyear').prop('required', true);
-      $('#stoyear').prop('disabled', false);
+      // disable to years when fromyear null 
       let fmid = $(this).val();
       if (fmid == '') {
          $("#stoyear").val('');
          $("#stoyear").attr("disabled", "disabled");
       }
+
+      // disabled option true to years ที่ < จากปี
       $("#stoyear > option").filter(function() {
          return $(this).attr("value") < fromyearid
       }).prop('disabled', true);
 
+      // disabled option false to years ที่ > จากปี
       $("#stoyear > option").filter(function() {
          return $(this).attr("value") >= fromyearid
       }).prop('disabled', false);
 
+      // check to year > || = fromyear disabled to month
+      if (toyearid >= fromyearid) {
+         var frommonthid = parseInt($('#sfrommonth option:selected').val())
+         var tomonthid = parseInt($('#stomonth option:selected').val())
+         if (tomonthid < frommonthid) {
+            $("#stomonth").val('');
+         }
+
+         $("#stomonth > option").filter(function() {
+            return $(this).attr("value") < frommonthid
+         }).prop('disabled', true);
+      }
+      
       $('#stoyear').change(function() {
          var toyearid = parseInt($(this).val())
          if (toyearid > fromyearid) {

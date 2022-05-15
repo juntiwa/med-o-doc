@@ -1,5 +1,8 @@
 @extends('layouts.guest')
+@section('title', 'เข้าสู่ระบบ')
 @section('content')
+
+{!! Toastr::message() !!}
 
 <!-- Section 1 -->
 <section class="flex justify-center items-center w-full h-screen px-8 py-16 bg-gray-100 xl:px-8">
@@ -29,7 +32,7 @@
                   <input type="text" name="username" id="username" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 
                focus:ring focus:ring-green-400 focus:outline-none rounded" placeholder="ชื่อ . นามสกุล 3 ตัว" value="{{ old('username') }}" required>
                   <input type="password" name="password" id="password" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent
-                border-gray-200 focus:ring focus:ring-green-400 focus:outline-none rounded" placeholder="Password">
+                border-gray-200 focus:ring focus:ring-green-400 focus:outline-none rounded" placeholder="Password" required>
 
                   <button type="submit" class="w-full px-4 py-3 font-medium text-white bg-green-400 rounded">เข้าสู่ระบบ</button>
                </div>

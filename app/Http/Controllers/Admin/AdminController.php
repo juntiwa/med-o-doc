@@ -140,7 +140,8 @@ class AdminController extends Controller
             $data[] =  ['username' => $user5, 'is_admin' => $permis5, 'status' => 'Active'];
          }
          User::insert($data);
-         dd("yes");
+         // dd("yes");
+
       }else{
          if(User::where('username', '=', $user)->exists()){
             $errors['user'] = ['user' => $user . ' มีแล้วชื่อนี้อยู่แล้ว'];

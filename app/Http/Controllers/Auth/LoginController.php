@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Brian2694\Toastr\Facades\Toastr;
 
 class LoginController extends Controller
 {
@@ -113,6 +114,8 @@ class LoginController extends Controller
             $log_activity->date_time = $dt->toDayDateTimeString();
             $log_activity->save();
 
+            Toastr::success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', ["positionClass" => "toast-top-right"]);
+
             if($user->is_admin == "1")
             {
                // Log::info("admin");
@@ -144,10 +147,11 @@ class LoginController extends Controller
       $dt = Carbon::now();
       $log_activity->date_time = $dt->toDayDateTimeString();
       $log_activity->save();
+      
 
       Auth::logout();
       Session::forget('user');
-
+      Toastr::success('ออกจากระบบสำเร็จ', 'แจ้งเตือน', ["positionClass" => "toast-top-right"]);
       return Redirect::route('login');
    }
 

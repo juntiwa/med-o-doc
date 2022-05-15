@@ -966,120 +966,122 @@
 
 <!-- Script -->
 <script type="text/javascript">
-   $('#iregfrom').addClass('hidden');
-   $('#iregto').addClass('hidden');
-   $('input[name="iregfrom"]').attr('hiddened', 'hiddened');
+   $('#isendfrom').addClass('hidden');
+   $('#isendto').addClass('hidden');
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
-      // select option and autocomplete
-      $('#regtype').change(function() {
+      $('#sendtype').change(function() {
          let typeid = parseInt($(this).val());
          // console.log(typeid);
          if (typeid == 0) {
-            $('#sregfrom').removeClass('hidden');
-            $('#iregfrom').addClass('hidden');
-            $('#sregto').removeClass('hidden');
-            $('#iregto').addClass('hidden');
+            $('#ssendfrom').removeClass('hidden');
+            $('#isendfrom').addClass('hidden');
+            $('#ssendto').removeClass('hidden');
+            $('#isendto').addClass('hidden');
 
-            $('#iregfrom').val('');
-            $('#iregto').val('');
-            var sregfrom = <?= json_encode($sregfrom,  JSON_HEX_TAG); ?>;
-            // console.log(sregfrom)
-            jQuery("#sregto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
+            $('#isendfrom').val('');
+            $('#isendto').val('');
+            var ssendfrom = <?= json_encode($ssendfrom,  JSON_HEX_TAG); ?>;
+
+            jQuery("#ssendto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             jQuery.ajax({
-               url: '/reg-select-from',
-               type: 'post',
-               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}, sregfrom = ' + $(this).val(),
-               data: {
-                  typeid: typeid,
-                  sregfrom: sregfrom
-               },
-               success: function(result) {
-                  jQuery('#sregfrom').html(result);
-               }
-            });
-            var sregto = <?= json_encode($sregto,  JSON_HEX_TAG); ?>;
-            // console.log(sregto)
-            jQuery.ajax({
-               url: '/reg-select-to',
+               url: '/send-select-from',
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
                   typeid: typeid,
-                  sregto: sregto
+                  ssendfrom: ssendfrom
                },
                success: function(result) {
-                  jQuery('#sregto').html(result)
+                  jQuery('#ssendfrom').html(result)
+               }
+            });
+
+            var ssendto = <?= json_encode($ssendto,  JSON_HEX_TAG); ?>;
+            jQuery.ajax({
+               url: '/send-select-to',
+               type: 'post',
+               // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
+               data: {
+                  typeid: typeid,
+                  ssendto: ssendto
+               },
+               success: function(result) {
+                  jQuery('#ssendto').html(result)
                }
             });
          } else {
-            $('#sregfrom').addClass('hidden');
-            $('#iregfrom').removeClass('hidden');
-            $('#sregto').addClass('hidden');
-            $('#iregto').removeClass('hidden');
-            $('#sregfrom').val('');
-            $('#sregto').val('');
-            $("#iregfrom").autocomplete({
-               source: function(request, response) {
-                  // Fetch data
-                  $.ajax({
-                     url: "{{route('reg.autocomplete')}}",
-                     type: 'post',
-                     dataType: "json",
-                     data: {
-                        _token: CSRF_TOKEN,
-                        search: request.term
-                     },
-                     success: function(data) {
-                        response(data);
-                     }
-                  });
-               },
-               select: function(event, ui) {
-                  // Set selection
-                  $('#iregfrom').val(ui.item.label); // display the selected text
-                  // $('#idfrom').val(ui.item.value); // save selected id to input
-                  return false;
-               }
-            });
+            $('#ssendfrom').addClass('hidden');
+            $('#isendfrom').removeClass('hidden');
+            $('#ssendto').addClass('hidden');
+            $('#isendto').removeClass('hidden');
+            $('#ssendfrom').val('');
+            $('#ssendto').val('');
 
-            $("#iregto").autocomplete({
-               source: function(request, response) {
-                  // Fetch data
-                  $.ajax({
-                     url: "{{route('reg.autocomplete')}}",
-                     type: 'post',
-                     dataType: "json",
-                     data: {
-                        _token: CSRF_TOKEN,
-                        search: request.term
-                     },
-                     success: function(data) {
-                        response(data);
-                     }
-                  });
-               },
-               select: function(event, ui) {
-                  // Set selection
-                  $('#iregto').val(ui.item.label); // display the selected text
-                  // $('#idto').val(ui.item.value); // save selected id to input
-                  return false;
-               }
+            $(document).ready(function() {
+               $("#isendfrom").autocomplete({
+                  source: function(request, response) {
+                     // Fetch data
+                     $.ajax({
+                        url: "{{route('send.autocomplete')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                           _token: CSRF_TOKEN,
+                           search: request.term
+                        },
+                        success: function(data) {
+                           response(data);
+                        }
+                     });
+                  },
+                  select: function(event, ui) {
+                     // Set selection
+                     $('#isendfrom').val(ui.item.label); // display the selected text
+                     // $('#idfrom').val(ui.item.value); // save selected id to input
+                     return false;
+                  }
+               });
+
+               $("#isendto").autocomplete({
+                  source: function(request, response) {
+                     // Fetch data
+                     $.ajax({
+                        url: "{{route('send.autocomplete')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                           _token: CSRF_TOKEN,
+                           search: request.term
+                        },
+                        success: function(data) {
+                           response(data);
+                        }
+                     });
+                  },
+                  select: function(event, ui) {
+                     // Set selection
+                     $('#isendto').val(ui.item.label); // display the selected text
+                     // $('#idto').val(ui.item.value); // save selected id to input
+
+                     return false;
+                  }
+               });
             });
          }
       });
-
-      // old input regtype
-      var typeold = '{{ old("regtype") }}';
-      if (typeold !== '') {
-         $('#regtype').val(typeold);
-         $("#regtype").change();
-      }
 
       // toggle hide show  from input
       $("#toggle-example-checked").click(function() {
          $("#multiCollapseExample1").toggle("slow");
       });
+
+      // old input sendtype
+      var typeold = '{{ old("sendtype") }}';
+      if (typeold !== '') {
+         $('#sendtype').val(typeold);
+         $("#sendtype").change();
+      }
 
       // old input frommonth
       var frommonth = '{{ old("frommonth") }}';
@@ -1138,23 +1140,42 @@
    $('#fromyear').change(function() {
       var fromyearid = parseInt($(this).val());
       var toyearid = parseInt($('#toyear option:selected').val())
+      // set att
+      $('#toyear').prop('required', true);
+      $('#toyear').prop('disabled', false);
+      // ถึงปี < จากปี ถึงปีจะ set value null
       if (toyearid < fromyearid) {
          $('#toyear').val('')
       }
-      $('#toyear').prop('required', true);
-      $('#toyear').prop('disabled', false);
+      // disable to years when fromyear null 
       let fmid = $(this).val();
       if (fmid == '') {
          $("#toyear").val('');
          $("#toyear").attr("disabled", "disabled");
       }
+
+      // disabled option true to years ที่ < จากปี
       $("#toyear > option").filter(function() {
          return $(this).attr("value") < fromyearid
       }).prop('disabled', true);
 
+      // disabled option false to years ที่ > จากปี
       $("#toyear > option").filter(function() {
          return $(this).attr("value") >= fromyearid
       }).prop('disabled', false);
+
+      // check to year > || = fromyear disabled to month
+      if (toyearid >= fromyearid) {
+         var frommonthid = parseInt($('#frommonth option:selected').val())
+         var tomonthid = parseInt($('#tomonth option:selected').val())
+         if (tomonthid < frommonthid) {
+            $("#tomonth").val('');
+         }
+
+         $("#tomonth > option").filter(function() {
+            return $(this).attr("value") < frommonthid
+         }).prop('disabled', true);
+      }
 
       $('#toyear').change(function() {
          var toyearid = parseInt($(this).val())
@@ -1187,7 +1208,6 @@
          if (tomonthid < frommonthid) {
             $('#tomonth').val('')
          }
-
          $("#tomonth > option").filter(function() {
             return $(this).attr("value") < frommonthid
          }).prop('disabled', true);

@@ -8,6 +8,8 @@ use App\Http\Controllers\SendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Session;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +30,9 @@ Route::get('/', function () {
       // return view('auth.check');
       Toastr::success('คุณเข้าสู่ระบบอยู่แล้ว', 'แจ้งเตือน', ["positionClass" => "toast-top-right"]);
       return back();
-
    } else {
       return view('auth.login');
    }
-   
 })->name('login');
 Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
 Route::post('logout', [ AuthLoginController::class, 'logout'])->name('logout');
