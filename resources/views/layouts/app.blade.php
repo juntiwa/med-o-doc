@@ -91,9 +91,9 @@
                </ul>
             </li>
             @endif
-            <li class="@if (Route::is('reg.show')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('reg.show')}}">ลงทะเบียนส่งหนังสือ</a></li>
-            <li class="@if (Route::is('send.show')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('send.show')}}">ทะเบียนหนังสือส่ง</a></li>
-            <li class="@if (Route::is('rec.show')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
+            <li class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('reg.show')}}">ลงทะเบียนส่งหนังสือ</a></li>
+            <li class="@if (Route::is('send.show') || Route::is('send.search')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('send.show')}}">ทะเบียนหนังสือส่ง</a></li>
+            <li class="@if (Route::is('rec.show') || Route::is('rec.search')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
          </ul>
       </div>
       <div class="navbar-end">
@@ -130,20 +130,6 @@
          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
    });
-</script>
-<script type="text/javascript">
-   function noBack() {
-      window.history.forward()
-   }
-
-   noBack();
-   window.onload = noBack;
-   window.onpageshow = function(evt) {
-      if (evt.persisted) noBack()
-   }
-   window.onunload = function() {
-      void(0)
-   }
 </script>
 
 </html>
