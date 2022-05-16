@@ -115,7 +115,7 @@ class LoginController extends Controller
             $log_activity->save();
 
             Toastr::success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', ["positionClass" => "toast-top-right"]);
-            $data = $request->session()->all();
+            
             if($user->is_admin == "1")
             {
                // Log::info("admin");

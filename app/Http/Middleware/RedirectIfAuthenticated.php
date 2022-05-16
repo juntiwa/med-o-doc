@@ -20,13 +20,20 @@ class RedirectIfAuthenticated
      */
    public function handle($request, Closure $next, $guard = null)
    {
-      if (Auth::guard($guard)->check() && Auth::user()->is_admin == 1) {
-         return redirect()->route('activitylog');
-      }else{
-         return redirect()->route('reg.show');
+      $guards = empty($guards) ? [null] : $guards;
 
+      foreach ($guards as $guard) {
+         if (Auth::guard($guard)->check() && Auth::user()->is_admin == 1) {
+            return redirect()->route('activitylog');
+         } 
       }
-
+      /* if (Auth::guard($guard)->check() && Auth::user()->is_admin == 1) {
+         return redirect()->route('activitylog');
+      } else {
+         return redirect()->route('reg.show');
+      } */
       return $next($request);
+      
+
    }
 }
