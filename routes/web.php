@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Session;
 
 // ----------------------------- signin -----------------------//
 Auth::routes();
+Route::get('500',function(){
+   return view('errors.500');
+});
 Route::get('/', function () {
    if (Auth::check()) {
       // return Redirect::to('')->with('success', 'You are already logged in');

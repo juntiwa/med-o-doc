@@ -14,9 +14,9 @@
       <p class="text-6xl text-blue-800 font-bold font-k2d pb-7 text-shadow-md">404</p>
       <p class="text-4xl text-gray-800 font-k2d pb-6">Not found</p>
       <p class="text-xl text-center text-gray-700 font-sarabun w-2/5 leading-loose pb-3">ขออภัยค่ะ ไม่พบข้อมูลที่คุณต้องการ กรุณาติดต่อผู้ดูแลระบบ
-         <span class="font-bold text-red-500">ติดต่อหน่วยเวชสารสนเทศ ภาควิชาอายุรศาสตร์ </span>
+         <span class="font-bold text-red-500">หน่วยเวชสารสนเทศ ภาควิชาอายุรศาสตร์ </span>
       </p>
-      <a href="{{ route('reg.show') }}" class="pb-12 font-sarabun text-xl text-blue-800 
+      <a href="@if(Auth::user()->is_admin == 1) {{ route('activitylog') }} @else {{ route('reg.show') }} @endif " class="pb-12 font-sarabun text-xl text-blue-800 
       hover:text-red-500 hover:text-shadow-md">กลับสู่หน้าหลัก</a>
 
       <img class=" h-64" src="{{asset('images/404.png')}}" alt="">
