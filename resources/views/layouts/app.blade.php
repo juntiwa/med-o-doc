@@ -72,7 +72,7 @@
                <li><a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
             </ul>
          </div>
-         <a class="btn btn-ghost normal-case text-xl">MED</a>
+         <a class="btn btn-ghost normal-case text-xl">MED O-Doc</a>
       </div>
       <div class="navbar-center hidden lg:flex">
          <ul class="menu menu-horizontal p-0">
