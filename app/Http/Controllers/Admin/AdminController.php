@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ActivityLogsExport;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
-use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -15,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\Console\Input\Input;
 
 class AdminController extends Controller
 {

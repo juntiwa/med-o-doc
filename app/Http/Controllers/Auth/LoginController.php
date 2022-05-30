@@ -5,17 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\AuthUserAPI;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
-use App\Models\permission;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Faker\Factory;
-use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
@@ -23,16 +18,6 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class LoginController extends Controller
 {
-   /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
    use AuthenticatesUsers;
 
