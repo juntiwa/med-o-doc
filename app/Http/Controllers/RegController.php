@@ -393,7 +393,8 @@ class RegController extends Controller
       } else {
          $log_activity->action = 'User เปิดไฟล์ ' . $regdoc . '.' . $type;
       }
-
+      // $sub = substr($regdoc, 0, -17);
+      // Log::info($path);
       $dt = Carbon::now();
       $log_activity->date_time = $dt->toDayDateTimeString();
       $log_activity->save();
