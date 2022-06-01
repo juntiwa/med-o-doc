@@ -36,7 +36,7 @@ return new class extends Migration
          $table->tinyInteger('regunitid')->nullable();
          $table->string('regempid', 20);
          $table->date('regreply')->nullable();
-         $table->timestamp('regtimestamp');
+         $table->timestamp('regtimestamp')->nullable();
          $table->string('train', 1)->nullable();
          $table->string('technique', 1)->nullable();
          $table->string('viewtask', 1)->nullable();

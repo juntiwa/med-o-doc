@@ -52,7 +52,7 @@
                {{++$key}}
             </td>
             <!-- หัวเรื่อง -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap  ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top ">
                {{ $item->username }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top ">

@@ -56,7 +56,7 @@ class RegController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->date_time = date("d-m-Y h:i:s");
       $log_activity->save();
       
       return view('regdoc', compact('regs', 'types',  'regyears', 'sregfrom', 'sregto'));
@@ -366,7 +366,7 @@ class RegController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->date_time = date("d-m-Y h:i:s");
       $log_activity->save();
 
       return view('regdoc', compact(
@@ -379,8 +379,10 @@ class RegController extends Controller
       ));
    }
 
-   public function openfile(Request $request, $year,$type,$regdoc){
-      $path = 'files/' . $year . '/' . $regdoc . '.' . $type;
+   public function openfile(Request $request, $year,$regdoc){
+      $doc = Letterreg::where('regrecid', $regdoc)->first();
+      $filename = $doc->regdoc;
+      $path = 'files/' . $year . '/' . $filename;
 
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
@@ -389,14 +391,41 @@ class RegController extends Controller
       $log_activity->method = $request->method();
       $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $log_activity->action = 'Admin เปิดไฟล์ ' . $regdoc . '.' . $type;
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $regdoc . '.' . $filename;
       } else {
-         $log_activity->action = 'User เปิดไฟล์ ' . $regdoc . '.' . $type;
+         $log_activity->action = 'User เปิดไฟล์ ' . $regdoc . '.' . $filename;
       }
-      // $sub = substr($regdoc, 0, -17);
-      // Log::info($path);
       $dt = Carbon::now();
-      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->save();
+      
+      if (Storage::exists($path)) {
+         return Storage::response($path);
+      } else {
+         // dd('File is Not Exists');
+         abort(404);
+      }
+   }
+
+   public function openfile2(Request $request, $year, $regdoc){
+
+      $doc = Letterreg::where('regrecid', $regdoc)->first();
+      $filename = $doc->regdoc2;
+      $path = 'files/' . $year . '/' . $filename;
+
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $regdoc . '.' . $filename;
+      } else {
+         $log_activity->action = 'User เปิดไฟล์ ' . $regdoc . '.' . $filename;
+      }
+      $dt = Carbon::now();
+      $log_activity->date_time = date("d-m-Y h:i:s");
       $log_activity->save();
 
       if (Storage::exists($path)) {
