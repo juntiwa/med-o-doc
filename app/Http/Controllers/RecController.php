@@ -386,9 +386,9 @@ class RecController extends Controller
       $log_activity->method = $request->method();
       $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $log_activity->action = 'Admin เปิดไฟล์ ' . $recdoc . '.' . $filename;
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $filename;
       } else {
-         $log_activity->action = 'User เปิดไฟล์ ' . $recdoc . '.' . $filename;
+         $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
       $dt = Carbon::now();
       $log_activity->date_time = date("d-m-Y h:i:s");
@@ -416,9 +416,9 @@ class RecController extends Controller
       $log_activity->method = $request->method();
       $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $log_activity->action = 'Admin เปิดไฟล์ ' . $recdoc . '.' . $filename;
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $filename;
       } else {
-         $log_activity->action = 'User เปิดไฟล์ ' . $recdoc . '.' . $filename;
+         $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
       $dt = Carbon::now();
       $log_activity->date_time = date("d-m-Y h:i:s");
