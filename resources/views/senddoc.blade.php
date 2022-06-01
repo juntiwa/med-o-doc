@@ -248,7 +248,7 @@
                <!-- ถ้า regtype = 3 แสดงชื่อนอกภาค -->
                @elseif ($send->regtype == 3 )
                <!-- loop นอกภาค จากหน่วยใด -->
-               @foreach($reg->fromouts as $fromouts)
+               @foreach($send->fromouts as $fromouts)
                {{$fromouts->unitname}}
                <!-- endforeach fromouts -->
                @endforeach
@@ -325,7 +325,7 @@
                </p>
                @else
 
-               <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc)[1] }}/{{ explode('.', $send->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
+               <a href="/open-files/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($send->regdoc, PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -362,7 +362,7 @@
                   -
                </p>
                @else
-               <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc2)[1] }}/{{ explode('.', $send->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
+               <a href="/open-files2/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($send->regdoc2, PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -416,24 +416,23 @@
                @else
                {{$send->regtitle}}
                @endif
-
             </td>
             <!-- ชนิดหนังสือ -->
             <td class="p-3 text-base text-gray-800 font-medium whitespace-normal flex justify-center">
                <!-- join types show typename -->
                @if ($send->sendtype == null )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
-                        bg-opacity-50">ไม่ระบุ</span>
+                        bg-opacity-50 text-center">ไม่ระบุ</span>
                @else
                @if ($send->types['typeid'] == 0 )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50">{{$send->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$send->types['typename']}}</span>
                @elseif ($send->types['typeid'] == 3 )
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50">{{$send->types['typename']}}</span>
+                        bg-opacity-50 text-center">{{$send->types['typename']}}</span>
                @else
                <span class="p-1.5 text-base font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg 
-                        bg-opacity-50">อื่น ๆ</span>
+                        bg-opacity-50 text-center">อื่น ๆ</span>
                @endif
                @endif
             </td>
@@ -459,7 +458,7 @@
                <!-- ถ้า regtype = 3 แสดงชื่อนอกภาค -->
                @elseif ($send->regtype == 3 )
                <!-- loop นอกภาค จากหน่วยใด -->
-               @foreach($reg->fromouts as $fromouts)
+               @foreach($send->fromouts as $fromouts)
                {{$fromouts->unitname}}
                <!-- endforeach fromouts -->
                @endforeach
@@ -510,7 +509,7 @@
                @endif
             </td>
             <!-- ส่งวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top lg:text-center">
                @if ($send->senddate == "0000-00-00" || null )
                ไม่ระบุ
                @else
@@ -518,7 +517,7 @@
                @endif
             </td>
             <!-- รับวันที่ -->
-            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top lg:text-center">
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top lg:text-center">
                @if ($send->recdate == "0000-00-00" || null )
                ไม่ระบุ
                @else
@@ -536,7 +535,7 @@
                </p>
                @else
 
-               <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc)[1] }}/{{ explode('.', $send->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
+               <a href="/open-files/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($send->regdoc, PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -573,7 +572,7 @@
                   -
                </p>
                @else
-               <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc2)[1] }}/{{ explode('.', $send->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
+               <a href="/open-files2/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                   @if (pathinfo($send->regdoc2, PATHINFO_EXTENSION) == 'pdf')
                   <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -689,7 +688,7 @@
          <!-- ถ้า regtype = 3 แสดงชื่อนอกภาค -->
          @elseif ($send->regtype == 3 )
          <!-- loop นอกภาค จากหน่วยใด -->
-         @foreach($reg->fromouts as $fromouts)
+         @foreach($send->fromouts as $fromouts)
          {{$fromouts->unitname}}
          <!-- endforeach fromouts -->
          @endforeach
@@ -721,7 +720,7 @@
                -
             </p>
             @else
-            <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc)[1] }}/{{ explode('.', $send->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
+            <a href="/open-files/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($send->regdoc, PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -757,7 +756,7 @@
                -
             </p>
             @else
-            <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc2)[1] }}/{{ explode('.', $send->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
+            <a href="/open-files2/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($send->regdoc2, PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -863,7 +862,7 @@
          <!-- ถ้า regtype = 3 แสดงชื่อนอกภาค -->
          @elseif ($send->regtype == 3 )
          <!-- loop นอกภาค จากหน่วยใด -->
-         @foreach($reg->fromouts as $fromouts)
+         @foreach($send->fromouts as $fromouts)
          {{$fromouts->unitname}}
          <!-- endforeach fromouts -->
          @endforeach
@@ -895,7 +894,7 @@
                -
             </p>
             @else
-            <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc)[1] }}/{{ explode('.', $send->regdoc)[0] }}" target=" _blank" class="grid justify-items-center">
+            <a href="/open-files/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($send->regdoc, PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -931,7 +930,8 @@
                -
             </p>
             @else
-            <a href="/open-files/{{date('Y',strtotime($send->senddate))}}/{{ explode('.', $send->regdoc2)[1] }}/{{ explode('.', $send->regdoc2)[0] }}" target=" _blank" class="grid justify-items-center">
+
+            <a href="/open-files2/{{substr($send->regdoc, 0, 4)}}/{{$send->regrecid}}" target=" _blank" class="grid justify-items-center">
                @if (pathinfo($send->regdoc2, PATHINFO_EXTENSION) == 'pdf')
                <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
                   <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->

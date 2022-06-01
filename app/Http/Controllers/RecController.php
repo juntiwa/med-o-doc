@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\activityLog;
 use App\Models\Jobunit;
 use App\Models\Letterrec;
+use App\Models\Letterreg;
 use App\Models\Letterunit;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
@@ -54,7 +56,7 @@ class RecController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->date_time = date("d-m-Y h:i:s");
       $log_activity->save();
 
       return view('recdoc', compact('recs', 'types', 'recyears', 'srecfrom', 'srecto'));
@@ -356,7 +358,7 @@ class RecController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->date_time = date("d-m-Y h:i:s");
       $log_activity->save();
 
       // old input
@@ -371,9 +373,41 @@ class RecController extends Controller
       ));
    }
 
-   public function openfile(Request $request, $year, $type, $recdoc)
+   public function openfile(Request $request, $year, $recdoc)
    {
-      $path = 'files/' . $year . '/' . $recdoc . '.' . $type;
+      $doc = Letterreg::where('regrecid', $recdoc)->first();
+      $filename = $doc->regdoc;
+      $path = 'files/' . $year . '/' . $filename;
+      Log::info($path);
+      $log_activity = new activityLog;
+      $log_activity->username = Auth::user()->username;
+      $log_activity->program_name = 'med_edu';
+      $log_activity->url = URL::current();
+      $log_activity->method = $request->method();
+      $log_activity->user_agent = $request->header('user-agent');
+      if (Auth::user()->is_admin == "1") {
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $filename;
+      } else {
+         $log_activity->action = 'User เปิดไฟล์ ' . $filename;
+      }
+      $dt = Carbon::now();
+      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->save();
+
+      if (Storage::exists($path)) {
+         return Storage::response($path);
+      } else {
+         // dd('File is Not Exists');
+         abort(404);
+      }
+   }
+
+   public function openfile2(Request $request, $year, $recdoc)
+   {
+
+      $doc = Letterreg::where('regrecid', $recdoc)->first();
+      $filename = $doc->regdoc2;
+      $path = 'files/' . $year . '/' . $filename;
 
       $log_activity = new activityLog;
       $log_activity->username = Auth::user()->username;
@@ -382,20 +416,19 @@ class RecController extends Controller
       $log_activity->method = $request->method();
       $log_activity->user_agent = $request->header('user-agent');
       if (Auth::user()->is_admin == "1") {
-         $log_activity->action = 'Admin เปิดไฟล์ ' . $recdoc . '.' . $type;
+         $log_activity->action = 'Admin เปิดไฟล์ ' . $filename;
       } else {
-         $log_activity->action = 'User เปิดไฟล์ ' . $recdoc . '.' . $type;
+         $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
-
       $dt = Carbon::now();
-      $log_activity->date_time = $dt->toDayDateTimeString();
+      $log_activity->date_time = date("d-m-Y h:i:s");
       $log_activity->save();
 
       if (Storage::exists($path)) {
          return Storage::response($path);
       } else {
          // dd('File is Not Exists');
-         return view('errors.404');
+         abort(404);
       }
    }
 }
