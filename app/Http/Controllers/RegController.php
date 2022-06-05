@@ -56,7 +56,7 @@ class RegController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
       
       return view('regdoc', compact('regs', 'types',  'regyears', 'sregfrom', 'sregto'));
@@ -366,7 +366,7 @@ class RegController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       return view('regdoc', compact(
@@ -396,7 +396,7 @@ class RegController extends Controller
          $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
       
       if (Storage::exists($path)) {
@@ -425,7 +425,7 @@ class RegController extends Controller
          $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       if (Storage::exists($path)) {

@@ -56,7 +56,7 @@ class SendController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       return view('senddoc', compact('sends', 'types', 'sendyears', 'ssendfrom', 'ssendto'));
@@ -364,7 +364,7 @@ class SendController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       // old input
@@ -396,7 +396,7 @@ class SendController extends Controller
          $log_activity->action = 'User เปิดไฟล์ ' . $senddoc . '.' . $filename;
       }
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       if (Storage::exists($path)) {
@@ -426,7 +426,7 @@ class SendController extends Controller
          $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       if (Storage::exists($path)) {

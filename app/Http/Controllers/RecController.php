@@ -56,7 +56,7 @@ class RecController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       return view('recdoc', compact('recs', 'types', 'recyears', 'srecfrom', 'srecto'));
@@ -358,7 +358,7 @@ class RecController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       // old input
@@ -391,7 +391,7 @@ class RecController extends Controller
          $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       if (Storage::exists($path)) {
@@ -421,7 +421,7 @@ class RecController extends Controller
          $log_activity->action = 'User เปิดไฟล์ ' . $filename;
       }
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       if (Storage::exists($path)) {

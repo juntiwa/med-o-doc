@@ -42,7 +42,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin เข้าสู่หน้า activity log';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       $activityLog = activityLog::orderby('date_time', 'desc')->paginate(50);
@@ -66,7 +66,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin เข้าสู่หน้าข้อมูลสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       $permiss = User::paginate(50);
@@ -84,7 +84,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin เข้าสู่หน้าเพิ่มข้อมูลสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       $permiss = User::paginate(50);
@@ -182,7 +182,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin เพิ่มข้อมูลสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       return redirect()->route('permission');
@@ -205,7 +205,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin เข้าสู่หน้าแก้ไขสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       $user = User::find($id);
@@ -230,7 +230,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin แก้ไขสิทธิ์ผู้ใช้งาน';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       // Validation for required fields (and using some regex to validate our numeric value)
@@ -268,7 +268,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin ลบข้อมูล activity log';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
       return redirect()->route('activitylog');
    }
@@ -292,7 +292,7 @@ class AdminController extends Controller
       $log_activity->user_agent = $request->header('user-agent');
       $log_activity->action = 'Admin export ข้อมูล activity log';
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
       return Excel::download(new ActivityLogsExport, $filename);

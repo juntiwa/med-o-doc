@@ -90,7 +90,7 @@ class LoginController extends Controller
             }
 
             $dt = Carbon::now();
-            $log_activity->date_time = date("d-m-Y h:i:s");
+            $log_activity->date_time = date("d-m-Y H:i:s");
             $log_activity->save();
 
             Toastr::success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', ["positionClass" => "toast-top-right"]);
@@ -120,7 +120,7 @@ class LoginController extends Controller
       }
 
       $dt = Carbon::now();
-      $log_activity->date_time = date("d-m-Y h:i:s");
+      $log_activity->date_time = date("d-m-Y H:i:s");
       $log_activity->save();
 
 
