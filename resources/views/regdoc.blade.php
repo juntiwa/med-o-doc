@@ -1135,6 +1135,12 @@
       $("#tomonth > option").filter(function() {
          return $(this).attr("value") >= frommonthid
       }).prop('disabled', false);
+
+      var fromyearid = parseInt($('#fromyear option:selected').val())
+      var toyearid = parseInt($('#toyear option:selected').val())
+      if (toyearid > fromyearid) {
+         $("#tomonth > option").prop('disabled', false);
+      }
    });
 
    $('#fromyear').change(function() {

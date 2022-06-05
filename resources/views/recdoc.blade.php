@@ -1081,9 +1081,6 @@
    });
 
    $('#rfrommonth').change(function() {
-      var fromyearid = parseInt($('#rfromyear option:selected').val())
-      console.log(fromyearid)
-
       var frommonthid = parseInt($(this).val())
       var tomonthid = parseInt($('#rtomonth option:selected').val())
       if (tomonthid < frommonthid) {
@@ -1102,6 +1099,12 @@
       $("#rtomonth > option").filter(function() {
          return $(this).attr("value") >= frommonthid
       }).prop('disabled', false);
+
+      var fromyearid = parseInt($('#rfromyear option:selected').val())
+      var toyearid = parseInt($('#rtoyear option:selected').val())
+      if (toyearid > fromyearid) {
+         $("#rtomonth > option").prop('disabled', false);
+      }
    });
 
    $('#rfromyear').change(function() {
