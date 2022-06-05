@@ -985,7 +985,7 @@
 
             jQuery("#sregto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             jQuery.ajax({
-               url: '/reg-select-from',
+               url: "{{route('reg.select.from')}}",
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
@@ -999,7 +999,7 @@
 
             var sregto = <?= json_encode($sregto,  JSON_HEX_TAG); ?>;
             jQuery.ajax({
-               url: '/reg-select-to',
+               url: "{{route('reg.select.to')}}",
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {

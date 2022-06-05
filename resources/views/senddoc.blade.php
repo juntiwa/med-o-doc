@@ -995,7 +995,7 @@
 
             jQuery("#ssendto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             jQuery.ajax({
-               url: '/send-select-from',
+               url: "{{route('send.select.from')}}",
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
@@ -1009,7 +1009,7 @@
 
             var ssendto = <?= json_encode($ssendto,  JSON_HEX_TAG); ?>;
             jQuery.ajax({
-               url: '/send-select-to',
+               url: "{{route('send.select.to')}}",
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
