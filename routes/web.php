@@ -43,8 +43,8 @@ Route::post('reg-select-from', [RegController::class, 'selectSearchfrom'])->name
 Route::post('reg-select-to', [RegController::class, 'selectSearchto'])->name('reg.select.to');
 Route::post('reg-autocomplete', [RegController::class, 'autocompleteSearch'])->name('reg.autocomplete');
 Route::get('searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
-Route::get('open-files/{year}/{regdoc}', [RegController::class, 'openfile'])->name('open.file');
-Route::get('open-files2/{year}/{regdoc}', [RegController::class, 'openfile2'])->name('open.file2');
+Route::get('open-files/{year}/{regdoc}', [RegController::class, 'openfile'])->name('reg.open.file');
+Route::get('open-files2/{year}/{regdoc}', [RegController::class, 'openfile2'])->name('reg.open.file2');
 
 // ----------------------------- send -----------------------//
 Route::get('sendDoc', [SendController::class, 'index'])->name('send.show');
@@ -52,8 +52,8 @@ Route::post('send-select-from', [SendController::class, 'selectSearchfrom'])->na
 Route::post('send-select-to', [SendController::class, 'selectSearchto'])->name('send.select.to');
 Route::post('send-autocomplete', [SendController::class, 'autocompleteSearch'])->name('send.autocomplete');
 Route::get('searchSend', [SendController::class, 'searchSend'])->name('send.search');
-Route::get('open-files/{year}/{senddoc}', [SendController::class, 'openfile'])->name('open.file');
-Route::get('open-files2/{year}/{senddoc}', [SendController::class, 'openfile2'])->name('open.file2');
+Route::get('open-files/{year}/{senddoc}', [SendController::class, 'openfile'])->name('send.open.file');
+Route::get('open-files2/{year}/{senddoc}', [SendController::class, 'openfile2'])->name('send.open.file2');
 
 // ----------------------------- rec -----------------------//
 Route::get('recDoc', [RecController::class, 'index'])->name('rec.show');
@@ -61,5 +61,5 @@ Route::post('rec-select-from', [RecController::class, 'selectSearchfrom'])->name
 Route::post('rec-select-to', [RecController::class, 'selectSearchto'])->name('rec.select.to');
 Route::post('rec-autocomplete', [RecController::class, 'autocompleteSearch'])->name('rec.autocomplete');
 Route::get('searchRec', [RecController::class, 'searchRec'])->name('rec.search');
-Route::get('open-files/{year}/{recdoc}', [RecController::class, 'openfile'])->name('open.file');
-Route::get('open-files2/{year}/{recdoc}', [RecController::class, 'openfile2'])->name('open.file2');
+Route::get('open-files/{year}/{recdoc}', [RecController::class, 'openfile'])->name('rec.open.file');
+Route::get('open-files2/{year}/{recdoc}', [RecController::class, 'openfile2'])->name('rec.open.file2');
