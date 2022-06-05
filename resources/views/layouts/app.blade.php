@@ -41,7 +41,7 @@
 
 @include('fonts/sarabun')
 
-<body class="font-sarabun bg-white">
+<body class="font-sarabun bg-white min-h-screen max-h-full">
    @section('sidebar')
    <div class="navbar bg-slate-50 sticky top-0 z-50 shadow-sm">
       <div class="navbar-start">
@@ -51,7 +51,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                </svg>
             </label>
-            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-200 rounded-box w-52">
                @if (Auth::user()->is_admin == "1")
                <li><a href="{{route('activitylog')}}">Activity log</a></li>
                <li tabindex="0">
@@ -61,7 +61,7 @@
                         <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                      </svg>
                   </a>
-                  <ul class="p-2 ml-3 shadow bg-base-100 rounded-box ">
+                  <ul class="p-2 ml-3 shadow bg-slate-100 rounded-box ">
                      <li><a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
                      <li><a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                   </ul>
@@ -72,28 +72,32 @@
                <li><a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
             </ul>
          </div>
-         <a class="btn btn-ghost normal-case text-xl">MED O-Doc</a>
+         @if (Auth::user()->is_admin == "1")
+         <a href="{{route('activitylog')}}" class="btn btn-ghost normal-case text-xl text-slate-900">MED O-Doc</a>
+         @else
+         <a href="{{route('reg.show')}}" class="btn btn-ghost normal-case text-xl text-slate-900">MED O-Doc</a>
+         @endif
       </div>
       <div class="navbar-center hidden lg:flex">
          <ul class="menu menu-horizontal p-0">
             @if (Auth::user()->is_admin == "1")
-            <li class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else @endif font-medium"><a href="{{route('activitylog')}}">Activity log</a></li>
+            <li class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium"><a href="{{route('activitylog')}}">Activity log</a></li>
             <li tabindex="0">
-               <a class="@if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else  @endif font-medium">
+               <a class="@if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
                   สิทธิ์การเข้าถึง
                   <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                      <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                   </svg>
                </a>
-               <ul class="p-2 mt-3 shadow bg-base-100 rounded-box ">
-                  <li class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+               <ul class="p-2 mt-3 shadow bg-slate-100 rounded-box ">
+                  <li class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium"><a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+                  <li class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium"><a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                </ul>
             </li>
             @endif
-            <li class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('reg.show')}}">ลงทะเบียนส่งหนังสือ</a></li>
-            <li class="@if (Route::is('send.show') || Route::is('send.search')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('send.show')}}">ทะเบียนหนังสือส่ง</a></li>
-            <li class="@if (Route::is('rec.show') || Route::is('rec.search')) text-teal-500 text-shadow-sm  @else  @endif font-medium"><a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
+            <li class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium"><a href="{{route('reg.show')}}">ลงทะเบียนส่งหนังสือ</a></li>
+            <li class="@if (Route::is('send.show') || Route::is('send.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium"><a href="{{route('send.show')}}">ทะเบียนหนังสือส่ง</a></li>
+            <li class="@if (Route::is('rec.show') || Route::is('rec.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium"><a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
          </ul>
       </div>
       <div class="navbar-end">
@@ -116,7 +120,7 @@
    </div>
    @show
 
-   <div class="lg:p-6 p-3">
+   <div class="lg:p-6 p-3 max-h-full">
       @yield('content')
    </div>
 </body>
