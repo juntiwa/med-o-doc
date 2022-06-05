@@ -949,7 +949,7 @@
 
             jQuery("#srecto").html('<option value="">เลือกหน่วยงานที่รับ</option>')
             jQuery.ajax({
-               url: '/rec-select-from',
+               url: "{{route('rec.select.from')}}",
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
@@ -963,7 +963,7 @@
 
             var srecto = <?= json_encode($srecto,  JSON_HEX_TAG); ?>;
             jQuery.ajax({
-               url: '/rec-select-to',
+               url: "{{route('rec.select.to')}}",
                type: 'post',
                // data: 'typeid=' + typeid + '&_token={{csrf_token()}}',
                data: {
