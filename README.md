@@ -16,7 +16,8 @@ set produc.
 5. php artisan key:generate
 6. add .env file line 7 - 10
 7. edit DB_DATABASE (line 14), DB_USERNAME (line 15), DB_PASSWORD (line16) on .env file
-8. php artisan migrate
-9. php artisan db:seed
-10. npm i --save-dev tailwindcss-textshadow
-11. run project
+8. composer require marvinlabs/laravel-discord-logger
+9. php artisan migrate
+10. php artisan db:seed
+11. npm i --save-dev tailwindcss-textshadow
+12. run project
