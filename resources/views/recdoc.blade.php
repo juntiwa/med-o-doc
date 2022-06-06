@@ -934,7 +934,11 @@
    $('#irecto').addClass('hidden');
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
+      $('#srecfrom').prop('disabled', true);
+      $('#srecto').prop('disabled', true);
       $('#rectype').change(function() {
+         $('#srecfrom').prop('disabled', false);
+         $('#srecto').prop('disabled', false);
          let typeid = parseInt($(this).val());
          // console.log(typeid);
          if (typeid == 0) {

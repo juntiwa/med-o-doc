@@ -970,7 +970,11 @@
    $('#iregto').addClass('hidden');
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
+      $('#sregfrom').prop('disabled', true);
+      $('#sregto').prop('disabled', true);
       $('#regtype').change(function() {
+         $('#sregfrom').prop('disabled', false);
+         $('#sregto').prop('disabled', false);
          let typeid = parseInt($(this).val());
          // console.log(typeid);
          if (typeid == 0) {

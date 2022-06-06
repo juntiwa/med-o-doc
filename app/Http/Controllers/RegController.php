@@ -71,13 +71,13 @@ class RegController extends Controller
       $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
       foreach ($unit as $list) {
          // $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
-        
+         
             if ($sregfrom == $list->unitid) {
                $html .= '<option id="option" value="' . $list->unitid . '" selected>' . $list->unitname . '</option>';
             } else {
                $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
             }
-        echo $list->unitid . '<br>';
+         echo $list->unitid . '<br>';
       }
       echo $html;
    }
@@ -160,7 +160,12 @@ class RegController extends Controller
       }
 
       if ($sregfrom != '') {
-         $searchregs  = $searchregs->where('regfrom', $sregfrom);
+         $l = strlen($sregfrom);
+         // Log::info($l);
+         if($l == 1){
+            $lsto = '0'. $sregfrom;
+         }
+         $searchregs  = $searchregs->where('regfrom', $lsto);
       }
 
       if ($iregfrom != '') {        
@@ -168,7 +173,12 @@ class RegController extends Controller
       }
 
       if ($sregto != '') {
-         $searchregs  = $searchregs->where('regto', $sregto);
+         $l = strlen($sregto);
+         // Log::info($l);
+         if ($l == 1) {
+            $ls = '0' . $sregto;
+         }
+         $searchregs  = $searchregs->where('regto', $ls);
       }
 
       if ($iregto != '') {

@@ -980,7 +980,11 @@
    $('#isendto').addClass('hidden');
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    $(document).ready(function() {
+      $('#ssendfrom').prop('disabled', true);
+      $('#ssendto').prop('disabled', true);
       $('#sendtype').change(function() {
+         $('#ssendfrom').prop('disabled', false);
+         $('#ssendto').prop('disabled', false);
          let typeid = parseInt($(this).val());
          // console.log(typeid);
          if (typeid == 0) {
