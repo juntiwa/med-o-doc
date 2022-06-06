@@ -182,7 +182,7 @@ return [
        * custom
        */
       Maatwebsite\Excel\ExcelServiceProvider::class,
-
+      MarvinLabs\DiscordLogger\ServiceProvider::class
    ],
 
    /*

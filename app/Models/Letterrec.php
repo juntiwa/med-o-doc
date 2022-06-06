@@ -46,5 +46,16 @@ class Letterrec extends Model
    {
       return $this->hasMany(Letterunit::class, 'unitid', 'rectoid');
    }
-   
+
+   public function getRecdocUrlAttribute()
+   {
+      $year = substr($this->regdoc, 0, 4);
+      return url("/open-files/{$year}/{$this->regrecid}");
+   }
+
+   public function getRecdoc2UrlAttribute()
+   {
+      $year = substr($this->regdoc2, 0, 4);
+      return url("/open-files2/{$year}/{$this->regrecid}");
+   }
 }

@@ -63,4 +63,16 @@ class Letterreg extends Model
    {
       return $this->belongsTo(Letterrec::class, 'regrecid', 'regrecid');
    }
+
+   public function getRegdocUrlAttribute()
+   {
+      $year = substr($this->regdoc, 0, 4);
+      return url("/open-files/{$year}/{$this->regrecid}");
+   }
+
+   public function getRegdoc2UrlAttribute()
+   {
+      $year = substr($this->regdoc2, 0, 4);
+      return url("/open-files2/{$year}/{$this->regrecid}");
+   }
 }

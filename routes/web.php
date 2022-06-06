@@ -8,6 +8,7 @@ use App\Http\Controllers\SendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 // ----------------------------- signin -----------------------//

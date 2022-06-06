@@ -53,7 +53,7 @@ return [
    'channels' => [
       'stack' => [
          'driver' => 'stack',
-         'channels' => ['daily'],
+         'channels' => ['daily', 'discord'],
          'ignore_exceptions' => false,
       ],
 
@@ -75,6 +75,15 @@ return [
          'url' => env('LOG_SLACK_WEBHOOK_URL'),
          'username' => 'Laravel Log',
          'emoji' => ':boom:',
+         'level' => env('LOG_LEVEL', 'critical'),
+      ],
+
+      'discord' => [
+         'driver' => 'custom',
+         'via'    => MarvinLabs\DiscordLogger\Logger::class,
+         'url' => env('LOG_DISCORD_WEBHOOK_URL'),
+         'username' => 'Laravel Log',
+         'emoji' => ':imp:',
          'level' => env('LOG_LEVEL', 'critical'),
       ],
 

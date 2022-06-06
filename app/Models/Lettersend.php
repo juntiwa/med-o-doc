@@ -51,4 +51,16 @@ class Lettersend extends Model
    {
       return $this->hasMany(Letterunit::class, 'unitid', 'sendtoid');
    }
+
+   public function getSenddocUrlAttribute()
+   {
+      $year = substr($this->regdoc, 0, 4);
+      return url("/open-files/{$year}/{$this->regrecid}");
+   }
+
+   public function getSenddoc2UrlAttribute()
+   {
+      $year = substr($this->regdoc2, 0, 4);
+      return url("/open-files2/{$year}/{$this->regrecid}");
+   }
 }
