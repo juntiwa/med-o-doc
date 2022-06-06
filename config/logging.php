@@ -84,7 +84,7 @@ return [
          'url' => env('LOG_DISCORD_WEBHOOK_URL'),
          'username' => 'Laravel Log',
          'emoji' => ':imp:',
-         'level' => 'error',
+         'level' => env('LOG_LEVEL', 'critical'),
       ],
 
       'papertrail' => [

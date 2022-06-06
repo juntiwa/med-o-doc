@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -51,6 +52,7 @@ class LoginController extends Controller
       #authen office name from siriraj user
       #ไม่ใช่ "สนง.ภาควิชาอายุรศาสตร์" return to login page with error message
       if ($sirirajUser['office_name'] != "สนง.ภาควิชาอายุรศาสตร์") {
+         Log::info($sirirajUser['office_name']);
          abort(403);
          // $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
          // return Redirect::back()->withErrors($errors)->withInput($request->all());
@@ -61,6 +63,7 @@ class LoginController extends Controller
          $user = User::where('username', $sirirajUser['login'])->where('status', 'Active')->first();
          #ไม่ตรงกัน return to login page with error message
          if (!$user) {
+            Log::info($sirirajUser['login']);
             abort(403);
             // $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
             // return Redirect::back()->withErrors($errors)->withInput($request->all());
