@@ -158,9 +158,11 @@ class RegController extends Controller
             $l = strlen($sregfrom);
             // Log::info($l);
             if ($l == 1) {
-                $lsto = '0'.$sregfrom;
+                $ls = '0'.$sregfrom;
+            } else {
+                $ls = $sregto;
             }
-            $searchregs = $searchregs->where('regfrom', $lsto);
+            $searchregs = $searchregs->where('regfrom', $ls);
         }
 
         if ($iregfrom != '') {
@@ -171,9 +173,11 @@ class RegController extends Controller
             $l = strlen($sregto);
             // Log::info($l);
             if ($l == 1) {
-                $ls = '0'.$sregto;
+                $lsto = '0'.$sregto;
+            } else {
+                $lsto = $sregto;
             }
-            $searchregs = $searchregs->where('regto', $ls);
+            $searchregs = $searchregs->where('regto', $lsto);
         }
 
         if ($iregto != '') {
