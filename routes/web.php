@@ -1,28 +1,28 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Admin\AdminController as AdminController;
+use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\RecController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\SendController;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 // ----------------------------- signin -----------------------//
 
 Route::get('500', function () {
-   return view('errors.500');
+    return view('errors.500');
 });
 Route::get('/', function () {
-   if (Auth::check()) {
-      Toastr::success('คุณเข้าสู่ระบบอยู่แล้ว', 'แจ้งเตือน', ["positionClass" => "toast-top-right"]);
-      return back();
-   } else {
-      return view('auth.login');
-   }
+    if (Auth::check()) {
+        Toastr::success('คุณเข้าสู่ระบบอยู่แล้ว', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
+
+        return back();
+    } else {
+        return view('auth.login');
+    }
 })->name('login');
 Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
 Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
@@ -38,11 +38,14 @@ Route::post('update_permis/{id}', [AdminController::class, 'update'])->name('upd
 Route::get('activity_log_export', [AdminController::class, 'export'])->name('activitylog.export');
 Route::get('delete_activitylog', [AdminController::class, 'deleteActivity'])->name('delete.activitylog');
 
+// ----------------------------- document -----------------------//
+Route::get('doucument', [DocumentController::class, 'index'])->name('docShow');
+
 // ----------------------------- reg -----------------------//
 Route::get('regDoc', [RegController::class, 'index'])->name('reg.show');
 Route::post('reg-select-from', [RegController::class, 'selectSearchfrom'])->name('reg.select.from');
 Route::post('reg-select-to', [RegController::class, 'selectSearchto'])->name('reg.select.to');
-Route::post('reg-autocomplete', [RegController::class, 'autocompleteSearch'])->name('reg.autocomplete');
+Route::get('reg-autocomplete', [RegController::class, 'autocompleteSearch'])->name('reg.autocomplete');
 Route::get('searchReg', [RegController::class, 'searchRegis'])->name('reg.search');
 Route::get('open-files/{year}/{regdoc}', [RegController::class, 'openfile'])->name('reg.open.file');
 Route::get('open-files2/{year}/{regdoc}', [RegController::class, 'openfile2'])->name('reg.open.file2');
