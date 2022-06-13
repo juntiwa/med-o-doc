@@ -43,7 +43,6 @@
 
 <body class="font-sarabun bg-white min-h-screen max-h-full">
    @section('sidebar')
-
    <div class="navbar bg-slate-50 sticky top-0 z-50 ">
       <div class="navbar-start">
          <div class="dropdown">
@@ -53,40 +52,35 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                </svg>
             </label>
-            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 bg-slate-50">
+               <li class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                  hover:text-teal-500 font-medium">
+                  <a href="{{route('reg.show')}}">ค้นหาเอกสาร</a>
+               </li>
                @if (Auth::user()->is_admin == "1")
-               <li><a href="{{route('activitylog')}}"
-                     class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">Activity
-                     log</a></li>
                <li tabindex="0">
-                  <a
-                     class="justify-between @if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-                     สิทธิ์การเข้าถึง
-
+                  <a class="justify-between @if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else 
+                  text-slate-600 @endif hover:text-teal-500 font-medium">
+                     จัดการระบบ
                      <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24">
                         <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                      </svg>
                   </a>
-                  <ul class="p-2 bg-white shadow-md">
-                     <li
-                        class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-                        <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                     <li
-                        class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-                        <a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                  <ul class="p-2 bg-slate-50 shadow-md">
+                     <li class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
+                     <a href="{{route('activitylog')}}">Activity log</a>
+                  </li>
+                  <li class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
+                     <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+                  <li class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
+                     <a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                   </ul>
                </li>
                @endif
-               <li
-                  class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-                  <a href="{{route('reg.show')}}">ลงทะเบียนส่งหนังสือ</a></li>
-               <li
-                  class="@if (Route::is('send.show') || Route::is('send.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-                  <a href="{{route('send.show')}}">ทะเบียนหนังสือส่ง</a></li>
-               <li
-                  class="@if (Route::is('rec.show') || Route::is('rec.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-                  <a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
             </ul>
          </div>
          @if (Auth::user()->is_admin == "1")
@@ -97,44 +91,39 @@
       </div>
       <div class="navbar-center hidden lg:flex ">
          <ul class="menu menu-horizontal p-0">
+            <li class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+            hover:text-teal-500 font-medium">
+               <a href="{{route('reg.show')}}">ค้นหาเอกสาร</a>
+            </li>
             @if (Auth::user()->is_admin == "1")
-            <li
-               class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-               <a href="{{route('activitylog')}}">Activity log</a></li>
-
+            
             <li tabindex="0">
-               <a
-                  class="@if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-
-                  สิทธิ์การเข้าถึง
-
+               <a class="@if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+               hover:text-teal-500 font-medium">
+                  จัดการระบบ
                   <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                      viewBox="0 0 24 24">
                      <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                   </svg>
                </a>
                <ul class="p-2 bg-slate-50 shadow-md">
-                  <li
-                     class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
+                  <li class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
+                     <a href="{{route('activitylog')}}">Activity log</a>
+                  </li>
+                  <li class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
                      <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li
-                     class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
+                  <li class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
                      <a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                </ul>
             </li>
             @endif
-            <li
-               class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-               <a href="{{route('reg.show')}}">ลงทะเบียนส่งหนังสือ</a></li>
-            <li
-               class="@if (Route::is('send.show') || Route::is('send.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-               <a href="{{route('send.show')}}">ทะเบียนหนังสือส่ง</a></li>
-            <li
-               class="@if (Route::is('rec.show') || Route::is('rec.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif hover:text-teal-500 font-medium">
-               <a href="{{route('rec.show')}}">ทะเบียนหนังสือรับ</a></li>
-
+            
          </ul>
       </div>
+            
       <div class="navbar-end">
          <span class="lg:mr-2 md:mr-2 text-blue-700 text-base">
             <!-- ชื่อเข้าสู่ระบบ -->
