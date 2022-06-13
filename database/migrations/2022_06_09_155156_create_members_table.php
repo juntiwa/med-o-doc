@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('org_id');
-            $table->string('username')->nullable();
-            $table->string('full_name')->nullable();
             $table->enum('is_admin', ['1', '0']);
             $table->enum('status', ['Active', 'Disable']);
             $table->timestamps();
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('members');
     }
 };

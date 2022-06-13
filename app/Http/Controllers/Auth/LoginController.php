@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\AuthUserAPI;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
+use App\Models\Member;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Brian2694\Toastr\Facades\Toastr;
@@ -40,61 +41,46 @@ class LoginController extends Controller
 
     public function authenticate(Request $request, AuthUserAPI $api)
     {
-        /* Authen siriraj user */
+
+         //  Authen siriraj user
+
         $sirirajUser = $api->authenticate($request->username, $request->password);
         if ($sirirajUser['reply_code'] != 0) {
             //ถ้าไม่เท่ากับ 0 => ชื่อผู้ใช้หรือรหัสผ่านผิด
             $errors = ['message' => $sirirajUser['reply_text']];
+            Log::critical($sirirajUser['reply_text']);
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
         }
 
-        //authen username from table user = login from sirirajuser
-        $user = User::where(
-            'username',
-            $sirirajUser['login']
-        )->where('status', 'Active')->first();
-        //ไม่ตรงกัน return to login page with error message
-        if (! $user) {
-            Log::info($sirirajUser['login']);
+        $member = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
+
+        //   no permis
+        if (! $member) {
+            Log::critical('ไม่มีสิทธิ์เข้าถึง');
             abort(403);
-        // $errors = ['message' => 'ไม่มีสิทธิ์เข้าถึง กรุณาติดต่อผู้ดูแลระบบ'];
-         // return Redirect::back()->withErrors($errors)->withInput($request->all());
-        }
-        //ตรงกัน save avtivity log to activitylog table
-        else {
-            //ให้ login
-            Auth::login($user);
-            // Log::info("test");
-            //update fullname to user table
-            if (Auth::user()->full_name != $sirirajUser['full_name']
-         ) {
-                User::where('username', Auth::user()->username)->update([
-               'full_name' => $sirirajUser['full_name'],
-            ]);
+        } else {
+            $users = User::where('org_id', $sirirajUser['org_id'])->first();
+
+            // ไม่มีสิทธิ์เข้าถึงระบบ
+            if (! $users) {
+                $user = new User;
+                $user->org_id = $sirirajUser['org_id'];
+                $user->username = $sirirajUser['login'];
+                $user->full_name = $sirirajUser['full_name'];
+                $user->is_admin = $member->is_admin;
+                $user->status = $member->status;
+                $user->save();
             }
 
-            $log_activity = new activityLog;
-            $log_activity->username = Auth::user()->username;
-            $log_activity->program_name = 'med_edu';
-            $log_activity->url = URL::current();
-            $log_activity->method = $request->method();
-            $log_activity->user_agent = $request->header('user-agent');
-            $log_activity->action = Auth::user()->username.' logout';
+            // dd($users);
 
-            $dt = Carbon::now();
-            $log_activity->date_time = date('d-m-Y H:i:s');
-            $log_activity->save();
-
-            Toastr::success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
-
-            if ($user->is_admin == '1') {
-                // Log::info("admin");
-                return redirect('activitylog')->with('success', 'Account successfully registered.');
-            } else {
-                return redirect('regDoc')->with('success', 'Account successfully registered.');
-            }
+            Auth::login($users);
         }
+
+        Log::info('Ok');
+
+        return Redirect::route('docShow');
     }
 
     public function logout(Request $request)

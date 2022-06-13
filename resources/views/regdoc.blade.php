@@ -60,6 +60,8 @@
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                focus:outline-none " placeholder="ส่งจาก" value="{{ old('iregfrom') }}">
 
+               <input type="text" name="idfrom" id="idfrom" value="{{ old('idfrom') }}" hidden>
+
             </div>
 
             <!-- ถึง -->
@@ -73,6 +75,7 @@
                <input type="text" name="iregto" id="iregto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
                focus:outline-none " aria-label="Default select example" placeholder="ส่งถึง" value="{{ old('iregto') }}">
+               <input type="text" name="idto" id="idto" value="{{ old('idto') }}" hidden>
 
             </div>
 
@@ -1086,7 +1089,7 @@
                      // Fetch data
                      $.ajax({
                         url: "{{route('reg.autocomplete')}}",
-                        type: 'post',
+                        type: 'get',
                         dataType: "json",
                         data: {
                            _token: CSRF_TOKEN,
@@ -1100,10 +1103,12 @@
                   select: function(event, ui) {
                      // Set selection
                      $('#iregfrom').val(ui.item.label); // display the selected text
-                     // $('#idfrom').val(ui.item.value); // save selected id to input
+                     $('#idfrom').val(ui.item.value); // save selected id to input
                      return false;
                   }
                });
+
+               
 
                $("#iregto").autocomplete({
                   source: function(request, response) {
@@ -1124,7 +1129,7 @@
                   select: function(event, ui) {
                      // Set selection
                      $('#iregto').val(ui.item.label); // display the selected text
-                     // $('#idto').val(ui.item.value); // save selected id to input
+                     $('#idto').val(ui.item.value); // save selected id to input
 
                      return false;
                   }

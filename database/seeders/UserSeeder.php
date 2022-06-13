@@ -15,12 +15,12 @@ class UserSeeder extends Seeder
     */
    public function run()
    {
-      $users = array(
+      /* $users = array(
          ['username' =>'juntima.nuc', 'full_name' =>'', 'is_admin' =>'1', 'status' => 'Active'],
       );
 
       foreach ($users as $user) {
          User::create($user);
-      }
+      } */
    }
 }

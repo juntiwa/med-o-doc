@@ -97,7 +97,7 @@ class RegController extends Controller
 
     public function autocompleteSearch(Request $request)
     {
-        $search = $request->search;
+        /* $search = $request->search;
         if ($search == '') {
             $autocomplate = Letterunit::orderby('unitname', 'asc')->select('unitid', 'unitname')->limit(20)->get();
         } else {
@@ -106,10 +106,21 @@ class RegController extends Controller
 
         $response = [];
         foreach ($autocomplate as $autocomplate) {
-            $response[] = ['label' => $autocomplate->unitname];
+            $response[] = ['value' => $autocomplate->unitid,
+               'label' => $autocomplate->unitname, ];
         }
         echo json_encode($response);
-        exit;
+        exit; */
+         $search = $request->search;
+
+        $data = Letterunit::orderby('unitname', 'asc')->select('unitid', 'unitname')->where('unitname', 'like', '%'.$search.'%')->limit(20)->get();
+
+         $response = [];
+        foreach ($data as $data) {
+            $response[] = ['value' => $data->unitid,
+               'label' => $data->unitname, ];
+        }
+        echo json_encode($response);
     }
 
     /**
@@ -122,31 +133,14 @@ class RegController extends Controller
     {
         $regtype = $request->get('regtype');
         $sregfrom = $request->get('sregfrom');
-        $iregfrom = $request->get('iregfrom');
+        $iregfrom = $request->get('idfrom');
         $sregto = $request->get('sregto');
-        $iregto = $request->get('iregto');
+        $iregto = $request->get('idto');
         $regtitle = $request->get('regtitle');
         $frommonth = $request->get('frommonth');
         $tomonth = $request->get('tomonth');
         $fromyear = $request->get('fromyear');
         $toyear = $request->get('toyear');
-
-        $units = Letterunit::all();
-        // Log::info("f" . $iregfrom);
-
-        foreach ($units as $unit) {
-            $unitname = $unit->unitname;
-            // Log::info($unitname);
-            if (stripos($unitname, $iregfrom) !== false) {
-                $fuid = $unit->unitid;
-                // Log::info("f" . $fuid);
-            }
-            if (stripos($unitname, $iregto) !== false) {
-                $tuid = $unit->unitid;
-                // Log::info("t" . $tuid);
-            }
-        }
-        // Log::info("f" . $fuid);
 
         $searchregs = Letterreg::orderby('regdate', 'desc');
 
@@ -160,13 +154,16 @@ class RegController extends Controller
             if ($l == 1) {
                 $ls = '0'.$sregfrom;
             } else {
-                $ls = $sregto;
+                $ls = $sregfrom;
             }
+            // Log::info($ls);
             $searchregs = $searchregs->where('regfrom', $ls);
         }
 
         if ($iregfrom != '') {
-            $searchregs = $searchregs->where('regfrom', $fuid);
+            Log::info('f'.$iregfrom);
+
+            $searchregs = $searchregs->where('regfrom', $iregfrom);
         }
 
         if ($sregto != '') {
@@ -181,7 +178,9 @@ class RegController extends Controller
         }
 
         if ($iregto != '') {
-            $searchregs = $searchregs->where('regto', $tuid);
+            Log::info('t'.$iregto);
+
+            $searchregs = $searchregs->where('regto', $iregto);
         }
 
         if ($regtitle != '') {
@@ -243,6 +242,7 @@ class RegController extends Controller
                             }
                         }
                     } else {
+                        //   $iregfrom = Letterunit::where('iregfrom',$iregfrom);
                         if ($iregfrom == null && $iregto == null) {
                             $regfrom = '-';
                             $regto = '-';
