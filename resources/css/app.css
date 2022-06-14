@@ -13,48 +13,19 @@
 /* @font-face {
    font-family: 'Sarabun', sans-serif;
    src: url(fonts/THSarabunNew.ttf) format('truetype');
-} */
-ul#ui-id-1.ui-menu {
-   font-family: 'Sarabun', sans-serif;
-   position: absolute;
-   padding: 10px;
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
-   margin-top: 5px;
-   border-radius: 5px;
-   width: 50%;
-   min-height: auto;
-   max-height: 50vh;
-   min-width: 200px;
-   max-width: auto;
-   overflow-y: auto;
 }
 
-#ui-id-2 {
+*/
+ul.ui-menu {
    font-family: 'Sarabun', sans-serif;
-   position: absolute;
    padding: 10px;
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
+   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px; */
    margin-top: 5px;
    border-radius: 5px;
-   width: 50%;
+   width: auto;
    min-height: auto;
-   max-height: 50vh;
-   min-width: 200px;
-   max-width: auto;
-   overflow-y: auto;
-}
-
-.option {
-   font-family: 'Sarabun', sans-serif;
-   position: absolute;
-   padding: 10px;
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
-   margin-top: 5px;
-   border-radius: 5px;
-   width: 50%;
-   min-height: 10vh;
-   max-height: 100px !important;
-   min-width: 200px;
+   max-height: 45vh;
+   min-width: auto;
    max-width: auto;
    overflow-y: auto;
 }

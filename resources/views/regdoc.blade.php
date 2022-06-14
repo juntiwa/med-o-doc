@@ -1084,32 +1084,15 @@
             $('#sregto').val('');
 
             $(document).ready(function() {
-               $("#iregfrom").autocomplete({
-                  source: function(request, response) {
-                     // Fetch data
-                     $.ajax({
-                        url: "{{route('reg.autocomplete')}}",
-                        type: 'get',
-                        dataType: "json",
-                        data: {
-                           _token: CSRF_TOKEN,
-                           search: request.term
-                        },
-                        success: function(data) {
-                           response(data);
-                        }
+               $('#iregfrom').typeahead({
+                  source: function(query,process) {
+                     return $.get({{route('autocompleteForm')}},{
+                        query: query
+                     }, function (data){
+                        return process(data);
                      });
-                  },
-                  select: function(event, ui) {
-                     // Set selection
-                     $('#iregfrom').val(ui.item.label); // display the selected text
-                     $('#idfrom').val(ui.item.value); // save selected id to input
-                     return false;
                   }
                });
-
-               
-
                $("#iregto").autocomplete({
                   source: function(request, response) {
                      // Fetch data
