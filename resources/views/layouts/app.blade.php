@@ -16,7 +16,7 @@
    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
    <!-- css -->
-   <link href="{{ asset('css/font.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
    <link href="{{ asset('css/status.css') }}" rel="stylesheet">
 
    <!-- daisyui -->
@@ -27,15 +27,11 @@
    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" />
    <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
 
-   <!-- Script ajax -->
-   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-   <!-- toastr -->
-   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-   <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-   <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+  
 
 </head>
 
@@ -53,9 +49,9 @@
                </svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 bg-slate-50">
-               <li class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+               <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
                   hover:text-teal-500 font-medium">
-                  <a href="{{route('reg.show')}}">ค้นหาเอกสาร</a>
+                  <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
                </li>
                @if (Auth::user()->is_admin == "1")
                <li tabindex="0">
@@ -86,14 +82,14 @@
          @if (Auth::user()->is_admin == "1")
          <a href="{{route('activitylog')}}" class="btn btn-ghost normal-case text-xl text-slate-900">MED O-Doc</a>
          @else
-         <a href="{{route('reg.show')}}" class="btn btn-ghost normal-case text-xl text-slate-900">MED O-Doc</a>
+         <a href="{{route('docShow')}}" class="btn btn-ghost normal-case text-xl text-slate-900">MED O-Doc</a>
          @endif
       </div>
       <div class="navbar-center hidden lg:flex ">
          <ul class="menu menu-horizontal p-0">
-            <li class="@if (Route::is('reg.show') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+            <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
             hover:text-teal-500 font-medium">
-               <a href="{{route('reg.show')}}">ค้นหาเอกสาร</a>
+               <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
             </li>
             @if (Auth::user()->is_admin == "1")
             
@@ -147,7 +143,6 @@
       @yield('content')
    </div>
 </body>
-
 <!-- search type -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -161,5 +156,4 @@
       }
    });
 </script>
-
 </html>
