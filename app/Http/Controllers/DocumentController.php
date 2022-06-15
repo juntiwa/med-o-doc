@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jobunit;
 use App\Models\Letterreg;
+use App\Models\Lettersend;
 use App\Models\Letterunit;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -84,6 +85,7 @@ class DocumentController extends Controller
                ->where('unitname', 'LIKE', '%'.$request->get('search').'%')
                ->orderBy('unitname')
                ->limit(20)->get();
+
         return response()->json($data);
     }
 
@@ -335,7 +337,6 @@ class DocumentController extends Controller
         $filename = $doc->regdoc;
         $path = 'files/'.$year.'/'.$filename;
 
-
         if (Storage::exists($path)) {
             return Storage::response($path);
         } else {
@@ -356,5 +357,23 @@ class DocumentController extends Controller
             // dd('File is Not Exists');
             abort(404);
         }
+    }
+
+    public function show($regrecid)
+    {
+        $regTbl = Letterreg::where('letterregs.regrecid', $regrecid)->first();
+      
+
+        /* $regisTable = Letterreg::join('lettersends','lettersends.regrecid','=','letterregs.regrecid')
+        ->join('letterrecs','lettersends.sendregid','=','letterrecs.sendregid')
+        ->where('letterregs.regrecid', $regrecid)
+        ->get(); */
+
+         $regisTable = Lettersend::leftJoin('letterrecs','lettersends.sendregid','=','letterrecs.sendregid')
+        ->where('lettersends.regrecid', $regrecid)
+        ->get();
+        
+        Log::info($regTbl);
+        return view('description', compact('regisTable','regTbl'));
     }
 }
