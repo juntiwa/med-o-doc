@@ -10,6 +10,10 @@ class Lettersend extends Model
 {
    use HasFactory;
 
+   protected $fillable = [
+      'regrecid'
+   ];
+
    public function thaidate()
    {
       return Carbon::parse($this->senddate)->thaidate();
@@ -62,5 +66,28 @@ class Lettersend extends Model
    {
       $year = substr($this->regdoc2, 0, 4);
       return url("/open-files2/{$year}/{$this->regrecid}");
+   }
+
+   // description
+   // to ส่งถึงที่ไหน 1 เรื่องสามารถส่งถึงได้หลายที่
+   public function destoins()
+   {
+      return $this->hasMany(Jobunit::class, 'unitid', 'sendtoid');
+   }
+   public function destoouts()
+   {
+      return $this->hasMany(Letterunit::class, 'unitid', 'sendtoid');
+   }
+
+   public function thaidateregdate(){
+      return Carbon::parse($this->regdate)->thaidate();
+   }
+
+   public function thaidatesenddate(){
+      return Carbon::parse($this->senddate)->thaidate();
+   }
+
+   public function thaidaterecdate(){
+      return Carbon::parse($this->recdate)->thaidate();
    }
 }

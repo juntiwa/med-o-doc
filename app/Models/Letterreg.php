@@ -18,13 +18,20 @@ class Letterreg extends Model
     * @var array<int, string>
     */
    protected $fillable = [
-      
       'regtitle',
-      
+      'regrecid'
    ];
 
-   public function thaidate(){
+   public function thaidateregdate(){
       return Carbon::parse($this->regdate)->thaidate();
+   }
+
+   public function thaidatesenddate(){
+      return Carbon::parse($this->senddate)->thaidate();
+   }
+
+   public function thaidaterecdate(){
+      return Carbon::parse($this->recdate)->thaidate();
    }
 
    //  type 1 เรื่อง มีได้ 1 ภาคเท่านั้น
@@ -75,4 +82,21 @@ class Letterreg extends Model
       $year = substr($this->regdoc2, 0, 4);
       return url("/open-files2/{$year}/{$this->regrecid}");
    }
+
+   public function getTitleAttribute()
+   {
+      $regrecid =  $this->regrecid;
+      return url("description-document/{$regrecid}");
+   }
+
+//  from ส่งจากที่ไหน 1 เรื่องสามารถส่งได้หลายที่
+   public function desfromins()
+   {
+      return $this->hasMany(Jobunit::class, 'unitid', 'regfrom');
+   }
+   public function desfromouts()
+   {
+      return $this->hasMany(Letterunit::class, 'unitid', 'regfrom');
+   }
+   
 }

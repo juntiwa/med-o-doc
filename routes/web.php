@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AdminController as AdminController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\RecController;
-use App\Http\Controllers\RegController;
 use App\Http\Controllers\SendController;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -39,21 +38,16 @@ Route::get('activity_log_export', [AdminController::class, 'export'])->name('act
 Route::get('delete_activitylog', [AdminController::class, 'deleteActivity'])->name('delete.activitylog');
 
 // ----------------------------- document -----------------------//
-// Route::get('doucument', [DocumentController::class, 'index'])->name('docShow');
-// Route::get('autocomplete-from', [DocumentController::class, 'autocompleteSearch'])->name('autocompleteSearch');
-// Route::get('autocomplete', [DocumentController::class, 'autocomplete'])->name('autocomplete');
-
 Route::controller(DocumentController::class)->group(function () {
     Route::get('doucument', 'index')->name('docShow');
     Route::post('reg-select-from', 'selectSearchfrom')->name('reg.select.from');
     Route::post('reg-select-to', 'selectSearchto')->name('reg.select.to');
     Route::get('autocomplete', 'autocomplete')->name('autocomplete');
-    Route::get('searchReg','searchRegis')->name('reg.search');
-    Route::get('open-files/{year}/{regdoc}','openfile')->name('reg.open.file');
-    Route::get('open-files2/{year}/{regdoc}','openfile2')->name('reg.open.file2');
+    Route::get('searchReg', 'searchRegis')->name('reg.search');
+    Route::get('open-files/{year}/{regdoc}', 'openfile')->name('reg.open.file');
+    Route::get('open-files2/{year}/{regdoc}', 'openfile2')->name('reg.open.file2');
+    Route::get('description-document/{regrecid}', 'show')->name('description.document');
 });
-
-
 
 // ----------------------------- send -----------------------//
 Route::get('sendDoc', [SendController::class, 'index'])->name('send.show');
