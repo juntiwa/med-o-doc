@@ -15,13 +15,14 @@ return new class extends Migration
    {
       Schema::create('activity_logs', function (Blueprint $table) {
          $table->id();
-         $table->string('username')->nullable();
-         $table->string('program_name')->nullable();
-         $table->string('url')->nullable();
-         $table->string('method')->nullable();
-         $table->string('user_agent')->nullable();
-         $table->string('action')->nullable();
-         $table->string('date_time')->nullable();
+         $table->string('username');
+         $table->string('office_name');
+         $table->string('action');
+         $table->string('type');
+         $table->string('url');
+         $table->string('method');
+         $table->string('user_agent');
+         $table->string('date_time');
          $table->timestamps();
       });
    }

@@ -1666,15 +1666,6 @@ ul.ui-menu {
     line-height: 2.5rem;
   }
 }
-@media (min-width: 640px) {
-
-  @media (min-width: 768px) {
-
-    .sm\:md\:grid-cols-1 {
-      grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
-  }
-}
 @media (min-width: 1024px) {
 
   .lg\:col-span-2 {

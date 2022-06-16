@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('org_id');
-            $table->string('username')->nullable();
-            $table->string('full_name')->nullable();
+            $table->string('username');
+            $table->string('full_name');
+            $table->string('office_name');
             $table->enum('is_admin', ['1', '0']);
             $table->enum('status', ['Active', 'Disable']);
             $table->timestamps();
