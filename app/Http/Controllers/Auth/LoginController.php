@@ -11,7 +11,6 @@ use App\Providers\RouteServiceProvider;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
@@ -43,7 +42,6 @@ class LoginController extends Controller
     {
 
          //  Authen siriraj user
-
         $sirirajUser = $api->authenticate($request->username, $request->password);
         if ($sirirajUser['reply_code'] != 0) {
             //ถ้าไม่เท่ากับ 0 => ชื่อผู้ใช้หรือรหัสผ่านผิด
@@ -60,25 +58,49 @@ class LoginController extends Controller
             Log::critical('ไม่มีสิทธิ์เข้าถึง');
             abort(403);
         } else {
-            $users = User::where('org_id', $sirirajUser['org_id'])->first();
-
-            // ไม่มีสิทธิ์เข้าถึงระบบ
-            if (! $users) {
+            $userAll = User::all();
+            if ($userAll == null) {
                 $user = new User;
                 $user->org_id = $sirirajUser['org_id'];
                 $user->username = $sirirajUser['login'];
                 $user->full_name = $sirirajUser['full_name'];
+                $user->office_name = $sirirajUser['office_name'];
                 $user->is_admin = $member->is_admin;
                 $user->status = $member->status;
                 $user->save();
+            } else {
+                $users = User::where('org_id', $sirirajUser['org_id'])->first();
+                // ไม่มีสิทธิ์เข้าถึงระบบ
+                if ($users == null) {
+                    $user = new User;
+                    $user->org_id = $sirirajUser['org_id'];
+                    $user->username = $sirirajUser['login'];
+                    $user->full_name = $sirirajUser['full_name'];
+                    $user->office_name = $sirirajUser['office_name'];
+                    $user->is_admin = $member->is_admin;
+                    $user->status = $member->status;
+                    $user->save();
+                }
             }
+            $users = User::where('org_id', $sirirajUser['org_id'])->first();
+            // Auth::login($users);
 
             // dd($users);
-
-            Auth::login($users);
         }
 
-        Log::info('Ok');
+        Auth::login($users);
+        $log_activity = new activityLog;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->office_name = 'med_edu';
+        $log_activity->action = 'ออกจากระบบ';
+        $log_activity->type = 'ออกจากระบบ';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        //   Log::info('Ok');
 
         return Redirect::route('docShow');
     }
@@ -87,13 +109,15 @@ class LoginController extends Controller
     {
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
-        $log_activity->program_name = 'med_edu';
+
+        $log_activity->office_name = 'med_edu';
+        $log_activity->action = 'ออกจากระบบ';
+        $log_activity->type = 'ออกจากระบบ';
+
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
         $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->action = Auth::user()->username.' logout';
 
-        $dt = Carbon::now();
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
