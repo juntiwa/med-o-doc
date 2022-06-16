@@ -16,27 +16,8 @@
    </p>
    <p class="flex text-base font-medium text-gray-900">
       <span class="pr-3">หน่วยงานที่ส่ง :</span> 
-      @if ($regTbl->regtype == null )
-               ไม่ระบุ
-               @else
-                  @if($regTbl->regtype == 0)
-                  {{-- {{$regTbl->regtype}} --}}
-                  <!-- loop ในภาค จากหน่วยใด -->
-                  @foreach($regTbl->desfromins as $fromins)
-                  {{$toins->unitname}}
-                  <!-- endforeach toins -->
-                  @endforeach
-                  @elseif($regTbl->regtype == 3)
-                   @foreach($regTbl->desfromouts as $fromins)
-                  {{$fromins->unitname}}
-                  <!-- endforeach toins -->
-                  @endforeach
-                  @else
-                  อื่น ๆ
-                  @endif
-               <!-- endif regtype = null-->
-               @endif
-   </p>
+         {{$regTbl->regfrom}}
+      </p>
 </div>
 <div class="grid grid-cols-2">
    <p class="flex text-base font-medium text-gray-900">

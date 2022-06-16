@@ -40,7 +40,7 @@
                <label for="regtype" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">ชนิดหนังสือ</label>
                <select name="regtype" id="regtype" class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                  <option value="">เลือกชนิดหนังสือ</option>
+                  <option value=" ">เลือกชนิดหนังสือ</option>
                   @foreach($types as $type)
                   <option value="{{ $type->typeid }}">{{ $type->typename }}</option>
                   @endforeach
@@ -421,13 +421,15 @@
          $('#sregfrom').prop('disabled', false);
          $('#sregto').prop('disabled', false);
          let typeid = parseInt($(this).val());
-         // console.log(typeid);
+         console.log(typeid);
          if (typeid == 0) {
             $('#sregfrom').removeClass('hidden');
             $('#iregfrom').addClass('hidden');
             $('#sregto').removeClass('hidden');
             $('#iregto').addClass('hidden');
 
+            $('#iregfrom').val('');
+            $('#iregto').val('');
             $('#idfrom').val('');
             $('#idto').val('');
             var sregfrom = <?= json_encode($sregfrom, JSON_HEX_TAG); ?>;
@@ -459,7 +461,7 @@
                   jQuery('#sregto').html(result)
                }
             });
-         } else {
+         } else if(typeid == 3){
             $('#sregfrom').addClass('hidden');
             $('#iregfrom').removeClass('hidden');
             $('#sregto').addClass('hidden');
@@ -510,6 +512,13 @@
                   return false;
             }
             });
+         } else {
+            $('#sregfrom').val('');
+            $('#sregto').val('');
+            $('#iregfrom').val('');
+            $('#iregto').val('');
+            $('#idfrom').val('');
+            $('#idto').val('');
          }
       });
 
