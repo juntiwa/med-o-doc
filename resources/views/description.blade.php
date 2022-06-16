@@ -8,7 +8,7 @@
    หัวเรื่อง : 
    <span class="text-blue-600 "> {{$regTbl->regtitle}}</span> 
 </p>
-<div class="grid grid-cols-4 md:grid-cols-3 sm:md:grid-cols-1 pb-3">
+<div class="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 pb-3">
    <p class="flex text-base font-medium text-gray-900">
       <span class="pr-3">วันที่ลงทะเบียน :</span> 
       {{$regTbl->thaidateregdate()}}
@@ -39,7 +39,7 @@
    </p>
 </div>
 <div class="grid grid-cols-2 md:grid-cols-1 pb-3">
-   <p class="flex text-base font-medium text-gray-900">
+   <p class="flex text-base font-medium text-gray-900 pb-3">
       <span class="pr-3">เอกสารแนบ1 :</span> 
       @if ($regTbl->regdoc == null)
          <span>
@@ -75,7 +75,7 @@
          </a>
       @endif
    </p>
-   <p class="flex text-base font-medium text-gray-900">
+   <p class="flex text-base font-medium text-gray-900 pb-3">
       <span class="pr-3">เอกสารแนบ2 :</span> 
       @if ($regTbl->regdoc2 == null)
          <span>
