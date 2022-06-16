@@ -32,13 +32,18 @@ class DocumentController extends Controller
     public function index(Request $request)
     {
         // for search input
+
+        $regis = Letterreg::count();
+
         $types = Type::all();
 
         $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
         $sregfrom = $request->get('sregfrom');
         $sregto = $request->get('sregto');
 
-        return view('document', compact('types', 'regyears', 'sregfrom', 'sregto'));
+
+        return view('document', compact('regis', 'types', 'regyears', 'sregfrom', 'sregto'));
+
     }
 
     public function selectSearchfrom(Request $request)
@@ -153,9 +158,12 @@ class DocumentController extends Controller
             $searchregs = $searchregs->whereBetween(DB::raw('Year(regdate)'), [$fromyear, $toyear]);
         }
 
+        $sCount = $searchregs->count();
+
         // Log::info($searchregs);
         $searchregs = $searchregs->paginate(50);
         $types = Type::all();
+
 
         // for search input
         $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
@@ -321,7 +329,12 @@ class DocumentController extends Controller
         $searchLog = ' ชนิดหนังสือ : '.$typename.' จาก  : '.$regfrom.' ถึง  : '.$regto.' หัวเรื่อง  : '.$regtitle.
          ' เมื่อ  : เดือน '.$fmonth.'ปี '.$fyear.' ถึง  : เดือน '.$tmonth.'ปี '.$tyear;
 
+
+        $regis = Letterreg::count();
+
         return view('document', compact(
+            'sCount',
+            'regis',
             'searchregs',
             'types',
             'regyears',
@@ -362,18 +375,12 @@ class DocumentController extends Controller
     public function show($regrecid)
     {
         $regTbl = Letterreg::where('letterregs.regrecid', $regrecid)->first();
-      
-
-        /* $regisTable = Letterreg::join('lettersends','lettersends.regrecid','=','letterregs.regrecid')
-        ->join('letterrecs','lettersends.sendregid','=','letterrecs.sendregid')
-        ->where('letterregs.regrecid', $regrecid)
-        ->get(); */
 
          $regisTable = Lettersend::leftJoin('letterrecs','lettersends.sendregid','=','letterrecs.sendregid')
         ->where('lettersends.regrecid', $regrecid)
         ->get();
         
-        Log::info($regTbl);
+      //   Log::info($regTbl);
         return view('description', compact('regisTable','regTbl'));
     }
 }
