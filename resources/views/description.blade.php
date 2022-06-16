@@ -4,22 +4,41 @@
 @parent
 @endsection
 @section('content')
-
-<p class="text-base font-medium text-gray-900">
+<p class="text-base font-medium text-gray-900 pb-3">
    หัวเรื่อง : 
    <span class="text-blue-600 "> {{$regTbl->regtitle}}</span> 
 </p>
-<div class="grid grid-cols-4">
+<div class="grid grid-cols-4 md:grid-cols-3 sm:md:grid-cols-1 pb-3">
    <p class="flex text-base font-medium text-gray-900">
       <span class="pr-3">วันที่ลงทะเบียน :</span> 
-       {{$regTbl->thaidateregdate()}}
+      {{$regTbl->thaidateregdate()}}
    </p>
-   <p class="flex text-base font-medium text-gray-900">
-      <span class="pr-3">หน่วยงานที่ส่ง :</span> 
+   <p class="flex text-base font-medium text-gray-900 col-span-2">
+   <span class="pr-3">หน่วยงานที่ส่ง :</span> 
+   <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
+      @if ($regTbl->regtype == null )
+            ไม่ระบุ
+      @else
+         @if($regTbl->regtype == 0)
          {{$regTbl->regfrom}}
-      </p>
+         ในภาค
+         @foreach($regTbl->desfromins as $fromins)
+         {{$fromins->unitname}}
+         @endforeach
+         @elseif($regTbl->regtype == 3)
+         {{$regTbl->regfrom}}
+         นอกภาค
+         @foreach($regTbl->desfromouts as $fromouts)
+         {{$fromouts->unitname}}
+         @endforeach
+         @else
+         อื่น ๆ
+         @endif
+      <!-- endif regtype = null-->
+      @endif
+   </p>
 </div>
-<div class="grid grid-cols-2">
+<div class="grid grid-cols-2 md:grid-cols-1 pb-3">
    <p class="flex text-base font-medium text-gray-900">
       <span class="pr-3">เอกสารแนบ1 :</span> 
       @if ($regTbl->regdoc == null)
@@ -134,11 +153,8 @@
                   @else
                   อื่น ๆ
                   @endif
-               
-              
                <!-- endif regtype = null-->
                @endif
-                     
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
                @if ($reg->recdate == null )
@@ -146,7 +162,6 @@
                @else              
                {{$reg->thaidaterecdate()}}
                @endif
-
             </td>
          </tr>
          @endforeach
