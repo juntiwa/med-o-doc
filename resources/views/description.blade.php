@@ -4,16 +4,16 @@
 @parent
 @endsection
 @section('content')
-<p class="text-base font-medium text-gray-900 pb-3">
+<p class="text-lg font-medium text-gray-900 pb-3">
    หัวเรื่อง :
    <span class="text-blue-600 "> {{$regTbl->regtitle}}</span>
 </p>
 <div class="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 pb-3">
-   <p class="flex text-base font-medium text-gray-900">
+   <p class="flex text-lg font-medium text-gray-900">
       <span class="pr-3">วันที่ลงทะเบียน :</span>
       {{$regTbl->thaidateregdate()}}
    </p>
-   <p class="flex text-base font-medium text-gray-900 col-span-2">
+   <p class="flex text-lg font-medium text-gray-900 col-span-2">
       <span class="pr-3">หน่วยงานที่ส่ง :</span>
       <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
       @if ($regTbl->regtype == null )
@@ -39,7 +39,7 @@
    </p>
 </div>
 <div class="grid grid-cols-2 md:grid-cols-1 pb-3">
-   <p class="flex text-base font-medium text-gray-900 pb-3">
+   <p class="flex text-lg font-medium text-gray-900 pb-3">
       <span class="pr-3">เอกสารแนบ1 :</span>
       @if ($regTbl->regdoc == null)
       <span>
@@ -85,7 +85,7 @@
       </a>
       @endif
    </p>
-   <p class="flex text-base font-medium text-gray-900 pb-3">
+   <p class="flex text-lg font-medium text-gray-900 pb-3">
       <span class="pr-3">เอกสารแนบ2 :</span>
       @if ($regTbl->regdoc2 == null)
       <span>
@@ -133,6 +133,7 @@
    </p>
 </div>
 
+{{-- ตาราง --}}
 <div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
    <table class="w-full">
       <thead class="bg-gray-50 border-b-2 border-gray-200">
@@ -185,5 +186,75 @@
          @endforeach
       </tbody>
    </table>
+</div>
+
+<!-- card -->
+<div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
+   <!-- หลังค้นหา -->
+   @if(isset($regisTable))
+   @if(count($regisTable)>0)
+    @foreach($regisTable as $key =>$reg)
+   <div class="bg-white space-y-3 p-4 rounded-lg shadow relative">
+      <div class="flex items-center space-x-2 text-base ">
+         <!-- เลขที่หนังสือ -->
+         <div>
+            <p class="text-gray-700 text-lg font-medium">
+               {{$reg->sendtoid}}
+               {{$regTbl->regtype}}
+               <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
+               @if ($regTbl->regtype == null )
+               ไม่ระบุ
+               @else
+               @if($regTbl->regtype == 0)
+                  {{-- {{$reg->destoins}} --}}
+                  @foreach($reg->destoins as $toins)
+                  {{$toins->unitname}}
+                  @endforeach
+               @elseif($regTbl->regtype == 3)
+               @foreach($reg->destoouts as $toins)
+               {{$toins->unitname}}
+               @endforeach
+               @else
+               อื่น ๆ
+               @endif
+               <!-- endif regtype = null-->
+               @endif
+            </p>
+         </div>
+      </div>
+      <div class="flex text-base justify-between">
+         <!-- ส่งวันที่ -->
+         <div class="text-gray-700">
+            @if ($reg->regdate == "0000-00-00" || null )
+            ไม่ระบุ
+            @else
+            {{$reg->thaidatesenddate()}}
+            @endif
+         </div>
+      </div>
+      
+
+      <!-- เอกสารแนบ -->
+      <div class="flex text-base text-gray-700 pt-10">
+         <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
+            <p class=" @if ($reg->recdate == null ) text-red-500  @else text-teal-600 @endif">
+               สถานะการรับหนังสือ
+               @if ($reg->recdate == null )
+                  ยังไม่มีการรับ
+               @else
+                  รับเมื่อ {{$reg->thaidaterecdate()}}
+               @endif
+            </p>
+            
+           
+         </div>
+         
+      </div>
+   </div>
+   @endforeach
+   @else
+   <p class="text-rose-600 text-2xl text-shadow-sm font-semibold flex justify-center pt-5">ไม่พบข้อมูล</p>
+   @endif
+   @endif
 </div>
 @endsection
