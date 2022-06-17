@@ -10,7 +10,7 @@
 <!-- Main content header -->
 <div class="grid grid-rows-1 pb-3 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
    <div class="lg:flex lg:justify-between md:flex md:justify-between md:space-x-3 sm:grid sm:grid-cols-1 mt-3">
-      <h1 class="text-2xl text-slate-900 font-semibold whitespace-normal">ค้นหาเอกสาร
+      <h1 class="text-xl text-slate-900 font-semibold whitespace-normal">ค้นหาเอกสาร
          <span class="text-rose-600">
             @if (Route::is('reg.search'))
             ผลลัพธ์ {{$sCount}} เรื่อง
@@ -210,7 +210,6 @@
             <th class="w-80 lg:w-96 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">หัวเรื่อง</th>
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ประเภท</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">หน่วยงานที่ส่ง</th>
-            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ถึง</th>
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">ลงวันที่</th>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ1</th>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">เอกสารแนบ2</th>
@@ -238,21 +237,17 @@
                @endif
             </td>
             <!-- ประเภท -->
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal flex justify-center ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-normal flex justify-center">
                <!-- join types show typename -->
                @if ($reg->regtype == null )
-               <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg 
-                              bg-opacity-50">ไม่ระบุ</span>
+               <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg bg-opacity-50">ไม่ระบุ</span>
                @else
                @if ($reg->types['typeid'] == 0 )
-               <span class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                              bg-opacity-50">{{$reg->types['typename']}}</span>
+               <span class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">{{$reg->types['typename']}}</span>
                @elseif ($reg->types['typeid'] == 3 )
-               <span class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                              bg-opacity-50">{{$reg->types['typename']}}</span>
+               <span class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg  bg-opacity-50">{{$reg->types['typename']}}</span>
                @else
-               <span class="p-1.5 uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg 
-                              bg-opacity-50">อื่น ๆ</span>
+               <span class="p-1.5 uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">อื่น ๆ</span>
                @endif
                @endif
             </td>
@@ -292,42 +287,7 @@
                <!-- endif regfrom = null-->
                @endif
             </td>
-            <!-- ถึง -->
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
-               <!-- ตรวจสอบค่าว่า regto ถ้าเป็นค่า null แสดงว่าไม่ระบุ-->
-               @if ($reg->regto == null )
-               ไม่ระบุ
-               <!-- ถ้าไม่เป็นค่า null ตรวจสอบข้อมูลต่อไป -->
-               @else
-               <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
-               @if ($reg->regtype == null )
-               ไม่ระบุ
-               <!-- ถ้าไม่เป็นค่า null ตรวจสอบค่าต่อไป -->
-               @else
-               <!-- ถ้า regtype = 0 แสดงชื่อในภาค -->
-               @if ($reg->regtype == 0 )
-               <!-- loop ในภาค จากหน่วยใด -->
-               @foreach($reg->toins as $toins)
-               {{$toins->unitname}}
-               <!-- endforeach toins -->
-               @endforeach
-               <!-- ถ้า regtype = 3 แสดงชื่อนอกภาค -->
-               @elseif ($reg->regtype == 3 )
-               <!-- loop นอกภาค จากหน่วยใด -->
-               @foreach($reg->toouts as $toouts)
-               {{$toouts->unitname}}
-               <!-- endforeach toouts -->
-               @endforeach
-               <!-- ถ้า regtype นอกเหนือจาก 0 และ 3 แสดงอื่น ๆ -->
-               @else
-               อื่น ๆ
-               <!-- endif regtype ในหรือนอกภาค -->
-               @endif
-               <!-- endif regtype = null-->
-               @endif
-               <!-- endif regto = null-->
-               @endif
-            </td>
+            
             <!-- ลงวันที่ -->
             <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-normal align-text-top lg:text-center">
                @if ($reg->regdate == "0000-00-00" || null )
