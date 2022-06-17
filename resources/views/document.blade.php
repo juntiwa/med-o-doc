@@ -44,11 +44,10 @@
          <div class="grid grid-cols-1 gap-3 mt-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
             <!-- ประเภท -->
             <div class="mb-3 xl:w-full">
-               <label for="regtype"
-                  class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">ประเภท</label>
+               <label for="regtype" class="form-label inline-block mb-2 text-lg text-gray-800 font-semibold">ประเภท</label>
                <select name="regtype" id="regtype"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-               rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   aria-label="Default select example">
                   <option value=" ">เลือกประเภท</option>
                   @foreach($types as $type)
@@ -59,10 +58,10 @@
 
             <!-- หน่วยงานที่ส่ง -->
             <div class="mb-3 xl:w-full">
-               <label for="regfrom" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หน่วยงานที่ส่ง</label>
+               <label for="regfrom" class="form-label inline-block mb-2 text-lg text-gray-800 font-semibold">หน่วยงานที่ส่ง</label>
                <select name="sregfrom" id="sregfrom"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-               rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   aria-label="Default select example">
                   <option value="">เลือกหน่วยงานที่ส่ง</option>
                </select>
@@ -75,24 +74,25 @@
 
             <!-- หน่วยงานที่รับ -->
             <div class="mb-3 xl:w-full">
-               <label for="regto" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หน่วยงานที่รับ</label>
+               <label for="regto" class="form-label inline-block mb-2 text-lg text-gray-800 font-semibold">หน่วยงานที่รับ</label>
                <select name="sregto" id="sregto"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-               rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                     rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   aria-label="Default select example">
                   <option value="">เลือกหน่วยงานที่รับ</option>
                </select>
 
-               <input type="text" name="iregto" id="iregto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
-               rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
-               focus:outline-none " aria-label="Default select example" placeholder="ระบุหน่วยงานที่รับ"
+               <input type="text" name="iregto" id="iregto" class="form-control appearance-none block w-full px-3 py-1.5 text-lg 
+                  text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
+                  rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                  focus:outline-none " aria-label="Default select example" placeholder="ระบุหน่วยงานที่รับ"
                   value="{{ old('iregto') }}">
                <input type="text" name="idto" id="idto" value="{{ old('idto') }}" hidden>
             </div>
 
             <!-- หัวเรื่อง -->
             <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
-               <label for="regtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">หัวเรื่อง
+               <label for="regtitle" class="form-label inline-block mb-2 text-lg text-gray-800 font-semibold">หัวเรื่อง
                   <span class=" text-red-500 text-xl">*</span></label>
                <input type="text" name="regtitle" id="regtitle" class=" form-control appearance-none block w-full 
                         px-3 py-1.5 text-lg text-gray-800 font-medium disabled:bg-slate-100 
@@ -103,8 +103,7 @@
 
             <!-- ระหว่างวันที่ -->
             <div class="mb-3 xl:w-full md:col-span-2 lg:col-span-4">
-               <label for="regdate"
-                  class="form-label inline-block mb-2 text-lg text-gray-800 font-medium">ระหว่างวันที่</label>
+               <label for="regdate" class="form-label inline-block mb-2 text-lg text-gray-800 font-semibold">ระหว่างวันที่</label>
                <div class="grid grid-cols-5 gap-4 ">
                   <select name="frommonth" id="frommonth"
                      class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
@@ -129,7 +128,7 @@
                      class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
                         rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                      aria-label="Default select example">
-                     <option value="" selected disabled>ปี</option>
+                     <option value="" selected>ปี</option>
                      @foreach($regyears as $regyear)
                      @if($regyear->regyear == "0000")
                      @else
@@ -186,9 +185,7 @@
                <div class=" grid grid-cols-2 gap-4 text-lg font-light whitespace-normal">
                   <div class="grid col-span-1 gap-4">
                      <button type="submit"
-                        class="inline-block px-4 py-2 bg-green-500 text-white 
-                     leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg 
-                     focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out lg:mt-10 ">ค้นหา</button>
+                        class="inline-block px-4 py-2 lg:mt-9 bg-teal-500 hover:bg-teal-700 text-white rounded-md">ค้นหา</button>
                   </div>
                </div>
             </div>
@@ -567,9 +564,11 @@
             $('#idfrom').val('');
             $('#idto').val('');
          }
+
       });
 
-      // toggle hide show  from input
+      
+         // toggle hide show  from input
       $("#toggle-example-checked").click(function () {
          $("#multiCollapseExample1").toggle("slow");
       });
@@ -611,6 +610,110 @@
          $('#toyear').val(toyear);
          $('#toyear').prop('required', true);
          $('#toyear').prop('disabled', false);
+      }
+   });
+   $('#frommonth').change(function() {
+      var frommonthid = parseInt($(this).val())
+      var tomonthid = parseInt($('#tomonth option:selected').val())
+      if (tomonthid < frommonthid) {
+         $('#tomonth').val('')
+      }
+      $('#tomonth').prop('required', true);
+      $('#tomonth').prop('disabled', false);
+      let fmid = $(this).val();
+      if (fmid == '') {
+         $("#tomonth").val('');
+         $("#tomonth").attr("disabled", "disabled");
+      }
+      $("#tomonth > option").filter(function() {
+         return $(this).attr("value") < frommonthid
+      }).prop('disabled', true);
+      $("#tomonth > option").filter(function() {
+         return $(this).attr("value") >= frommonthid
+      }).prop('disabled', false);
+
+      var fromyearid = parseInt($('#fromyear option:selected').val())
+      var toyearid = parseInt($('#toyear option:selected').val())
+      if (toyearid > fromyearid) {
+         $("#tomonth > option").prop('disabled', false);
+      }
+   });
+
+   $('#fromyear').change(function() {
+      var fromyearid = parseInt($(this).val());
+      var toyearid = parseInt($('#toyear option:selected').val())
+      // set att
+      $('#toyear').prop('required', true);
+      $('#toyear').prop('disabled', false);
+      // ถึงปี < จากปี ถึงปีจะ set value null
+      if (toyearid < fromyearid) {
+         $('#toyear').val('')
+      }
+      // disable to years when fromyear null 
+      let fmid = $(this).val();
+      if (fmid == '') {
+         $("#toyear").val('');
+         $("#toyear").attr("disabled", "disabled");
+      }
+
+      // disabled option true to years ที่ < จากปี
+      $("#toyear > option").filter(function() {
+         return $(this).attr("value") < fromyearid
+      }).prop('disabled', true);
+
+      // disabled option false to years ที่ > จากปี
+      $("#toyear > option").filter(function() {
+         return $(this).attr("value") >= fromyearid
+      }).prop('disabled', false);
+
+      // check to year >  fromyear disabled to month
+      if (toyearid > fromyearid) {
+         $("#tomonth > option").prop('disabled', false);
+      } else {
+         var frommonthid = parseInt($('#frommonth option:selected').val())
+         var tomonthid = parseInt($('#tomonth option:selected').val())
+         if (tomonthid < frommonthid) {
+            $('#tomonth').val('')
+         }
+         $("#tomonth > option").filter(function() {
+            return $(this).attr("value") < frommonthid
+         }).prop('disabled', true);
+      }
+
+      $('#toyear').change(function() {
+         var toyearid = parseInt($(this).val())
+         if (toyearid > fromyearid) {
+            $("#tomonth > option").prop('disabled', false);
+         } else {
+            var frommonthid = parseInt($('#frommonth option:selected').val())
+            var tomonthid = parseInt($('#tomonth option:selected').val())
+            if (tomonthid < frommonthid) {
+               $('#tomonth').val('')
+            }
+            $("#tomonth > option").filter(function() {
+               return $(this).attr("value") < frommonthid
+            }).prop('disabled', true);
+         }
+      });
+   });
+
+   $('#toyear').change(function() {
+      var fromyearid = parseInt($('#fromyear option:selected').val());
+      $("#toyear > option").filter(function() {
+         return $(this).attr("value") < fromyearid
+      }).prop('disabled', true);
+      var toyearid = parseInt($(this).val())
+      if (toyearid > fromyearid) {
+         $("#tomonth > option").prop('disabled', false);
+      } else {
+         var frommonthid = parseInt($('#frommonth option:selected').val())
+         var tomonthid = parseInt($('#tomonth option:selected').val())
+         if (tomonthid < frommonthid) {
+            $('#tomonth').val('')
+         }
+         $("#tomonth > option").filter(function() {
+            return $(this).attr("value") < frommonthid
+         }).prop('disabled', true);
       }
    });
 
