@@ -133,22 +133,20 @@
               {{$reg->thaidatesenddate()}}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
-              {{-- {{$reg->sendtoid}} --}}
+              {{$reg->sendtoid}}
+              {{$regTbl->regtype}}
               <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
                @if ($regTbl->regtype == null )
                ไม่ระบุ
                @else
                   @if($regTbl->regtype == 0)
                   {{-- {{$regTbl->regtype}} --}}
-                  <!-- loop ในภาค จากหน่วยใด -->
                   @foreach($reg->destoins as $toins)
                   {{$toins->unitname}}
-                  <!-- endforeach toins -->
                   @endforeach
                   @elseif($regTbl->regtype == 3)
                    @foreach($reg->destoouts as $toins)
                   {{$toins->unitname}}
-                  <!-- endforeach toins -->
                   @endforeach
                   @else
                   อื่น ๆ

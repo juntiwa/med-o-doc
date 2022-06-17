@@ -35,9 +35,9 @@
 
 @include('fonts/sarabun')
 
-<body class="font-sarabun bg-white min-h-screen max-h-full">
+<body class="font-sarabun bg-white min-h-screen max-h-full ">
    @section('sidebar')
-   <div class="navbar bg-slate-50 sticky top-0 z-50 ">
+   <div class="navbar bg-slate-50 sticky top-0 z-50 text-lg">
       <div class="navbar-start">
          <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -47,13 +47,13 @@
                </svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 bg-slate-50">
-               <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+               <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 @else text-slate-600 @endif 
                   hover:text-teal-500 font-medium">
                   <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
                </li>
                @if (Auth::user()->is_admin == "1")
                <li tabindex="0">
-                  <a class="justify-between @if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else 
+                  <a class="justify-between @if (Route::is('permission')||Route::is('addPermis')) text-teal-500 @else 
                   text-slate-600 @endif hover:text-teal-500 font-medium">
                      จัดการระบบ
                      <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -62,14 +62,14 @@
                      </svg>
                   </a>
                   <ul class="p-2 bg-slate-50 shadow-md">
-                     <li class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                     <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('activitylog')}}">Activity log</a>
                   </li>
-                  <li class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                  <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                  <li class="@if (Route::is('addPermis')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                   </ul>
@@ -85,15 +85,15 @@
       </div>
       <div class="navbar-center hidden lg:flex ">
          <ul class="menu menu-horizontal p-0">
-            <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
-            hover:text-teal-500 font-medium">
+            <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 @else text-slate-600 @endif 
+               hover:text-teal-500 font-medium">
                <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
             </li>
             @if (Auth::user()->is_admin == "1")
             
             <li tabindex="0">
-               <a class="@if (Route::is('permission')||Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
-               hover:text-teal-500 font-medium">
+               <a class="@if (Route::is('permission')||Route::is('addPermis')) text-teal-500 @else text-slate-600 @endif 
+                  hover:text-teal-500 font-medium">
                   จัดการระบบ
                   <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                      viewBox="0 0 24 24">
@@ -101,14 +101,14 @@
                   </svg>
                </a>
                <ul class="p-2 bg-slate-50 shadow-md">
-                  <li class="@if (Route::is('activitylog')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                  <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('activitylog')}}">Activity log</a>
                   </li>
-                  <li class="@if (Route::is('permission')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                  <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li class="@if (Route::is('addPermis')) text-teal-500 text-shadow-sm  @else text-slate-600 @endif 
+                  <li class="@if (Route::is('addPermis')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                </ul>
@@ -118,8 +118,8 @@
          </ul>
       </div>
             
-      <div class="navbar-end">
-         <span class="lg:mr-2 md:mr-2 text-blue-700 text-base">
+      <div class="navbar-end text-lg">
+         <span class="lg:mr-2 md:mr-2 text-blue-700">
             <!-- ชื่อเข้าสู่ระบบ -->
             {{Auth::user()->full_name}}
          </span>
@@ -127,7 +127,7 @@
          <form method="POST" action="{{ route('logout') }}" x-data>
             @csrf
             <button type="submit">
-               <span class="text_logout text-base">
+               <span class="text_logout">
                   {{ __('[ออกจากระบบ]') }}
                </span>
             </button>
