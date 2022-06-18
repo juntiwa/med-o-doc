@@ -39,7 +39,7 @@ Route::get('delete_activitylog', [AdminController::class, 'deleteActivity'])->na
 
 // ----------------------------- document -----------------------//
 Route::controller(DocumentController::class)->group(function () {
-    Route::get('doucument', 'index')->name('docShow');
+    Route::get('document', 'index')->name('docShow');
     Route::post('reg-select-from', 'selectSearchfrom')->name('reg.select.from');
     Route::post('reg-select-to', 'selectSearchto')->name('reg.select.to');
     Route::get('autocomplete', 'autocomplete')->name('autocomplete');

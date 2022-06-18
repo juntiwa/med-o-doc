@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\activityLog;
 use App\Models\Jobunit;
 use App\Models\Letterreg;
 use App\Models\Lettersend;
 use App\Models\Letterunit;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class DocumentController extends Controller
 {
@@ -41,9 +44,19 @@ class DocumentController extends Controller
         $sregfrom = $request->get('sregfrom');
         $sregto = $request->get('sregto');
 
+        $log_activity = new activityLog;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'เข้าสู่หน้าค้นหาเอกสาร';
+        $log_activity->type = 'view';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
 
         return view('document', compact('regis', 'types', 'regyears', 'sregfrom', 'sregto'));
-
     }
 
     public function selectSearchfrom(Request $request)
@@ -164,7 +177,6 @@ class DocumentController extends Controller
         $searchregs = $searchregs->paginate(50);
         $types = Type::all();
 
-
         // for search input
         $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
 
@@ -179,6 +191,7 @@ class DocumentController extends Controller
             foreach ($types as $type) {
                 if ($regtype == $type->typeid) {
                     $typename = $type->typename;
+                    $searchLog = ' ชนิดหนังสือ : '.$typename;
                     if ($regtype == 0) {
                         if ($sregfrom == null && $sregto == null) {
                             $regfrom = '-';
@@ -187,6 +200,7 @@ class DocumentController extends Controller
                             foreach ($jobunits as $jobunit) {
                                 if ($sregfrom == $jobunit->unitid) {
                                     $regfrom = $jobunit->unitname;
+                                    $searchLog = $searchLog.' จาก  : '.$regfrom;
                                 }
                                 $regto = '-';
                             }
@@ -195,15 +209,18 @@ class DocumentController extends Controller
                                 $regfrom = '-';
                                 if ($sregto == $jobunit->unitid) {
                                     $regto = $jobunit->unitname;
+                                    $searchLog = $searchLog.' ถึง  : '.$regto;
                                 }
                             }
                         } else {
                             foreach ($jobunits as $jobunit) {
                                 if ($sregfrom == $jobunit->unitid) {
                                     $regfrom = $jobunit->unitname;
+                                    $searchLog = $searchLog.' จาก  : '.$regfrom;
                                 }
                                 if ($sregto == $jobunit->unitid) {
                                     $regto = $jobunit->unitname;
+                                    $searchLog = $searchLog.' ถึง  : '.$regto;
                                 }
                             }
                         }
@@ -215,12 +232,16 @@ class DocumentController extends Controller
                         } elseif ($iregfrom != null && $iregto == null) {
                             $regfrom = $iregfrom;
                             $regto = '-';
+                            $searchLog = $searchLog.' จาก  : '.$regfrom;
                         } elseif ($iregfrom == null && $iregto != null) {
                             $regfrom = '-';
                             $regto = $iregto;
+                            $searchLog = $searchLog.' ถึง  : '.$regto;
                         } else {
                             $regfrom = $iregfrom;
                             $regto = $iregto;
+                            $searchLog = $searchLog.' จาก  : '.$regfrom;
+                            $searchLog = $searchLog.' ถึง  : '.$regto;
                         }
                     }
                 }
@@ -231,6 +252,13 @@ class DocumentController extends Controller
             $regto = '-';
         }
 
+        if ($regtitle != '') {
+            if ($regtype != '') {
+                $searchLog = $searchLog.' หัวเรื่อง  : '.$regtitle;
+            } else {
+                $searchLog = ' หัวเรื่อง  : '.$regtitle;
+            }
+        }
         // เดือน
         switch ($frommonth) {
          case '01':
@@ -313,24 +341,38 @@ class DocumentController extends Controller
          default:
             $tmonth = '-';
       }
+        if ($frommonth != null) {
+            $searchLog = $searchLog.' จาก  : เดือน '.$fmonth;
+        }
+
+        if ($tomonth != null) {
+            $searchLog = $searchLog.' ถึง  : เดือน '.$tmonth;
+        }
 
         // ปี
         if ($fromyear != null) {
             $fyear = $fromyear + 543;
-        } else {
-            $fyear = '-';
+            $searchLog = $searchLog.' จากปี '.$fyear;
         }
 
         if ($toyear != null) {
             $tyear = $toyear + 543;
-        } else {
-            $tyear = '-';
+            $searchLog = $searchLog.' ถึงปี '.$tyear;
         }
-        $searchLog = ' ชนิดหนังสือ : '.$typename.' จาก  : '.$regfrom.' ถึง  : '.$regto.' หัวเรื่อง  : '.$regtitle.
-         ' เมื่อ  : เดือน '.$fmonth.'ปี '.$fyear.' ถึง  : เดือน '.$tmonth.'ปี '.$tyear;
-
 
         $regis = Letterreg::count();
+
+        $log_activity = new activityLog;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'ค้นหาเอกสาร '.$searchLog;
+        $log_activity->type = 'search';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
 
         return view('document', compact(
             'sCount',
@@ -344,12 +386,27 @@ class DocumentController extends Controller
         ));
     }
 
-    public function openfile($year, $regdoc)
+    public function openfile(Request $request, $year, $regdoc)
     {
         $doc = Letterreg::where('regrecid', $regdoc)->first();
         $filename = $doc->regdoc;
         $path = 'files/'.$year.'/'.$filename;
 
+        $log_activity = new activityLog;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
+        $log_activity->type = 'open document';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        $full_name = Auth::user()->full_name;
+        Log::info($full_name.' เปิดไฟล์เอกสาร รหัส '.$regdoc.' ชื่อไฟล์ '.$filename);
+
         if (Storage::exists($path)) {
             return Storage::response($path);
         } else {
@@ -358,12 +415,26 @@ class DocumentController extends Controller
         }
     }
 
-    public function openfile2($year, $regdoc)
+    public function openfile2(Request $request, $year, $regdoc)
     {
         $doc = Letterreg::where('regrecid', $regdoc)->first();
         $filename = $doc->regdoc2;
         $path = 'files/'.$year.'/'.$filename;
 
+        $log_activity = new activityLog;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
+        $log_activity->type = 'open document';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        $full_name = Auth::user()->full_name;
+        Log::info($full_name.'เปิดไฟล์เอกสาร '.$regdoc.' '.$filename);
         if (Storage::exists($path)) {
             return Storage::response($path);
         } else {
@@ -372,15 +443,29 @@ class DocumentController extends Controller
         }
     }
 
-    public function show($regrecid)
+    public function show(Request $request, $regrecid)
     {
         $regTbl = Letterreg::where('letterregs.regrecid', $regrecid)->first();
 
-         $regisTable = Lettersend::leftJoin('letterrecs','lettersends.sendregid','=','letterrecs.sendregid')
+        $regisTable = Lettersend::leftJoin('letterrecs', 'lettersends.sendregid', '=', 'letterrecs.sendregid')
         ->where('lettersends.regrecid', $regrecid)
         ->get();
-        
-      //   Log::info($regTbl);
-        return view('description', compact('regisTable','regTbl'));
+
+        $title = $regTbl->regtitle;
+
+        $log_activity = new activityLog;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'ดูข้อมูลเพิ่มเติม เรื่อง "'.$title.'"';
+        $log_activity->type = 'view';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        //   Log::info($regTbl);
+        return view('description', compact('regisTable', 'regTbl'));
     }
 }
