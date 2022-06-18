@@ -94,7 +94,7 @@ class LoginController extends Controller
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
         $log_activity->action = 'เข้าสู่ระบบ';
-        $log_activity->type = 'เข้าสู่ระบบ';
+        $log_activity->type = 'login';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
         $log_activity->user_agent = $request->header('user-agent');
@@ -114,7 +114,7 @@ class LoginController extends Controller
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
         $log_activity->action = 'ออกจากระบบ';
-        $log_activity->type = 'ออกจากระบบ';
+        $log_activity->type = 'logout';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
         $log_activity->user_agent = $request->header('user-agent');
