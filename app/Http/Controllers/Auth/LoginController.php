@@ -91,16 +91,18 @@ class LoginController extends Controller
         Auth::login($users);
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
-        $log_activity->office_name = 'med_edu';
-        $log_activity->action = 'ออกจากระบบ';
-        $log_activity->type = 'ออกจากระบบ';
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'เข้าสู่ระบบ';
+        $log_activity->type = 'เข้าสู่ระบบ';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
         $log_activity->user_agent = $request->header('user-agent');
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        //   Log::info('Ok');
+        $full_name = Auth::user()->full_name;
+        Log::info($full_name.' เข้าสู่ระบบ');
 
         return Redirect::route('docShow');
     }
@@ -109,15 +111,13 @@ class LoginController extends Controller
     {
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
-
-        $log_activity->office_name = 'med_edu';
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
         $log_activity->action = 'ออกจากระบบ';
         $log_activity->type = 'ออกจากระบบ';
-
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
         $log_activity->user_agent = $request->header('user-agent');
-
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
@@ -126,10 +126,5 @@ class LoginController extends Controller
         Toastr::success('ออกจากระบบสำเร็จ', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
 
         return Redirect::route('login');
-    }
-
-    public function update()
-    {
-        return ['active' => true];
     }
 }
