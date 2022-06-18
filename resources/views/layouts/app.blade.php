@@ -53,7 +53,7 @@
                </li>
                @if (Auth::user()->is_admin == "1")
                <li tabindex="0">
-                  <a class="justify-between @if (Route::is('permission')||Route::is('addPermis')) text-teal-500 @else 
+                  <a class="justify-between @if (Route::is('permission')||Route::is('permission.create')) text-teal-500 @else 
                   text-slate-600 @endif hover:text-teal-500 font-medium">
                      จัดการระบบ
                      <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -69,9 +69,9 @@
                   <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li class="@if (Route::is('addPermis')) text-teal-500 @else text-slate-600 @endif 
+                  <li class="@if (Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
-                     <a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                   </ul>
                </li>
                @endif
@@ -90,9 +90,8 @@
                <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
             </li>
             @if (Auth::user()->is_admin == "1")
-            
             <li tabindex="0">
-               <a class="@if (Route::is('permission')||Route::is('addPermis')) text-teal-500 @else text-slate-600 @endif 
+               <a class="@if (Route::is('permission')||Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
                   hover:text-teal-500 font-medium">
                   จัดการระบบ
                   <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -108,9 +107,9 @@
                   <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li class="@if (Route::is('addPermis')) text-teal-500 @else text-slate-600 @endif 
+                  <li class="@if (Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
-                     <a href="{{route('addPermis')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                </ul>
             </li>
             @endif

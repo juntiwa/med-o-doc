@@ -35,7 +35,7 @@ class ActivitylogController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('usermanage.activity_log', compact('activityLog'));
+        return view('admin.activity_log', compact('activityLog'));
     }
 
     /**

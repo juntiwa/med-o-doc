@@ -6,7 +6,7 @@
 @section('content')
 {!! Toastr::message() !!}
 <div class="btnAddmember">
-   <form action="{{route('addPermis')}}" method="get">
+   <form action="{{route('permission.create')}}" method="get">
       <button type="submit" class="addMember flex justify-center items-center">
          <svg class="add_member" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
             <path d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM616 200h-48v-48C568 138.8 557.3 128 544 128s-24 10.75-24 24v48h-48C458.8 200 448 210.8 448 224s10.75 24 24 24h48v48C520 309.3 530.8 320 544 320s24-10.75 24-24v-48h48C629.3 248 640 237.3 640 224S629.3 200 616 200z" />
@@ -21,11 +21,13 @@
       <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">#</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Username</th>
-            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Full Name</th>
-            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Role</th>
-            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">status</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Edit</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">SAPID</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ชื่อผู้ใช้งาน</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ชื่อ สกุล</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">หน่วยงาน</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">สิทธิ์การเข้าถึง</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">สถานะ</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">แก้ไข</th>
          </tr>
       </thead>
       @if(isset($permiss))
@@ -36,7 +38,13 @@
             <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top flex justify-center">
                {{++$key}}
             </td>
-            <!-- หัวเรื่อง -->
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
+                 100xxxxx  
+                 <a href="{{route('look.sapid')}}">
+                    <i class="uil uil-eye-slash text-teal-500 font-normal"></i>
+                 </a>
+
+            </td>
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap ">
                {{ $item->username }}
             </td>
@@ -46,6 +54,9 @@
                @else
                {{ $item->full_name }}
                @endif
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap ">
+               {{ $item->office_name }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
                @if ($item->is_admin == "1" )

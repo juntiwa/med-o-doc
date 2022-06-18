@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ActivitylogController;
 use App\Http\Controllers\Admin\AdminController as AdminController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\DocumentController;
 use Brian2694\Toastr\Facades\Toastr;
@@ -27,9 +28,6 @@ Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
 Route::post('check-timeout', [AuthLoginController::class, 'update'])->name('check-timeout');
 
 // ----------------------------- admin -----------------------//
-Route::get('permission', [AdminController::class, 'permis'])->name('permission');
-Route::get('permission/addPermis', [AdminController::class, 'add'])->name('addPermis');
-Route::post('permission/savepermiss', [AdminController::class, 'create'])->name('save.permis');
 Route::get('edit_permis/{id}', [AdminController::class, 'edit'])->name('edit.permis');
 Route::post('update_permis/{id}', [AdminController::class, 'update'])->name('update.permis');
 Route::get('delete_activitylog', [AdminController::class, 'deleteActivity'])->name('delete.activitylog');
@@ -40,7 +38,13 @@ Route::controller(ActivitylogController::class)->group(function () {
     Route::get('activitylog-export', 'store')->name('activitylog.export');
 });
 
-// ----------------------------- activity log -----------------------//
+// ----------------------------- permission -----------------------//
+Route::controller(PermissionController::class)->group(function () {
+    Route::get('permissions', 'index')->name('permission');
+    Route::get('permission-create', 'create')->name('permission.create');
+    Route::post('permission', 'store')->name('permission.store');
+    Route::get('look-sapid', 'show')->name('look.sapid');
+});
 
 // ----------------------------- document -----------------------//
 Route::controller(DocumentController::class)->group(function () {
