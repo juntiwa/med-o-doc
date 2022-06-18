@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\activityLog;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class PermissionController extends Controller
 {
@@ -13,11 +16,23 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $permiss = User::paginate(50);
 
-        return view('usermanage.permission', compact('permiss'));
+        $log_activity = new activityLog;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'เข้าสู่หน้าข้อมูลสิทธิ์ผู้ใช้งาน';
+        $log_activity->type = 'view';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        return view('admin.permission', compact('permiss'));
     }
 
     /**
