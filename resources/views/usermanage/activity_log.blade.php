@@ -33,12 +33,9 @@
       <thead class="bg-gray-50 border-b-2 border-gray-200">
          <tr>
             <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">#</th>
-            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Username</th>
-            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Program Name</th>
+            <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ชื่อ สกุล</th>
+            <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">หน่วยงาน</th>
             <th class="w-60 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Action</th>
-            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">URL</th>
-            <th class="w-16 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Method</th>
-            <!-- <th class="w-48 lg:w-96 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">User Agent</th> -->
             <th class="w-40 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Date time</th>
          </tr>
       </thead>
@@ -51,32 +48,15 @@
             <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top">
                {{++$key}}
             </td>
-            <!-- หัวเรื่อง -->
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top ">
-               {{ $item->username }}
+               {{ $item->full_name }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top ">
-               {{ $item->program_name }}
+               {{ $item->office_name }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
                {{ $item->action }}
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
-               {{ $item->url }}
-            </td>
-            <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
-               @if($item->method == "POST")
-               <div class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg 
-                        bg-opacity-50 text-center">{{ $item->method }}</div>
-               @else
-               <div class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg 
-                        bg-opacity-50 text-center">{{ $item->method }}</div>
-               @endif
-            </td>
-            <!-- <td class="p-3 text-base text-gray-800 font-medium align-text-top whitespace-normal">
-               {{ $item->user_agent }}
-            </td> -->
-
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
                {{ $item->thaidate() }}
             </td>
