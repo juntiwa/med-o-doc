@@ -42,13 +42,22 @@
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                <div class="flex">
                   <p id="sap_hidden">100xxxxx</p>
-                  <p id="sap_show">{{$item->sapid()}}</p>
-                  <button id="show_sap" class="pl-1">
+                  <p id="sap_show" class="hidden">{{$item->sapid()}}</p>
+                  {{-- <button id="show_sap" class="pl-1">
                      <i id="sap_icon" class="uil uil-eye-slash text-teal-500 font-normal"></i>
-                  </button>
+                  </button> --}}
+
+                  <div class="flex">
+                     <div class="bg-white">
+                        <div class="flex items-center justify-center space-x-2">
+                           <label for="{{$item->sapid()}}" class="show flex relative items-center cursor-pointer m-0">
+                              <input type="checkbox" id="{{$item->sapid()}}" class="sr-only" checked>
+                              <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
+                           </label>
+                        </div>
+                     </div>
+                  </div>
                </div>
-
-
             </td>
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->username }}
@@ -237,37 +246,11 @@
 </div>
 
 <script type="text/javascript">
-   $('#sap_show').addClass('hidden')
    $(document).ready(function () {
-      $('#show_sap').click(function(e){
-         $('#sap_hidden').addClass('hidden')
-         $('#sap_show').removeClass('hidden')
-         // icon
-         $('#sap_icon').removeClass('uil-eye-slash')
-         $('#sap_icon').addClass('uil-eye')
-         $('#sap_icon').css({"color": "red"});
-         $('#show_sap').prop('disabled', true)
-
-         e.preventDefault();
-         $.ajaxSetup({
-            headers: {
-               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-         })
-         var sapid = $('#sap_show').html()
-         console.log(sapid);
-        
-         $.ajax({
-            url: "{{ route('look.sapid') }}",
-            type: 'post',
-            data: {
-               sapid: sapid
-            },
-            success: function (result) {
-               // console.log(result);
-            }
-         });
-      })
+      // toggle hide show  from input
+      $(".show").click(function() {
+         $('#sap_show').toggle("slow")
+      });
 
    })
 

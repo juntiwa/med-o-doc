@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
+use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,8 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permiss = User::paginate(50);
+        $permiss = User::rightJoin('members', 'users.org_id', '=', 'members.org_id')->paginate(50);
+        //   $permiss = Member::paginate(50);
 
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
@@ -71,14 +73,14 @@ class PermissionController extends Controller
         $permis5 = $request->post('permis5');
 
         // Log::info($request);
-        $users = User::where('username', '=', $user);
+        $users = Member::where('org_id', '=', $user);
         if ($user1 != '') {
-            $users = $users->orWhere('username', '=', $user1);
+            $users = $users->orWhere('org_id', '=', $user1);
         }
         $users = $users->first();
         if ($users === null) {
             $data = [
-            ['username' => $user, 'is_admin' => $permis, 'status' => 'Active'],
+            ['org_id' => $user, 'is_admin' => $permis, 'status' => 'Active'],
          ];
             if ($permis == 1 || $permis2 == 1 || $permis3 == 1 || $permis4 == 1 || $permis5 == 1) {
                 $permiss = 'ผู้ดูแลระบบ';
@@ -90,53 +92,53 @@ class PermissionController extends Controller
             $datas = ' "'.$user.' สิทธิ์ '.$permiss.'"';
 
             if ($user1 != '') {
-                $data[] = ['username' => $user1, 'is_admin' => $permis1, 'status' => 'Active'];
+                $data[] = ['org_id' => $user1, 'is_admin' => $permis1, 'status' => 'Active'];
                 $datas .= ' ,"'.$user1.' สิทธิ์ '.$permiss.'"';
             }
             if ($user2 != '') {
-                $data[] = ['username' => $user2, 'is_admin' => $permis2, 'status' => 'Active'];
+                $data[] = ['org_id' => $user2, 'is_admin' => $permis2, 'status' => 'Active'];
                 $datas .= ' ,"'.$user2.' สิทธิ์ '.$permiss.'"';
             }
             if ($user3 != '') {
-                $data[] = ['username' => $user3, 'is_admin' => $permis3, 'status' => 'Active'];
+                $data[] = ['org_id' => $user3, 'is_admin' => $permis3, 'status' => 'Active'];
                 $datas .= ' ,"'.$user3.' สิทธิ์ '.$permiss.'"';
             }
             if ($user4 != '') {
-                $data[] = ['username' => $user4, 'is_admin' => $permis4, 'status' => 'Active'];
+                $data[] = ['org_id' => $user4, 'is_admin' => $permis4, 'status' => 'Active'];
                 $datas .= ' ,"'.$user4.' สิทธิ์ '.$permiss.'"';
             }
             if ($user5 != '') {
-                $data[] = ['username' => $user5, 'is_admin' => $permis5, 'status' => 'Active'];
+                $data[] = ['org_id' => $user5, 'is_admin' => $permis5, 'status' => 'Active'];
                 $datas .= ' ,"'.$user5.' สิทธิ์ '.$permiss.'"';
             }
-            User::insert($data);
+            Member::insert($data);
         // dd($data);
         } else {
-            if (User::where('username', '=', $user)->exists()) {
+            if (Member::where('org_id', '=', $user)->exists()) {
                 $errors['user'] = ['user' => $user.' มีแล้วชื่อนี้อยู่แล้ว'];
             }
             if ($user1 != '') {
-                if (User::where('username', '=', $user1)->exists()) {
+                if (Member::where('org_id', '=', $user1)->exists()) {
                     $errors['user1'] = ['user1' => $user1.' มีแล้วชื่อนี้อยู่แล้ว'];
                 }
             }
             if ($user2 != '') {
-                if (User::where('username', '=', $user2)->exists()) {
+                if (Member::where('org_id', '=', $user2)->exists()) {
                     $errors['user2'] = ['user2' => $user2.' มีแล้วชื่อนี้อยู่แล้ว'];
                 }
             }
             if ($user3 != '') {
-                if (User::where('username', '=', $user3)->exists()) {
+                if (Member::where('org_id', '=', $user3)->exists()) {
                     $errors['user3'] = ['user3' => $user3.' มีแล้วชื่อนี้อยู่แล้ว'];
                 }
             }
             if ($user4 != '') {
-                if (User::where('username', '=', $user4)->exists()) {
+                if (Member::where('org_id', '=', $user4)->exists()) {
                     $errors['user4'] = ['user4' => $user4.' มีแล้วชื่อนี้อยู่แล้ว'];
                 }
             }
             if ($user5 != '') {
-                if (User::where('username', '=', $user5)->exists()) {
+                if (Member::where('org_id', '=', $user5)->exists()) {
                     $errors['user5'] = ['user5' => $user5.' มีแล้วชื่อนี้อยู่แล้ว'];
                 }
             }

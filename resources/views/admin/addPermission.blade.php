@@ -5,17 +5,16 @@
 @endsection
 @section('content')
 {!! Toastr::message() !!}
-<form action="{{route('save.permis')}}" method="post">
+<form action="{{route('permission.store')}}" method="POST">
    @csrf
-
    <div id="InputGroup" class="grid lg:grid-cols-2 grid-cols-1 gap-4 ">
       <div id="InputDiv" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="username" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 1<span class="text-lg text-red-600">*</span></label>
-            <input required type="text" name="username" id="username" placeholder=" กรอกชื่อ . นามสกุล 3 ตัว" class=" form-control 
+            <label for="sapid" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 1<span class="text-lg text-red-600">*</span></label>
+            <input required type="text" name="sapid" id="sapid" placeholder="กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none" value="{{ old('username') }}">
+               focus:border-blue-600 focus:outline-none" pattern="[0-9]+" value="{{ old('sapid') }}">
 
             @if ($errors->has('user'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
@@ -39,11 +38,11 @@
       </div>
       <div id="InputDiv1" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="username1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 2</label>
-            <input type="text" name="username1" id="username1" placeholder=" กรอกชื่อ . นามสกุล 3 ตัว" class=" form-control 
+            <label for="sapid1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 2</label>
+            <input type="text" name="sapid1" id="sapid1" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('username1') }}">
+               focus:outline-none" value="{{ old('sapid1') }}">
             @if ($errors->has('user1'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -66,11 +65,11 @@
       </div>
       <div id="InputDiv2" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="username2" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 3</label>
-            <input type="text" name="username2" id="username2" placeholder=" กรอกชื่อ . นามสกุล 3 ตัว" class=" form-control 
+            <label for="sapid2" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 3</label>
+            <input type="text" name="sapid2" id="sapid2" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('username2') }}">
+               focus:outline-none" value="{{ old('sapid2') }}">
             @if ($errors->has('user2'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -93,11 +92,11 @@
       </div>
       <div id="InputDiv3" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="username3" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 4</label>
-            <input type="text" name="username3" id="username3" placeholder=" กรอกชื่อ . นามสกุล 3 ตัว" class=" form-control 
+            <label for="sapid3" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 4</label>
+            <input type="text" name="sapid3" id="sapid3" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('username3') }}">
+               focus:outline-none" value="{{ old('sapid3') }}">
             @if ($errors->has('user3'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -120,11 +119,11 @@
       </div>
       <div id="InputDiv4" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="username4" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 5</label>
-            <input type="text" name="username4" id="username4" placeholder=" กรอกชื่อ . นามสกุล 3 ตัว" class=" form-control 
+            <label for="sapid4" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 5</label>
+            <input type="text" name="sapid4" id="sapid4" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('username4') }}">
+               focus:outline-none" value="{{ old('sapid4') }}">
             @if ($errors->has('user4'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -147,11 +146,11 @@
       </div>
       <div id="InputDiv5" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="username5" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 6</label>
-            <input type="text" name="username5" id="username5" placeholder=" กรอกชื่อ . นามสกุล 3 ตัว" class=" form-control 
+            <label for="sapid5" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 6</label>
+            <input type="text" name="sapid5" id="sapid5" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('username5') }}">
+               focus:outline-none" value="{{ old('sapid5') }}">
             @if ($errors->has('user5'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -237,10 +236,10 @@
       });
 
       // requiered
-      $('input[name=username1]').change(function() {
-         let username1 = $(this).val();
-         // console.log(username1)
-         if (username1 !== '') {
+      $('input[name=sapid1]').change(function() {
+         let sapid1 = $(this).val();
+         // console.log(sapid1)
+         if (sapid1 !== '') {
             $('#permis1').prop('required', true);
          } else {
             $('#permis1').val('');
@@ -249,15 +248,15 @@
          }
       });
 
-      var username1 = '{{ old("username1") }}';
-      if (username1 !== '') {
+      var sapid1 = '{{ old("sapid1") }}';
+      if (sapid1 !== '') {
          $('#permis1').prop('required', true);
       }
 
-      $('input[name=username2]').change(function() {
-         let username2 = $(this).val();
-         // console.log(username2)
-         if (username2 !== '') {
+      $('input[name=sapid2]').change(function() {
+         let sapid2 = $(this).val();
+         // console.log(sapid2)
+         if (sapid2 !== '') {
             $('#permis2').prop('required', true);
          } else {
             $('#permis2').val('');
@@ -266,15 +265,15 @@
          }
       });
 
-      var username2 = '{{ old("username2") }}';
-      if (username2 !== '') {
+      var sapid2 = '{{ old("sapid2") }}';
+      if (sapid2 !== '') {
          $('#permis2').prop('required', true);
       }
 
-      $('input[name=username3]').change(function() {
-         let username3 = $(this).val();
-         // console.log(username3)
-         if (username3 !== '') {
+      $('input[name=sapid3]').change(function() {
+         let sapid3 = $(this).val();
+         // console.log(sapid3)
+         if (sapid3 !== '') {
             $('#permis3').prop('required', true);
          } else {
             $('#permis3').val('');
@@ -283,15 +282,15 @@
          }
       });
 
-      var username3 = '{{ old("username3") }}';
-      if (username3 !== '') {
+      var sapid3 = '{{ old("sapid3") }}';
+      if (sapid3 !== '') {
          $('#permis3').prop('required', true);
       }
 
-      $('input[name=username4]').change(function() {
-         let username4 = $(this).val();
-         // console.log(username4)
-         if (username4 !== '') {
+      $('input[name=sapid4]').change(function() {
+         let sapid4 = $(this).val();
+         // console.log(sapid4)
+         if (sapid4 !== '') {
             $('#permis4').prop('required', true);
          } else {
             $('#permis4').val('');
@@ -300,15 +299,15 @@
          }
       });
 
-      var username4 = '{{ old("username4") }}';
-      if (username4 !== '') {
+      var sapid4 = '{{ old("sapid4") }}';
+      if (sapid4 !== '') {
          $('#permis4').prop('required', true);
       }
 
-      $('input[name=username5]').change(function() {
-         let username5 = $(this).val();
-         // console.log(username5)
-         if (username5 !== '') {
+      $('input[name=sapid5]').change(function() {
+         let sapid5 = $(this).val();
+         // console.log(sapid5)
+         if (sapid5 !== '') {
             $('#permis5').prop('required', true);
          } else {
             $('#permis5').val('');
@@ -316,8 +315,8 @@
          }
       });
 
-      var username5 = '{{ old("username5") }}';
-      if (username5 !== '') {
+      var sapid5 = '{{ old("sapid5") }}';
+      if (sapid5 !== '') {
          $('#permis5').prop('required', true);
       }
 
