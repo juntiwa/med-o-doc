@@ -78,7 +78,7 @@
                @endif
             </td>
             <td class="p-3 text-base text-gray-800 font-medium text-center align-text-top ">
-               <a href="{{route('edit.permis', $item->id)}}">
+               <a href="{{route('permission.edit', $item->id)}}">
                   <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit"
                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;"
@@ -152,7 +152,7 @@
             </p>
          </div>
          <div>
-            <a href="{{route('edit.permis', $item->id)}}">
+            <a href="{{route('permission.edit', $item->id)}}">
                <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit"
                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                   viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">

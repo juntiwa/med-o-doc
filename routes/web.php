@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\ActivitylogController;
-use App\Http\Controllers\Admin\AdminController as AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\DocumentController;
@@ -25,12 +24,6 @@ Route::get('/', function () {
 })->name('login');
 Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
 Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
-Route::post('check-timeout', [AuthLoginController::class, 'update'])->name('check-timeout');
-
-// ----------------------------- admin -----------------------//
-Route::get('edit_permis/{id}', [AdminController::class, 'edit'])->name('edit.permis');
-Route::post('update_permis/{id}', [AdminController::class, 'update'])->name('update.permis');
-Route::get('delete_activitylog', [AdminController::class, 'deleteActivity'])->name('delete.activitylog');
 
 // ----------------------------- activity log -----------------------//
 Route::controller(ActivitylogController::class)->group(function () {
@@ -43,6 +36,8 @@ Route::controller(PermissionController::class)->group(function () {
     Route::get('permissions', 'index')->name('permission');
     Route::get('permission-create', 'create')->name('permission.create');
     Route::post('permission', 'store')->name('permission.store');
+    Route::get('permission-edit/{id}', 'edit')->name('permission.edit');
+    Route::post('permission-update/{id}', 'update')->name('permission.update');
     Route::post('look-sapid', 'show')->name('look.sapid');
 });
 
