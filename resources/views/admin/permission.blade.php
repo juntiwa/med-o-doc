@@ -9,7 +9,8 @@
    <form action="{{route('permission.create')}}" method="get">
       <button type="submit" class="addMember flex justify-center items-center">
          <svg class="add_member" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-            <path d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM616 200h-48v-48C568 138.8 557.3 128 544 128s-24 10.75-24 24v48h-48C458.8 200 448 210.8 448 224s10.75 24 24 24h48v48C520 309.3 530.8 320 544 320s24-10.75 24-24v-48h48C629.3 248 640 237.3 640 224S629.3 200 616 200z" />
+            <path
+               d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM616 200h-48v-48C568 138.8 557.3 128 544 128s-24 10.75-24 24v48h-48C458.8 200 448 210.8 448 224s10.75 24 24 24h48v48C520 309.3 530.8 320 544 320s24-10.75 24-24v-48h48C629.3 248 640 237.3 640 224S629.3 200 616 200z" />
          </svg>
          <p class=" text-base text-white">Add member</p>
       </button>
@@ -38,14 +39,18 @@
             <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top flex justify-center">
                {{++$key}}
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap">
-                 100xxxxx  
-                 <a href="{{route('look.sapid')}}">
-                    <i class="uil uil-eye-slash text-teal-500 font-normal"></i>
-                 </a>
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+               <div class="flex">
+                  <p id="sap_hidden">100xxxxx</p>
+                  <p id="sap_show">{{$item->sapid()}}</p>
+                  <button id="show_sap" class="pl-1">
+                     <i id="sap_icon" class="uil uil-eye-slash text-teal-500 font-normal"></i>
+                  </button>
+               </div>
+
 
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->username }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
@@ -55,7 +60,7 @@
                {{ $item->full_name }}
                @endif
             </td>
-            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap ">
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->office_name }}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
@@ -73,21 +78,29 @@
                @endif
             </td>
             <td class="p-3 text-base text-gray-800 font-medium text-center align-text-top ">
-               <a href="{{route('edit.permis', $item->id)}}">
-                  <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+               <a href="{{route('permission.edit', $item->id)}}">
+                  <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit"
+                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;"
+                     xml:space="preserve">
                      <g>
                         <g>
-                           <path d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161    C517.311,117.944,517.314,83.55,496.063,62.299z" style="fill: rgb(1, 185, 209);"></path>
+                           <path
+                              d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161    C517.311,117.944,517.314,83.55,496.063,62.299z"
+                              style="fill: rgb(1, 185, 209);"></path>
                         </g>
                      </g>
                      <g>
                         <g>
-                           <path d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143    l117.512-21.763L22.012,376.747z" style="fill: rgb(1, 185, 209);"></path>
+                           <path
+                              d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143    l117.512-21.763L22.012,376.747z"
+                              style="fill: rgb(1, 185, 209);"></path>
                         </g>
                      </g>
                      <g>
                         <g>
-                           <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568   " style="fill: rgb(1, 185, 209);"></polygon>
+                           <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568   "
+                              style="fill: rgb(1, 185, 209);"></polygon>
                         </g>
                      </g>
                      <g></g>
@@ -139,21 +152,28 @@
             </p>
          </div>
          <div>
-            <a href="{{route('edit.permis', $item->id)}}">
-               <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
+            <a href="{{route('permission.edit', $item->id)}}">
+               <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit"
+                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
                   <g>
                      <g>
-                        <path d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161    C517.311,117.944,517.314,83.55,496.063,62.299z" style="fill: rgb(1, 185, 209);"></path>
+                        <path
+                           d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161    C517.311,117.944,517.314,83.55,496.063,62.299z"
+                           style="fill: rgb(1, 185, 209);"></path>
                      </g>
                   </g>
                   <g>
                      <g>
-                        <path d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143    l117.512-21.763L22.012,376.747z" style="fill: rgb(1, 185, 209);"></path>
+                        <path
+                           d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143    l117.512-21.763L22.012,376.747z"
+                           style="fill: rgb(1, 185, 209);"></path>
                      </g>
                   </g>
                   <g>
                      <g>
-                        <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568   " style="fill: rgb(1, 185, 209);"></polygon>
+                        <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568   "
+                           style="fill: rgb(1, 185, 209);"></polygon>
                      </g>
                   </g>
                   <g></g>
@@ -203,8 +223,6 @@
          <p class="table-row__status text-base pl-3">{{$item->status}}</p>
          @endif
       </div>
-
-
    </div>
    @endforeach
    @else
@@ -218,4 +236,40 @@
    {{ $permiss->withQueryString()->links('pagination::tailwind') }}
 </div>
 
+<script type="text/javascript">
+   $('#sap_show').addClass('hidden')
+   $(document).ready(function () {
+      $('#show_sap').click(function(e){
+         $('#sap_hidden').addClass('hidden')
+         $('#sap_show').removeClass('hidden')
+         // icon
+         $('#sap_icon').removeClass('uil-eye-slash')
+         $('#sap_icon').addClass('uil-eye')
+         $('#sap_icon').css({"color": "red"});
+         $('#show_sap').prop('disabled', true)
+
+         e.preventDefault();
+         $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+         })
+         var sapid = $('#sap_show').html()
+         console.log(sapid);
+        
+         $.ajax({
+            url: "{{ route('look.sapid') }}",
+            type: 'post',
+            data: {
+               sapid: sapid
+            },
+            success: function (result) {
+               // console.log(result);
+            }
+         });
+      })
+
+   })
+
+</script>
 @endsection

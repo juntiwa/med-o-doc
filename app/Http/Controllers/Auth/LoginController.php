@@ -82,13 +82,22 @@ class LoginController extends Controller
                     $user->save();
                 }
             }
+
             $users = User::where('org_id', $sirirajUser['org_id'])->first();
             // Auth::login($users);
-
             // dd($users);
         }
 
+        if ($users->username != $sirirajUser['login'] || $users->full_name != $sirirajUser['full_name'] || $users->office_name != $sirirajUser['office_name']) {
+            // Log::info($update);
+            $update = User::where('org_id', $sirirajUser['org_id'])->first();
+            $update->username = $sirirajUser['login'];
+            $update->full_name = $sirirajUser['full_name'];
+            $update->office_name = $sirirajUser['office_name'];
+            $update->save();
+        }
         Auth::login($users);
+
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
