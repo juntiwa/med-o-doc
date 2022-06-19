@@ -36,7 +36,7 @@
             <th class="w-32 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">ชื่อ สกุล</th>
             <th class="w-36 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">หน่วยงาน</th>
             <th class="w-60 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Action</th>
-            <th class="w-40 p-3 text-base text-gray-800 font-semibold tracking-wide text-center">Date time</th>
+            <th class="w-40 p-3 text-base text-gray-800 font-semibold tracking-wide text-left">Date time</th>
          </tr>
       </thead>
       <!-- ก่อนค้นหา -->

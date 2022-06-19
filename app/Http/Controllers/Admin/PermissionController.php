@@ -7,6 +7,7 @@ use App\Models\activityLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 
 class PermissionController extends Controller
@@ -62,9 +63,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        //   Log::info('ok');
+
+        return response()->json(['success'=>'Data is successfully added']);
     }
 
     /**

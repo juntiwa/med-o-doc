@@ -43,7 +43,7 @@ Route::controller(PermissionController::class)->group(function () {
     Route::get('permissions', 'index')->name('permission');
     Route::get('permission-create', 'create')->name('permission.create');
     Route::post('permission', 'store')->name('permission.store');
-    Route::get('look-sapid', 'show')->name('look.sapid');
+    Route::post('look-sapid', 'show')->name('look.sapid');
 });
 
 // ----------------------------- document -----------------------//
