@@ -8,13 +8,12 @@
    หัวเรื่อง :
    <span class="text-blue-600 "> {{$regTbl->regtitle}}</span>
 </p>
-<div class="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-1 pb-3">
-   <p class="flex text-lg font-medium text-gray-900">
-      <span class="pr-3">วันที่ลงทะเบียน :</span>
+<p class="flex text-lg font-medium text-gray-900 pb-3">
+      วันที่ลงทะเบียน :
       {{$regTbl->thaidateregdate()}}
    </p>
-   <p class="flex text-lg font-medium text-gray-900 col-span-2">
-      <span class="pr-3">หน่วยงานที่ส่ง :</span>
+   <p class="flex text-lg font-medium text-gray-900 col-span-2 pb-3">
+      หน่วยงานที่ส่ง :
       <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
       @if ($regTbl->regtype == null )
       ไม่ระบุ
@@ -37,9 +36,7 @@
       <!-- endif regtype = null-->
       @endif
    </p>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-1 pb-3">
-   <p class="flex text-lg font-medium text-gray-900 pb-3">
+<p class="flex text-lg font-medium text-gray-900 pb-3">
       <span class="pr-3">เอกสารแนบ1 :</span>
       @if ($regTbl->regdoc == null)
       <span>
@@ -131,7 +128,6 @@
       </a>
       @endif
    </p>
-</div>
 
 {{-- ตาราง --}}
 <div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
@@ -198,7 +194,8 @@
       <div class="flex items-center space-x-2 text-base ">
          <!-- เลขที่หนังสือ -->
          <div>
-            <p class="text-gray-700 text-lg font-medium">
+            <p class="text-gray-700 font-medium">
+               ส่งถึง : 
                {{$reg->sendtoid}}
                {{$regTbl->regtype}}
                <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
@@ -224,7 +221,8 @@
       </div>
       <div class="flex text-base justify-between">
          <!-- ส่งวันที่ -->
-         <div class="text-gray-700">
+         <div class="text-gray-700 font-medium">
+            วันที่ส่ง : 
             @if ($reg->regdate == "0000-00-00" || null )
             ไม่ระบุ
             @else
