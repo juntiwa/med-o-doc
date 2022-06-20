@@ -449,6 +449,7 @@ class DocumentController extends Controller
 
         $regisTable = Lettersend::leftJoin('letterrecs', 'lettersends.sendregid', '=', 'letterrecs.sendregid')
         ->where('lettersends.regrecid', $regrecid)
+        ->orderby('letterrecs.recdate', 'desc')
         ->get();
 
         $title = $regTbl->regtitle;
