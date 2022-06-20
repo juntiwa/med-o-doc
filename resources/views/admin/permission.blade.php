@@ -41,23 +41,22 @@
             </td>
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                <div class="flex">
-                  <p id="sap_hidden">100xxxxx</p>
-                  <p id="sap_show" class="hidden">{{$item->sapid()}}</p>
-                  {{-- <button id="show_sap" class="pl-1">
-                     <i id="sap_icon" class="uil uil-eye-slash text-teal-500 font-normal"></i>
-                  </button> --}}
-
-                  <div class="flex">
-                     <div class="bg-white">
-                        <div class="flex items-center justify-center space-x-2">
-                           <label for="{{$item->sapid()}}" class="show flex relative items-center cursor-pointer m-0">
-                              <input type="checkbox" id="{{$item->sapid()}}" class="sr-only" checked>
-                              <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
+                  <p id="sap_hidden{{$item->sapid()}}">100xxxxx</p>
+                  <p id="sap_show{{$item->sapid()}}"></p>
+                  <div class="bg-white ml-1">
+                        <div class="flex items-center justify-center space-x-2" id="show">
+                           <label for="{{$item->sapid()}}"
+                              class="inline-flex relative items-center mr-5 cursor-pointer">
+                              <input type="checkbox" id="{{$item->sapid()}}"
+                                 class="switch{{$item->sapid()}} sr-only peer" onClick="sap_click(this.id)">
+                              <div id="switch_toggle" class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-teal-300 
+                               peer-checked:after:translate-x-full peer-checked:after:border-white 
+                              after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 
+                              after:border after:rounded-full after:h-5 after:w-5 after:transition-all  
+                              peer-checked:bg-slate-100"></div>
                            </label>
                         </div>
                      </div>
-                  </div>
-               </div>
             </td>
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->username }}
@@ -246,13 +245,23 @@
 </div>
 
 <script type="text/javascript">
-   $(document).ready(function () {
-      // toggle hide show  from input
-      $(".show").click(function() {
-         $('#sap_show').toggle("slow")
+   function sap_click(clicked) {
+      var el_up = document.getElementById("sap_show" + clicked);
+      el_up.innerHTML = clicked;
+      $('.switch' + clicked).prop('disabled', true)
+      $('#sap_hidden' + clicked).addClass('hidden')
+      // console.log(clicked);
+
+      $.ajax({
+         url: "{{ route('look.sapid') }}",
+         type: 'post',
+         data: {
+            sapid: clicked
+         },
+         success: function (result) {
+            // console.log(result);
+         }
       });
-
-   })
-
+   }
 </script>
 @endsection
