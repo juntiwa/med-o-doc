@@ -57,7 +57,7 @@
             </div>
 
             <!-- หน่วยงานที่ส่ง -->
-            <div class="mb-3 xl:w-full">
+            <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">
                <label for="regfrom" class="form-label inline-block mb-2 text-lg text-gray-800 font-semibold">หน่วยงานที่ส่ง</label>
                <select name="sregfrom" id="sregfrom"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
@@ -73,7 +73,7 @@
             </div>
 
             <!-- หน่วยงานที่รับ -->
-            <div class="mb-3 xl:w-full">
+            {{-- <div class="mb-3 xl:w-full">
                <label for="regto" class="form-label inline-block mb-2 text-lg text-gray-800 font-semibold">หน่วยงานที่รับ</label>
                <select name="sregto" id="sregto"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-lg text-gray-800 font-medium bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300
@@ -88,7 +88,7 @@
                   focus:outline-none " aria-label="Default select example" placeholder="ระบุหน่วยงานที่รับ"
                   value="{{ old('iregto') }}">
                <input type="text" name="idto" id="idto" value="{{ old('idto') }}" hidden>
-            </div>
+            </div> --}}
 
             <!-- หัวเรื่อง -->
             <div class="mb-3 xl:w-full md:col-span-1 lg:col-span-2">

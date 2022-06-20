@@ -17,11 +17,11 @@
    </div>
    
    @error('member_file')
-   <label class="alert-danger">{{ $message }}</label>
+   <label class=" text-rose-600">{{ $message }}</label>
 @enderror
                             @if(Session::has('import_errors'))
                               @foreach (Session::get('import_errors') as $failures)
-                              <label class="alert-danger">
+                              <label class=" text-rose-600">
                                  {{$failures->errors()[0]}} at line no- {{$failures->row()}}
                               </label>
                               @endforeach
