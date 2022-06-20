@@ -38,7 +38,7 @@
 <body class="font-sarabun bg-white min-h-screen max-h-full ">
    @section('sidebar')
    <div class="navbar bg-slate-50 sticky top-0 z-50 text-lg">
-      <div class="navbar-start">
+      <div class="navbar-start text-lg">
          <div class="dropdown">
             <label tabindex="0" class="btn btn-ghost lg:hidden">
                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -53,7 +53,7 @@
                </li>
                @if (Auth::user()->is_admin == "1")
                <li tabindex="0">
-                  <a class="justify-between @if (Route::is('permission')||Route::is('permission.create')) text-teal-500 @else 
+                  <a class="justify-between @if (Route::is('permission')||Route::is('permission.create')||Route::is('activitylog')) text-teal-500 @else 
                   text-slate-600 @endif hover:text-teal-500 font-medium">
                      จัดการระบบ
                      <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -62,25 +62,27 @@
                      </svg>
                   </a>
                   <ul class="p-2 bg-slate-50 shadow-md">
-                     <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('activitylog')}}">Activity log</a>
-                  </li>
+                     
                   <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
                   <li class="@if (Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
-                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a>
+                  </li>
+                  <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
+                     <a href="{{route('activitylog')}}">การใช้งานระบบ</a>
+                  </li>
                   </ul>
                </li>
                @endif
             </ul>
          </div>
          @if (Auth::user()->is_admin == "1")
-         <a href="{{route('activitylog')}}" class="btn btn-ghost normal-case text-xl text-slate-900">MED O-Doc</a>
+         <a href="{{route('activitylog')}}" class="btn btn-ghost normal-case text-lg text-slate-900">MED O-Doc</a>
          @else
-         <a href="{{route('docShow')}}" class="btn btn-ghost normal-case text-xl text-slate-900">MED O-Doc</a>
+         <a href="{{route('docShow')}}" class="btn btn-ghost normal-case text-lg text-slate-900">MED O-Doc</a>
          @endif
       </div>
       <div class="navbar-center hidden lg:flex ">
@@ -91,7 +93,7 @@
             </li>
             @if (Auth::user()->is_admin == "1")
             <li tabindex="0">
-               <a class="@if (Route::is('permission')||Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
+               <a class="@if (Route::is('permission')||Route::is('permission.create')||Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
                   hover:text-teal-500 font-medium">
                   จัดการระบบ
                   <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -100,16 +102,18 @@
                   </svg>
                </a>
                <ul class="p-2 bg-slate-50 shadow-md">
-                  <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('activitylog')}}">Activity log</a>
-                  </li>
+                  
                   <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
                      <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
                   <li class="@if (Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
                      hover:text-teal-500 font-medium">
-                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a>
+                  </li>
+                  <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
+                     hover:text-teal-500 font-medium">
+                     <a href="{{route('activitylog')}}">การใช้งานระบบ</a>
+                  </li>
                </ul>
             </li>
             @endif
@@ -117,7 +121,7 @@
          </ul>
       </div>
             
-      <div class="navbar-end text-lg">
+      <div class="navbar-end text-lg flex flex-col lg:flex-row items-end">
          <span class="lg:mr-2 md:mr-2 text-blue-700">
             <!-- ชื่อเข้าสู่ระบบ -->
             {{Auth::user()->full_name}}
