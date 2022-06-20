@@ -112,6 +112,20 @@ class PermissionController extends Controller
                 $datas .= ' ,"'.$user5.' สิทธิ์ '.$permiss.'"';
             }
             Member::insert($data);
+
+            Log::info(Auth::user()->full_name.' เพิ่มข้อมูลสิทธิ์ผู้ใช้งาน '.$datas);
+
+            $log_activity = new activityLog;
+            $log_activity->username = Auth::user()->username;
+            $log_activity->full_name = Auth::user()->full_name;
+            $log_activity->office_name = Auth::user()->office_name;
+            $log_activity->action = 'ดูข้อมูล SAPID '.$datas;
+            $log_activity->type = 'view';
+            $log_activity->url = URL::current();
+            $log_activity->method = $request->method();
+            $log_activity->user_agent = $request->header('user-agent');
+            $log_activity->date_time = date('d-m-Y H:i:s');
+            $log_activity->save();
         // dd($data);
         } else {
             if (Member::where('org_id', '=', $user)->exists()) {
@@ -144,7 +158,7 @@ class PermissionController extends Controller
             }
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
-            dd($errors);
+            // dd($errors);
         }
 
         return redirect()->route('permission');
@@ -190,7 +204,7 @@ class PermissionController extends Controller
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เข้าสู้หน้าแก้ไขข้อมูลของผู้ใช้งานรหัส '.$sapid;
+        $log_activity->action = 'เข้าสู่หน้าแก้ไขข้อมูลของผู้ใช้งานรหัส '.$sapid;
         $log_activity->type = 'edit';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
@@ -224,6 +238,8 @@ class PermissionController extends Controller
         $user->save();
 
         $sapid = $user->org_id;
+
+        Log::info(Auth::user()->full_name.' แก้ไขข้อมูลผู้ใช้งานรหัส '.$sapid);
 
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
