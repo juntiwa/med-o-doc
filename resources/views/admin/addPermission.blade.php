@@ -14,7 +14,7 @@
             <input required type="text" name="sapid" id="sapid" placeholder="กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none" pattern="[0-9]+" value="{{ old('sapid') }}">
+               focus:border-blue-600 focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid') }}">
 
             @if ($errors->has('user'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
@@ -42,7 +42,7 @@
             <input type="text" name="sapid1" id="sapid1" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('sapid1') }}">
+               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid1') }}">
             @if ($errors->has('user1'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -69,7 +69,7 @@
             <input type="text" name="sapid2" id="sapid2" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('sapid2') }}">
+               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid2') }}">
             @if ($errors->has('user2'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -96,7 +96,7 @@
             <input type="text" name="sapid3" id="sapid3" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('sapid3') }}">
+               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid3') }}">
             @if ($errors->has('user3'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -123,7 +123,7 @@
             <input type="text" name="sapid4" id="sapid4" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('sapid4') }}">
+               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid4') }}">
             @if ($errors->has('user4'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -150,7 +150,7 @@
             <input type="text" name="sapid5" id="sapid5" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" value="{{ old('sapid5') }}">
+               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid5') }}">
             @if ($errors->has('user5'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
