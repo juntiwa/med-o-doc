@@ -9,6 +9,17 @@ class Member extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+      'org_id',
+      'is_admin',
+      'status',
+   ];
+
     public function sapid()
     {
         return $this->org_id;
