@@ -111,6 +111,8 @@ class LoginController extends Controller
         $log_activity->save();
 
         $full_name = Auth::user()->full_name;
+        Toastr::success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
+
         Log::info($full_name.' เข้าสู่ระบบ');
 
         return Redirect::route('docShow');

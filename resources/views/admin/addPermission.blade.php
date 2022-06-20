@@ -5,22 +5,52 @@
 @endsection
 @section('content')
 {!! Toastr::message() !!}
+
+<form action="{{ route('member.store') }}" method="POST" enctype="multipart/form-data">
+   @csrf
+
+   <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">Upload file</label>
+   <div class="flex">
+      <input type="file" name="member_file"
+         class="block w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer ">
+      <button class="btn btn-info text-slate-800 ml-4" type="submit">Import User Data</button>
+   </div>
+   
+   @error('member_file')
+   <label class="alert-danger">{{ $message }}</label>
+@enderror
+                            @if(Session::has('import_errors'))
+                              @foreach (Session::get('import_errors') as $failures)
+                              <label class="alert-danger">
+                                 {{$failures->errors()[0]}} at line no- {{$failures->row()}}
+                              </label>
+                              @endforeach
+                            @endif
+   <p class="mt-1 text-base text-gray-500" id="file_input_help">CSV</p>
+
+   <br>
+</form>
+
 <form action="{{route('permission.store')}}" method="POST">
    @csrf
    <div id="InputGroup" class="grid lg:grid-cols-2 grid-cols-1 gap-4 ">
       <div id="InputDiv" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 1<span class="text-lg text-red-600">*</span></label>
+            <label for="sapid" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 1<span
+                  class="text-lg text-red-600">*</span></label>
             <input required type="text" name="sapid" id="sapid" placeholder="กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid') }}">
+               focus:border-blue-600 focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+"
+               value="{{ old('sapid') }}">
 
             @if ($errors->has('user'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{{ $errors->first('user') }}</span>
                </div>
@@ -28,8 +58,11 @@
             @endif
          </div>
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง <span class="text-lg text-red-600">*</span></label>
-            <select required name="permis" id="permis" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+            <label for="permis" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง
+               <span class="text-lg text-red-600">*</span></label>
+            <select required name="permis" id="permis"
+               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+               aria-label="Default select example">
                <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
                <option value="1">ผู้ดูแลระบบ</option>
                <option value="0">ผู้ใช้งานทั่วไป</option>
@@ -38,7 +71,8 @@
       </div>
       <div id="InputDiv1" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 2</label>
+            <label for="sapid1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
+               2</label>
             <input type="text" name="sapid1" id="sapid1" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
@@ -46,8 +80,10 @@
             @if ($errors->has('user1'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{{ $errors->first('user1') }}</span>
                </div>
@@ -55,8 +91,11 @@
             @endif
          </div>
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis1" id="permis1" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+            <label for="permis1"
+               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
+            <select name="permis1" id="permis1"
+               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+               aria-label="Default select example">
                <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
                <option value="1">ผู้ดูแลระบบ</option>
                <option value="0">ผู้ใช้งานทั่วไป</option>
@@ -65,7 +104,8 @@
       </div>
       <div id="InputDiv2" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid2" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 3</label>
+            <label for="sapid2" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
+               3</label>
             <input type="text" name="sapid2" id="sapid2" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
@@ -73,8 +113,10 @@
             @if ($errors->has('user2'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{{ $errors->first('user2') }}</span>
                </div>
@@ -82,8 +124,11 @@
             @endif
          </div>
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis2" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis2" id="permis2" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+            <label for="permis2"
+               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
+            <select name="permis2" id="permis2"
+               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+               aria-label="Default select example">
                <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
                <option value="1">ผู้ดูแลระบบ</option>
                <option value="0">ผู้ใช้งานทั่วไป</option>
@@ -92,7 +137,8 @@
       </div>
       <div id="InputDiv3" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid3" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 4</label>
+            <label for="sapid3" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
+               4</label>
             <input type="text" name="sapid3" id="sapid3" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
@@ -100,8 +146,10 @@
             @if ($errors->has('user3'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{{ $errors->first('user3') }}</span>
                </div>
@@ -109,8 +157,11 @@
             @endif
          </div>
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis3" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis3" id="permis3" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+            <label for="permis3"
+               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
+            <select name="permis3" id="permis3"
+               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+               aria-label="Default select example">
                <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
                <option value="1">ผู้ดูแลระบบ</option>
                <option value="0">ผู้ใช้งานทั่วไป</option>
@@ -119,7 +170,8 @@
       </div>
       <div id="InputDiv4" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid4" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 5</label>
+            <label for="sapid4" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
+               5</label>
             <input type="text" name="sapid4" id="sapid4" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
@@ -127,8 +179,10 @@
             @if ($errors->has('user4'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{{ $errors->first('user4') }}</span>
                </div>
@@ -136,8 +190,11 @@
             @endif
          </div>
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis4" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis4" id="permis4" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+            <label for="permis4"
+               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
+            <select name="permis4" id="permis4"
+               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+               aria-label="Default select example">
                <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
                <option value="1">ผู้ดูแลระบบ</option>
                <option value="0">ผู้ใช้งานทั่วไป</option>
@@ -146,7 +203,8 @@
       </div>
       <div id="InputDiv5" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid5" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 6</label>
+            <label for="sapid5" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
+               6</label>
             <input type="text" name="sapid5" id="sapid5" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
                block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
@@ -154,8 +212,10 @@
             @if ($errors->has('user5'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{{ $errors->first('user5') }}</span>
                </div>
@@ -163,8 +223,11 @@
             @endif
          </div>
          <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis5" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis5" id="permis5" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+            <label for="permis5"
+               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
+            <select name="permis5" id="permis5"
+               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+               aria-label="Default select example">
                <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
                <option value="1">ผู้ดูแลระบบ</option>
                <option value="0">ผู้ใช้งานทั่วไป</option>
@@ -188,8 +251,8 @@
    $("#InputDiv3").hide();
    $("#InputDiv4").hide();
    $("#InputDiv5").hide();
-   $(document).ready(function() {
-      $('#permis').change(function() {
+   $(document).ready(function () {
+      $('#permis').change(function () {
          let permis = $(this).val();
          // console.log(permis)
          if (permis !== '') {
@@ -198,7 +261,7 @@
             $("#InputDiv1").hide();
          }
       });
-      $('#permis1').change(function() {
+      $('#permis1').change(function () {
          let permis = $(this).val();
          // console.log(permis)
          if (permis !== '') {
@@ -207,7 +270,7 @@
             $("#InputDiv2").hide();
          }
       });
-      $('#permis2').change(function() {
+      $('#permis2').change(function () {
          let permis = $(this).val();
          // console.log(permis)
          if (permis !== '') {
@@ -216,7 +279,7 @@
             $("#InputDiv3").hide();
          }
       });
-      $('#permis3').change(function() {
+      $('#permis3').change(function () {
          let permis = $(this).val();
          // console.log(permis)
          if (permis !== '') {
@@ -225,7 +288,7 @@
             $("#InputDiv4").hide();
          }
       });
-      $('#permis4').change(function() {
+      $('#permis4').change(function () {
          let permis = $(this).val();
          // console.log(permis)
          if (permis !== '') {
@@ -236,7 +299,7 @@
       });
 
       // requiered
-      $('input[name=sapid1]').change(function() {
+      $('input[name=sapid1]').change(function () {
          let sapid1 = $(this).val();
          // console.log(sapid1)
          if (sapid1 !== '') {
@@ -253,7 +316,7 @@
          $('#permis1').prop('required', true);
       }
 
-      $('input[name=sapid2]').change(function() {
+      $('input[name=sapid2]').change(function () {
          let sapid2 = $(this).val();
          // console.log(sapid2)
          if (sapid2 !== '') {
@@ -270,7 +333,7 @@
          $('#permis2').prop('required', true);
       }
 
-      $('input[name=sapid3]').change(function() {
+      $('input[name=sapid3]').change(function () {
          let sapid3 = $(this).val();
          // console.log(sapid3)
          if (sapid3 !== '') {
@@ -287,7 +350,7 @@
          $('#permis3').prop('required', true);
       }
 
-      $('input[name=sapid4]').change(function() {
+      $('input[name=sapid4]').change(function () {
          let sapid4 = $(this).val();
          // console.log(sapid4)
          if (sapid4 !== '') {
@@ -304,7 +367,7 @@
          $('#permis4').prop('required', true);
       }
 
-      $('input[name=sapid5]').change(function() {
+      $('input[name=sapid5]').change(function () {
          let sapid5 = $(this).val();
          // console.log(sapid5)
          if (sapid5 !== '') {

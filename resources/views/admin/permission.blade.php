@@ -16,6 +16,9 @@
       </button>
    </form>
 </div>
+@if(Session::has('success'))
+   <label class="alert-danger">{{Session::get('success')}}</label>
+ @endif
 <!-- ตาราง -->
 <div class="overflow-auto rounded-lg shadow-sm hidden mt-6 lg:block">
    <table class="w-full">

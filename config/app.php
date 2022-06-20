@@ -178,11 +178,11 @@ return [
       App\Providers\RouteServiceProvider::class,
       App\Providers\AuthUserServiceProvider::class,
 
-      /**
+      /*
        * custom
        */
       Maatwebsite\Excel\ExcelServiceProvider::class,
-      MarvinLabs\DiscordLogger\ServiceProvider::class
+      MarvinLabs\DiscordLogger\ServiceProvider::class,
    ],
 
    /*
@@ -202,12 +202,13 @@ return [
    'aliases' => [
       'Auth' => Illuminate\Support\Facades\Auth::class,
       'Input' => Illuminate\Support\Facades\Request::class,
-      'Excel' => Maatwebsite\Excel\Facades\Excel::class, 
+      'Excel' => Maatwebsite\Excel\Facades\Excel::class,
       'Route' => Illuminate\Support\Facades\Route::class,
       'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+      'Session' => Illuminate\Support\Facades\Session::class,
    ],
 
-   #api
+   //api
    'HAN_API_SERVICE_URL' => env('HAN_API_SERVICE_URL'),
    'HAN_API_SERVICE_TOKEN' => env('HAN_API_SERVICE_TOKEN'),
    'HAN_API_SERVICE_SECRET' => env('HAN_API_SERVICE_SECRET'),

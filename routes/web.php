@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ActivitylogController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\Import\MemberImportController;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,11 @@ Route::controller(PermissionController::class)->group(function () {
     Route::get('permission-edit/{id}', 'edit')->name('permission.edit');
     Route::post('permission-update/{id}', 'update')->name('permission.update');
     Route::post('look-sapid', 'show')->name('look.sapid');
+});
+
+// permission import
+Route::controller(MemberImportController::class)->group(function () {
+    Route::post('member', 'store')->name('member.store');
 });
 
 // ----------------------------- document -----------------------//
