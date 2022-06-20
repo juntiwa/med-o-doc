@@ -51,7 +51,7 @@
                </svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 bg-slate-50">
-               <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 @else text-slate-600 @endif 
+               <li class="@if (Route::is('docShow') || Route::is('reg.search')|| Route::is('description.document')) text-teal-500 @else text-slate-600 @endif 
                   hover:text-teal-500 font-medium">
                   <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
                </li>
@@ -91,7 +91,7 @@
       </div>
       <div class="navbar-center hidden lg:flex ">
          <ul class="menu menu-horizontal p-0">
-            <li class="@if (Route::is('docShow') || Route::is('reg.search')) text-teal-500 @else text-slate-600 @endif 
+            <li class="@if (Route::is('docShow') || Route::is('reg.search')|| Route::is('description.document')) text-teal-500 @else text-slate-600 @endif 
                hover:text-teal-500 font-medium">
                <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
             </li>
