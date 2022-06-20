@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('username');
             $table->string('full_name');
             $table->string('office_name');
-            $table->string('action');
+            $table->text('action');
             $table->string('type');
             $table->string('url');
             $table->string('method');
