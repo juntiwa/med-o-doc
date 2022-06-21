@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ActivitylogController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Auth\RegisController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Import\MemberImportController;
 use Brian2694\Toastr\Facades\Toastr;
@@ -26,6 +27,9 @@ Route::get('/', function () {
 Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
 Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
 
+Route::controller(RegisController::class)->group(function () {
+    Route::get('register', 'store')->name('register.store');
+});
 // ----------------------------- activity log -----------------------//
 Route::controller(ActivitylogController::class)->group(function () {
     Route::get('activitylog', 'index')->name('activitylog');
