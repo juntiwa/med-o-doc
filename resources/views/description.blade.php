@@ -24,7 +24,6 @@
       {{$fromins->unitname}} ({{$regTbl->regfrom}})
       @endforeach
       @elseif($regTbl->regtype == 3)
-      
       นอกภาค
       @foreach($regTbl->desfromouts as $fromouts)
       {{$fromouts->unitname}} ({{$regTbl->regfrom}})
@@ -160,7 +159,13 @@
                {{$toins->unitname}} ({{$reg->sendtoid}})
                @endforeach
                @endif
-               @endif
+               @elseif($regTbl->regtype == 3)
+               @foreach($reg->destoouts as $toins)
+               {{$toins->unitname}} ({{$reg->sendtoid}})
+               @endforeach
+            @else
+            อื่น ๆ
+            @endif
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
                @if ($reg->recdate == null )
@@ -201,7 +206,7 @@
                
             @elseif($regTbl->regtype == 3)
                @foreach($reg->destoouts as $toins)
-               {{$toins->unitname}}
+               {{$toins->unitname}} ({{$reg->sendtoid}})
                @endforeach
             @else
             อื่น ๆ
