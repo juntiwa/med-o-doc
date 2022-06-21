@@ -396,18 +396,9 @@
       </tbody>
    </table>
 </div>
-@else
-<p class="flex justify-center font-bold text-red-600 text-xl pt-12">
-   ไม่พบข้อมูล
-</p>
-@endif
-@endif
-
 <!-- card -->
 <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
    <!-- หลังค้นหา -->
-   @if(isset($searchregs))
-   @if(count($searchregs)>0)
    @foreach($searchregs as $reg)
    <div class="bg-white space-y-3 p-4 rounded-lg shadow relative">
       <div class="flex items-center space-x-2 text-base ">
@@ -573,12 +564,11 @@
       </div>
    </div>
    @endforeach
-   @else
-   <p class="text-rose-600 text-2xl text-shadow-sm font-semibold flex justify-center pt-5">ไม่พบข้อมูล</p>
-   @endif
-   @endif
 </div>
-
+@else
+<p class="text-rose-600 text-2xl text-shadow-sm font-semibold flex justify-center pt-5">ไม่พบข้อมูล</p>
+@endif
+@endif
 <!-- pagination -->
 @if(Route::is('reg.search'))
 <div class="col-md-12 mt-6 mb-6">
