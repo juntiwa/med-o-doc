@@ -19,16 +19,15 @@
       ไม่ระบุ
       @else
       @if($regTbl->regtype == 0)
-      {{$regTbl->regfrom}}
       ในภาค
       @foreach($regTbl->desfromins as $fromins)
-      {{$fromins->unitname}}
+      {{$fromins->unitname}} ({{$regTbl->regfrom}})
       @endforeach
       @elseif($regTbl->regtype == 3)
-      {{$regTbl->regfrom}}
+      
       นอกภาค
       @foreach($regTbl->desfromouts as $fromouts)
-      {{$fromouts->unitname}}
+      {{$fromouts->unitname}} ({{$regTbl->regfrom}})
       @endforeach
       @else
       อื่น ๆ
@@ -150,25 +149,17 @@
                {{$reg->thaidatesenddate()}}
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
-               {{$reg->sendtoid}}
-               {{$regTbl->regtype}}
-               <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
-               @if ($regTbl->regtype == null )
-               ไม่ระบุ
-               @else
+               {{-- {{$reg->sendtoid}}
+               {{$regTbl->regtype}} --}}
                @if($regTbl->regtype == 0)
-                  {{-- {{$reg->destoins}} --}}
-                  @foreach($reg->destoins as $toins)
-                  {{$toins->unitname}}
-                  @endforeach
-               @elseif($regTbl->regtype == 3)
-               @foreach($reg->destoouts as $toins)
-               {{$toins->unitname}}
-               @endforeach
+               {{-- {{$reg->destoins}} --}}
+               @if ($reg->destoins->count() == 0)
+                  ไม่พบข้อมูลชื่อหน่วยงาน ({{$reg->sendtoid}})
                @else
-               อื่น ๆ
+               @foreach($reg->destoins as $toins)
+               {{$toins->unitname}} ({{$reg->sendtoid}})
+               @endforeach
                @endif
-               <!-- endif regtype = null-->
                @endif
             </td>
             <td class="p-3 text-base text-gray-800 font-medium align-text-top">
@@ -196,26 +187,25 @@
          <div>
             <p class="text-gray-700 font-medium">
                ส่งถึง : 
-               {{$reg->sendtoid}}
-               {{$regTbl->regtype}}
-               <!-- ตรวจสอบค่า regtype ถ้าค่าเป็น null แสดง ไม่ระบุ -->
-               @if ($regTbl->regtype == null )
-               ไม่ระบุ
-               @else
+               {{-- {{$reg->sendtoid}}
+               {{$regTbl->regtype}} --}}
                @if($regTbl->regtype == 0)
-                  {{-- {{$reg->destoins}} --}}
-                  @foreach($reg->destoins as $toins)
-                  {{$toins->unitname}}
-                  @endforeach
-               @elseif($regTbl->regtype == 3)
+               {{-- {{$reg->destoins}} --}}
+               @if ($reg->destoins->count() == 0)
+                  ไม่พบข้อมูลชื่อหน่วยงาน ({{$reg->sendtoid}})
+               @else
+               @foreach($reg->destoins as $toins)
+               {{$toins->unitname}} ({{$reg->sendtoid}})
+               @endforeach
+               @endif
+               
+            @elseif($regTbl->regtype == 3)
                @foreach($reg->destoouts as $toins)
                {{$toins->unitname}}
                @endforeach
-               @else
-               อื่น ๆ
-               @endif
-               <!-- endif regtype = null-->
-               @endif
+            @else
+            อื่น ๆ
+            @endif
             </p>
          </div>
       </div>
@@ -230,9 +220,6 @@
             @endif
          </div>
       </div>
-      
-
-      <!-- เอกสารแนบ -->
       <div class="flex text-base text-gray-700 pt-10">
          <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
             <p class=" @if ($reg->recdate == null ) text-red-500  @else text-teal-600 @endif">
