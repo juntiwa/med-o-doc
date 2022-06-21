@@ -46,7 +46,7 @@ class LoginController extends Controller
         if ($sirirajUser['reply_code'] != 0) {
             //ถ้าไม่เท่ากับ 0 => ชื่อผู้ใช้หรือรหัสผ่านผิด
             $errors = ['message' => $sirirajUser['reply_text']];
-            Log::critical($sirirajUser['reply_text']);
+            Log::critical($request->username.' '.$sirirajUser['reply_text']);
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
         }
@@ -55,7 +55,7 @@ class LoginController extends Controller
 
         //   no permis
         if (! $member) {
-            Log::critical('ไม่มีสิทธิ์เข้าถึง');
+            Log::critical($sirirajUser['full_name'].' ไม่มีสิทธิ์เข้าถึง');
             abort(403);
         } else {
             $userAll = User::all();
