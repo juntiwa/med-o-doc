@@ -38,6 +38,8 @@
       <tbody class="divide-y divide-gray-100 items-start">
          @if(count($permiss)>0)
          @foreach($permiss as $key => $item)
+         {{-- หน่วยงาน user = หน่วยเวชสารสนเทศและบริหารข้อมูล --}}
+         @if (Auth::user()->office_name == "หน่วยเวชสารสนเทศและบริหารข้อมูล")
          <tr class="bg-white">
             <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top flex justify-center">
                {{++$key}}
@@ -47,19 +49,20 @@
                   <p id="sap_hidden{{$item->sapid()}}">100xxxxx</p>
                   <p id="sap_show{{$item->sapid()}}"></p>
                   <div class="bg-white ml-1">
-                        <div class="flex items-center justify-center space-x-2" id="show">
-                           <label for="{{$item->sapid()}}"
-                              class="inline-flex relative items-center mr-5 cursor-pointer">
-                              <input type="checkbox" id="{{$item->sapid()}}"
-                                 class="switch{{$item->sapid()}} sr-only peer" onClick="sap_click(this.id)">
-                              <div id="switch_toggle" class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-teal-300 
-                               peer-checked:after:translate-x-full peer-checked:after:border-white 
+                     <div class="flex items-center justify-center space-x-2" id="show">
+                        <label for="{{$item->sapid()}}"
+                           class="inline-flex relative items-center mr-5 cursor-pointer">
+                           <input type="checkbox" id="{{$item->sapid()}}"
+                              class="switch{{$item->sapid()}} sr-only peer" onClick="sap_click(this.id)">
+                           <div id="switch_toggle" class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-teal-300 
+                              peer-checked:after:translate-x-full peer-checked:after:border-white 
                               after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 
                               after:border after:rounded-full after:h-5 after:w-5 after:transition-all  
-                              peer-checked:bg-slate-100"></div>
-                           </label>
-                        </div>
+                              peer-checked:bg-slate-100">
+                           </div>
+                        </label>
                      </div>
+               </div>
             </td>
             <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
                {{ $item->username }}
@@ -91,29 +94,103 @@
             <td class="p-3 text-base text-gray-800 font-medium text-center align-text-top ">
                <div class="w-full flex justify-center items-end">
                   @if (Auth::user()->office_name == $item->office_name)
-                  @if ($item->office_name == "หน่วยเวชสารสนเทศและบริหารข้อมูล")
-                  <a href="{{route('permission.edit', $item->org_id)}}">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
-                  </a>
+                     @if ($item->office_name == "หน่วยเวชสารสนเทศและบริหารข้อมูล")
+                        <a href="{{route('permission.edit', $item->org_id)}}">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
+                        </a>
+                     @else
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-rose-500">
+                           <path d="M7 10h10v4H7z"></path>
+                           <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                        </svg>
+                     @endif
                   @else
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-rose-500">
-                     <path d="M7 10h10v4H7z"></path>
-                     <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
-                  </svg>
-                  @endif
-                  
-                  
-                  
-                  @else
-                  <a href="{{route('permission.edit', $item->org_id)}}">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
-                  </a>
+                     <a href="{{route('permission.edit', $item->org_id)}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
+                     </a>
                   @endif
                </div>
-               
             </td>
-
          </tr>
+         @else
+         {{-- หน่วยงาน user != หน่วยเวชสารสนเทศและบริหารข้อมูล
+            และ query ข้อมูลแสดงข้อมูลที่หน่วยงานไม่เท่ากับ หน่วยเวชสารสนเทศและบริหารข้อมูล --}}
+         @if($item->office_name != "หน่วยเวชสารสนเทศและบริหารข้อมูล")
+         <tr class="bg-white">
+            <td class="p-3 text-base text-gray-800 font-medium lg:whitespace-nowrap align-text-top flex justify-center">
+               {{++$key}}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+               <div class="flex">
+                  <p id="sap_hidden{{$item->sapid()}}">100xxxxx</p>
+                  <p id="sap_show{{$item->sapid()}}"></p>
+                  <div class="bg-white ml-1">
+                     <div class="flex items-center justify-center space-x-2" id="show">
+                        <label for="{{$item->sapid()}}"
+                           class="inline-flex relative items-center mr-5 cursor-pointer">
+                           <input type="checkbox" id="{{$item->sapid()}}"
+                              class="switch{{$item->sapid()}} sr-only peer" onClick="sap_click(this.id)">
+                           <div id="switch_toggle" class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-teal-300 
+                              peer-checked:after:translate-x-full peer-checked:after:border-white 
+                              after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 
+                              after:border after:rounded-full after:h-5 after:w-5 after:transition-all  
+                              peer-checked:bg-slate-100">
+                           </div>
+                        </label>
+                     </div>
+               </div>
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+               {{ $item->username }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top">
+               @if($item->full_name == '')
+               <p class="table-row__p-status status--red text-base">ระหว่างรอ update</p>
+               @else
+               {{ $item->full_name }}
+               @endif
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium whitespace-nowrap align-text-top">
+               {{ $item->office_name }}
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
+               @if ($item->is_admin == "1" )
+               <p class="table-row__p-status status--red status text-base">Admin</p>
+               @else
+               <p class="table-row__p-status status--yellow status text-base">User</p>
+               @endif
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium align-text-top text-center">
+               @if ($item->status == "Active" )
+               <p class="table-row__status status--green status text-base">{{$item->status}}</p>
+               @else
+               <p class="table-row__status text-base">{{$item->status}}</p>
+               @endif
+            </td>
+            <td class="p-3 text-base text-gray-800 font-medium text-center align-text-top ">
+               <div class="w-full flex justify-center items-end">
+                  @if (Auth::user()->office_name == $item->office_name)
+                     @if ($item->office_name == "หน่วยเวชสารสนเทศและบริหารข้อมูล")
+                        <a href="{{route('permission.edit', $item->org_id)}}">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
+                        </a>
+                     @else
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-rose-500">
+                           <path d="M7 10h10v4H7z"></path>
+                           <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                        </svg>
+                     @endif
+                  @else
+                     <a href="{{route('permission.edit', $item->org_id)}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
+                     </a>
+                  @endif
+               </div>
+            </td>
+         </tr>
+         @endif
+         @endif
+        
          @endforeach
          @else
          <tr class="bg-white">
