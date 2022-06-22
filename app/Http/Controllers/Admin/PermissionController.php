@@ -90,8 +90,8 @@ class PermissionController extends Controller
         $users = $users->first();
         if ($users === null) {
             $data = [
-            ['org_id' => $user, 'is_admin' => $permis, 'status' => 'Active'],
-         ];
+               ['org_id' => $user, 'is_admin' => $permis, 'status' => 'Active'],
+            ];
             if ($permis == 1 || $permis2 == 1 || $permis3 == 1 || $permis4 == 1 || $permis5 == 1) {
                 $permiss = 'ผู้ดูแลระบบ';
             //  Log::info($permiss);
@@ -122,7 +122,7 @@ class PermissionController extends Controller
                 $datas .= ' ,"'.$user5.' สิทธิ์ '.$permiss.'"';
             }
             Member::insert($data);
-
+            User::insert($data);
             Log::info(Auth::user()->full_name.' เพิ่มข้อมูลสิทธิ์ผู้ใช้งาน '.$datas);
 
             $log_activity = new activityLog;
@@ -206,9 +206,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $org_id)
     {
-        $user = User::find($id);
+        $user = User::where('org_id', $org_id)->first();
         $sapid = $user->org_id;
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
@@ -232,7 +232,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $org_id)
     {
         // Validation for required fields (and using some regex to validate our numeric value)
         $request->validate([
@@ -240,7 +240,13 @@ class PermissionController extends Controller
          'role' => 'required',
          'status' => 'required',
       ]);
-        $user = User::find($id);
+        $member = Member::where('org_id', $org_id)->first();
+        $member->org_id = $request->sapid;
+        $member->is_admin = $request->role;
+        $member->status = $request->status;
+        $member->save();
+
+        $user = User::where('org_id', $org_id)->first();
         // Getting values from the blade template form
         $user->org_id = $request->sapid;
         $user->is_admin = $request->role;

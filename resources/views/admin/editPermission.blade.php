@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 {!! Toastr::message() !!}
-<form action="{{route('permission.update', $user->id)}}" class="mt-6" method="POST">
+<form action="{{route('permission.update', $user->org_id)}}" class="mt-6" method="POST">
    @csrf
    <!-- component -->
    <div class="text-slate-900 text-base px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
