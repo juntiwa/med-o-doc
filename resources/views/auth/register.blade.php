@@ -17,7 +17,8 @@
          <div>
             <label for="login" class="block mb-2 text-base font-medium text-gray-900">ชื่อผู้ใช้งาน</label>
             <input type="text" name="login" id="login" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg 
-            focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="ชื่อผู้ใช้งาน" disabled value="{{$login}}">
+            focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="ชื่อผู้ใช้งาน" readonly value="{{$login}}">
+            
       </div>
        </div>
        

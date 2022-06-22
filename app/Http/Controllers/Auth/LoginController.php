@@ -61,16 +61,7 @@ class LoginController extends Controller
         } else {
             $users = User::where('org_id', $sirirajUser['org_id'])->first();
             // ไม่มีสิทธิ์เข้าถึงระบบ
-            if ($users == null) {
-                $user = new User;
-                $user->org_id = $sirirajUser['org_id'];
-                $user->username = $sirirajUser['login'];
-                $user->full_name = $sirirajUser['full_name'];
-                $user->is_admin = $member->is_admin;
-                $user->status = $member->status;
-                $user->save();
-                //  dd($users);
-
+            if ($users->username == null) {
                 $users = User::where('org_id', $sirirajUser['org_id'])->first();
 
                 Auth::login($users);
