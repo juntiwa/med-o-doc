@@ -89,48 +89,20 @@
                @endif
             </td>
             <td class="p-3 text-base text-gray-800 font-medium text-center align-text-top ">
-               <a href="{{route('permission.edit', $item->id)}}">
-                  <svg data-toggle="tooltip" data-placement="bottom" title="Edit" version="1.1" class="table-row__edit"
-                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                     viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;"
-                     xml:space="preserve">
-                     <g>
-                        <g>
-                           <path
-                              d="M496.063,62.299l-46.396-46.4c-21.2-21.199-55.69-21.198-76.888,0l-18.16,18.161l123.284,123.294l18.16-18.161    C517.311,117.944,517.314,83.55,496.063,62.299z"
-                              style="fill: rgb(1, 185, 209);"></path>
-                        </g>
-                     </g>
-                     <g>
-                        <g>
-                           <path
-                              d="M22.012,376.747L0.251,494.268c-0.899,4.857,0.649,9.846,4.142,13.339c3.497,3.497,8.487,5.042,13.338,4.143    l117.512-21.763L22.012,376.747z"
-                              style="fill: rgb(1, 185, 209);"></path>
-                        </g>
-                     </g>
-                     <g>
-                        <g>
-                           <polygon points="333.407,55.274 38.198,350.506 161.482,473.799 456.691,178.568   "
-                              style="fill: rgb(1, 185, 209);"></polygon>
-                        </g>
-                     </g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
-                     <g></g>
+               <div class="w-full flex justify-center items-end">
+               @if (Auth::user()->office_name == $item->office_name)
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-rose-500">
+                     <path d="M7 10h10v4H7z"></path>
+                     <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
                   </svg>
-               </a>
+                  
+                  @else
+                  <a href="{{route('permission.edit', $item->org_id)}}">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
+                  </a>
+                  @endif
+               </div>
+               
             </td>
 
          </tr>

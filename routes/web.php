@@ -41,8 +41,8 @@ Route::controller(PermissionController::class)->group(function () {
     Route::get('permissions', 'index')->name('permission');
     Route::get('permission-create', 'create')->name('permission.create');
     Route::post('permission', 'store')->name('permission.store');
-    Route::get('permission-edit/{id}', 'edit')->name('permission.edit');
-    Route::post('permission-update/{id}', 'update')->name('permission.update');
+    Route::get('permission-edit/{org_id}', 'edit')->name('permission.edit');
+    Route::post('permission-update/{org_id}', 'update')->name('permission.update');
     Route::post('look-sapid', 'show')->name('look.sapid');
 });
 
