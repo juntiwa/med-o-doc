@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\activityLog;
 use App\Models\Member;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -209,6 +210,8 @@ class PermissionController extends Controller
     public function edit(Request $request, $org_id)
     {
         $user = User::where('org_id', $org_id)->first();
+        $units = Unit::orderby('unitname', 'asc')->get();
+
         $sapid = $user->org_id;
         $log_activity = new activityLog;
         $log_activity->username = Auth::user()->username;
@@ -222,7 +225,7 @@ class PermissionController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('admin.editPermission', compact('user'));
+        return view('admin.editPermission', compact('user', 'units'));
     }
 
     /**
@@ -247,8 +250,10 @@ class PermissionController extends Controller
         $member->save();
 
         $user = User::where('org_id', $org_id)->first();
+        $unit = Unit::where('unitid', $request->office_name)->first();
         // Getting values from the blade template form
         $user->org_id = $request->sapid;
+        $user->office_name = $unit->unitname;
         $user->is_admin = $request->role;
         $user->status = $request->status;
         $user->save();
