@@ -18,21 +18,23 @@
             จากทั้งหมด {{$regis}} เรื่อง
          </span>
       </h1>
-      <!-- switch -->
-      <div class="flex pt-2 ">
-         <div class="bg-white">
-            <div class="flex items-center justify-center space-x-2">
-               <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
-               <span class="mr-3 inline-block text-lg font-medium text-gray-900">ปิดช่องค้นหา</span>
-               <label for="toggle-example-checked" class="flex relative items-center cursor-pointer m-0">
-                  <input type="checkbox" id="toggle-example-checked" class="sr-only" checked>
-                  <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
-               </label>
-               <span class="ml-3 inline-block text-lg font-medium text-gray-900">แสดงช่องค้นหา</span>
-               <!-- <span class="text-sm text-gray-400 dark:text-white">Dark</span> -->
+      @if (Route::is('reg.search'))
+         <!-- switch -->
+         <div class="flex pt-2 ">
+            <div class="bg-white">
+               <div class="flex items-center justify-center space-x-2">
+                  <!-- <span class="text-sm text-gray-800 dark:text-gray-500">Light</span> -->
+                  <span class="mr-3 inline-block text-lg font-medium text-gray-900">ปิดช่องค้นหา</span>
+                  <label for="toggle-example-checked" class="flex relative items-center cursor-pointer m-0">
+                     <input type="checkbox" id="toggle-example-checked" class="sr-only" checked>
+                     <div class="w-11 h-6 bg-gray-200 rounded-full border border-gray-200 toggle-bg"></div>
+                  </label>
+                  <span class="ml-3 inline-block text-lg font-medium text-gray-900">แสดงช่องค้นหา</span>
+                  <!-- <span class="text-sm text-gray-400 dark:text-white">Dark</span> -->
+               </div>
             </div>
          </div>
-      </div>
+      @endif
    </div>
 </div>
 
