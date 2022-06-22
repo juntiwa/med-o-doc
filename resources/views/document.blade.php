@@ -18,7 +18,7 @@
             จากทั้งหมด {{$regis}} เรื่อง
          </span>
       </h1>
-      @if (Route::is('docShow'))
+      @if (Route::is('reg.search'))
          <!-- switch -->
          <div class="flex pt-2 ">
             <div class="bg-white">
