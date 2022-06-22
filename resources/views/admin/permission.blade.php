@@ -94,9 +94,14 @@
             <td class="p-3 text-base text-gray-800 font-medium text-center align-text-top ">
                <div class="w-full flex justify-center items-end">
                   @if (Auth::user()->office_name == $item->office_name)
-                     @if ($item->office_name == "หน่วยเวชสารสนเทศและบริหารข้อมูล")
+                     @if ($item->office_name == "หน่วยเวชสารสนเทศและบริหารข้อมูล" && Auth::user()->org_id != $item->org_id)
+                     {{-- {{Auth::user()->org_id }} --}}
                         <a href="{{route('permission.edit', $item->org_id)}}">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400"><path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z"></path></svg>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400">
+                              <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 
+                                 0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z">
+                              </path>
+                           </svg>
                         </a>
                      @else
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-rose-500">
