@@ -34,6 +34,24 @@
       </div>
 
       <div class="-mx-3 md:flex mb-6">
+         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-grey-darker text-base font-bold mb-2" for="grid-first-name">
+               หน่วยงาน
+            </label>
+            <select name="office_name" id="office_name" class="appearance-none block w-full disabled:bg-slate-100 disabled:border-slate-200 text-grey-darker border border-red rounded py-3 
+            px-4 mb-3" required>
+             <option selected value="">เลือกหน่วยงานของคุณ</option>
+             @foreach ($units as $unit)
+             @if($user->office_name == $unit->unitname)
+             <option value="{{$unit->unitid}}" selected> {{$unit->unitname}} </option>
+             @else
+             <option value="{{$unit->unitid}}"> {{$unit->unitname}} </option>
+
+             @endif
+             @endforeach
+               
+           </select>
+         </div>
          <div class="md:w-1/2 px-3">
             <label class="block uppercase tracking-wide text-grey-darker text-base font-bold mb-2" for="grid-state">
                สิทธิ์การใช้งาน <span class="text-red-500">*</span>
