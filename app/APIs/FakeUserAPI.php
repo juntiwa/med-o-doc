@@ -14,10 +14,10 @@ class FakeUserAPI implements AuthUserAPI
             return [
                'ok' => true,
                'found' => true,
-               'login' => 'juntima.nuc',
-               'org_id' => '10012349',
-               'full_name' => 'น.ส. จันทิมา นุชโยธิน',
-               'full_name_en' => 'Miss JUNTIMA NUCHYOTIN',
+               'login' => 'admin.sys',
+               'org_id' => '10012340',
+               'full_name' => 'น.ส. ผู้ดูแล ระบบ',
+               'full_name_en' => 'Miss Admin System',
                'position_name' => 'นักวิชาการคอมพิวเตอร์',
                'division_name' => 'ภ.อายุรศาสตร์',
                'department_name' => 'ภ.อายุรศาสตร์',
@@ -25,8 +25,8 @@ class FakeUserAPI implements AuthUserAPI
                'email' => '',
                'password_expires_in_days' => 46,
                'remark' => 'สนง.ภาควิชาอายุรศาสตร์ ภ.อายุรศาสตร์',
-               'name' => 'น.ส. จันทิมา นุชโยธิน',
-               'name_en' => 'Miss JUNTIMA NUCHYOTIN',
+               'name' => 'น.ส. ผู้ดูแล ระบบ',
+               'name_en' => 'Miss Admin System',
                'reply_code' => 0,
             ];
         /* return [

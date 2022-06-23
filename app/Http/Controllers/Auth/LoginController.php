@@ -39,10 +39,59 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function index()
+    {
+        $member = Member::get();
+        //   logger($member);
+        if (Member::exists()) {
+            if (Auth::check()) {
+                Toastr::success('คุณเข้าสู่ระบบอยู่แล้ว', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
+
+                return back();
+            } else {
+                return view('auth.login');
+            }
+        } else {
+            $units = Unit::orderby('unitname', 'asc')->get();
+
+            return view('auth.startapp', ['units'=>$units]);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        //   dd('ok');
+        $org_id = $request->get('org_id');
+        $username = $request->get('login');
+        $full_name = $request->get('full_name');
+        $office_name = $request->get('office_name');
+        $is_admin = 1;
+        $status = 'Active';
+        $unit = Unit::where('unitid', $office_name)->first();
+
+        $member = new Member;
+        $member->org_id = $org_id;
+        $member->is_admin = $is_admin;
+        $member->status = $status;
+        //   logger($member);
+        $member->save();
+
+        $users = new User;
+        $users->org_id = $org_id;
+        $users->username = $username;
+        $users->full_name = $full_name;
+        $users->office_name = $unit->unitname;
+        $users->is_admin = $is_admin;
+        $users->status = $status;
+        //   logger($users);
+        $users->save();
+
+        return Redirect::route('docShow');
+    }
+
     public function authenticate(Request $request, AuthUserAPI $api)
     {
-
-         //  Authen siriraj user
+        //  Authen siriraj user
         $sirirajUser = $api->authenticate($request->username, $request->password);
         if ($sirirajUser['reply_code'] != 0) {
             //ถ้าไม่เท่ากับ 0 => ชื่อผู้ใช้หรือรหัสผ่านผิด
@@ -77,6 +126,14 @@ class LoginController extends Controller
                 $full_name = $sirirajUser['full_name'];
 
                 return view('auth.register', compact('units', 'org_id', 'login', 'full_name'));
+            }
+
+            // logger($member->org_id);
+            if ($users->username != $sirirajUser['login'] || $users->full_name != $sirirajUser['full_name']) {
+                $user = User::where('org_id', $member->org_id)->first();
+                $user->username = $sirirajUser['login'];
+                $user->full_name = $sirirajUser['full_name'];
+                $user->save();
             }
             Auth::login($users);
 

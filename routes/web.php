@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('500', function () {
     return view('errors.500');
 });
-Route::get('/', function () {
+/* Route::get('/', function () {
     if (Auth::check()) {
         Toastr::success('คุณเข้าสู่ระบบอยู่แล้ว', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
 
@@ -23,7 +23,13 @@ Route::get('/', function () {
     } else {
         return view('auth.login');
     }
-})->name('login');
+})->name('login'); */
+Route::controller(AuthLoginController::class)->group(function () {
+    Route::get('/', 'index')->name('login');
+    Route::get('startapp', 'store')->name('startapp.store');
+    Route::post('login', 'authenticate')->name('checklogin');
+    Route::post('logout', 'logout')->name('logout');
+});
 Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
 Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
 
