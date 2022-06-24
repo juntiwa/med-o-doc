@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ActivitylogController;
+use App\Http\Controllers\Admin\CheckUserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\Auth\RegisController;
@@ -30,8 +31,6 @@ Route::controller(AuthLoginController::class)->group(function () {
     Route::post('login', 'authenticate')->name('checklogin');
     Route::post('logout', 'logout')->name('logout');
 });
-Route::post('login', [AuthLoginController::class, 'authenticate'])->name('checklogin');
-Route::post('logout', [AuthLoginController::class, 'logout'])->name('logout');
 
 Route::controller(RegisController::class)->group(function () {
     Route::get('register', 'store')->name('register.store');
@@ -57,6 +56,10 @@ Route::controller(MemberImportController::class)->group(function () {
     Route::post('member', 'store')->name('member.store');
 });
 
+Route::controller(CheckUserController::class)->group(function () {
+    Route::get('checkusers', 'index')->name('checkusers');
+    Route::post('checkuser', 'create')->name('checkuser.create');
+});
 // ----------------------------- document -----------------------//
 Route::controller(DocumentController::class)->group(function () {
     Route::get('document', 'index')->name('docShow');

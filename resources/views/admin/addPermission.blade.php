@@ -17,15 +17,15 @@
    </div>
    
    @error('member_file')
-   <label class=" text-rose-600">{{ $message }}</label>
-@enderror
-                            @if(Session::has('import_errors'))
-                              @foreach (Session::get('import_errors') as $failures)
-                              <label class=" text-rose-600">
-                                 {{$failures->errors()[0]}} at line no- {{$failures->row()}}
-                              </label>
-                              @endforeach
-                            @endif
+      <label class=" text-rose-600">{{ $message }}</label>
+   @enderror
+   @if(Session::has('import_errors'))
+     @foreach (Session::get('import_errors') as $failures)
+     <label class=" text-rose-600">
+        {{$failures->errors()[0]}} at line no- {{$failures->row()}}
+     </label>
+     @endforeach
+   @endif
    <p class="mt-1 text-base text-gray-500" id="file_input_help">CSV</p>
 
    <br>
@@ -34,7 +34,7 @@
 <form action="{{route('permission.store')}}" method="POST">
    @csrf
    <div id="InputGroup" class="grid lg:grid-cols-2 grid-cols-1 gap-4 ">
-      <div id="InputDiv" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
+      <div id="InputDiv" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
          <div class="mb-3 xl:w-96 pr-10">
             <label for="sapid" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 1<span
                   class="text-lg text-red-600">*</span></label>
@@ -43,7 +43,10 @@
                border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
                focus:border-blue-600 focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+"
                value="{{ old('sapid') }}">
-
+            <input type="text" name="username" id="username" class=" text-lg font-normal 
+            text-gray-700 bg-white bg-clip-padding border border-none  rounded transition ease-in-out m-0 
+            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" disabled>
+            
             @if ($errors->has('user'))
             <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
                <div>
@@ -62,14 +65,14 @@
                <span class="text-lg text-red-600">*</span></label>
             <select required name="permis" id="permis"
                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-               aria-label="Default select example">
+               aria-label="Default select example" disabled>
                <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
                <option value="1">ผู้ดูแลระบบ</option>
                <option value="0">ผู้ใช้งานทั่วไป</option>
             </select>
          </div>
       </div>
-      <div id="InputDiv1" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
+      <div id="InputDiv1" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
          <div class="mb-3 xl:w-96 pr-10">
             <label for="sapid1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
                2</label>
@@ -102,7 +105,7 @@
             </select>
          </div>
       </div>
-      <div id="InputDiv2" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
+      <div id="InputDiv2" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
          <div class="mb-3 xl:w-96 pr-10">
             <label for="sapid2" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
                3</label>
@@ -135,7 +138,7 @@
             </select>
          </div>
       </div>
-      <div id="InputDiv3" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
+      <div id="InputDiv3" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
          <div class="mb-3 xl:w-96 pr-10">
             <label for="sapid3" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
                4</label>
@@ -168,7 +171,7 @@
             </select>
          </div>
       </div>
-      <div id="InputDiv4" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
+      <div id="InputDiv4" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
          <div class="mb-3 xl:w-96 pr-10">
             <label for="sapid4" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
                5</label>
@@ -234,7 +237,6 @@
             </select>
          </div>
       </div>
-
    </div>
    <div class="flex justify-end mt-2 p-6">
       <button class="inline-block px-6 py-2.5 bg-teal-500 text-white font-medium text-base leading-tight uppercase rounded 
@@ -257,6 +259,21 @@
          // console.log(permis)
          if (permis !== '') {
             $("#InputDiv1").show();
+            let sapid = $('#sapid').val();
+            console.log(sapid);
+            $.ajax({  
+               url: "{{ route('checkuser.create') }}",
+               type: 'post',
+               data: {
+                  sapid: sapid
+               },
+               success: function (result) {
+                  // $('#idfrom').val(ui.item.unitid);
+                  $('#username').val(result.AccountName);
+                  console.log(result);
+               }
+            });
+            
          } else {
             $("#InputDiv1").hide();
          }
@@ -298,6 +315,16 @@
          }
       });
 
+      // disabled
+      $('input[name=sapid]').change(function () {
+         let sapid1 = $(this).val();
+         // console.log(sapid1)
+         if (sapid1 !== '') {
+            $('#permis').prop('disabled', false);
+         } else {
+            $('#permis1').prop('disabled', true);
+         }
+      });
       // requiered
       $('input[name=sapid1]').change(function () {
          let sapid1 = $(this).val();
