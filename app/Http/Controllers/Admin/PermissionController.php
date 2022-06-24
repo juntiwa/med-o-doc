@@ -140,31 +140,31 @@ class PermissionController extends Controller
         // dd($data);
         } else {
             if (Member::where('org_id', '=', $user)->exists()) {
-                $errors['user'] = ['user' => $user.' มีแล้วชื่อนี้อยู่แล้ว'];
+                $errors['user'] = ['user' => $user.' มีรหัสพนักงานนี้อยู่แล้ว'];
             }
             if ($user1 != '') {
                 if (Member::where('org_id', '=', $user1)->exists()) {
-                    $errors['user1'] = ['user1' => $user1.' มีแล้วชื่อนี้อยู่แล้ว'];
+                    $errors['user1'] = ['user1' => $user1.' มีรหัสพนักงานนี้อยู่แล้ว'];
                 }
             }
             if ($user2 != '') {
                 if (Member::where('org_id', '=', $user2)->exists()) {
-                    $errors['user2'] = ['user2' => $user2.' มีแล้วชื่อนี้อยู่แล้ว'];
+                    $errors['user2'] = ['user2' => $user2.' มีรหัสพนักงานนี้อยู่แล้ว'];
                 }
             }
             if ($user3 != '') {
                 if (Member::where('org_id', '=', $user3)->exists()) {
-                    $errors['user3'] = ['user3' => $user3.' มีแล้วชื่อนี้อยู่แล้ว'];
+                    $errors['user3'] = ['user3' => $user3.' มีรหัสพนักงานนี้อยู่แล้ว'];
                 }
             }
             if ($user4 != '') {
                 if (Member::where('org_id', '=', $user4)->exists()) {
-                    $errors['user4'] = ['user4' => $user4.' มีแล้วชื่อนี้อยู่แล้ว'];
+                    $errors['user4'] = ['user4' => $user4.' มีรหัสพนักงานนี้อยู่แล้ว'];
                 }
             }
             if ($user5 != '') {
                 if (Member::where('org_id', '=', $user5)->exists()) {
-                    $errors['user5'] = ['user5' => $user5.' มีแล้วชื่อนี้อยู่แล้ว'];
+                    $errors['user5'] = ['user5' => $user5.' มีรหัสพนักงานนี้อยู่แล้ว'];
                 }
             }
 
