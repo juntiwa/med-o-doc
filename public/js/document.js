@@ -3,7 +3,7 @@ $(document).ready(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
-   })
+    });
 
     // toggle hide show  from input
    $("#swapinputSearch").click(function () {
@@ -13,7 +13,7 @@ $(document).ready(function () {
    // type
    $("#type").change(function () {
       let typeid = parseInt($(this).val())
-      console.log(typeid)
+      // console.log(typeid)
       
       if (typeid === 0) {
       // console.log(typeid)
@@ -57,7 +57,7 @@ $(document).ready(function () {
             select: function (event, ui) {
                $('#unitOutter').val(ui.item.label);
                $('#idunitOutter').val(ui.item.unitid);
-               console.log(ui.item);
+               // console.log(ui.item);
                return false;
             }
          });
@@ -176,7 +176,7 @@ $(document).ready(function () {
    var type = $('#idtype').val(); 
    var startMonth = $('#startMonth').val();
    var startYear = $('#startYear').val();
-   console.log(type);
+   // console.log(type);
    if (type != '') {
       // console.log(type);
       $('#type').val(type);

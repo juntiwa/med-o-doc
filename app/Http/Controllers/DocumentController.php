@@ -27,6 +27,7 @@ class DocumentController extends Controller
         $monthsSelectionForm = Month::all();
         $yearsSelectionForm = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
         $typesSelectionForm = Type::all();
+        $documentCount = Letterreg::count();
 
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
@@ -41,7 +42,7 @@ class DocumentController extends Controller
         $log_activity->save();
 
         return view('document', ['monthsSelectionForm'=>$monthsSelectionForm, 'yearsSelectionForm'=>$yearsSelectionForm,
-                                 'typesSelectionForm'=>$typesSelectionForm, ]);
+                                 'typesSelectionForm'=>$typesSelectionForm, 'documentCount'=>$documentCount]);
     }
 
     public function create()
