@@ -14,4 +14,9 @@ class Letterunit extends Model
         //letterunit belong to document
         return $this->belongsTo(Letterreg::class, 'unitid', 'regfrom');
     }
+    public function description()
+    {
+        //letterunit belong to description
+        return $this->belongsTo(Lettersend::class, 'unitid', 'sendtoid');
+    }
 }

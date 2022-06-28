@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Letterreg;
+use App\Models\Lettersend;
 use Illuminate\Http\Request;
 
 class DescriptionController extends Controller
@@ -43,9 +45,15 @@ class DescriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idTitle)
     {
-        //
+        $registerFound = Letterreg::where('regrecid', $idTitle)->first();
+        $descriptions = Lettersend::leftJoin('letterrecs', 'lettersends.sendregid', '=', 'letterrecs.sendregid')
+        ->where('lettersends.regrecid', $idTitle)
+        ->orderby('letterrecs.recdate', 'desc')
+        ->get();
+
+        return view('decription', ['registerFound'=>$registerFound,'descriptions'=>$descriptions]);
     }
 
     /**
