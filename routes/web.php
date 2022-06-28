@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterContrller;
+use App\Http\Controllers\DescriptionController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,8 @@ Route::controller(DocumentController::class)->group(function () {
     Route::get('autocompleteOutter', 'autocompleteUnitOutter')->name('document.unitoutter');
     Route::get('open-files/{year}/{regdoc}', 'openfile')->name('document.openfile');
     Route::get('open-files2/{year}/{regdoc}', 'openfile2')->name('document.openfile2');
+});
+
+Route::controller(DescriptionController::class)->group(function () {
+    Route::get('description', 'index')->name('descriptions');
 });

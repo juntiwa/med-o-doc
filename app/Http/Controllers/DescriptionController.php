@@ -13,7 +13,7 @@ class DescriptionController extends Controller
      */
     public function index()
     {
-        //
+        return view('decription');
     }
 
     /**
