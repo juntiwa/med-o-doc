@@ -4,99 +4,46 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Laravel\Sanctum\HasApiTokens;
 
 class Letterreg extends Model
 {
-   use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-   /**
-    * The attributes that are mass assignable.
-    *
-    * @var array<int, string>
-    */
-   protected $fillable = [
-      'regtitle',
-      'regrecid'
-   ];
-
-   public function thaidateregdate(){
-      return Carbon::parse($this->regdate)->thaidate();
-   }
-
-   public function thaidatesenddate(){
-      return Carbon::parse($this->senddate)->thaidate();
-   }
-
-   public function thaidaterecdate(){
-      return Carbon::parse($this->recdate)->thaidate();
-   }
-
-   //  type 1 เรื่อง มีได้ 1 ภาคเท่านั้น
-    public function types(){
-      return $this->hasOne(Type::class, 'typeid', 'regtype');
+    public function type()
+    {
+        // document has one type
+        return $this->hasOne(Type::class, 'typeid', 'regtype');
     }
 
-   //  from ส่งจากที่ไหน 1 เรื่องสามารถส่งได้หลายที่
-   public function fromins()
-   {
-      return $this->hasMany(Jobunit::class, 'unitid', 'regfrom');
-   }
-   public function fromouts()
-   {
-      return $this->hasMany(Letterunit::class, 'unitid', 'regfrom');
-   }
+    public function jobunit()
+    {
+        // document has one send from unit inner
+        return $this->hasOne(Jobunit::class, 'unitid', 'regfrom');
+    }
 
-   // to ส่งถึงที่ไหน 1 เรื่องสามารถส่งถึงได้หลายที่
-   public function toins()
-   {
-      return $this->hasMany(Jobunit::class, 'unitid', 'regto');
-   }
-   public function toouts()
-   {
-      return $this->hasMany(Letterunit::class, 'unitid', 'regto');
-   }
+    public function letterunit()
+    {
+        // document has one send from unit outter
+        return $this->hasOne(Letterunit::class, 'unitid', 'regfrom');
+    }
 
-   // send for regtitle
-   public function lettersends()
-   {
-      return $this->belongsTo(Lettersend::class, 'regrecid', 'regrecid');
-   }
+    public function getThaiRegisterDateAttribute()
+    {
+        return Carbon::parse($this->regdate)->thaidate();
+    }
 
-   // rec for regtitle
-   public function letterrecs()
-   {
-      return $this->belongsTo(Letterrec::class, 'regrecid', 'regrecid');
-   }
+    public function getRegdocUrlAttribute()
+    {
+        $year = substr($this->regdoc, 0, 4);
 
-   public function getRegdocUrlAttribute()
-   {
-      $year = substr($this->regdoc, 0, 4);
-      return url("/open-files/{$year}/{$this->regrecid}");
-   }
+        return url("/open-files/{$year}/{$this->regrecid}");
+    }
 
-   public function getRegdoc2UrlAttribute()
-   {
-      $year = substr($this->regdoc2, 0, 4);
-      return url("/open-files2/{$year}/{$this->regrecid}");
-   }
+    public function getRegdoc2UrlAttribute()
+    {
+        $year = substr($this->regdoc2, 0, 4);
 
-   public function getTitleAttribute()
-   {
-      $regrecid =  $this->regrecid;
-      return url("description-document/{$regrecid}");
-   }
-
-//  from ส่งจากที่ไหน 1 เรื่องสามารถส่งได้หลายที่
-   public function desfromins()
-   {
-      return $this->hasMany(Jobunit::class, 'unitid', 'regfrom');
-   }
-   public function desfromouts()
-   {
-      return $this->hasMany(Letterunit::class, 'unitid', 'regfrom');
-   }
-   
+        return url("/open-files2/{$year}/{$this->regrecid}");
+    }
 }

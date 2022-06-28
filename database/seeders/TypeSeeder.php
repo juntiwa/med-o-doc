@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Type;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TypeSeeder extends Seeder
@@ -15,13 +14,13 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-      $types = array(
+        $types = [
          ['typeid' => '0', 'typename' => 'ในภาค'],
          ['typeid' => '3', 'typename' => 'นอกภาค'],
-      );
+      ];
 
-      foreach ($types as $type) {
-         Type::create($type);
-      }
+        foreach ($types as $type) {
+            Type::create($type);
+        }
     }
 }

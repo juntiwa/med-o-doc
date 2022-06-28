@@ -1,73 +1,37 @@
 <?php
 
-use App\Http\Controllers\Admin\ActivitylogController;
-use App\Http\Controllers\Admin\CheckUserController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Auth\LoginController as AuthLoginController;
-use App\Http\Controllers\Auth\RegisController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterContrller;
+use App\Http\Controllers\DescriptionController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\Import\MemberImportController;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// ----------------------------- signin -----------------------//
-
-Route::get('500', function () {
-    return view('errors.500');
-});
 /* Route::get('/', function () {
-    if (Auth::check()) {
-        Toastr::success('คุณเข้าสู่ระบบอยู่แล้ว', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
+    toastr()->info('Have fun storming the castle!', 'Miracle Max Says');
 
-        return back();
-    } else {
-        return view('auth.login');
-    }
-})->name('login'); */
-Route::controller(AuthLoginController::class)->group(function () {
+    return view('welcome');
+}); */
+
+Route::controller(LoginController::class)->group(function () {
     Route::get('/', 'index')->name('login');
-    Route::get('startapp', 'store')->name('startapp.store');
-    Route::post('login', 'authenticate')->name('checklogin');
+    Route::post('/checklogin', 'authenticate')->name('login.authenticate');
+    Route::post('savestart', 'store')->name('startapp.store');
     Route::post('logout', 'logout')->name('logout');
 });
 
-Route::controller(RegisController::class)->group(function () {
-    Route::get('register', 'store')->name('register.store');
-});
-// ----------------------------- activity log -----------------------//
-Route::controller(ActivitylogController::class)->group(function () {
-    Route::get('activitylog', 'index')->name('activitylog');
-    Route::get('activitylog-export', 'store')->name('activitylog.export');
+Route::controller(RegisterContrller::class)->group(function () {
+    Route::post('saveregister', 'store')->name('register.store');
 });
 
-// ----------------------------- permission -----------------------//
-Route::controller(PermissionController::class)->group(function () {
-    Route::get('permissions', 'index')->name('permission');
-    Route::get('permission-create', 'create')->name('permission.create');
-    Route::post('permission', 'store')->name('permission.store');
-    Route::get('permission-edit/{org_id}', 'edit')->name('permission.edit');
-    Route::post('permission-update/{org_id}', 'update')->name('permission.update');
-    Route::post('look-sapid', 'show')->name('look.sapid');
-});
-
-// permission import
-Route::controller(MemberImportController::class)->group(function () {
-    Route::post('member', 'store')->name('member.store');
-});
-
-Route::controller(CheckUserController::class)->group(function () {
-    Route::get('checkusers', 'index')->name('checkusers');
-    Route::post('checkuser', 'create')->name('checkuser.create');
-});
-// ----------------------------- document -----------------------//
 Route::controller(DocumentController::class)->group(function () {
-    Route::get('document', 'index')->name('docShow');
-    Route::post('reg-select-from', 'selectSearchfrom')->name('reg.select.from');
-    Route::post('reg-select-to', 'selectSearchto')->name('reg.select.to');
-    Route::get('autocomplete', 'autocomplete')->name('autocomplete');
-    Route::get('searchReg', 'searchRegis')->name('reg.search');
-    Route::get('open-files/{year}/{regdoc}', 'openfile')->name('reg.open.file');
-    Route::get('open-files2/{year}/{regdoc}', 'openfile2')->name('reg.open.file2');
-    Route::get('description-document/{regrecid}', 'show')->name('description.document');
+    Route::get('documents', 'index')->name('documents');
+    Route::get('document', 'show')->name('document.search');
+    Route::post('selectInner', 'selectUnitInner')->name('document.unitinner');
+    Route::get('autocompleteOutter', 'autocompleteUnitOutter')->name('document.unitoutter');
+    Route::get('open-files/{year}/{regdoc}', 'openfile')->name('document.openfile');
+    Route::get('open-files2/{year}/{regdoc}', 'openfile2')->name('document.openfile2');
+});
+
+Route::controller(DescriptionController::class)->group(function () {
+    Route::get('description', 'index')->name('descriptions');
 });

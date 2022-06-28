@@ -1,9 +1,16 @@
+<!-- resources/views/child.blade.php -->
+ 
 @extends('layouts.guest')
+ 
 @section('title', 'เข้าสู่ระบบ')
+ 
+@section('sidebar')
+    @parent
+ 
+    <!-- <p>This is appended to the master sidebar.</p> -->
+@endsection
+ 
 @section('content')
-
-{!! Toastr::message() !!}
-
 <!-- Section 1 -->
 <section class="flex justify-center items-center w-full h-screen px-8 py-16 bg-gray-100 xl:px-8">
    <div class="max-w-6xl mx-auto">
@@ -18,7 +25,7 @@
          </div>
 
          <div class="w-full mt-16 md:mt-0 md:w-2/5">
-            <form action="{{ route('checklogin') }}" method="POST">
+            <form action="{{ route('login.authenticate') }}" method="POST">
                @csrf
                <div class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 shadow-2xl px-7 rounded
                         flex flex-col justify-center items-center">
@@ -42,5 +49,4 @@
       </div>
    </div>
 </section>
-
 @endsection

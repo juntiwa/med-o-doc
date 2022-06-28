@@ -1,434 +1,116 @@
-@extends('layouts.app')
-@section('title', 'เพิ่มข้อมูลสิทธิ์การเข้าถึง')
-@section('sidebar')
-@parent
-@endsection
-@section('content')
-{!! Toastr::message() !!}
-
-<form action="{{ route('member.store') }}" method="POST" enctype="multipart/form-data">
-   @csrf
-
-   <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">Upload file</label>
-   <div class="flex">
-      <input type="file" name="member_file"
-         class="block w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer ">
-      <button class="btn btn-info text-slate-800 ml-4" type="submit">Import User Data</button>
+<div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
+   <div class="bg-white space-y-3 p-4 rounded-lg shadow">
+      <div class="text-base text-gray-700">
+         เลขที่หนังสือ :
+         {{$result->regrecid}}
+      </div>
+      <div class="flex justify-between space-x-2 text-base">
+         <div class="text-gray-500">
+            ลงวันที่ :
+            {{$result->thai_register_date}}
+         </div>
+         <div>
+            ประเภท :
+            @if ($result->regtype == null )
+               <span class="p-1.5 uppercase tracking-wider text-slate-800 bg-slate-200 rounded-lg bg-opacity-50">ไม่ระบุ</span>
+            @else
+               @if ($result->type['typeid'] == 0 )
+                  <span class="p-1.5 uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">{{$result->type['typename']}}</span>
+               @elseif ($result->type['typeid'] == 3 )
+                  <span class="p-1.5 uppercase tracking-wider text-red-800 bg-red-200 rounded-lg  bg-opacity-50">{{$result->type['typename']}}</span>
+               @else
+                  <span class="p-1.5 uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-50">อื่น ๆ</span>
+               @endif
+            @endif
+         </div>
+      </div>
+      <div class="text-base text-gray-700">
+         หน่วยงานที่ส่ง : 
+         @if ($result->regtype == null)
+            ไม่ระบุ
+         @else
+            @if ($result->regtype == 0)
+               {{$result->jobunit['unitname']}}
+            @else
+               {{$result->letterunit['unitname']}}
+            @endif
+         @endif
+      </div>
+      <div class="text-base text-gray-700">
+         หัวเรื่อง :
+         <a href="" class=" font-normal text-blue-500 hover:text-rose-600">{{$result->regtitle}}</a>
+      </div>
+      <div class="flex text-base text-gray-700 pt-10">
+         <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
+            @if ($result->regdoc == null)
+            <p class="grid justify-items-center">
+               ไม่พบ
+            </p>
+            @else
+            <a href="/open-files/{{date('Y',strtotime($result->regdate))}}/{{ pathinfo( $result->regdoc , PATHINFO_EXTENSION ) }}/{{ pathinfo( $result->regdoc , PATHINFO_FILENAME ) }}" target=" _blank" class="grid justify-items-center">
+               @if (pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'pdf')
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
+                  <path d="M320 464C328.8 464 336 456.8 336 448V416H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V416H48V448C48 456.8 55.16 464 64 464H320zM256 160C238.3 160 224 145.7 224 128V48H64C55.16 48 48 55.16 48 64V192H0V64C0 28.65 28.65 0 64 0H229.5C246.5 0 262.7 6.743 274.7 18.75L365.3 109.3C377.3 121.3 384 137.5 384 154.5V192H336V160H256zM88 224C118.9 224 144 249.1 144 280C144 310.9 118.9 336 88 336H80V368C80 376.8 72.84 384 64 384C55.16 384 48 376.8 48 368V240C48 231.2 55.16 224 64 224H88zM112 280C112 266.7 101.3 256 88 256H80V304H88C101.3 304 112 293.3 112 280zM160 240C160 231.2 167.2 224 176 224H200C226.5 224 248 245.5 248 272V336C248 362.5 226.5 384 200 384H176C167.2 384 160 376.8 160 368V240zM192 352H200C208.8 352 216 344.8 216 336V272C216 263.2 208.8 256 200 256H192V352zM336 224C344.8 224 352 231.2 352 240C352 248.8 344.8 256 336 256H304V288H336C344.8 288 352 295.2 352 304C352 312.8 344.8 320 336 320H304V368C304 376.8 296.8 384 288 384C279.2 384 272 376.8 272 368V240C272 231.2 279.2 224 288 224H336z" />
+               </svg>
+               @elseif (pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'docx' || pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'doc')
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-blue-500" viewBox="0 0 384 512">
+                  <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4 202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05 243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6 229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36 15.19l-25.89 77.66L214.6 248z" />
+               </svg>
+               @elseif (pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'xlsx' || pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'xls' )
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-green-600" viewBox="0 0 384 512">
+                  <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM229.1 233.3L192 280.9L154.9 233.3C146.8 222.8 131.8 220.9 121.3 229.1C110.8 237.2 108.9 252.3 117.1 262.8L161.6 320l-44.53 57.25c-8.156 10.47-6.25 25.56 4.188 33.69C125.7 414.3 130.8 416 135.1 416c7.156 0 14.25-3.188 18.97-9.25L192 359.1l37.06 47.65C233.8 412.8 240.9 416 248 416c5.125 0 10.31-1.656 14.72-5.062c10.44-8.125 12.34-23.22 4.188-33.69L222.4 320l44.53-57.25c8.156-10.47 6.25-25.56-4.188-33.69C252.2 220.9 237.2 222.8 229.1 233.3z" />
+               </svg>
+               @elseif (pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'zip' || pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'rar' )
+                  <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-orange-400" viewBox="0 0 384 512">
+                     <path d="M256 0v128h128L256 0zM224 128L224 0H48C21.49 0 0 21.49 0 48v416C0 490.5 21.49 512 48 512h288c26.51 0 48-21.49 48-48V160h-127.1C238.3 160 224 145.7 224 128zM96 32h64v32H96V32zM96 96h64v32H96V96zM96 160h64v32H96V160zM128.3 415.1c-40.56 0-70.76-36.45-62.83-75.45L96 224h64l30.94 116.9C198.7 379.7 168.5 415.1 128.3 415.1zM144 336h-32C103.2 336 96 343.2 96 352s7.164 16 16 16h32C152.8 368 160 360.8 160 352S152.8 336 144 336z"/>
+                  </svg>
+                  @elseif (pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'png' || pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'jpg' )
+                  <svg xmlns="http://www.w3.org/2000/svg"  class=" w-8 fill-sky-400" viewBox="0 0 384 512">
+                     <path d="M224 128L224 0H48C21.49 0 0 21.49 0 48v416C0 490.5 21.49 512 48 512h288c26.51 0 48-21.49 48-48V160h-127.1C238.3 160 224 145.7 224 128zM96 224c17.67 0 32 14.33 32 32S113.7 288 96 288S64 273.7 64 256S78.33 224 96 224zM318.1 439.5C315.3 444.8 309.9 448 304 448h-224c-5.9 0-11.32-3.248-14.11-8.451c-2.783-5.201-2.479-11.52 .7949-16.42l53.33-80C122.1 338.7 127.1 336 133.3 336s10.35 2.674 13.31 7.125L160 363.2l45.35-68.03C208.3 290.7 213.3 288 218.7 288s10.35 2.674 13.31 7.125l85.33 128C320.6 428 320.9 434.3 318.1 439.5zM256 0v128h128L256 0z"/>
+                  </svg>
+               @else
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-slate-700" viewBox="0 0 384 512">
+                  <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0L64-.0001c-35.35 0-64 28.65-64 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM96 280C96 293.3 106.8 304 120 304h144C277.3 304 288 293.3 288 280S277.3 256 264 256h-144C106.8 256 96 266.8 96 280zM264 352h-144C106.8 352 96 362.8 96 376s10.75 24 24 24h144c13.25 0 24-10.75 24-24S277.3 352 264 352z" />
+               </svg>
+               @endif
+            </a>
+            @endif
+         </div>
+         <div class="absolute left-16 bottom-3 min-h-max max-h-full ">
+            @if ($result->regdoc2 == null)
+            <p class="grid justify-items-center">
+               ไม่พบ
+            </p>
+            @else
+            <a href="/open-files/{{date('Y',strtotime($result->regdate))}}/{{ pathinfo( $result->regdoc2 , PATHINFO_EXTENSION ) }}/{{ pathinfo( $result->regdoc2 , PATHINFO_FILENAME ) }}" target=" _blank" class="grid justify-items-center">
+               @if (pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'pdf')
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-red-500 " viewBox="0 0 384 512">
+                  <path d="M320 464C328.8 464 336 456.8 336 448V416H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V416H48V448C48 456.8 55.16 464 64 464H320zM256 160C238.3 160 224 145.7 224 128V48H64C55.16 48 48 55.16 48 64V192H0V64C0 28.65 28.65 0 64 0H229.5C246.5 0 262.7 6.743 274.7 18.75L365.3 109.3C377.3 121.3 384 137.5 384 154.5V192H336V160H256zM88 224C118.9 224 144 249.1 144 280C144 310.9 118.9 336 88 336H80V368C80 376.8 72.84 384 64 384C55.16 384 48 376.8 48 368V240C48 231.2 55.16 224 64 224H88zM112 280C112 266.7 101.3 256 88 256H80V304H88C101.3 304 112 293.3 112 280zM160 240C160 231.2 167.2 224 176 224H200C226.5 224 248 245.5 248 272V336C248 362.5 226.5 384 200 384H176C167.2 384 160 376.8 160 368V240zM192 352H200C208.8 352 216 344.8 216 336V272C216 263.2 208.8 256 200 256H192V352zM336 224C344.8 224 352 231.2 352 240C352 248.8 344.8 256 336 256H304V288H336C344.8 288 352 295.2 352 304C352 312.8 344.8 320 336 320H304V368C304 376.8 296.8 384 288 384C279.2 384 272 376.8 272 368V240C272 231.2 279.2 224 288 224H336z" />
+               </svg>
+               @elseif (pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'docx' || pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'doc')
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-blue-500" viewBox="0 0 384 512">
+                  <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4 202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05 243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6 229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36 15.19l-25.89 77.66L214.6 248z" />
+               </svg>
+               @elseif (pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'xlsx' || pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'xls' )
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-green-600" viewBox="0 0 384 512">
+                  <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM229.1 233.3L192 280.9L154.9 233.3C146.8 222.8 131.8 220.9 121.3 229.1C110.8 237.2 108.9 252.3 117.1 262.8L161.6 320l-44.53 57.25c-8.156 10.47-6.25 25.56 4.188 33.69C125.7 414.3 130.8 416 135.1 416c7.156 0 14.25-3.188 18.97-9.25L192 359.1l37.06 47.65C233.8 412.8 240.9 416 248 416c5.125 0 10.31-1.656 14.72-5.062c10.44-8.125 12.34-23.22 4.188-33.69L222.4 320l44.53-57.25c8.156-10.47 6.25-25.56-4.188-33.69C252.2 220.9 237.2 222.8 229.1 233.3z" />
+               </svg>
+               @elseif (pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'zip' || pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'rar' )
+                  <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-orange-400" viewBox="0 0 384 512">
+                     <path d="M256 0v128h128L256 0zM224 128L224 0H48C21.49 0 0 21.49 0 48v416C0 490.5 21.49 512 48 512h288c26.51 0 48-21.49 48-48V160h-127.1C238.3 160 224 145.7 224 128zM96 32h64v32H96V32zM96 96h64v32H96V96zM96 160h64v32H96V160zM128.3 415.1c-40.56 0-70.76-36.45-62.83-75.45L96 224h64l30.94 116.9C198.7 379.7 168.5 415.1 128.3 415.1zM144 336h-32C103.2 336 96 343.2 96 352s7.164 16 16 16h32C152.8 368 160 360.8 160 352S152.8 336 144 336z"/>
+                  </svg>
+                  @elseif (pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'png' || pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'jpg' )
+                  <svg xmlns="http://www.w3.org/2000/svg"  class=" w-8 fill-sky-400" viewBox="0 0 384 512">
+                     <path d="M224 128L224 0H48C21.49 0 0 21.49 0 48v416C0 490.5 21.49 512 48 512h288c26.51 0 48-21.49 48-48V160h-127.1C238.3 160 224 145.7 224 128zM96 224c17.67 0 32 14.33 32 32S113.7 288 96 288S64 273.7 64 256S78.33 224 96 224zM318.1 439.5C315.3 444.8 309.9 448 304 448h-224c-5.9 0-11.32-3.248-14.11-8.451c-2.783-5.201-2.479-11.52 .7949-16.42l53.33-80C122.1 338.7 127.1 336 133.3 336s10.35 2.674 13.31 7.125L160 363.2l45.35-68.03C208.3 290.7 213.3 288 218.7 288s10.35 2.674 13.31 7.125l85.33 128C320.6 428 320.9 434.3 318.1 439.5zM256 0v128h128L256 0z"/>
+                  </svg>
+               @else
+               <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-slate-700" viewBox="0 0 384 512">
+                  <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0L64-.0001c-35.35 0-64 28.65-64 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM96 280C96 293.3 106.8 304 120 304h144C277.3 304 288 293.3 288 280S277.3 256 264 256h-144C106.8 256 96 266.8 96 280zM264 352h-144C106.8 352 96 362.8 96 376s10.75 24 24 24h144c13.25 0 24-10.75 24-24S277.3 352 264 352z" />
+               </svg>
+               @endif
+            </a>
+            @endif
+         </div>
+      </div>
    </div>
-   
-   @error('member_file')
-   <label class=" text-rose-600">{{ $message }}</label>
-@enderror
-                            @if(Session::has('import_errors'))
-                              @foreach (Session::get('import_errors') as $failures)
-                              <label class=" text-rose-600">
-                                 {{$failures->errors()[0]}} at line no- {{$failures->row()}}
-                              </label>
-                              @endforeach
-                            @endif
-   <p class="mt-1 text-base text-gray-500" id="file_input_help">CSV</p>
-
-   <br>
-</form>
-
-<form action="{{route('permission.store')}}" method="POST">
-   @csrf
-   <div id="InputGroup" class="grid lg:grid-cols-2 grid-cols-1 gap-4 ">
-      <div id="InputDiv" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน 1<span
-                  class="text-lg text-red-600">*</span></label>
-            <input required type="text" name="sapid" id="sapid" placeholder="กรอกรหัสพนักงาน SAPID" class=" form-control 
-               block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
-               border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
-               focus:border-blue-600 focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+"
-               value="{{ old('sapid') }}">
-
-            @if ($errors->has('user'))
-            <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
-               <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                     viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{{ $errors->first('user') }}</span>
-               </div>
-            </div>
-            @endif
-         </div>
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง
-               <span class="text-lg text-red-600">*</span></label>
-            <select required name="permis" id="permis"
-               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-               aria-label="Default select example">
-               <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="1">ผู้ดูแลระบบ</option>
-               <option value="0">ผู้ใช้งานทั่วไป</option>
-            </select>
-         </div>
-      </div>
-      <div id="InputDiv1" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid1" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
-               2</label>
-            <input type="text" name="sapid1" id="sapid1" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
-               block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
-               border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid1') }}">
-            @if ($errors->has('user1'))
-            <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
-               <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                     viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{{ $errors->first('user1') }}</span>
-               </div>
-            </div>
-            @endif
-         </div>
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis1"
-               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis1" id="permis1"
-               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-               aria-label="Default select example">
-               <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="1">ผู้ดูแลระบบ</option>
-               <option value="0">ผู้ใช้งานทั่วไป</option>
-            </select>
-         </div>
-      </div>
-      <div id="InputDiv2" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid2" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
-               3</label>
-            <input type="text" name="sapid2" id="sapid2" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
-               block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
-               border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid2') }}">
-            @if ($errors->has('user2'))
-            <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
-               <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                     viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{{ $errors->first('user2') }}</span>
-               </div>
-            </div>
-            @endif
-         </div>
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis2"
-               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis2" id="permis2"
-               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-               aria-label="Default select example">
-               <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="1">ผู้ดูแลระบบ</option>
-               <option value="0">ผู้ใช้งานทั่วไป</option>
-            </select>
-         </div>
-      </div>
-      <div id="InputDiv3" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid3" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
-               4</label>
-            <input type="text" name="sapid3" id="sapid3" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
-               block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
-               border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid3') }}">
-            @if ($errors->has('user3'))
-            <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
-               <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                     viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{{ $errors->first('user3') }}</span>
-               </div>
-            </div>
-            @endif
-         </div>
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis3"
-               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis3" id="permis3"
-               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-               aria-label="Default select example">
-               <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="1">ผู้ดูแลระบบ</option>
-               <option value="0">ผู้ใช้งานทั่วไป</option>
-            </select>
-         </div>
-      </div>
-      <div id="InputDiv4" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1 ">
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid4" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
-               5</label>
-            <input type="text" name="sapid4" id="sapid4" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
-               block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
-               border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid4') }}">
-            @if ($errors->has('user4'))
-            <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
-               <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                     viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{{ $errors->first('user4') }}</span>
-               </div>
-            </div>
-            @endif
-         </div>
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis4"
-               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis4" id="permis4"
-               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-               aria-label="Default select example">
-               <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="1">ผู้ดูแลระบบ</option>
-               <option value="0">ผู้ใช้งานทั่วไป</option>
-            </select>
-         </div>
-      </div>
-      <div id="InputDiv5" class="lg:flex lg:justify-start md:flex md:justify-start sm:grid sm:grid-cols-1">
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="sapid5" class="form-label inline-block mb-2 text-gray-700 text-base font-normal">ผู้ใช้งาน
-               6</label>
-            <input type="text" name="sapid5" id="sapid5" placeholder=" กรอกรหัสพนักงาน SAPID" class=" form-control 
-               block w-full px-3  py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid 
-               border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
-               focus:outline-none" minlength="8" maxlength="8" pattern="[0-9]+" value="{{ old('sapid5') }}">
-            @if ($errors->has('user5'))
-            <div class="alert alert-error shadow-sm w-fit mt-3 mb-3">
-               <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                     viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{{ $errors->first('user5') }}</span>
-               </div>
-            </div>
-            @endif
-         </div>
-         <div class="mb-3 xl:w-96 pr-10">
-            <label for="permis5"
-               class="form-label inline-block mb-2 text-gray-700 text-base font-normal">สิทธิ์เข้าถึง</label>
-            <select name="permis5" id="permis5"
-               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-               aria-label="Default select example">
-               <option selected value="">--- เลือกสิทธิ์ของผู้ใช้งาน ---</option>
-               <option value="1">ผู้ดูแลระบบ</option>
-               <option value="0">ผู้ใช้งานทั่วไป</option>
-            </select>
-         </div>
-      </div>
-
-   </div>
-   <div class="flex justify-end mt-2 p-6">
-      <button class="inline-block px-6 py-2.5 bg-teal-500 text-white font-medium text-base leading-tight uppercase rounded 
-      shadow-md hover:bg-teal-600 hover:shadow-lg focus:bg-teal-600 focus:shadow-lg focus:outline-none focus:ring-0 
-      active:bg-teal-700 active:shadow-lg transition duration-150 ease-in-out" type=" submit">
-         บันทึกข้อมูล <i class="uil uil-file-bookmark-alt pl-2 text-lg"></i>
-      </button>
-   </div>
-</form>
-
-<script type="text/javascript">
-   $("#InputDiv1").hide();
-   $("#InputDiv2").hide();
-   $("#InputDiv3").hide();
-   $("#InputDiv4").hide();
-   $("#InputDiv5").hide();
-   $(document).ready(function () {
-      $('#permis').change(function () {
-         let permis = $(this).val();
-         // console.log(permis)
-         if (permis !== '') {
-            $("#InputDiv1").show();
-         } else {
-            $("#InputDiv1").hide();
-         }
-      });
-      $('#permis1').change(function () {
-         let permis = $(this).val();
-         // console.log(permis)
-         if (permis !== '') {
-            $("#InputDiv2").show();
-         } else {
-            $("#InputDiv2").hide();
-         }
-      });
-      $('#permis2').change(function () {
-         let permis = $(this).val();
-         // console.log(permis)
-         if (permis !== '') {
-            $("#InputDiv3").show();
-         } else {
-            $("#InputDiv3").hide();
-         }
-      });
-      $('#permis3').change(function () {
-         let permis = $(this).val();
-         // console.log(permis)
-         if (permis !== '') {
-            $("#InputDiv4").show();
-         } else {
-            $("#InputDiv4").hide();
-         }
-      });
-      $('#permis4').change(function () {
-         let permis = $(this).val();
-         // console.log(permis)
-         if (permis !== '') {
-            $("#InputDiv5").show();
-         } else {
-            $("#InputDiv5").hide();
-         }
-      });
-
-      // requiered
-      $('input[name=sapid1]').change(function () {
-         let sapid1 = $(this).val();
-         // console.log(sapid1)
-         if (sapid1 !== '') {
-            $('#permis1').prop('required', true);
-         } else {
-            $('#permis1').val('');
-            $('#permis1').prop('required', false);
-            $("#InputDiv2").hide();
-         }
-      });
-
-      var sapid1 = '{{ old("sapid1") }}';
-      if (sapid1 !== '') {
-         $('#permis1').prop('required', true);
-      }
-
-      $('input[name=sapid2]').change(function () {
-         let sapid2 = $(this).val();
-         // console.log(sapid2)
-         if (sapid2 !== '') {
-            $('#permis2').prop('required', true);
-         } else {
-            $('#permis2').val('');
-            $('#permis2').prop('required', false);
-            $("#InputDiv3").hide();
-         }
-      });
-
-      var sapid2 = '{{ old("sapid2") }}';
-      if (sapid2 !== '') {
-         $('#permis2').prop('required', true);
-      }
-
-      $('input[name=sapid3]').change(function () {
-         let sapid3 = $(this).val();
-         // console.log(sapid3)
-         if (sapid3 !== '') {
-            $('#permis3').prop('required', true);
-         } else {
-            $('#permis3').val('');
-            $('#permis3').prop('required', false);
-            $("#InputDiv4").hide();
-         }
-      });
-
-      var sapid3 = '{{ old("sapid3") }}';
-      if (sapid3 !== '') {
-         $('#permis3').prop('required', true);
-      }
-
-      $('input[name=sapid4]').change(function () {
-         let sapid4 = $(this).val();
-         // console.log(sapid4)
-         if (sapid4 !== '') {
-            $('#permis4').prop('required', true);
-         } else {
-            $('#permis4').val('');
-            $('#permis4').prop('required', false);
-            $("#InputDiv5").hide();
-         }
-      });
-
-      var sapid4 = '{{ old("sapid4") }}';
-      if (sapid4 !== '') {
-         $('#permis4').prop('required', true);
-      }
-
-      $('input[name=sapid5]').change(function () {
-         let sapid5 = $(this).val();
-         // console.log(sapid5)
-         if (sapid5 !== '') {
-            $('#permis5').prop('required', true);
-         } else {
-            $('#permis5').val('');
-            $('#permis5').prop('required', false);
-         }
-      });
-
-      var sapid5 = '{{ old("sapid5") }}';
-      if (sapid5 !== '') {
-         $('#permis5').prop('required', true);
-      }
-
-      // old permis
-      var permis = '{{ old("permis") }}';
-      if (permis !== '') {
-         $('#permis').val(permis);
-         $("#permis").change();
-      }
-
-      // old permis1
-      var permis1 = '{{ old("permis1") }}';
-      if (permis1 !== '') {
-         $('#permis1').val(permis1);
-         $("#InputDiv1").show();
-         $("#permis1").change();
-      }
-
-      // old permis2
-      var permis2 = '{{ old("permis2") }}';
-      if (permis2 !== '') {
-         $('#permis2').val(permis2);
-         $("#InputDiv2").show();
-         $("#permis2").change();
-      }
-
-      // old permis3
-      var permis3 = '{{ old("permis3") }}';
-      if (permis3 !== '') {
-         $('#permis3').val(permis3);
-         $("#InputDiv3").show();
-         $("#permis3").change();
-      }
-
-      // old permis4
-      var permis4 = '{{ old("permis4") }}';
-      if (permis4 !== '') {
-         $('#permis4').val(permis4);
-         $("#InputDiv4").show();
-         $("#permis4").change();
-      }
-
-      // old permis5
-      var permis5 = '{{ old("permis5") }}';
-      if (permis5 !== '') {
-         $('#permis5').val(permis5);
-         $("#InputDiv5").show();
-         $("#permis5").change();
-      }
-   });
-</script>
-@endsection
+</div>

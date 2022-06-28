@@ -4,13 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Contracts\AuthUserAPI;
 use App\Http\Controllers\Controller;
-use App\Models\activityLog;
+use App\Models\LogActivity;
 use App\Models\Member;
 use App\Models\Unit;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -20,34 +17,19 @@ use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-
     /**
-     * Where to redirect users after login.
+     * Display a listing of the resource.
      *
-     * @var string
+     * @return \Illuminate\Http\Response
      */
-    protected $redirectTo = RouteServiceProvider::REG;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function index(Request $request)
     {
-        $this->middleware('guest')->except('logout');
-    }
-
-    public function index()
-    {
-        $member = Member::get();
-        //   logger($member);
-        if (Member::exists()) {
+        $checkRecordMember = Member::count();
+        if ($checkRecordMember != 0) {
             if (Auth::check()) {
-                Toastr::success('คุณเข้าสู่ระบบอยู่แล้ว', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
+                toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
 
-                return back();
+                return view('document');
             } else {
                 return view('auth.login');
             }
@@ -58,6 +40,73 @@ class LoginController extends Controller
         }
     }
 
+    public function authenticate(Request $request, AuthUserAPI $api)
+    {
+        $sirirajUser = $api->authenticate($request->username, $request->password);
+        if ($sirirajUser['reply_code'] != 0) {
+            $errors = ['message' => $sirirajUser['reply_text']];
+            Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
+            toastr()->error('ตรวจสอบข้อมูล username หรือ password', 'แจ้งเตือน');
+
+            return Redirect::back()->withErrors($errors)->withInput($request->all());
+        }
+
+        $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
+        if (!$checkMember) {
+            Log::critical($sirirajUser['full_name'] . ' No access rights');
+            abort(403);
+        } else {
+            // dd('ok');
+            $checkRegisterUser = User::where('org_id', $sirirajUser['org_id'])->first();
+            Auth::login($checkRegisterUser);
+            $full_name = Auth::user()->full_name;
+            if ($checkRegisterUser->username == null) {
+                $units = Unit::orderBy('unitname', 'asc')->get();
+
+                return view('auth.register', ['sirirajUser'=>$sirirajUser, 'units'=>$units]);
+            } else {
+                if ($checkRegisterUser->username != $sirirajUser['login'] || $checkRegisterUser->full_name != $sirirajUser['full_name']) {
+                    $updateUser = User::where('org_id', $checkMember->org_id)->first();
+                    $updateUser->username = $sirirajUser['login'];
+                    $updateUser->full_name = $sirirajUser['full_name'];
+                    $updateUser->save();
+                }
+                $log_activity = new LogActivity;
+                $log_activity->username = Auth::user()->username;
+                $log_activity->full_name = Auth::user()->full_name;
+                $log_activity->office_name = Auth::user()->office_name;
+                $log_activity->action = 'เข้าสู่ระบบ';
+                $log_activity->type = 'login';
+                $log_activity->url = URL::current();
+                $log_activity->method = $request->method();
+                $log_activity->user_agent = $request->header('user-agent');
+                $log_activity->date_time = date('d-m-Y H:i:s');
+                $log_activity->save();
+
+                Log::info($full_name . ' login success');
+                toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
+
+                return Redirect::route('documents');
+            }
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //   dd('ok');
@@ -65,102 +114,90 @@ class LoginController extends Controller
         $username = $request->get('login');
         $full_name = $request->get('full_name');
         $office_name = $request->get('office_name');
-        $is_admin = 1;
-        $status = 'Active';
         $unit = Unit::where('unitid', $office_name)->first();
 
-        $member = new Member;
-        $member->org_id = $org_id;
-        $member->is_admin = $is_admin;
-        $member->status = $status;
-        //   logger($member);
-        $member->save();
+        $members = new Member;
+        $members->org_id = $org_id;
+        $members->is_admin = 1;
+        $members->status = 'Active';
+        $members->save();
 
         $users = new User;
         $users->org_id = $org_id;
         $users->username = $username;
         $users->full_name = $full_name;
+        $users->office_name = $office_name;
         $users->office_name = $unit->unitname;
-        $users->is_admin = $is_admin;
-        $users->status = $status;
-        //   logger($users);
+        $users->is_admin = 1;
+        $users->status = 'Active';
         $users->save();
 
-        return Redirect::route('docShow');
+        $log_activity = new LogActivity;
+        $log_activity->username = $username;
+        $log_activity->full_name = $full_name;
+        $log_activity->office_name = $unit->unitname;
+        $log_activity->action = 'เริ่มใช้งานระบบ';
+        $log_activity->type = 'register';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        Log::info($full_name . ' register start app success');
+        toastr()->info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'แจ้งเตือน');
+
+        return Redirect::route('login');
     }
 
-    public function authenticate(Request $request, AuthUserAPI $api)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        //  Authen siriraj user
-        $sirirajUser = $api->authenticate($request->username, $request->password);
-        if ($sirirajUser['reply_code'] != 0) {
-            //ถ้าไม่เท่ากับ 0 => ชื่อผู้ใช้หรือรหัสผ่านผิด
-            $errors = ['message' => $sirirajUser['reply_text']];
-            Log::critical($request->username.' '.$sirirajUser['reply_text']);
+        //
+    }
 
-            return Redirect::back()->withErrors($errors)->withInput($request->all());
-        }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-        $member = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
-        //   no permis
-        if (! $member) {
-            Log::critical($sirirajUser['full_name'].' ไม่มีสิทธิ์เข้าถึง');
-            abort(403);
-        } else {
-            $users = User::where('org_id', $sirirajUser['org_id'])->first();
-            // ไม่มีสิทธิ์เข้าถึงระบบ
-            if ($users->username == null) {
-                $users = User::where('org_id', $sirirajUser['org_id'])->first();
-
-                Auth::login($users);
-
-                $full_name = Auth::user()->full_name;
-                Toastr::success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
-
-                Log::info($full_name.' ลงชื่อเข้าใช้งานระบบ');
-
-                $units = Unit::orderby('unitname', 'asc')->get();
-                $org_id = $sirirajUser['org_id'];
-                $login = $sirirajUser['login'];
-                $full_name = $sirirajUser['full_name'];
-
-                return view('auth.register', compact('units', 'org_id', 'login', 'full_name'));
-            }
-
-            // logger($member->org_id);
-            if ($users->username != $sirirajUser['login'] || $users->full_name != $sirirajUser['full_name']) {
-                $user = User::where('org_id', $member->org_id)->first();
-                $user->username = $sirirajUser['login'];
-                $user->full_name = $sirirajUser['full_name'];
-                $user->save();
-            }
-            Auth::login($users);
-
-            $log_activity = new activityLog;
-            $log_activity->username = Auth::user()->username;
-            $log_activity->full_name = Auth::user()->full_name;
-            $log_activity->office_name = Auth::user()->office_name;
-            $log_activity->action = 'เข้าสู่ระบบ';
-            $log_activity->type = 'login';
-            $log_activity->url = URL::current();
-            $log_activity->method = $request->method();
-            $log_activity->user_agent = $request->header('user-agent');
-            $log_activity->date_time = date('d-m-Y H:i:s');
-            $log_activity->save();
-
-            $full_name = Auth::user()->full_name;
-            Toastr::success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
-
-            Log::info($full_name.' เข้าสู่ระบบ');
-
-            return Redirect::route('docShow');
-        }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 
     public function logout(Request $request)
     {
-        $log_activity = new activityLog;
+        $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
@@ -174,7 +211,7 @@ class LoginController extends Controller
 
         Auth::logout();
         Session::forget('user');
-        Toastr::success('ออกจากระบบสำเร็จ', 'แจ้งเตือน', ['positionClass' => 'toast-top-right']);
+        toastr()->success('ออกจากระบบสำเร็จ', 'แจ้งเตือน');
 
         return Redirect::route('login');
     }

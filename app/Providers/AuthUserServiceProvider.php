@@ -13,7 +13,7 @@ class AuthUserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Contracts\AuthUserAPI',env('AUTH_USER_PROVIDER','App\APIs\FakeUserAPI'));
+        $this->app->bind('App\Contracts\AuthUserAPI', env('AUTH_USER_PROVIDER', 'App\APIs\FakeUserAPI'));
     }
 
     /**

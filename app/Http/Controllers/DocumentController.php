@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\activityLog;
 use App\Models\Jobunit;
 use App\Models\Letterreg;
-use App\Models\Lettersend;
 use App\Models\Letterunit;
+use App\Models\LogActivity;
+use App\Models\Month;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,34 +17,18 @@ use Illuminate\Support\Facades\URL;
 
 class DocumentController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        // for search input
+        $monthsSelectionForm = Month::all();
+        $yearsSelectionForm = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
+        $typesSelectionForm = Type::all();
 
-        $regis = Letterreg::count();
-
-        $types = Type::all();
-
-        $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
-        $sregfrom = $request->get('sregfrom');
-        $sregto = $request->get('sregto');
-
-        $log_activity = new activityLog;
+        $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
@@ -56,317 +40,109 @@ class DocumentController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('document', compact('regis', 'types', 'regyears', 'sregfrom', 'sregto'));
+        return view('document', ['monthsSelectionForm'=>$monthsSelectionForm, 'yearsSelectionForm'=>$yearsSelectionForm,
+                                 'typesSelectionForm'=>$typesSelectionForm, ]);
     }
 
-    public function selectSearchfrom(Request $request)
+    public function create()
     {
-        $typeid = $request->post('typeid');
-        $sregfrom = $request->post('sregfrom');
-        $unit = Jobunit::where('unitlevel', $typeid)->orderBy('unitname', 'asc')->get();
-
-        $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
-        foreach ($unit as $list) {
-            // $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
-
-            if ($sregfrom == $list->unitid) {
-                $html .= '<option id="option" value="'.$list->unitid.'" selected>'.$list->unitname.'</option>';
-            } else {
-                $html .= '<option id="option" value="'.$list->unitid.'" >'.$list->unitname.'</option>';
-            }
-            echo $list->unitid.'<br>';
-        }
-        echo $html;
+        //
     }
 
-    public function selectSearchto(Request $request)
+    public function store(Request $request)
     {
-        $typeid = $request->post('typeid');
-        $sregto = $request->post('sregto');
-        $unit = Jobunit::where('unitlevel', $typeid)->orderBy('unitname', 'asc')->get();
-        $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
-        foreach ($unit as $list) {
-            // $html .= '<option id="option" value="' . $list->unitid . '">' . $list->unitname . '</option>';
-            if ($sregto == $list->unitid) {
-                $html .= '<option id="option" value="'.$list->unitid.'" selected>'.$list->unitname.'</option>';
-            } else {
-                $html .= '<option id="option" value="'.$list->unitid.'" >'.$list->unitname.'</option>';
-            }
-            echo $list->unitid.'<br>';
-        }
-        echo $html;
+        //
     }
 
-    public function autocomplete(Request $request)
+    public function show(Request $request)
     {
-        $data = Letterunit::select('unitname as value', 'unitid')
-               ->where('unitname', 'LIKE', '%'.$request->get('search').'%')
-               ->orderBy('unitname')
-               ->limit(20)->get();
+        // for input
+        $monthsSelectionForm = Month::all();
+        $yearsSelectionForm = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
+        $typesSelectionForm = Type::all();
+        $jobunitsLog = Jobunit::all();
+        $letterunitsLog = Letterunit::all();
+        $monthsLog = Month::all();
+        $documentCount = Letterreg::count();
 
-        return response()->json($data);
-    }
+        $type = $request->get('type');
+        $unitInner = $request->get('unitInner');
+        $idunitOutter = $request->get('idunitOutter');
+        $title = $request->get('title');
+        $startMonth = $request->get('startMonth');
+        $startYear = $request->get('startYear');
+        $endMonth = $request->get('endMonth');
+        $endYear = $request->get('endYear');
 
-    public function searchRegis(Request $request)
-    {
-        $regtype = $request->get('regtype');
-        $sregfrom = $request->get('sregfrom');
-        $iregfrom = $request->get('idfrom');
-        $sregto = $request->get('sregto');
-        $iregto = $request->get('idto');
-        $regtitle = $request->get('regtitle');
-        $frommonth = $request->get('frommonth');
-        $tomonth = $request->get('tomonth');
-        $fromyear = $request->get('fromyear');
-        $toyear = $request->get('toyear');
-
-        $searchregs = Letterreg::orderby('regdate', 'desc');
-
-        if ($regtype != '') {
-            $searchregs = $searchregs->where('regtype', $regtype);
-        }
-
-        if ($sregfrom != '') {
-            $l = strlen($sregfrom);
-            // Log::info($l);
-            if ($l == 1) {
-                $ls = '0'.$sregfrom;
-            } else {
-                $ls = $sregfrom;
-            }
-            // Log::info($ls);
-            $searchregs = $searchregs->where('regfrom', $ls);
-        }
-
-        if ($iregfrom != '') {
-            // Log::info('f'.$iregfrom);
-            $searchregs = $searchregs->where('regfrom', $iregfrom);
-        }
-
-        if ($sregto != '') {
-            $l = strlen($sregto);
-            // Log::info($l);
-            if ($l == 1) {
-                $lsto = '0'.$sregto;
-            } else {
-                $lsto = $sregto;
-            }
-            $searchregs = $searchregs->where('regto', $lsto);
-        }
-
-        if ($iregto != '') {
-            // Log::info('t'.$iregto);
-            $searchregs = $searchregs->where('regto', $iregto);
-        }
-
-        if ($regtitle != '') {
-            $searchregs = $searchregs->where('regtitle', 'LIKE', '%'.$regtitle.'%');
-        }
-
-        if ($frommonth != '' && $tomonth != '') {
-            $searchregs = $searchregs->whereBetween(DB::raw('MONTH(regdate)'), [$frommonth, $tomonth]);
-        }
-
-        if ($fromyear != '' && $toyear != '') {
-            $searchregs = $searchregs->whereBetween(DB::raw('Year(regdate)'), [$fromyear, $toyear]);
-        }
-
-        $sCount = $searchregs->count();
-
-        // Log::info($searchregs);
-        $searchregs = $searchregs->paginate(50);
-        $types = Type::all();
-
-        // for search input
-        $regyears = Letterreg::select(DB::raw('YEAR(regdate) regyear'))->groupby('regyear')->get();
-
-        // old input
-        $input = $request->flash();
-
-        // แสดงข้อมูลค้นหาเอกสาร
-        $jobunits = Jobunit::all();
-        $letterunits = Letterunit::all();
-        // ชนิดหนังสือ
-        if ($regtype != null) {
-            foreach ($types as $type) {
-                if ($regtype == $type->typeid) {
-                    $typename = $type->typename;
-                    $searchLog = ' ชนิดหนังสือ : '.$typename;
-                    if ($regtype == 0) {
-                        if ($sregfrom == null && $sregto == null) {
-                            $regfrom = '-';
-                            $regto = '-';
-                        } elseif ($sregfrom != null && $sregto == null) {
-                            foreach ($jobunits as $jobunit) {
-                                if ($sregfrom == $jobunit->unitid) {
-                                    $regfrom = $jobunit->unitname;
-                                    $searchLog = $searchLog.' จาก  : '.$regfrom;
-                                }
-                                $regto = '-';
-                            }
-                        } elseif ($sregfrom == null && $sregto != null) {
-                            foreach ($jobunits as $jobunit) {
-                                $regfrom = '-';
-                                if ($sregto == $jobunit->unitid) {
-                                    $regto = $jobunit->unitname;
-                                    $searchLog = $searchLog.' ถึง  : '.$regto;
-                                }
-                            }
-                        } else {
-                            foreach ($jobunits as $jobunit) {
-                                if ($sregfrom == $jobunit->unitid) {
-                                    $regfrom = $jobunit->unitname;
-                                    $searchLog = $searchLog.' จาก  : '.$regfrom;
-                                }
-                                if ($sregto == $jobunit->unitid) {
-                                    $regto = $jobunit->unitname;
-                                    $searchLog = $searchLog.' ถึง  : '.$regto;
-                                }
-                            }
-                        }
-                    } else {
-                        //   $iregfrom = Letterunit::where('iregfrom',$iregfrom);
-                        if ($iregfrom == null && $iregto == null) {
-                            $regfrom = '-';
-                            $regto = '-';
-                        } elseif ($iregfrom != null && $iregto == null) {
-                            $regfrom = $iregfrom;
-                            $regto = '-';
-                            $searchLog = $searchLog.' จาก  : '.$regfrom;
-                        } elseif ($iregfrom == null && $iregto != null) {
-                            $regfrom = '-';
-                            $regto = $iregto;
-                            $searchLog = $searchLog.' ถึง  : '.$regto;
-                        } else {
-                            $regfrom = $iregfrom;
-                            $regto = $iregto;
-                            $searchLog = $searchLog.' จาก  : '.$regfrom;
-                            $searchLog = $searchLog.' ถึง  : '.$regto;
-                        }
-                    }
+        $resultDocument = Letterreg::orderBy('regdate', 'desc');
+        if ($type != '') {
+            foreach ($typesSelectionForm as $typelog) {
+                if ($type == $typelog->typeid) {
+                    $searchLog = ' ชนิดหนังสือ : ' . $typelog->typename;
                 }
             }
-        } else {
-            $typename = '-';
-            $regfrom = '-';
-            $regto = '-';
+            // logger($searchLog);
+            $resultDocument = $resultDocument->where('regtype', $type);
         }
 
-        if ($regtitle != '') {
-            if ($regtype != '') {
-                $searchLog = $searchLog.' หัวเรื่อง  : '.$regtitle;
+        if ($unitInner != '') {
+            $length = strlen($unitInner);
+            if ($length != '') {
+                $zero = '0' . $unitInner;
             } else {
-                $searchLog = ' หัวเรื่อง  : '.$regtitle;
+                $zero = $unitInner;
+            }
+            foreach ($jobunitsLog as $unitInnerlog) {
+                if ($unitInner == $unitInnerlog->unitis) {
+                    $searchLog = ' หน่วยงานที่ส่ง : ' . $unitInnerlog->unitname;
+                }
+            }
+            $resultDocument = $resultDocument->where('regfrom', $zero);
+        }
+
+        if ($idunitOutter != '') {
+            foreach ($letterunitsLog as $unitOutterlog) {
+                if ($idunitOutter == $unitOutterlog->unitis) {
+                    $searchLog = ' หน่วยงานที่ส่ง : ' . $unitOutterlog->unitname;
+                }
+            }
+            $resultDocument = $resultDocument->where('regfrom', $idunitOutter);
+        }
+
+        if ($title != '') {
+            $resultDocument = $resultDocument->where('regtitle', 'LIKE', '%' . $title . '%');
+            if ($type != '') {
+                $searchLog = $searchLog . ' หัวเรื่อง  : ' . $title;
+            } else {
+                $searchLog = ' หัวเรื่อง  : ' . $title;
             }
         }
-        // เดือน
-        switch ($frommonth) {
-         case '01':
-            $fmonth = 'มกราคม';
-            break;
-         case '02':
-            $fmonth = 'กุมภาพันธ์';
-            break;
-         case '03':
-            $fmonth = 'มีนาคม';
-            break;
-         case '04':
-            $fmonth = 'เมษายน';
-            break;
-         case '05':
-            $fmonth = 'พฤษภาคม';
-            break;
-         case '06':
-            $fmonth = 'มิถุนายน';
-            break;
-         case '07':
-            $fmonth = 'กรกฎาคม';
-            break;
-         case '08':
-            $fmonth = 'สิงหาคม';
-            break;
-         case '09':
-            $fmonth = 'กันยายน';
-            break;
-         case '10':
-            $fmonth = 'ตุลาคม';
-            break;
-         case '11':
-            $fmonth = 'พฤศจิกายน';
-            break;
-         case '12':
-            $fmonth = 'ธันวาคม';
-            break;
-         default:
-            $fmonth = '-';
-      }
 
-        switch ($tomonth) {
-         case '01':
-            $tmonth = 'มกราคม';
-            break;
-         case '02':
-            $tmonth = 'กุมภาพันธ์';
-            break;
-         case '03':
-            $tmonth = 'มีนาคม';
-            break;
-         case '04':
-            $tmonth = 'เมษายน';
-            break;
-         case '05':
-            $tmonth = 'พฤษภาคม';
-            break;
-         case '06':
-            $tmonth = 'มิถุนายน';
-            break;
-         case '07':
-            $tmonth = 'กรกฎาคม';
-            break;
-         case '08':
-            $tmonth = 'สิงหาคม';
-            break;
-         case '09':
-            $tmonth = 'กันยายน';
-            break;
-         case '10':
-            $tmonth = 'ตุลาคม';
-            break;
-         case '11':
-            $tmonth = 'พฤศจิกายน';
-            break;
-         case '12':
-            $tmonth = 'ธันวาคม';
-            break;
-         default:
-            $tmonth = '-';
-      }
-        if ($frommonth != null) {
-            $searchLog = $searchLog.' จาก  : เดือน '.$fmonth;
+        if ($startMonth != '' && $endMonth != '') {
+            foreach ($monthsLog as $monthLog) {
+                if ($startMonth == $monthLog->id) {
+                    $searchLog = ' หน่วยงานที่ส่ง : ' . $monthLog->name_th;
+                }
+                if ($endMonth == $monthLog->id) {
+                    $searchLog = ' ถึง ' . $monthLog->name_th;
+                }
+            }
+
+            $resultDocument = $resultDocument->whereBetween(DB::raw('MONTH(regdate)'), [$startMonth, $endMonth]);
         }
 
-        if ($tomonth != null) {
-            $searchLog = $searchLog.' ถึง  : เดือน '.$tmonth;
+        if ($startYear != '' && $endYear != '') {
+            $searchLog = ' ระหว่างปี : ' . $startYear + 543 . ' ถึง ' . $endYear + 543;
+            $resultDocument = $resultDocument->whereBetween(DB::raw('Year(regdate)'), [$startYear, $endYear]);
         }
+        $resultCount = $resultDocument->count();
+        $resultDocument = $resultDocument->paginate(50);
 
-        // ปี
-        if ($fromyear != null) {
-            $fyear = $fromyear + 543;
-            $searchLog = $searchLog.' จากปี '.$fyear;
-        }
-
-        if ($toyear != null) {
-            $tyear = $toyear + 543;
-            $searchLog = $searchLog.' ถึงปี '.$tyear;
-        }
-
-        $regis = Letterreg::count();
-
-        $log_activity = new activityLog;
+        $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'ค้นหาเอกสาร '.$searchLog;
+        $log_activity->action = 'ค้นหาเอกสาร ' . $searchLog;
         $log_activity->type = 'search';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
@@ -374,30 +150,69 @@ class DocumentController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('document', compact(
-            'sCount',
-            'regis',
-            'searchregs',
-            'types',
-            'regyears',
-            'sregfrom',
-            'sregto',
-            'input'
-        ));
+        return view('document', ['monthsSelectionForm'=>$monthsSelectionForm, 'yearsSelectionForm'=>$yearsSelectionForm,
+                                 'typesSelectionForm'=>$typesSelectionForm, 'resultDocument'=>$resultDocument,
+                                  'resultCount'=>$resultCount, 'documentCount'=>$documentCount, ])->with($request->flash());
+    }
+
+    public function edit($id)
+    {
+        //
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function destroy($id)
+    {
+        //
+    }
+
+    public function selectUnitInner(Request $request)
+    {
+        $typeid = $request->post('typeid');
+        $unitinner = $request->post('unitinner');
+        $unit = Jobunit::where('unitlevel', $typeid)->orderBy('unitname', 'asc')->get();
+        logger($unitinner);
+        $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
+        foreach ($unit as $list) {
+            // $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
+
+            if ($unitinner == $list->unitid) {
+                $html .= '<option id="option" value="' . $list->unitid . '" selected>' . $list->unitname . '</option>';
+            } else {
+                $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
+            }
+            echo $list->unitid . '<br>';
+        }
+        echo $html;
+    }
+
+    public function autocompleteUnitOutter(Request $request)
+    {
+        $search = $request->get('search');
+        $data = Letterunit::select('unitname as value', 'unitid as id')
+              ->where('unitname', 'LIKE', '%' . $search . '%')
+              ->orderBy('unitname')
+              ->limit(20)->get();
+
+        return response()->json($data);
     }
 
     public function openfile(Request $request, $year, $regdoc)
     {
         $doc = Letterreg::where('regrecid', $regdoc)->first();
         $filename = $doc->regdoc;
-        $path = 'files/'.$year.'/'.$filename;
+        $path = 'files/' . $year . '/' . $filename;
 
-        $log_activity = new activityLog;
+        $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
-        $log_activity->type = 'open document';
+        $log_activity->action = 'เปิดไฟล์เอกสาร ' . $filename;
+        $log_activity->type = 'search';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
         $log_activity->user_agent = $request->header('user-agent');
@@ -405,7 +220,7 @@ class DocumentController extends Controller
         $log_activity->save();
 
         $full_name = Auth::user()->full_name;
-        Log::info($full_name.' เปิดไฟล์เอกสาร รหัส '.$regdoc.' ชื่อไฟล์ '.$filename);
+        Log::info($full_name . ' เปิดไฟล์เอกสาร รหัส ' . $regdoc . ' ชื่อไฟล์ ' . $filename);
 
         if (Storage::exists($path)) {
             return Storage::response($path);
@@ -419,14 +234,14 @@ class DocumentController extends Controller
     {
         $doc = Letterreg::where('regrecid', $regdoc)->first();
         $filename = $doc->regdoc2;
-        $path = 'files/'.$year.'/'.$filename;
+        $path = 'files/' . $year . '/' . $filename;
 
-        $log_activity = new activityLog;
+        $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
-        $log_activity->type = 'open document';
+        $log_activity->action = 'เปิดไฟล์เอกสาร ' . $filename;
+        $log_activity->type = 'search';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
         $log_activity->user_agent = $request->header('user-agent');
@@ -434,39 +249,12 @@ class DocumentController extends Controller
         $log_activity->save();
 
         $full_name = Auth::user()->full_name;
-        Log::info($full_name.'เปิดไฟล์เอกสาร '.$regdoc.' '.$filename);
+        Log::info($full_name . 'เปิดไฟล์เอกสาร ' . $regdoc . ' ' . $filename);
         if (Storage::exists($path)) {
             return Storage::response($path);
         } else {
             // dd('File is Not Exists');
             abort(404);
         }
-    }
-
-    public function show(Request $request, $regrecid)
-    {
-        $regTbl = Letterreg::where('letterregs.regrecid', $regrecid)->first();
-
-        $regisTable = Lettersend::leftJoin('letterrecs', 'lettersends.sendregid', '=', 'letterrecs.sendregid')
-        ->where('lettersends.regrecid', $regrecid)
-        ->orderby('letterrecs.recdate', 'desc')
-        ->get();
-
-        $title = $regTbl->regtitle;
-
-        $log_activity = new activityLog;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'ดูข้อมูลเพิ่มเติม เรื่อง "'.$title.'"';
-        $log_activity->type = 'view';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
-
-        //   Log::info($regTbl);
-        return view('description', compact('regisTable', 'regTbl'));
     }
 }

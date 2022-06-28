@@ -10,12 +10,6 @@
    font-family: 'K2D', sans-serif;
 }
 
-/* @font-face {
-   font-family: 'Sarabun', sans-serif;
-   src: url(fonts/THSarabunNew.ttf) format('truetype');
-}
-
-*/
 ul.ui-menu {
    font-family: 'Sarabun', sans-serif;
    padding: 10px;
@@ -24,7 +18,7 @@ ul.ui-menu {
    border-radius: 5px;
    width: auto;
    min-height: auto;
-   max-height: 45vh;
+   max-height: 50vh;
    min-width: auto;
    max-width: auto;
    overflow-y: auto;

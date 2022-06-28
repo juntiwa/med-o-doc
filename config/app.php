@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ return [
     |
     */
 
-   'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Laravel'),
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
@@ -28,9 +28,9 @@ return [
     |
     */
 
-   'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', 'production'),
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
@@ -41,9 +41,9 @@ return [
     |
     */
 
-   'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
@@ -54,11 +54,11 @@ return [
     |
     */
 
-   'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost'),
 
-   'asset_url' => env('ASSET_URL'),
+    'asset_url' => env('ASSET_URL'),
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
@@ -69,9 +69,9 @@ return [
     |
     */
 
-   'timezone' => 'Asia/Bangkok',
+    'timezone' => 'Asia/Bangkok',
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
@@ -82,9 +82,9 @@ return [
     |
     */
 
-   'locale' => 'en',
+    'locale' => 'en',
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
     |--------------------------------------------------------------------------
@@ -95,9 +95,9 @@ return [
     |
     */
 
-   'fallback_locale' => 'en',
+    'fallback_locale' => 'en',
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Faker Locale
     |--------------------------------------------------------------------------
@@ -108,9 +108,9 @@ return [
     |
     */
 
-   'faker_locale' => 'en_US',
+    'faker_locale' => 'en_US',
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
@@ -121,11 +121,29 @@ return [
     |
     */
 
-   'key' => env('APP_KEY'),
+    'key' => env('APP_KEY'),
 
-   'cipher' => 'AES-256-CBC',
+    'cipher' => 'AES-256-CBC',
 
-   /*
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Mode Driver
+    |--------------------------------------------------------------------------
+    |
+    | These configuration options determine the driver used to determine and
+    | manage Laravel's "maintenance mode" status. The "cache" driver will
+    | allow maintenance mode to be controlled across multiple machines.
+    |
+    | Supported drivers: "file", "cache"
+    |
+    */
+
+    'maintenance' => [
+        'driver' => 'file',
+        // 'store'  => 'redis',
+    ],
+
+    /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
@@ -136,56 +154,54 @@ return [
     |
     */
 
-   'providers' => [
+    'providers' => [
 
-      /*
+        /*
          * Laravel Framework Service Providers...
          */
-      Illuminate\Auth\AuthServiceProvider::class,
-      Illuminate\Broadcasting\BroadcastServiceProvider::class,
-      Illuminate\Bus\BusServiceProvider::class,
-      Illuminate\Cache\CacheServiceProvider::class,
-      Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-      Illuminate\Cookie\CookieServiceProvider::class,
-      Illuminate\Database\DatabaseServiceProvider::class,
-      Illuminate\Encryption\EncryptionServiceProvider::class,
-      Illuminate\Filesystem\FilesystemServiceProvider::class,
-      Illuminate\Foundation\Providers\FoundationServiceProvider::class,
-      Illuminate\Hashing\HashServiceProvider::class,
-      Illuminate\Mail\MailServiceProvider::class,
-      Illuminate\Notifications\NotificationServiceProvider::class,
-      Illuminate\Pagination\PaginationServiceProvider::class,
-      Illuminate\Pipeline\PipelineServiceProvider::class,
-      Illuminate\Queue\QueueServiceProvider::class,
-      Illuminate\Redis\RedisServiceProvider::class,
-      Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
-      Illuminate\Session\SessionServiceProvider::class,
-      Illuminate\Translation\TranslationServiceProvider::class,
-      Illuminate\Validation\ValidationServiceProvider::class,
-      Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
+        Illuminate\Bus\BusServiceProvider::class,
+        Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+        Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
+        Illuminate\Encryption\EncryptionServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        Illuminate\Pagination\PaginationServiceProvider::class,
+        Illuminate\Pipeline\PipelineServiceProvider::class,
+        Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
+        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Illuminate\Session\SessionServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
 
-      /*
+        /*
          * Package Service Providers...
          */
 
-      /*
+        /*
          * Application Service Providers...
          */
-      App\Providers\AppServiceProvider::class,
-      App\Providers\AuthServiceProvider::class,
-      // App\Providers\BroadcastServiceProvider::class,
-      App\Providers\EventServiceProvider::class,
-      App\Providers\RouteServiceProvider::class,
-      App\Providers\AuthUserServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
-      /*
-       * custom
-       */
-      Maatwebsite\Excel\ExcelServiceProvider::class,
-      MarvinLabs\DiscordLogger\ServiceProvider::class,
-   ],
+      //  custom
+        App\Providers\AuthUserServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class,
 
-   /*
+    ],
+
+    /*
     |--------------------------------------------------------------------------
     | Class Aliases
     |--------------------------------------------------------------------------
@@ -196,21 +212,14 @@ return [
     |
     */
 
-   //  'aliases' => Facade::defaultAliases()->merge([
-   //      // 'ExampleClass' => App\Example\ExampleClass::class,
-   //  ])->toArray(),
-   'aliases' => [
+    /* 'aliases' => Facade::defaultAliases()->merge([
+        // 'ExampleClass' => App\Example\ExampleClass::class,
+    ])->toArray(), */
+    'aliases' => [
       'Auth' => Illuminate\Support\Facades\Auth::class,
-      'Input' => Illuminate\Support\Facades\Request::class,
-      'Excel' => Maatwebsite\Excel\Facades\Excel::class,
       'Route' => Illuminate\Support\Facades\Route::class,
-      'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
-      'Session' => Illuminate\Support\Facades\Session::class,
+      'Input' => Illuminate\Support\Facades\Request::class,
+      // 'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
    ],
-
-   //api
-   'HAN_API_SERVICE_URL' => env('HAN_API_SERVICE_URL'),
-   'HAN_API_SERVICE_TOKEN' => env('HAN_API_SERVICE_TOKEN'),
-   'HAN_API_SERVICE_SECRET' => env('HAN_API_SERVICE_SECRET'),
 
 ];

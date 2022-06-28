@@ -1,6 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,122 +8,62 @@
    <title>@yield('title') - MED O-Doc</title>
    <link rel="icon" href="{{asset('images/search.png')}}" type="image/x-icon">
 
-   <!-- unicons -->
-   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
-   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/solid.css">
-   <script src="https://unicons.iconscout.com/release/v4.0.0/script/monochrome/bundle.js"></script>
-   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
    <!-- css -->
    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
    <link href="{{ asset('css/status.css') }}" rel="stylesheet">
 
    <!-- daisyui -->
-   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.4/dist/full.css" rel="stylesheet" type="text/css" />
+   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.17.0/dist/full.css" rel="stylesheet" type="text/css" />
    <script src="https://cdn.tailwindcss.com"></script>
 
-   <!-- flowbite -->
-   <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" />
-   <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
-
+   <!--  ajax -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-   <!-- toastr -->
-   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-   <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-   <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 </head>
-
+<body class="font-sarabun bg-white min-h-screen max-h-full text-lg text-slate-900">
 @include('fonts/sarabun')
-
-<body class="font-sarabun bg-white min-h-screen max-h-full ">
-   @section('sidebar')
-   <div class="navbar bg-slate-50 sticky top-0 z-50 text-lg">
-      <div class="navbar-start text-lg">
-         <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost lg:hidden">
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-               </svg>
-            </label>
-            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 bg-slate-50">
-               <li class="@if (Route::is('docShow') || Route::is('reg.search')|| Route::is('description.document')) text-teal-500 @else text-slate-600 @endif 
-                  hover:text-teal-500 font-medium">
-                  <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
-               </li>
-               @if (Auth::user()->is_admin == "1")
-               <li tabindex="0">
-                  <a class="justify-between @if (Route::is('permission')||Route::is('permission.create')||Route::is('activitylog')) text-teal-500 @else 
-                  text-slate-600 @endif hover:text-teal-500 font-medium">
-                     จัดการระบบ
-                     <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24">
-                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                     </svg>
-                  </a>
-                  <ul class="p-2 bg-slate-50 shadow-md">
-                     
-                  <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li class="@if (Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a>
-                  </li>
-                  <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('activitylog')}}">การใช้งานระบบ</a>
-                  </li>
-                  </ul>
-               </li>
-               @endif
-            </ul>
-         </div>
-         @if (Auth::user()->is_admin == "1")
-         <a href="{{route('activitylog')}}" class="btn btn-ghost normal-case text-lg text-slate-900">MED O-Doc</a>
-         @else
-         <a href="{{route('docShow')}}" class="btn btn-ghost normal-case text-lg text-slate-900">MED O-Doc</a>
-         @endif
-      </div>
-      <div class="navbar-center hidden lg:flex ">
-         <ul class="menu menu-horizontal p-0">
-            <li class="@if (Route::is('docShow') || Route::is('reg.search')|| Route::is('description.document')) text-teal-500 @else text-slate-600 @endif 
-               hover:text-teal-500 font-medium">
-               <a href="{{route('docShow')}}">ค้นหาเอกสาร</a>
-            </li>
-            @if (Auth::user()->is_admin == "1")
+@section('sidebar')
+   <div class="navbar bg-slate-100 sticky top-0 z-50 text-lg">
+      <div class="navbar-start">
+      <div class="dropdown">
+         <label tabindex="0" class="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+         </label>
+         <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-50 rounded-box w-52">
+            <li><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
             <li tabindex="0">
-               <a class="@if (Route::is('permission')||Route::is('permission.create')||Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
-                  hover:text-teal-500 font-medium">
+               <a class="justify-between">
                   จัดการระบบ
-                  <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                     viewBox="0 0 24 24">
-                     <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                  </svg>
+                  <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
                </a>
-               <ul class="p-2 bg-slate-50 shadow-md">
-                  
-                  <li class="@if (Route::is('permission')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('permission')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                  <li class="@if (Route::is('permission.create')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('permission.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a>
-                  </li>
-                  <li class="@if (Route::is('activitylog')) text-teal-500 @else text-slate-600 @endif 
-                     hover:text-teal-500 font-medium">
-                     <a href="{{route('activitylog')}}">การใช้งานระบบ</a>
-                  </li>
+               <ul class="p-2 bg-slate-100">
+                  <li><a>ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+                  <li><a>เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                  <li><a>ประวัติการใช้งาน</a></li>
                </ul>
             </li>
-            @endif
-            
          </ul>
       </div>
-            
+      <a class="btn btn-ghost normal-case text-xl">Med O-Doc</a>
+      </div>
+      <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal p-0">
+         <li><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
+         <li tabindex="0">
+            <a>
+            จัดการระบบ
+            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+            </a>
+            <ul class="p-2 bg-slate-50">
+            <li><a>ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+            <li><a>เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+            <li><a>ประวัติการใช้งาน</a></li>
+            </ul>
+         </li>
+      </ul>
+      </div>
       <div class="navbar-end text-lg flex flex-col lg:flex-row items-end">
          <span class="lg:mr-2 md:mr-2 text-blue-700">
             <!-- ชื่อเข้าสู่ระบบ -->
@@ -141,25 +80,9 @@
          </form>
       </div>
    </div>
-
-   @show
-
+@show
    <div class="lg:p-6 p-3 max-h-full">
       @yield('content')
    </div>
 </body>
-<!-- search type -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
-   integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
-   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script>
-   $.ajaxSetup({
-      headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-   });
-</script>
 </html>

@@ -9,16 +9,9 @@ class Type extends Model
 {
     use HasFactory;
 
-   public function letterreg()
-   {
-      return $this->belongsTo(Letterreg::class, 'typeid', 'regtype');
-   }
-   public function lettersend()
-   {
-      return $this->belongsTo(Lettersend::class, 'typeid', 'sendtype');
-   }
-   public function letterrec()
-   {
-      return $this->belongsTo(Letterrec::class, 'typeid', 'rectype');
-   }
+    public function doucument()
+    {
+        // type belong to document
+        return $this->belongsTo(Letterreg::class, 'typeid', 'regtype');
+    }
 }
