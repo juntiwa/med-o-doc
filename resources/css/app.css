@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-sarabun {
+   font-family: 'Sarabun', sans-serif;
+}
+
+.font-k2d {
+   font-family: 'K2D', sans-serif;
+}
+
+ul.ui-menu {
+   font-family: 'Sarabun', sans-serif;
+   padding: 10px;
+   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px; */
+   margin-top: 5px;
+   border-radius: 5px;
+   width: auto;
+   min-height: auto;
+   max-height: 50vh;
+   min-width: auto;
+   max-width: auto;
+   overflow-y: auto;
+}
