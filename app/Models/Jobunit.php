@@ -14,4 +14,10 @@ class Jobunit extends Model
         //jobunit belong to document
         return $this->belongsTo(Letterreg::class, 'unitid', 'regfrom');
     }
+
+    public function description()
+    {
+        //jobunit belong to description
+        return $this->belongsTo(Lettersend::class, 'unitid', 'sendtoid');
+    }
 }
