@@ -33,5 +33,5 @@ Route::controller(DocumentController::class)->group(function () {
 });
 
 Route::controller(DescriptionController::class)->group(function () {
-    Route::get('description', 'index')->name('descriptions');
+    Route::get('description/{idTitle}', 'show')->name('descriptions');
 });
