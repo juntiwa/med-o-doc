@@ -198,6 +198,7 @@ return [
       //  custom
         App\Providers\AuthUserServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
+        App\Providers\CheckUserProvider::class,
 
     ],
 
