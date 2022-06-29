@@ -188,10 +188,10 @@
            </div>
            <div class="text-base font-medium text-black">
             @if ($user->status == "Active" )
-                  <p class="table-row__status status--green status text-base">{{$user->status}}</p>
-                  @else
-                  <p class="table-row__status text-base">{{$user->status}}</p>
-                  @endif
+               <p class="table-row__status status--green status text-base">{{$user->status}}</p>
+            @else
+               <p class="table-row__status text-base">{{$user->status}}</p>
+            @endif
            </div>
          </div>
          @empty
