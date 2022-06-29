@@ -41,8 +41,8 @@
                      </svg>
                   </a>
                   <ul class="p-2 bg-slate-100 text-lg">
-                     <li><a>ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                     <li><a>เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                     <li><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+                     <li><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                      <li><a>ประวัติการใช้งาน</a></li>
                   </ul>
                </li>
@@ -61,8 +61,8 @@
                </svg>
                </a>
                <ul class="p-2 bg-slate-50 text-lg">
-               <li><a>ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-               <li><a>เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+               <li><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+               <li><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                <li><a>ประวัติการใช้งาน</a></li>
                </ul>
             </li>

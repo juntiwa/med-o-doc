@@ -69,7 +69,7 @@ class RegisterContrller extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return Redirect::route('docShow');
+        return Redirect::route('documents');
     }
 
     /**
