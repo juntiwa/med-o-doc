@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterContrller;
 use App\Http\Controllers\DescriptionController;
@@ -34,4 +35,12 @@ Route::controller(DocumentController::class)->group(function () {
 
 Route::controller(DescriptionController::class)->group(function () {
     Route::get('description/{idTitle}', 'show')->name('descriptions');
+});
+
+Route::controller(ManageController::class)->group(function () {
+    Route::get('manages', 'index')->name('manages');
+    Route::get('manage-create', 'create')->name('manage.create');
+    Route::post('manage-store', 'store')->name('manage.store');
+    Route::post('show-sapid', 'show')->name('manage.sapid');
+    Route::get('manage-edit', 'edit')->name('manage.edit');
 });
