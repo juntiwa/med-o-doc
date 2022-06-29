@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CheckUserController;
 use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterContrller;
@@ -43,4 +44,8 @@ Route::controller(ManageController::class)->group(function () {
     Route::post('manage-store', 'store')->name('manage.store');
     Route::post('show-sapid', 'show')->name('manage.sapid');
     Route::get('manage-edit', 'edit')->name('manage.edit');
+});
+
+Route::controller(CheckUserController::class)->group(function () {
+    Route::post('check-sapid', 'show')->name('check.sapid.show');
 });
