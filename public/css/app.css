@@ -508,6 +508,39 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.container {
+  width: 100%;
+}
+@media (min-width: 640px) {
+
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+
+  .container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+
+  .container {
+    max-width: 1536px;
+  }
+}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -625,6 +658,9 @@ video {
 .mt-16 {
   margin-top: 4rem;
 }
+.mt-1 {
+  margin-top: 0.25rem;
+}
 .mr-8 {
   margin-right: 2rem;
 }
@@ -666,6 +702,9 @@ video {
 }
 .h-auto {
   height: auto;
+}
+.h-64 {
+  height: 16rem;
 }
 .h-6 {
   height: 1.5rem;
@@ -725,6 +764,9 @@ video {
 .w-5\/12 {
   width: 41.666667%;
 }
+.w-2\/5 {
+  width: 40%;
+}
 .w-52 {
   width: 13rem;
 }
@@ -775,6 +817,9 @@ video {
 }
 .items-center {
   align-items: center;
+}
+.justify-start {
+  justify-content: flex-start;
 }
 .justify-end {
   justify-content: flex-end;
@@ -845,6 +890,9 @@ video {
 }
 .rounded {
   border-radius: 0.25rem;
+}
+.rounded-full {
+  border-radius: 9999px;
 }
 .rounded-l-md {
   border-top-left-radius: 0.375rem;
@@ -921,9 +969,9 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(136 19 55 / var(--tw-bg-opacity));
 }
-.bg-green-400 {
+.bg-green-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 .bg-gray-50 {
   --tw-bg-opacity: 1;
@@ -1081,6 +1129,18 @@ video {
 .pt-8 {
   padding-top: 2rem;
 }
+.pb-7 {
+  padding-bottom: 1.75rem;
+}
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
+.pb-12 {
+  padding-bottom: 3rem;
+}
 .pr-2 {
   padding-right: 0.5rem;
 }
@@ -1115,6 +1175,14 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .font-semibold {
   font-weight: 600;
@@ -1239,6 +1307,14 @@ video {
   --tw-text-opacity: 1;
   color: rgb(74 222 128 / var(--tw-text-opacity));
 }
+.text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity));
+}
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1287,6 +1363,9 @@ video {
 .text-shadow-sm {
   text-shadow: 1px 1px 3px rgb(36 37 47 / 25%);
 }
+.text-shadow-md {
+  text-shadow: 0px 1px 2px rgb(30 29 39 / 19%), 1px 2px 4px rgb(54 64 147 / 18%);
+}
 
 .font-sarabun {
    font-family: 'Sarabun', sans-serif;
@@ -1310,6 +1389,88 @@ ul.ui-menu {
    overflow-y: auto;
 }
 
+.file\:mr-5::-webkit-file-upload-button {
+  margin-right: 1.25rem;
+}
+
+.file\:mr-5::file-selector-button {
+  margin-right: 1.25rem;
+}
+
+.file\:rounded-full::-webkit-file-upload-button {
+  border-radius: 9999px;
+}
+
+.file\:rounded-full::file-selector-button {
+  border-radius: 9999px;
+}
+
+.file\:border-0::-webkit-file-upload-button {
+  border-width: 0px;
+}
+
+.file\:border-0::file-selector-button {
+  border-width: 0px;
+}
+
+.file\:bg-blue-100::-webkit-file-upload-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+}
+
+.file\:bg-blue-100::file-selector-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+}
+
+.file\:py-2::-webkit-file-upload-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.file\:py-2::file-selector-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.file\:px-6::-webkit-file-upload-button {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.file\:px-6::file-selector-button {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.file\:text-sm::-webkit-file-upload-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.file\:text-sm::file-selector-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.file\:font-medium::-webkit-file-upload-button {
+  font-weight: 500;
+}
+
+.file\:font-medium::file-selector-button {
+  font-weight: 500;
+}
+
+.file\:text-blue-700::-webkit-file-upload-button {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+
+.file\:text-blue-700::file-selector-button {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+
 .hover\:bg-teal-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(15 118 110 / var(--tw-bg-opacity));
@@ -1318,6 +1479,11 @@ ul.ui-menu {
 .hover\:bg-rose-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(159 18 57 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-teal-800:hover {
@@ -1350,6 +1516,11 @@ ul.ui-menu {
   color: rgb(225 29 72 / var(--tw-text-opacity));
 }
 
+.hover\:text-red-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -1368,6 +1539,38 @@ ul.ui-menu {
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
+}
+
+.hover\:text-shadow-md:hover {
+  text-shadow: 0px 1px 2px rgb(30 29 39 / 19%), 1px 2px 4px rgb(54 64 147 / 18%);
+}
+
+.hover\:file\:cursor-pointer::-webkit-file-upload-button:hover {
+  cursor: pointer;
+}
+
+.hover\:file\:cursor-pointer::file-selector-button:hover {
+  cursor: pointer;
+}
+
+.hover\:file\:bg-amber-50::-webkit-file-upload-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 251 235 / var(--tw-bg-opacity));
+}
+
+.hover\:file\:bg-amber-50::file-selector-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 251 235 / var(--tw-bg-opacity));
+}
+
+.hover\:file\:text-amber-700::-webkit-file-upload-button:hover {
+  --tw-text-opacity: 1;
+  color: rgb(180 83 9 / var(--tw-text-opacity));
+}
+
+.hover\:file\:text-amber-700::file-selector-button:hover {
+  --tw-text-opacity: 1;
+  color: rgb(180 83 9 / var(--tw-text-opacity));
 }
 
 .focus\:z-10:focus {
