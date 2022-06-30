@@ -43,7 +43,8 @@ Route::controller(ManageController::class)->group(function () {
     Route::get('manage-create', 'create')->name('manage.create');
     Route::post('manage-store', 'store')->name('manage.store');
     Route::post('show-sapid', 'show')->name('manage.sapid');
-    Route::get('manage-edit', 'edit')->name('manage.edit');
+    Route::get('manage-edit/{org_id}', 'edit')->name('manage.edit');
+    Route::post('manage-update/{org_id}', 'update')->name('manage.update');
 });
 
 Route::controller(CheckUserController::class)->group(function () {
