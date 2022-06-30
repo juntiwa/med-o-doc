@@ -222,6 +222,7 @@ return [
       'Excel' => Maatwebsite\Excel\Facades\Excel::class,
       'Input' => Illuminate\Support\Facades\Request::class,
       'Route' => Illuminate\Support\Facades\Route::class,
+      'Session' => Illuminate\Support\Facades\Session::class,
    ],
 
 ];

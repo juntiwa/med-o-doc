@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\LogActivityExport;
+use App\Exports\LogActivitysExport;
 use App\Http\Controllers\Controller;
 use App\Models\LogActivity;
 use Illuminate\Http\Request;
@@ -127,6 +127,6 @@ class HistoryController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return Excel::download(new LogActivityExport, $filename);
+        return Excel::download(new LogActivitysExport, $filename);
     }
 }

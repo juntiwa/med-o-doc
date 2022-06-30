@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterContrller;
 use App\Http\Controllers\DescriptionController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\Imports\MemberContorller;
+use App\Http\Controllers\Imports\MemberImportContorller;
 use Illuminate\Support\Facades\Route;
 
 /* Route::get('/', function () {
@@ -55,4 +57,8 @@ Route::controller(CheckUserController::class)->group(function () {
 Route::controller(HistoryController::class)->group(function () {
     Route::get('activity-log', 'index')->name('logactivitys');
     Route::get('export-activity-log', 'export')->name('logactivity.export');
+});
+
+Route::controller(MemberImportContorller::class)->group(function () {
+    Route::post('member-import', 'import')->name('member.import');
 });

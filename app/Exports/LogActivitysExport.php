@@ -6,7 +6,7 @@ use App\Models\LogActivity;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class LogActivityExport implements FromCollection, WithHeadings
+class LogActivitysExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
