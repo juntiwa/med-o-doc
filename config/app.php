@@ -225,4 +225,9 @@ return [
       'Session' => Illuminate\Support\Facades\Session::class,
    ],
 
+   //api
+   'HAN_API_SERVICE_URL' => env('HAN_API_SERVICE_URL'),
+   'HAN_API_SERVICE_TOKEN' => env('HAN_API_SERVICE_TOKEN'),
+   'HAN_API_SERVICE_SECRET' => env('HAN_API_SERVICE_SECRET'),
+
 ];
