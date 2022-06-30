@@ -20,10 +20,11 @@ $(document).ready(function () {
          $("#unitInner").removeClass('hidden')
          $("#unitOutter").prop('hidden', true)
          let unitinner = $('#idunitInner').val(); 
+         let innerURL = route('document.unitinner');
          // console.log(unitinner)
          $("#unitInner").html('<option value="">เลือกหน่วยงานที่รับ</option>')
          $.ajax({
-            url: "/selectInner",
+            url: innerURL,
             method: "POST",
             data: {
                typeid: typeid,
@@ -39,11 +40,11 @@ $(document).ready(function () {
          $("#unitInner").addClass('hidden')
          $("#unitOutter").prop('hidden', false)
          // console.log('ok')
-         
+         let outterURL = route('document.unitoutter');
          $("#unitOutter").autocomplete({
             source: function (request, response) {
                $.ajax({
-                  url: "/autocompleteOutter",
+                  url: outterURL,
                   type: 'GET',
                   dataType: "json",
                   data: {
