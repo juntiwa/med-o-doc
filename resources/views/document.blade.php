@@ -405,5 +405,64 @@
       integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <script src="{{asset('js/document.js')}}"></script>
-
+   <script>
+      $(document).ready(function () {
+            // type
+         $("#type").change(function () {
+            let typeid = parseInt($(this).val())
+            // console.log(typeid)
+            
+            if (typeid === 0) {
+               // console.log(typeid)
+               $("#unitInner").removeClass('hidden')
+               $("#unitOutter").prop('hidden', true)
+               let unitinner = $('#idunitInner').val(); 
+               let innerURL = "{{route('document.unitinner')}}"
+               // console.log(unitinner)
+               $("#unitInner").html('<option value="">เลือกหน่วยงานที่รับ</option>')
+               $.ajax({
+                  url: innerURL,
+                  method: "POST",
+                  data: {
+                     typeid: typeid,
+                     unitinner: unitinner,
+                  },
+                  success: function (result) {
+                     $('#unitInner').html(result)
+                     // console.log(unitinner)
+                  }
+               })
+               
+            } else if(typeid === 3){
+               $("#unitInner").addClass('hidden')
+               $("#unitOutter").prop('hidden', false)
+               // console.log('ok')
+               let outterURL = "{{route('document.unitoutter')}}";
+               $("#unitOutter").autocomplete({
+                  source: function (request, response) {
+                     $.ajax({
+                        url: outterURL,
+                        type: 'GET',
+                        dataType: "json",
+                        data: {
+                           search: request.term
+                        },
+                        success: function (data) {
+                           response(data);
+                        }
+                     });
+                  },
+                  select: function (event, ui) {
+                     $('#unitOutter').val(ui.item.label);
+                     $('#idunitOutter').val(ui.item.unitid);
+                     // console.log(ui.item);
+                     return false;
+                  }
+               });
+            } else {
+               
+            }
+         })
+      })
+   </script>
 @endsection
