@@ -14,6 +14,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class MemberImportContorller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
     public function import(Request $request)
     {
         $request->validate([

@@ -11,15 +11,15 @@
 
 <body class=" bg-slate-200">
    <div class="container mx-auto flex flex-col justify-center items-center h-screen">
-      <p class="text-6xl text-blue-800 font-bold font-k2d pb-7 text-shadow-md">419</p>
-      <p class="text-4xl text-gray-800 font-k2d pb-6">Page Expired</p>
-      <p class="text-xl text-center text-gray-700 font-sarabun w-2/5 leading-loose pb-3">ขออภัยค่ะหมดเวลาการเข้าใช้งาน กรุณาเข้าสู่ระบบอีกครั้ง
+      <p class="text-6xl text-blue-800 font-bold font-k2d pb-7 text-shadow-md">400</p>
+      <p class="text-4xl text-gray-800 font-k2d pb-6">Bad Request</p>
+      <p class="text-xl text-center text-gray-700 font-sarabun w-2/5 leading-loose pb-3">ขออภัยค่ะ กรุณาเข้าสู่ระบบอีกครั้ง
          <!-- <span class="font-bold text-red-500">ติดต่อหน่วยเวชสารสนเทศ ภาควิชาอายุรศาสตร์ </span> -->
       </p>
       <a href="{{ route('login') }}" class="pb-12 font-sarabun text-xl text-blue-800 
       hover:text-red-500 hover:text-shadow-md">เข้าสู่ระบบใหม่อีกครั้ง</a>
 
-      <img class=" h-64" src="{{asset('images/419.png')}}" alt="">
+      <img class=" h-64" src="{{asset('images/400.png')}}" alt="">
    </div>
 
 </body>
