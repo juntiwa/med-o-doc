@@ -54,4 +54,5 @@ Route::controller(CheckUserController::class)->group(function () {
 
 Route::controller(HistoryController::class)->group(function () {
     Route::get('activity-log', 'index')->name('logactivitys');
+    Route::get('export-activity-log', 'export')->name('logactivity.export');
 });

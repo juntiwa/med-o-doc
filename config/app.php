@@ -197,8 +197,9 @@ return [
 
       //  custom
         App\Providers\AuthUserServiceProvider::class,
-        Yoeunes\Toastr\ToastrServiceProvider::class,
         App\Providers\CheckUserProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class,
 
     ],
 
@@ -218,9 +219,9 @@ return [
     ])->toArray(), */
     'aliases' => [
       'Auth' => Illuminate\Support\Facades\Auth::class,
-      'Route' => Illuminate\Support\Facades\Route::class,
+      'Excel' => Maatwebsite\Excel\Facades\Excel::class,
       'Input' => Illuminate\Support\Facades\Request::class,
-      // 'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+      'Route' => Illuminate\Support\Facades\Route::class,
    ],
 
 ];

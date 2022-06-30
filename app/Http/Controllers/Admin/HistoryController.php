@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\LogActivityExport;
 use App\Http\Controllers\Controller;
 use App\Models\LogActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HistoryController extends Controller
 {
@@ -102,5 +105,28 @@ class HistoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function export(Request $request)
+    {
+        $time_now = Carbon::now()->format('Y_m_d_H:i:s');
+        $filename = 'Log_MED_O_Doc_'.$time_now.'.xlsx';
+
+        $log_activity = new LogActivity;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'Export file activity log';
+        $log_activity->type = 'export file';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        return Excel::download(new LogActivityExport, $filename);
     }
 }
