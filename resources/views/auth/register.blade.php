@@ -14,7 +14,7 @@
 @include('fonts/sarabun')
 
 <div class="font-sarabun flex justify-center items-center h-screen p-4 bg-white sm:p-6 lg:p-8">
-   <form class="space-y-6  w-5/12" action="{{ route('register.store') }}" method="post">
+   <form class="space-y-6 w-5/12" action="{{ route('register.store') }}" method="post">
       @csrf
        <h5 class="text-xl font-medium text-gray-900">ระบุข้อมูลเพื่อเข้าใช้งานระบบ</h5>
        <div class="grid grid-cols-2 gap-4">

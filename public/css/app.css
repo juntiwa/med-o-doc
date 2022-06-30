@@ -567,6 +567,10 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
+.mx-40 {
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
