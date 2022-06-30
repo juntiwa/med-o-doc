@@ -13,9 +13,9 @@
 @section('content')
 <form action="{{route('manage.store')}}" method="post">
    @csrf
-   <section id="inputform" class="grid grid-cols-1 lg:grid-cols-2 gap4">
-      <section id="user1" class="grid grid-cols-1 lg:grid-cols-2 gap4">
-          <div class="form-control w-full max-w-xs">
+   <section id="inputform" class="flex flex-col w-full lg:grid lg:grid-cols-2 gap4">
+      <section id="user1" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
+          <div class="form-control w-full">
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>
             </label>
@@ -45,7 +45,7 @@
           </div>
       </section>
    
-      <section id="user2" class="grid grid-cols-1 lg:grid-cols-2 gap4 hidden">
+      <section id="user2" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
          <div class="form-control w-full max-w-xs">
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
@@ -76,7 +76,7 @@
           </div>
       </section>
    
-      <section id="user3" class="grid grid-cols-1 lg:grid-cols-2 gap4 hidden">
+      <section id="user3" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
          <div class="form-control w-full max-w-xs">
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
@@ -107,7 +107,7 @@
           </div>
       </section>
    
-      <section id="user4" class="grid grid-cols-1 lg:grid-cols-2 gap4 hidden">
+      <section id="user4" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
          <div class="form-control w-full max-w-xs">
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
@@ -138,7 +138,7 @@
           </div>
       </section>
    
-      <section id="user5" class="grid grid-cols-1 lg:grid-cols-2 gap4 hidden">
+      <section id="user5" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
          <div class="form-control w-full max-w-xs">
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
@@ -169,7 +169,7 @@
           </div>
       </section>
    
-      <section id="user6" class="grid grid-cols-1 lg:grid-cols-2 gap4 hidden">
+      <section id="user6" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
          <div class="form-control w-full max-w-xs">
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
@@ -200,7 +200,7 @@
           </div>
       </section>
    
-      <section id="buttonSubmit" class="flex w-full justify-end items-end col-span-2">
+      <section id="buttonSubmit" class="flex md:col-span-2 lg:col-span-2 justify-end mt-2 mr-8 md:mr-16 lg:mr-14 ">
          <button type="submit" class="text-white bg-sky-600 hover:bg-sky-700 py-2 px-3 rounded-md">บันทึกข้อมูล</button>
       </section>
    </section>

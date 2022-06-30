@@ -4,50 +4,56 @@ $.ajaxSetup({
    }
 });
 $(document).ready(function () {
+   $('#user2').hide();
+   $('#user3').hide();
+   $('#user4').hide();
+   $('#user5').hide();
+   $('#user6').hide();
+
    // remove class hidden on change
    $('#permission1').change(function () {
       let permission = $(this).val();
       console.log(permission);
       if (permission !== '') {
-         $('#user2').removeClass('hidden');
+         $('#user2').show();
       } else {
-         $('#user2').addClass('hidden');
+         $('#user2').hide();
       }
    });
    $('#permission2').change(function () {
       let permission = $(this).val();
       console.log(permission);
       if (permission !== '') {
-         $('#user3').removeClass('hidden');
+         $('#user3').show();
       } else {
-         $('#user3').addClass('hidden');
+         $('#user3').hide();
       }
    });
    $('#permission3').change(function () {
       let permission = $(this).val();
       console.log(permission);
       if (permission !== '') {
-         $('#user4').removeClass('hidden');
+         $('#user4').show();
       } else {
-         $('#user4').addClass('hidden');
+         $('#user4').hide();
       }
    });
    $('#permission4').change(function () {
       let permission = $(this).val();
       console.log(permission);
       if (permission !== '') {
-         $('#user5').removeClass('hidden');
+         $('#user5').show();
       } else {
-         $('#user5').addClass('hidden');
+         $('#user5').hide();
       }
    });
    $('#permission5').change(function () {
       let permission = $(this).val();
       console.log(permission);
       if (permission !== '') {
-         $('#user6').removeClass('hidden');
+         $('#user6').show();
       } else {
-         $('#user6').addClass('hidden');
+         $('#user6').hide();
       }
    });
    
@@ -93,9 +99,13 @@ $(document).ready(function () {
                sapid: sapid
             },
             success: function (result) {
-               // $('#idfrom').val(ui.item.unitid);
-               $('#username2').val(result.AccountName);
-               // console.log(result);
+               if (result.Status == 'Active') {
+                  $('#username2').val(result.AccountName);
+                  $('#username2').addClass('disabled:text-teal-500');
+               } else {
+                  $('#username2').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username2').addClass('disabled:text-red-500');
+               }
             }
          })
       } else {
@@ -117,9 +127,13 @@ $(document).ready(function () {
                sapid: sapid
             },
             success: function (result) {
-               // $('#idfrom').val(ui.item.unitid);
-               $('#username3').val(result.AccountName);
-               // console.log(result);
+               if (result.Status == 'Active') {
+                  $('#username3').val(result.AccountName);
+                  $('#username3').addClass('disabled:text-teal-500');
+               } else {
+                  $('#username3').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username3').addClass('disabled:text-red-500');
+               }
             }
          })
       } else {
@@ -141,9 +155,13 @@ $(document).ready(function () {
                sapid: sapid
             },
             success: function (result) {
-               // $('#idfrom').val(ui.item.unitid);
-               $('#username4').val(result.AccountName);
-               // console.log(result);
+               if (result.Status == 'Active') {
+                  $('#username4').val(result.AccountName);
+                  $('#username4').addClass('disabled:text-teal-500');
+               } else {
+                  $('#username4').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username4').addClass('disabled:text-red-500');
+               }
             }
          })
       } else {
@@ -165,9 +183,13 @@ $(document).ready(function () {
                sapid: sapid
             },
             success: function (result) {
-               // $('#idfrom').val(ui.item.unitid);
-               $('#username5').val(result.AccountName);
-               // console.log(result);
+               if (result.Status == 'Active') {
+                  $('#username5').val(result.AccountName);
+                  $('#username5').addClass('disabled:text-teal-500');
+               } else {
+                  $('#username5').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username5').addClass('disabled:text-red-500');
+               }
             }
          })
       } else {
@@ -189,9 +211,13 @@ $(document).ready(function () {
                sapid: sapid
             },
             success: function (result) {
-               // $('#idfrom').val(ui.item.unitid);
-               $('#username6').val(result.AccountName);
-               // console.log(result);
+               if (result.Status == 'Active') {
+                  $('#username6').val(result.AccountName);
+                  $('#username6').addClass('disabled:text-teal-500');
+               } else {
+                  $('#username6').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username6').addClass('disabled:text-red-500');
+               }
             }
          })
       } else {
