@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CheckUserController;
+use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterContrller;
@@ -49,4 +50,8 @@ Route::controller(ManageController::class)->group(function () {
 
 Route::controller(CheckUserController::class)->group(function () {
     Route::post('check-sapid', 'show')->name('check.sapid.show');
+});
+
+Route::controller(HistoryController::class)->group(function () {
+    Route::get('activity-log', 'index')->name('logactivitys');
 });

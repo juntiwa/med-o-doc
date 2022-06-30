@@ -62,7 +62,11 @@
                      {{$user->username}}
                   </td>
                   <td class="p-3 text-base text-gray-700 whitespace-nowrap">
-                     {{$user->full_name}}
+                     @if ($user->full_name == null)
+                         <p class="text-rose-600">รอ update ข้อมูล</p>
+                     @else
+                        {{$user->full_name}}
+                     @endif
                   </td>
                   <td class="p-3 text-base text-gray-700 whitespace-nowrap">
                      {{$user->office_name}}
@@ -116,7 +120,11 @@
                   </td>
                </tr>
             @empty
-               <p class="text-rose-600 text-2xl text-shadow-sm font-semibold flex justify-center pt-5">ไม่พบข้อมูล</p>
+            <tr class="col-span-6 text-shadow-sm font-semibold flex justify-center py-5">
+               <td >
+                  <p class="text-rose-600 text-2xl ">ไม่พบข้อมูล</p>
+               </td>
+            </tr>
             @endforelse
            </tbody>
          </table>
@@ -182,9 +190,27 @@
              
            </div>
            <div class="text-base text-gray-700 leading-loose">
-            <p> ชื่อผู้ใช้งาน : {{$user->username}}</p>
-            <p> ชื่อ สกุล : {{$user->full_name}}</p>
-            <p> หน่วยงาน : {{$user->office_name}}</p>
+            <p> ชื่อผู้ใช้งาน :  
+               @if ($user->username == null)
+                  <span class="text-rose-600">รอ update ข้อมูล</span>
+               @else
+                  {{$user->username}}
+               @endif
+            </p>
+            <p> ชื่อ สกุล : 
+               @if ($user->full_name == null)
+                  <span class="text-rose-600">รอ update ข้อมูล</span>
+               @else
+                  {{$user->full_name}}
+               @endif
+            </p>
+            <p> หน่วยงาน : 
+               @if ($user->office_name == null)
+                  <span class="text-rose-600">รอ update ข้อมูล</span>
+               @else
+                  {{$user->office_name}}
+               @endif
+            </p>
            </div>
            <div class="text-base font-medium text-black">
             @if ($user->status == "Active" )
@@ -195,8 +221,8 @@
            </div>
          </div>
          @empty
-         <p class="text-rose-600 text-2xl text-shadow-sm font-semibold flex justify-center pt-5">ไม่พบข้อมูล</p>
-      @endforelse
+            <p class="text-rose-600 text-2xl text-shadow-sm font-semibold flex justify-center pt-5">ไม่พบข้อมูล</p>
+         @endforelse
        </div>
    </section>
 
