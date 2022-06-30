@@ -32,8 +32,8 @@
                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-50 rounded-box w-52 ">
-               <li><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
-               <li tabindex="0">
+               <li class="@if (Route::is('documents')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
+               <li class="@if (Route::is('manages') || Route::is('manage.create') || Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 " tabindex="0">
                   <a class="justify-between">
                      จัดการระบบ
                      <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -41,9 +41,9 @@
                      </svg>
                   </a>
                   <ul class="p-2 bg-slate-100 text-lg">
-                     <li><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                     <li><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
-                     <li><a href="{{route('logactivitys')}}">ประวัติการใช้งาน</a></li>
+                     <li class="@if (Route::is('manages')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+                     <li class="@if (Route::is('manage.create')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+                     <li class="@if (Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('logactivitys')}}">ประวัติการใช้งาน</a></li>
                   </ul>
                </li>
             </ul>
@@ -52,8 +52,8 @@
       </div>
       <div class="navbar-center hidden lg:flex">
          <ul class="menu menu-horizontal p-0">
-            <li><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
-            <li tabindex="0">
+            <li class="@if (Route::is('documents')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
+            <li class="@if (Route::is('manages') || Route::is('manage.create') || Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 " tabindex="0">
                <a>
                จัดการระบบ
                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -61,9 +61,9 @@
                </svg>
                </a>
                <ul class="p-2 bg-slate-50 text-lg">
-               <li><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-               <li><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
-               <li><a href="{{route('logactivitys')}}">ประวัติการใช้งาน</a></li>
+               <li class="@if (Route::is('manages')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
+               <li class="@if (Route::is('manage.create')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
+               <li class="@if (Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('logactivitys')}}">ประวัติการใช้งาน</a></li>
                </ul>
             </li>
          </ul>
