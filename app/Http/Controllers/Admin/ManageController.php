@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\LogActivity;
 use App\Models\Member;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -182,9 +183,24 @@ class ManageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $org_id)
     {
-        //
+        $user = User::where('org_id', $org_id)->first();
+        $units = Unit::orderby('unitname', 'asc')->get();
+
+        $log_activity = new LogActivity;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'เข้าสู่หน้าแก้ไขข้อมูลของรหัสพนักงาน ' .$org_id;
+        $log_activity->type = 'view';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        return view('admin.manage.editUser', ['user'=>$user,'units'=>$units]);
     }
 
     /**
@@ -194,9 +210,38 @@ class ManageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $org_id)
     {
-        //
+        $member = Member::where('org_id', $org_id)->first();
+        $member->org_id = $request->org_id;
+        $member->is_admin = $request->is_admin;
+        $member->status = $request->status;
+        $member->save();
+        
+        $user = User::where('org_id', $org_id)->first();
+        $unit = Unit::where('unitid', $request->office_name)->first();
+        // Getting values from the blade template form
+        $user->org_id = $request->org_id;
+        $user->office_name = $unit->unitname;
+        $user->is_admin = $request->is_admin;
+        $user->status = $request->status;
+        $user->save();
+
+        Log::info(Auth::user()->full_name.' แก้ไขข้อมูลผู้ใช้งานรหัส '.$org_id);
+
+        $log_activity = new LogActivity;
+        $log_activity->username = Auth::user()->username;
+        $log_activity->full_name = Auth::user()->full_name;
+        $log_activity->office_name = Auth::user()->office_name;
+        $log_activity->action = 'แก้ไขข้อมูลของรหัสพนักงาน ' .$org_id;
+        $log_activity->type = 'update';
+        $log_activity->url = URL::current();
+        $log_activity->method = $request->method();
+        $log_activity->user_agent = $request->header('user-agent');
+        $log_activity->date_time = date('d-m-Y H:i:s');
+        $log_activity->save();
+
+        return Redirect::route('manages');
     }
 
     /**
