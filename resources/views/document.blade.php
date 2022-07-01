@@ -407,6 +407,8 @@
    <script type="text/javascript">
       let innerURL = "{{route('document.unitinner')}}";
       let outterURL = "{{route('document.unitoutter')}}";
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
    </script>
    <script src="{{asset('js/document.js')}}"></script>
   

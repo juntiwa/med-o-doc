@@ -31,6 +31,7 @@ $(document).ready(function () {
             data: {
                typeid: typeid,
                unitinner: unitinner,
+               _token: CSRF_TOKEN
             },
             success: function (result) {
                $('#unitInner').html(result)
