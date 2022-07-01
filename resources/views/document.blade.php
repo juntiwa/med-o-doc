@@ -45,13 +45,13 @@
                <label class="label">
                   <span class="label-text text-slate-900 text-lg font-medium">หน่วยงานที่ส่ง</span>
                </label>
-               <select name="unitInner" id="unitInner" class="select select-bordered font-medium bg-white border-slate-400 text-lg w-full" >
+               <select name="unitInner" id="unitInner" class="select select-bordered font-medium bg-white border-slate-400 text-lg w-full disabled:bg-gray-300" disabled>
                   <option value="" selected>หน่วยงานที่ส่ง</option>
                </select>
                <input type="text" name="idunitInner" id="idunitInner" value="{{old('unitInner')}}" hidden>
                
                <input type="text" name="unitOutter" id="unitOutter" placeholder="ระบุหน่วยงานที่ต้องการ" value="{{old('unitOutter')}}"
-               class="input input-bordered w-full bg-white border-slate-400 text-lg" hidden/>
+               class="input input-bordered w-full bg-white border-slate-400 text-lg disabled:bg-gray-300" disabled hidden/>
                <input type="text" name="idunitOutter" id="idunitOutter" value="{{old('idunitOutter')}}" hidden>       
             </div>
       
@@ -72,19 +72,19 @@
                   </label>
                   <div class="grid lg:grid-cols-12 grid-cols-5 gap-4">
                      <select name="startMonth" id="startMonth" class="select select-bordered bg-white border-slate-400 col-span-2 text-lg font-medium">
-                     <option value="" selected>เดือน</option>
-                     @foreach ($monthsSelectionForm as $month)
-                           <option value="{{$month->id}}" {{ (old("startMonth") == $month->id ? "selected": "") }}> {{$month->name_th}} </option>
-                     @endforeach
-                     </select>
+                        <option value="" selected>เดือน</option>
+                           @foreach ($monthsSelectionForm as $month)
+                                 <option value="{{$month->id}}" {{ (old("startMonth") == $month->id ? "selected": "") }}> {{$month->name_th}} </option>
+                           @endforeach
+                        </select>
                      <select name="startYear" id="startYear" class="select select-bordered bg-white border-slate-400 col-span-2 text-lg font-medium">
-                     <option value="" selected>ปี</option>
-                     @foreach($yearsSelectionForm as $resultyear)
+                        <option value="" selected>ปี</option>
+                        @foreach($yearsSelectionForm as $resultyear)
                            @if($resultyear->regyear == "0000")
                            @else
-                           <option value="{{$resultyear->regyear}}" {{ (old("startYear") == $resultyear->regyear ? "selected": "") }}> {{ $resultyear->regyear + 543 }} </option>
+                              <option value="{{$resultyear->regyear}}" {{ (old("startYear") == $resultyear->regyear ? "selected": "") }}> {{ $resultyear->regyear + 543 }} </option>
                            @endif
-                     @endforeach
+                        @endforeach
                      </select>
                      <span class="flex justify-center items-center">ถึง</span>
                      <select name="endMonth" id="endMonth" class="select select-error bg-white col-span-2 text-lg font-medium disabled:bg-gray-300" disabled>
@@ -404,65 +404,10 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
       integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <script src="{{asset('js/document.js')}}"></script>
-   <script>
-      $(document).ready(function () {
-            // type
-         $("#type").change(function () {
-            let typeid = parseInt($(this).val())
-            // console.log(typeid)
-            
-            if (typeid === 0) {
-               // console.log(typeid)
-               $("#unitInner").removeClass('hidden')
-               $("#unitOutter").prop('hidden', true)
-               let unitinner = $('#idunitInner').val(); 
-               let innerURL = "{{route('document.unitinner')}}"
-               // console.log(unitinner)
-               $("#unitInner").html('<option value="">เลือกหน่วยงานที่รับ</option>')
-               $.ajax({
-                  url: innerURL,
-                  method: "POST",
-                  data: {
-                     typeid: typeid,
-                     unitinner: unitinner,
-                  },
-                  success: function (result) {
-                     $('#unitInner').html(result)
-                     // console.log(unitinner)
-                  }
-               })
-               
-            } else if(typeid === 3){
-               $("#unitInner").addClass('hidden')
-               $("#unitOutter").prop('hidden', false)
-               // console.log('ok')
-               let outterURL = "{{route('document.unitoutter')}}";
-               $("#unitOutter").autocomplete({
-                  source: function (request, response) {
-                     $.ajax({
-                        url: outterURL,
-                        type: 'GET',
-                        dataType: "json",
-                        data: {
-                           search: request.term
-                        },
-                        success: function (data) {
-                           response(data);
-                        }
-                     });
-                  },
-                  select: function (event, ui) {
-                     $('#unitOutter').val(ui.item.label);
-                     $('#idunitOutter').val(ui.item.unitid);
-                     // console.log(ui.item);
-                     return false;
-                  }
-               });
-            } else {
-               
-            }
-         })
-      })
+   <script type="text/javascript">
+      let innerURL = "{{route('document.unitinner')}}";
+      let outterURL = "{{route('document.unitoutter')}}";
    </script>
+   <script src="{{asset('js/document.js')}}"></script>
+  
 @endsection
