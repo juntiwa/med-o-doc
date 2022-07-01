@@ -88,5 +88,12 @@
    <div class="lg:p-6 p-3 max-h-full">
       @yield('content')
    </div>
+   <script>
+      $.ajaxSetup({
+         headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+      });
+   </script>
 </body>
 </html>

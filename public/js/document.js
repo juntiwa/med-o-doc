@@ -10,7 +10,70 @@ $(document).ready(function () {
       $("#inputSearch").slideToggle("slow")
    })
 
-   
+    // type
+    $("#type").change(function () {
+      let typeid = parseInt($(this).val())
+      // console.log(typeid)
+      
+      if (typeid === 0) {
+         // console.log(typeid)
+         $("#unitInner").removeClass('hidden')
+         $("#unitOutter").prop('hidden', true)
+         $("#unitInner").prop('disabled', false)
+         $("#unitOutter").val('')
+         $("#idunitOutter").val('')
+         let unitinner = $('#idunitInner').val(); 
+         // console.log(unitinner)
+         $("#unitInner").html('<option value="">เลือกหน่วยงานที่รับ</option>')
+         $.ajax({
+            url: innerURL,
+            method: "POST",
+            data: {
+               typeid: typeid,
+               unitinner: unitinner,
+            },
+            success: function (result) {
+               $('#unitInner').html(result)
+               // console.log(unitinner)
+            }
+         })
+         
+      } else if(typeid === 3){
+         $("#unitInner").addClass('hidden')
+         $("#unitOutter").prop('hidden', false)
+         $("#unitOutter").prop('disabled', false)
+         $("#unitInner").val('')
+         // console.log('ok')
+         $("#unitOutter").autocomplete({
+            source: function (request, response) {
+               $.ajax({
+                  url: outterURL,
+                  type: 'GET',
+                  dataType: "json",
+                  data: {
+                     search: request.term
+                  },
+                  success: function (data) {
+                     response(data);
+                  }
+               });
+            },
+            select: function (event, ui) {
+               $('#unitOutter').val(ui.item.label);
+               $('#idunitOutter').val(ui.item.unitid);
+               // console.log(ui.item);
+               return false;
+            }
+         });
+      } else {
+         $("#unitInner").prop('disabled', true)
+         $("#unitOutter").prop('disabled', true)
+         $("#unitOutter").val('')
+         $("#idunitOutter").val('')
+         $("#unitInner").val('')
+
+      }
+   })
 
    // start month
    $("#startMonth").change(function () {
