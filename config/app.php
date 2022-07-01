@@ -199,8 +199,8 @@ return [
         App\Providers\AuthUserServiceProvider::class,
         App\Providers\CheckUserProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        MarvinLabs\DiscordLogger\ServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
-
     ],
 
     /*
