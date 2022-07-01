@@ -108,8 +108,8 @@ class ManageController extends Controller
             }
             Member::insert($data);
             User::insert($data);
-            Log::info(Auth::user()->full_name.' เพิ่มสิทธิ์ผู้ใช้งาน '.$logdata);
-
+            Log::critical(Auth::user()->full_name.' add permission user '.$logdata);
+            toastr()->success('เพิ่มผู้ใช้งานสำเร็จ', 'แจ้งเตือน');
             $log_activity = new LogActivity;
             $log_activity->username = Auth::user()->username;
             $log_activity->full_name = Auth::user()->full_name;
@@ -227,8 +227,8 @@ class ManageController extends Controller
         $user->status = $request->status;
         $user->save();
 
-        Log::info(Auth::user()->full_name.' แก้ไขข้อมูลผู้ใช้งานรหัส '.$org_id);
-
+        Log::critical(Auth::user()->full_name.' edit user SAPID : '.$org_id);
+        toastr()->info('แก้ไขข้อมูลผู้ใช้งานรหัส '.$org_id.' เสร็จแล้ว', 'ผลการแก้ไข');
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;

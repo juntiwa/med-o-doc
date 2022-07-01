@@ -8,6 +8,7 @@ use App\Models\LogActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -114,7 +115,8 @@ class HistoryController extends Controller
     {
         $time_now = Carbon::now()->format('Y_m_d_H:i:s');
         $filename = 'Log_MED_O_Doc_'.$time_now.'.xlsx';
-
+        Log::critical(Auth::user()->full_name.' Export file '.$filename);
+        toastr()->info('Export file '.$filename.' เสร็จแล้ว', 'ผลการร้องขอ');
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;

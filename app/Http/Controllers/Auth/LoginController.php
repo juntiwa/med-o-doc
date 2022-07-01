@@ -27,15 +27,13 @@ class LoginController extends Controller
         $checkRecordMember = Member::count();
         if ($checkRecordMember != 0) {
             if (Auth::check()) {
-                toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
-
+                toastr()->info('เข้าสู่ระบบอยู่แล้ว', 'การเข้าสู่ระบบ');
                 return view('document');
             } else {
                 return view('auth.login');
             }
         } else {
             $units = Unit::orderby('unitname', 'asc')->get();
-
             return view('auth.startapp', ['units'=>$units]);
         }
     }
@@ -62,7 +60,7 @@ class LoginController extends Controller
             $full_name = Auth::user()->full_name;
             if ($checkRegisterUser->username == null) {
                 $units = Unit::orderBy('unitname', 'asc')->get();
-
+                toastr()->info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'ลงทะเบียนระบบ');
                 return view('auth.register', ['sirirajUser'=>$sirirajUser, 'units'=>$units]);
             } else {
                 if ($checkRegisterUser->username != $sirirajUser['login'] || $checkRegisterUser->full_name != $sirirajUser['full_name']) {

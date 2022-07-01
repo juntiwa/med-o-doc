@@ -138,6 +138,7 @@ class DocumentController extends Controller
         }
         $resultCount = $resultDocument->count();
         $resultDocument = $resultDocument->paginate(50);
+        toastr()->info('ค้นหาสำเร็จ ผลลัพท์ข้อมูล '.$resultCount.' เรื่อง', 'Import');
 
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
@@ -221,7 +222,7 @@ class DocumentController extends Controller
         $log_activity->save();
 
         $full_name = Auth::user()->full_name;
-        Log::info($full_name . ' เปิดไฟล์เอกสาร รหัส ' . $regdoc . ' ชื่อไฟล์ ' . $filename);
+        //   Log::info($full_name . ' เปิดไฟล์เอกสาร รหัส ' . $regdoc . ' ชื่อไฟล์ ' . $filename);
 
         if (Storage::exists($path)) {
             return Storage::response($path);
@@ -250,7 +251,7 @@ class DocumentController extends Controller
         $log_activity->save();
 
         $full_name = Auth::user()->full_name;
-        Log::info($full_name . 'เปิดไฟล์เอกสาร ' . $regdoc . ' ' . $filename);
+        //   Log::info($full_name . 'เปิดไฟล์เอกสาร ' . $regdoc . ' ' . $filename);
         if (Storage::exists($path)) {
             return Storage::response($path);
         } else {

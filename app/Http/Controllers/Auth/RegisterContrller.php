@@ -56,7 +56,6 @@ class RegisterContrller extends Controller
         $users->office_name = $unit->unitname;
         $users->save();
 
-        Log::info($full_name . ' register success');
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
@@ -69,6 +68,8 @@ class RegisterContrller extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
+        toastr()->success('ลงทะเบียนใช้งานสำเร็จ', 'ลงทะเบียน');
+        Log::critical($full_name . ' register success');
         return Redirect::route('documents');
     }
 
