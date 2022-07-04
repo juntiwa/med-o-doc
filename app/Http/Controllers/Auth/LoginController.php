@@ -28,9 +28,9 @@ class LoginController extends Controller
         $checkRecordMember = Member::count();
         if ($checkRecordMember != 0) {
             if (Auth::check()) {
-                toastr()->info('เข้าสู่ระบบอยู่แล้ว', 'การเข้าสู่ระบบ');
+                //  toastr()->info('เข้าสู่ระบบอยู่แล้ว', 'การเข้าสู่ระบบ');
                 Toastr::info('เข้าสู่ระบบอยู่แล้ว', 'Success!!');
-                return Redirect::route('document');
+                return Redirect::route('documents');
             } else {
                 return view('auth.login');
             }
@@ -46,7 +46,7 @@ class LoginController extends Controller
         if ($sirirajUser['reply_code'] != 0) {
             $errors = ['message' => $sirirajUser['reply_text']];
             Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
-            toastr()->error('ตรวจสอบข้อมูล username หรือ password', 'แจ้งเตือน');
+            // toastr()->error('ตรวจสอบข้อมูล username หรือ password', 'แจ้งเตือน');
             Toastr::error('ตรวจสอบข้อมูล username หรือ password', 'Success!!');
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
