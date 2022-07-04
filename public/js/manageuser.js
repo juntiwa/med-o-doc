@@ -16,10 +16,11 @@ function sap_click(clicked) {
    console.log(clicked);
    // console.log(sap_show);
    $.ajax({  
-      url: "/show-sapid",
+      url: sapid,
       type: 'post',
       data: {
-         sapid: clicked
+         sapid: clicked,
+         _token: CSRF_TOKEN
       },
       success: function (result) {
          console.log(result);
