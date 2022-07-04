@@ -232,6 +232,10 @@
       </section>
    </section>
 </form>
+<script type="text/javascript">
+   let sapid = "{{route('manage.sapid')}}";
+   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
+</script>
 <script src="{{asset('js/adduser.js')}}"></script>
 @endsection
