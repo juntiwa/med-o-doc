@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
 <section id="formEdit">
    <form class="space-y-6 mx-40" action="{{ route('manage.update',$user->org_id) }}" method="post">
       @csrf

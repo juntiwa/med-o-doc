@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
 @include('fonts/sarabun')
 <div class="font-sarabun flex justify-center items-center h-screen p-4 bg-white sm:p-6 lg:p-8">
    <form class="space-y-6  w-5/12" action="{{ route('startapp.store') }}" method="post">

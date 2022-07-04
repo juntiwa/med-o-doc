@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
    <section id="header" class="mb-4 leading-loose">
       <p>
          หัวเรื่อง : <span class="text-blue-600"> {{$registerFound->regtitle}}</span>

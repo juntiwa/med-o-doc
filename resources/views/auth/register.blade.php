@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
 @include('fonts/sarabun')
 
 <div class="font-sarabun flex justify-center items-center h-screen p-4 bg-white sm:p-6 lg:p-8">

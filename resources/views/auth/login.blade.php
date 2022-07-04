@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
 <!-- Section 1 -->
 <section class="flex justify-center items-center w-full h-screen px-8 py-16 bg-gray-100 xl:px-8">
    <div class="max-w-6xl mx-auto">

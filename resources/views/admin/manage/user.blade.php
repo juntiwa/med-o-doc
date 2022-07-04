@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
    <section id="button" class="flex items-end justify-end w-full">
       <a href="{{route('manage.create')}}" role="button" class="flex items-end justify-end w-fit px-3 py-2 rounded-md bg-blue-900 hover:bg-blue-800 text-white">
          <svg class="add_member" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
