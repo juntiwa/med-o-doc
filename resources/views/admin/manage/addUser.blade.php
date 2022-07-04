@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
 <section id="importForm">
    <form action="{{ route('member.import') }}" method="POST" enctype="multipart/form-data">
       @csrf
@@ -233,7 +234,7 @@
    </section>
 </form>
 <script type="text/javascript">
-   let sapid = "{{route('manage.sapid')}}";
+   let sapidroute = "{{route('manage.sapid')}}";
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 </script>

@@ -11,6 +11,7 @@
 @endsection
  
 @section('content')
+{!! Toastr::message() !!}
 <section id="button" class="flex items-end justify-end w-full">
    <a href="{{route('logactivity.export')}}" role="button" class="flex items-end justify-end w-fit px-3 py-2 rounded-md bg-rose-900 hover:bg-rose-800 text-white">
    <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" class="mr-3">
