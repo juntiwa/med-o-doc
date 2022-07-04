@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\LogActivitysExport;
 use App\Http\Controllers\Controller;
 use App\Models\LogActivity;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -117,7 +118,7 @@ class HistoryController extends Controller
         $filename = 'Log_MED_O_Doc_'.$time_now.'.xlsx';
         Log::critical(Auth::user()->full_name.' Export file '.$filename);
         //   toastr()->info('Export file '.$filename.' เสร็จแล้ว', 'ผลการร้องขอ');
-        Toastr::success('Export file '.$filename.' เสร็จแล้ว', 'Success!!');
+        //   Toastr::success('Export file '.$filename.' เสร็จแล้ว', 'Success!!');
 
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;

@@ -7,6 +7,7 @@ use App\Models\LogActivity;
 use App\Models\Member;
 use App\Models\Unit;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -109,7 +110,9 @@ class ManageController extends Controller
             Member::insert($data);
             User::insert($data);
             Log::critical(Auth::user()->full_name.' add permission user '.$logdata);
-            toastr()->success('เพิ่มผู้ใช้งานสำเร็จ', 'แจ้งเตือน');
+            // toastr()->success('เพิ่มผู้ใช้งานสำเร็จ', 'แจ้งเตือน');
+            Toastr::success('เพิ่มผู้ใช้งานสำเร็จ', 'Success!!');
+
             $log_activity = new LogActivity;
             $log_activity->username = Auth::user()->username;
             $log_activity->full_name = Auth::user()->full_name;
