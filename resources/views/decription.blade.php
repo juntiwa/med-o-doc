@@ -178,7 +178,7 @@
                   </td>
                </tr>
             @empty
-            <tr class="col-span-6 text-shadow-sm font-semibold flex justify-center py-5">
+            <tr class="col-span-6 text-shadow-sm font-semibold flex pl-2 py-5">
                <td >
                   <p class="text-rose-600 text-2xl ">ไม่พบข้อมูล</p>
                </td>

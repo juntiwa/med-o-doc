@@ -22,7 +22,7 @@
 <section id="displayLogActivity">
    <div class="overflow-auto rounded-lg shadow-md hidden mt-6 lg:block">
       <table class="w-full">
-         <thead class="bg-gray-100 border-b-2 border-gray-200">
+      <thead class="bg-gray-100 border-b-2 border-gray-200">
         <tr>
           <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">#</th>
           <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">ชื่อผู้ใช้งาน</th>
@@ -55,7 +55,7 @@
                   </td>
                </tr>
             @empty
-            <tr class="col-span-6 text-shadow-sm font-semibold flex justify-center py-5">
+            <tr class="col-span-6 text-shadow-sm font-semibold flex pl-2 py-5">
                <td >
                   <p class="text-rose-600 text-2xl ">ไม่พบข้อมูล</p>
                </td>
