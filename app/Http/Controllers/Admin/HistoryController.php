@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\LogActivitysExport;
 use App\Http\Controllers\Controller;
 use App\Models\LogActivity;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
