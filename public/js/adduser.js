@@ -64,10 +64,11 @@ $(document).ready(function () {
       if (sapid !== '') {
          $('#permission1').prop('disabled', false)
          $.ajax({  
-            url: "/check-sapid",
+           url: sapidroute,
             type: 'post',
             data: {
-               sapid: sapid
+               sapid: sapid,
+               _token: CSRF_TOKEN
             },
             success: function (result) {
                // $('#idfrom').val(ui.item.unitid);
@@ -93,10 +94,11 @@ $(document).ready(function () {
          $('#permission2').prop('disabled', false)
          $('#permission2').prop('required', true)
          $.ajax({  
-            url: "/check-sapid",
+           url: sapidroute,
             type: 'post',
             data: {
-               sapid: sapid
+               sapid: sapid,
+               _token: CSRF_TOKEN
             },
             success: function (result) {
                if (result.Status == 'Active') {
@@ -121,10 +123,11 @@ $(document).ready(function () {
          $('#permission3').prop('disabled', false)
          $('#permission3').prop('required', true)
          $.ajax({  
-            url: "/check-sapid",
+           url: sapidroute,
             type: 'post',
             data: {
-               sapid: sapid
+               sapid: sapid,
+               _token: CSRF_TOKEN
             },
             success: function (result) {
                if (result.Status == 'Active') {
@@ -149,10 +152,11 @@ $(document).ready(function () {
          $('#permission4').prop('disabled', false)
          $('#permission4').prop('required', true)
          $.ajax({  
-            url: "/check-sapid",
+           url: sapidroute,
             type: 'post',
             data: {
-               sapid: sapid
+               sapid: sapid,
+               _token: CSRF_TOKEN
             },
             success: function (result) {
                if (result.Status == 'Active') {
@@ -177,10 +181,11 @@ $(document).ready(function () {
          $('#permission5').prop('disabled', false)
          $('#permission5').prop('required', true)
          $.ajax({  
-            url: "/check-sapid",
+           url: sapidroute,
             type: 'post',
             data: {
-               sapid: sapid
+               sapid: sapid,
+               _token: CSRF_TOKEN
             },
             success: function (result) {
                if (result.Status == 'Active') {
@@ -205,10 +210,11 @@ $(document).ready(function () {
          $('#permission6').prop('disabled', false)
          $('#permission6').prop('required', true)
          $.ajax({  
-            url: "/check-sapid",
+            url: sapidroute,
             type: 'post',
             data: {
-               sapid: sapid
+               sapid: sapid,
+               _token: CSRF_TOKEN
             },
             success: function (result) {
                if (result.Status == 'Active') {
