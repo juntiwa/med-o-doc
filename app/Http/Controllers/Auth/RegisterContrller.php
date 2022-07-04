@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LogActivity;
 use App\Models\Unit;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -68,7 +69,7 @@ class RegisterContrller extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        toastr()->success('ลงทะเบียนใช้งานสำเร็จ', 'ลงทะเบียน');
+        //   toastr()->success('ลงทะเบียนใช้งานสำเร็จ', 'ลงทะเบียน');
         Toastr::success('ลงทะเบียนใช้งานสำเร็จ', 'Success!!');
         Log::critical($full_name . ' register success');
 

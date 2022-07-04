@@ -198,6 +198,7 @@ return [
       //  custom
         App\Providers\AuthUserServiceProvider::class,
         App\Providers\CheckUserProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         MarvinLabs\DiscordLogger\ServiceProvider::class,
     ],
