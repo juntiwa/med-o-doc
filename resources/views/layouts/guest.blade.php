@@ -10,6 +10,7 @@
 
    <!-- css -->
    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
 </head>
 
 @include('fonts/k2d')

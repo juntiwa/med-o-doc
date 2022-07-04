@@ -200,7 +200,6 @@ return [
         App\Providers\CheckUserProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         MarvinLabs\DiscordLogger\ServiceProvider::class,
-        Yoeunes\Toastr\ToastrServiceProvider::class,
     ],
 
     /*
@@ -223,6 +222,7 @@ return [
       'Input' => Illuminate\Support\Facades\Request::class,
       'Route' => Illuminate\Support\Facades\Route::class,
       'Session' => Illuminate\Support\Facades\Session::class,
+      'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
    ],
 
    //api

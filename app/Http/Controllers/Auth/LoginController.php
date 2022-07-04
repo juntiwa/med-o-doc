@@ -8,6 +8,7 @@ use App\Models\LogActivity;
 use App\Models\Member;
 use App\Models\Unit;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -28,7 +29,8 @@ class LoginController extends Controller
         if ($checkRecordMember != 0) {
             if (Auth::check()) {
                 toastr()->info('เข้าสู่ระบบอยู่แล้ว', 'การเข้าสู่ระบบ');
-                return view('document');
+                Toastr::info('เข้าสู่ระบบอยู่แล้ว', 'Success!!');
+                return Redirect::route('document');
             } else {
                 return view('auth.login');
             }
@@ -45,6 +47,7 @@ class LoginController extends Controller
             $errors = ['message' => $sirirajUser['reply_text']];
             Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
             toastr()->error('ตรวจสอบข้อมูล username หรือ password', 'แจ้งเตือน');
+            Toastr::error('ตรวจสอบข้อมูล username หรือ password', 'Success!!');
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
         }
@@ -60,7 +63,9 @@ class LoginController extends Controller
             $full_name = Auth::user()->full_name;
             if ($checkRegisterUser->username == null) {
                 $units = Unit::orderBy('unitname', 'asc')->get();
-                toastr()->info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'ลงทะเบียนระบบ');
+                //  toastr()->info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'ลงทะเบียนระบบ');
+                Toastr::info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'Register');
+
                 return view('auth.register', ['sirirajUser'=>$sirirajUser, 'units'=>$units]);
             } else {
                 if ($checkRegisterUser->username != $sirirajUser['login'] || $checkRegisterUser->full_name != $sirirajUser['full_name']) {
@@ -82,8 +87,8 @@ class LoginController extends Controller
                 $log_activity->save();
 
                 Log::info($full_name . ' login success');
-                toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
-
+                // toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
+                Toastr::success('เข้าสู่ระบบสำเร็จ', 'Success!!');
                 return Redirect::route('documents');
             }
         }
@@ -143,7 +148,8 @@ class LoginController extends Controller
         $log_activity->save();
 
         Log::info($full_name . ' register start app success');
-        toastr()->info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'แจ้งเตือน');
+        //   toastr()->info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'แจ้งเตือน');
+        Toastr::info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'Success!!');
 
         return Redirect::route('login');
     }
@@ -209,7 +215,8 @@ class LoginController extends Controller
 
         Auth::logout();
         Session::forget('user');
-        toastr()->success('ออกจากระบบสำเร็จ', 'แจ้งเตือน');
+        //   toastr()->success('ออกจากระบบสำเร็จ', 'แจ้งเตือน');
+        Toastr::success('ออกจากระบบสำเร็จ', 'Success!!');
 
         return Redirect::route('login');
     }

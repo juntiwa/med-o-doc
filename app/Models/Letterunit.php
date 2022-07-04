@@ -9,6 +9,10 @@ class Letterunit extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+      'unitid',
+      'unitname',
+   ];
     public function document()
     {
         //letterunit belong to document
