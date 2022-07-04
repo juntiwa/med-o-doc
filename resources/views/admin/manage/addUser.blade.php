@@ -16,8 +16,8 @@
       @csrf
       <div class="flex">
          <label>
-            <input type="file" class="text-base text-grey-500 rounded-full bg-slate-100 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 
-            file:text-sm file:font-medium file:bg-blue-100 file:text-blue-700 hover:file:cursor-pointer hover:file:bg-amber-50 
+            <input type="file" class="text-base text-grey-500 rounded-full text-center bg-slate-100 file:mr-5 file:rounded-full file:border-0 
+            file:text-sm file:font-medium file:bg-blue-100 file:text-blue-700 hover:file:cursor-pointer hover:file:bg-amber-50 file:px-5 file:py-2.5 file:text-center
             hover:file:text-amber-700"  type="file" name="member_file"/>
         </label>
          <button class="text-white bg-teal-700 hover:bg-teal-800 font-medium rounded-lg text-base px-5 py-2.5 text-center ml-4" type="submit">Import User Data</button>
@@ -33,7 +33,7 @@
         </label>
         @endforeach
       @endif
-      <p class="mt-1 text-base text-gray-500" id="file_input_help">CSV</p>
+      <p class="mt-1 mr-5 text-base text-gray-500" id="file_input_help">CSV</p>
    
       <br>
    </form>
@@ -47,7 +47,7 @@
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>
             </label>
-            <input type="text" placeholder="กรอกรหัสพนักงาน" name="sapid1" id="sapid1" value="{{old('sapid1')}}" required
+            <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid1" id="sapid1" value="{{old('sapid1')}}" required
             class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
             <input type="text" id="username1" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
           </div>
@@ -78,7 +78,7 @@
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
             </label>
-            <input type="text" placeholder="กรอกรหัสพนักงาน" name="sapid2" id="sapid2" value="{{old('sapid2')}}"
+            <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid2" id="sapid2" value="{{old('sapid2')}}"
             class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
             <input type="text" id="username2" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
           </div>
@@ -109,7 +109,7 @@
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
             </label>
-            <input type="text" placeholder="กรอกรหัสพนักงาน" name="sapid3" id="sapid3" value="{{old('sapid3')}}"
+            <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid3" id="sapid3" value="{{old('sapid3')}}"
             class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
             <input type="text" id="username3" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
           </div>
@@ -140,7 +140,7 @@
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
             </label>
-            <input type="text" placeholder="กรอกรหัสพนักงาน" name="sapid4" id="sapid4" value="{{old('sapid4')}}"
+            <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid4" id="sapid4" value="{{old('sapid4')}}"
             class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
             <input type="text" id="username4" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
           </div>
@@ -171,7 +171,7 @@
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
             </label>
-            <input type="text" placeholder="กรอกรหัสพนักงาน" name="sapid5" id="sapid5" value="{{old('sapid5')}}"
+            <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid5" id="sapid5" value="{{old('sapid5')}}"
             class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
             <input type="text" id="username5" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
           </div>
@@ -202,7 +202,7 @@
             <label class="label">
               <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
             </label>
-            <input type="text" placeholder="กรอกรหัสพนักงาน" name="sapid6" id="sapid6" value="{{old('sapid6')}}"
+            <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid6" id="sapid6" value="{{old('sapid6')}}"
             class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
             <input type="text" id="username6" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
           </div>
