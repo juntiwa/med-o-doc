@@ -21,9 +21,13 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+   {{-- toastr --}}
+   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+   <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+   
 </head>
-<body class="font-sarabun bg-white min-h-screen max-h-full text-lg text-slate-900">
 @include('fonts/sarabun')
+<body class="font-sarabun bg-white min-h-screen max-h-full text-lg text-slate-900">
 @section('sidebar')
    <div class="navbar bg-slate-100 sticky top-0 z-50">
       <div class="navbar-start  text-xl ">

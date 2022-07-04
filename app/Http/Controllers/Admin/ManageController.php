@@ -228,7 +228,9 @@ class ManageController extends Controller
         $user->save();
 
         Log::critical(Auth::user()->full_name.' edit user SAPID : '.$org_id);
-        toastr()->info('แก้ไขข้อมูลผู้ใช้งานรหัส '.$org_id.' เสร็จแล้ว', 'ผลการแก้ไข');
+        //   toastr()->info('แก้ไขข้อมูลผู้ใช้งานรหัส '.$org_id.' เสร็จแล้ว', 'ผลการแก้ไข');
+        Toastr::success('แก้ไขข้อมูลผู้ใช้งานรหัส '.$org_id.' เสร็จแล้ว', 'Success!!');
+
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;

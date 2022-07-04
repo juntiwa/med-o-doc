@@ -27,7 +27,8 @@ class MemberImportContorller extends Controller
         try {
             Excel::import(new MembersImport, request()->file('member_file'));
             
-            toastr()->info('Import ข้อมูลเสร็จสิ้น', 'Import');
+            // toastr()->info('Import ข้อมูลเสร็จสิ้น', 'Import');
+            Toastr::success('Import ข้อมูลเสร็จสิ้น', 'Success!!');
             Log::critical(Auth::user()->full_name.' Import file user permission');
 
             $log_activity = new LogActivity;
@@ -46,7 +47,8 @@ class MemberImportContorller extends Controller
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             // dd($failures);
-            toastr()->error('ตรวจสอบข้อมูลอีกครั้ง', 'ตรวจสอบข้อมูล');
+            // toastr()->error('ตรวจสอบข้อมูลอีกครั้ง', 'ตรวจสอบข้อมูล');
+            Toastr::error('ตรวจสอบข้อมูลอีกครั้ง', 'Error!!');
 
             return redirect()->back()->with('import_errors', $failures);
         }
