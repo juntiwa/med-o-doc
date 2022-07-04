@@ -34,7 +34,6 @@
         @endforeach
       @endif
       <p class="mt-1 mr-5 text-base text-gray-500" id="file_input_help">CSV</p>
-   
       <br>
    </form>
 </section>
