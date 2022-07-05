@@ -15,5 +15,9 @@ class CheckAccountAPI implements CheckUserAPI
         $data = json_decode($response->getBody(), true);
 
         return $data;
+        return [
+         'Status' => 'Active',
+         'AcountName' => 'juntima.nuc'
+      ];
     }
 }

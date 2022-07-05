@@ -22,8 +22,8 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
    {{-- toastr --}}
-   <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-   <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+   <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
    
 </head>
 @include('fonts/sarabun')

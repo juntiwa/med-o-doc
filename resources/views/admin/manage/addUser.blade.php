@@ -234,7 +234,7 @@
    </section>
 </form>
 <script type="text/javascript">
-   let sapidroute = "{{route('manage.sapid')}}";
+   let sapidroute = "{{route('check.sapid.show')}}";
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 </script>
