@@ -138,7 +138,7 @@
                         <tr class="bg-white">
                            {{-- หัวเรื่อง --}}
                            <td class="p-3 text-base text-gray-700 align-text-top">
-                              <a href="{{$result->titledescription}}" class=" font-normal text-blue-500 hover:text-rose-600">{{$result->regtitle}}</a>
+                              <a href="{{$result->titledescription}}" target="_blank" class=" font-normal text-blue-500 hover:text-rose-600">{{$result->regtitle}}</a>
                            </td>
                            <td class="p-3 text-base text-gray-700 whitespace-nowrap align-text-top">
                               @if ($result->regtype == null )
@@ -307,7 +307,7 @@
                   </div>
                   <div class="text-base text-gray-700">
                      หัวเรื่อง :
-                     <a href="{{$result->titledescription}}}" class=" font-normal text-blue-500 hover:text-rose-600">{{$result->regtitle}}</a>
+                     <a href="{{$result->titledescription}}}" target="_blank" class=" font-normal text-blue-500 hover:text-rose-600">{{$result->regtitle}}</a>
                   </div>
                   <div class="flex text-base text-gray-700 pt-10">
                      <div class="absolute left-3 bottom-3 min-h-max max-h-full ">
@@ -403,7 +403,6 @@
       let innerURL = "{{route('document.unitinner')}}";
       let outterURL = "{{route('document.unitoutter')}}";
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
    </script>
    <script src="{{asset('js/document.js')}}"></script>
   

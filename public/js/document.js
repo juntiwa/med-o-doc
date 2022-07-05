@@ -120,7 +120,7 @@ $(document).ready(function () {
 
       let startYearID = $(this).val()
       if (startYearID == '') {
-         $("#endYear").val()
+         $("#endYear").val('')
          $("#endYear").prop('disabled', true) //disabled true
       }
 
