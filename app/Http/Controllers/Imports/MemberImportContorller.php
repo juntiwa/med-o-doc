@@ -21,10 +21,15 @@ class MemberImportContorller extends Controller
     }
     public function import(Request $request)
     {
-        $request->validate([
-         'member_file' => 'required',
-      ]);
+        $validateRules = [
+            'member_file' => 'required|mimes:csv',
+         ];
 
+        $message = [
+            'member_file.mimes' => 'กรุณาเลือกไฟล์ประเภท CSV เท่านั้น'
+        ];
+
+        request()->validate($validateRules, $message);
         try {
             Excel::import(new MembersImport, request()->file('member_file'));
             

@@ -52,7 +52,7 @@
                </li>
             </ul>
          </div>
-         <a class="btn btn-ghost normal-case text-xl">Med O-Doc</a>
+         <a href="{{route('documents')}}" class="btn btn-ghost normal-case text-xl">Med O-Doc</a>
       </div>
       <div class="navbar-center hidden lg:flex">
          <ul class="menu menu-horizontal p-0">

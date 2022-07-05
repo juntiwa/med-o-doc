@@ -12,33 +12,44 @@
  
 @section('content')
 {!! Toastr::message() !!}
-<section id="importForm">
-   <form action="{{ route('member.import') }}" method="POST" enctype="multipart/form-data">
-      @csrf
-      <div class="flex">
-         <label>
-            <input type="file" class="text-base text-grey-500 rounded-full text-center bg-slate-100 file:mr-5 file:rounded-full file:border-0 
-            file:text-sm file:font-medium file:bg-blue-100 file:text-blue-700 hover:file:cursor-pointer hover:file:bg-amber-50 file:px-5 file:py-2.5 file:text-center
-            hover:file:text-amber-700"  type="file" name="member_file"/>
-        </label>
-         <button class="text-white bg-teal-700 hover:bg-teal-800 font-medium rounded-lg text-base px-5 py-2.5 text-center ml-4" type="submit">Import User Data</button>
-      </div>
-      
-      @error('member_file')
-         <label class=" text-rose-600">{{ $message }}</label>
-      @enderror
-      @if(Session::has('import_errors'))
-        @foreach (Session::get('import_errors') as $failures)
-        <label class=" text-rose-600">
-           {{$failures->errors()[0]}} at line no- {{$failures->row()}}
-        </label>
-        @endforeach
-      @endif
-      <p class="mt-1 mr-5 text-base text-gray-500" id="file_input_help">CSV</p>
-      <br>
-   </form>
+<section id="importForm" class="grid grid-cols-1 lg:grid-cols-2">
+   <div>
+      <ul class="mb-5">
+         <li>
+            <a href="{{asset('files/csv/template.csv')}}" target="_blank" class=" text-blue-700 hover:text-red-600">&#186; ไฟล์ csv template</a>
+         </li>
+         <li>
+            <a href="{{asset('files/pdf/manual.pdf')}}" target="_blank" class=" text-blue-700 hover:text-red-600">&#186; คำอธิบายสำหรับการเพิ่ม</a>
+         </li>
+      </ul>
+      <form action="{{ route('member.import') }}" method="POST" enctype="multipart/form-data">
+         @csrf
+         <div class="grid grid-cols-1 lg:grid-cols-2">
+            <div>
+               <label>
+                  <input type="file" class="text-base text-grey-500 rounded-full text-center bg-slate-100 file:mr-5 file:rounded-full file:border-0 
+                  file:text-sm file:font-medium file:bg-blue-100 file:text-blue-700 hover:file:cursor-pointer hover:cursor-pointer hover:file:bg-amber-50 file:px-5 file:py-2.5 file:text-center
+                  hover:file:text-amber-700" type="file" name="member_file"/>
+              </label><br>
+               @error('member_file')
+                  <label class=" text-rose-600">{{ $message }}</label>
+               @enderror
+               @if(Session::has('import_errors'))
+                  @foreach (Session::get('import_errors') as $failures)
+                  <label class=" text-rose-600">
+                     {{$failures->errors()[0]}} at line no- {{$failures->row()}}
+                  </label>
+                  @endforeach
+               @endif
+               <p class="mt-1 mr-5 mb-3 text-base text-gray-500" id="file_input_help">ประเภทไฟล์ CSV เท่านั้น</p>
+            </div>
+            <button class="text-white bg-teal-700 hover:bg-teal-800 font-medium rounded-lg text-base px-5 py-2.5 text-center lg:ml-4 w-fit h-fit" type="submit">Import User Data</button>
+         </div>
+         <br>
+      </form>
+   </div>
 </section>
-<hr>
+<hr class="mb-5">
 <form action="{{route('manage.store')}}" method="post">
    @csrf
    <section id="inputform" class="flex flex-col w-full lg:grid lg:grid-cols-2 gap4">
