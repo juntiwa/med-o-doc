@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Member;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -16,6 +17,7 @@ class MembersImport implements ToModel, WithHeadingRow, WithValidation
     */
     public function model(array $row)
     {
+        User::create($row);
         return new Member($row);
     }
 
