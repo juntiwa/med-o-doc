@@ -125,12 +125,12 @@
                <table class="w-full">
                   <thead class="bg-gray-100 border-b-2 border-gray-200">
                      <tr>
-                        <th class="w-80 lg:w-96 p-3 text-base font-semibold tracking-wide text-left">หัวเรื่อง</th>
-                        <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">ประเภท</th>
-                        <th class="w-24 p-3 text-base font-semibold tracking-wide text-left">หน่วยงานที่ส่ง</th>
-                        <th class="w-24 p-3 text-base font-semibold tracking-wide text-left">ลงวันที่</th>
-                        <th class="w-16 p-3 text-base font-semibold tracking-wide text-left">เอกสารแนบ 1</th>
-                        <th class="w-16 p-3 text-base font-semibold tracking-wide text-left">เอกสารแนบ 2</th>
+                        <th class="w-80 lg:w-96 p-3 text-base font-semibold text-left">หัวเรื่อง</th>
+                        <th class="w-20 p-3 text-base font-semibold text-left">ประเภท</th>
+                        <th class="w-24 p-3 text-base font-semibold text-left">หน่วยงานที่ส่ง</th>
+                        <th class="w-24 p-3 text-base font-semibold text-left">ลงวันที่</th>
+                        <th class="w-16 p-3 text-base font-semibold text-left">เอกสารแนบ 1</th>
+                        <th class="w-16 p-3 text-base font-semibold text-left">เอกสารแนบ 2</th>
                      </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-100">
