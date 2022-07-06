@@ -658,6 +658,9 @@ video {
 .mt-16 {
   margin-top: 4rem;
 }
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -672,12 +675,6 @@ video {
 }
 .-ml-px {
   margin-left: -1px;
-}
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
-.mt-5 {
-  margin-top: 1.25rem;
 }
 .block {
   display: block;
@@ -715,13 +712,13 @@ video {
 .h-64 {
   height: 16rem;
 }
-.h-6 {
-  height: 1.5rem;
-}
 .h-fit {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+}
+.h-6 {
+  height: 1.5rem;
 }
 .max-h-full {
   max-height: 100%;
@@ -1568,6 +1565,11 @@ ul.ui-menu {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
+.hover\:text-red-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -1581,11 +1583,6 @@ ul.ui-menu {
 .hover\:text-blue-700:hover {
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity));
-}
-
-.hover\:text-red-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -1894,12 +1891,12 @@ ul.ui-menu {
     margin-right: 0.5rem;
   }
 
-  .lg\:mr-14 {
-    margin-right: 3.5rem;
-  }
-
   .lg\:ml-4 {
     margin-left: 1rem;
+  }
+
+  .lg\:mr-14 {
+    margin-right: 3.5rem;
   }
 
   .lg\:block {

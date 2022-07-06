@@ -26,14 +26,14 @@
          <table class="w-full">
             <thead class="bg-gray-100 border-b-2 border-gray-200">
                <tr>
-                  <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">#</th>
-                  <th class="w-24 p-3 text-base font-semibold tracking-wide text-left">SAPID</th>
-                  <th class="w-24 p-3 text-base font-semibold tracking-wide text-left">ชื่อผู้ใช้งาน</th>
-                  <th class="w-32 p-3 text-base font-semibold tracking-wide text-left">ชื่อ สกุล</th>
-                  <th class="w-32 p-3 text-base font-semibold tracking-wide text-left">หน่วยงาน</th>
-                  <th class="w-32 p-3 text-base font-semibold tracking-wide text-left">สิทธิ์การเข้าถึง</th>
-                  <th class="w-32 p-3 text-base font-semibold tracking-wide text-left">สถานะ</th>
-                  <th class="w-16 p-3 text-base font-semibold tracking-wide text-left">แก้ไข</th>
+                  <th class="w-20 p-3 text-base font-semibold text-left">#</th>
+                  <th class="w-24 p-3 text-base font-semibold text-left">SAPID</th>
+                  <th class="w-24 p-3 text-base font-semibold text-left">ชื่อผู้ใช้งาน</th>
+                  <th class="w-32 p-3 text-base font-semibold text-left">ชื่อ สกุล</th>
+                  <th class="w-32 p-3 text-base font-semibold text-left">หน่วยงาน</th>
+                  <th class="w-32 p-3 text-base font-semibold text-left">สิทธิ์การเข้าถึง</th>
+                  <th class="w-32 p-3 text-base font-semibold text-left">สถานะ</th>
+                  <th class="w-16 p-3 text-base font-semibold text-left">แก้ไข</th>
                </tr>
            </thead>
            <tbody class="divide-y divide-gray-100">

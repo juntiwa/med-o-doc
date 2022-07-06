@@ -131,10 +131,10 @@
       <table class="w-full">
          <thead class="bg-gray-100 border-b-2 border-gray-200">
             <tr>
-               <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">#</th>
-               <th class="w-24 p-3 text-base font-semibold tracking-wide text-left">วันที่ส่ง</th>
-               <th class="w-64 lg:w-72 p-3 text-base font-semibold tracking-wide text-left">ส่งถึง</th>
-               <th class="w-48 p-3 text-base font-semibold tracking-wide text-left">สถานะการรับ / วันที่รับ</th>
+               <th class="w-20 p-3 text-base font-semibold text-left">#</th>
+               <th class="w-24 p-3 text-base font-semibold text-left">วันที่ส่ง</th>
+               <th class="w-64 lg:w-72 p-3 text-base font-semibold text-left">ส่งถึง</th>
+               <th class="w-48 p-3 text-base font-semibold text-left">สถานะการรับ / วันที่รับ</th>
             </tr>
          </thead>
          <tbody class="divide-y divide-gray-100">

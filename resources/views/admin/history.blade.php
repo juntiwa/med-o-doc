@@ -25,12 +25,12 @@
       <table class="w-full">
       <thead class="bg-gray-100 border-b-2 border-gray-200">
         <tr>
-          <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">#</th>
-          <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">ชื่อผู้ใช้งาน</th>
-          <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">ชื่อ สกุล</th>
-          <th class="w-20 p-3 text-base font-semibold tracking-wide text-left">หน่วยงาน</th>
-          <th class="w-64 lg:w-72 p-3 text-base font-semibold tracking-wide text-left">Action</th>
-          <th class="w-32 p-3 text-base font-semibold tracking-wide text-left">ช่วงเวลา</th>
+          <th class="w-20 p-3 text-base font-semibold text-left">#</th>
+          <th class="w-20 p-3 text-base font-semibold text-left">ชื่อผู้ใช้งาน</th>
+          <th class="w-20 p-3 text-base font-semibold text-left">ชื่อ สกุล</th>
+          <th class="w-20 p-3 text-base font-semibold text-left">หน่วยงาน</th>
+          <th class="w-64 lg:w-72 p-3 text-base font-semibold text-left">Action</th>
+          <th class="w-32 p-3 text-base font-semibold text-left">ช่วงเวลา</th>
         </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
