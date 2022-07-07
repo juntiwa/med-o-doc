@@ -140,7 +140,7 @@ class DocumentController extends Controller
         $resultCount = $resultDocument->count();
         $resultDocument = $resultDocument->paginate(50);
         //   toastr()->info('ค้นหาสำเร็จ ผลลัพท์ข้อมูล '.$resultCount.' เรื่อง', 'Import');
-        Toastr::info('ค้นหาสำเร็จ ผลลัพท์ข้อมูล '.$resultCount.' เรื่อง', 'Success!!');
+        //   Toastr::info('ค้นหาสำเร็จ ผลลัพท์ข้อมูล ค้นหาสำเร็จ'.$resultCount.' เรื่อง', 'Success!!');
 
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
