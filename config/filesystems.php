@@ -42,9 +42,9 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
-        ],
+         ],
 
-        's3' => [
+        /* 's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
@@ -54,8 +54,22 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
-        ],
-
+        ], */
+        's3' => [
+         'driver' => 's3',
+         'key' => env('AWS_ACCESS_KEY_ID'),
+         'secret' => env('AWS_SECRET_ACCESS_KEY'),
+         'region' => env('AWS_DEFAULT_REGION'),
+         'bucket' => env('AWS_BUCKET'),
+         'url' => env('AWS_URL'),
+ 
+         // the below 'endpoint' url is actually used:
+         'endpoint' => env('AWS_URL'),
+         // prevent bucket name from being added to the hostname:
+         'bucket_endpoint' => false,
+         // use older urls:
+         'use_path_style_endpoint' => true,
+     ],
     ],
 
     /*
