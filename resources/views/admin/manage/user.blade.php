@@ -13,12 +13,223 @@
 @section('content')
 {!! Toastr::message() !!}
    <section id="button" class="flex items-end justify-end w-full">
-      <a href="{{route('manage.create')}}" role="button" class="flex items-end justify-end w-fit px-3 py-2 rounded-md bg-blue-900 hover:bg-blue-800 text-white">
+      <!-- The button to open modal -->
+      <label for="my-modal-3" class="modal-button flex items-end justify-end w-fit px-3 py-2 rounded-md bg-blue-900 hover:bg-blue-800 text-white cursor-pointer">
          <svg class="add_member" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
             <path d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3C0 496.5 15.52 512 34.66 512h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM616 200h-48v-48C568 138.8 557.3 128 544 128s-24 10.75-24 24v48h-48C458.8 200 448 210.8 448 224s10.75 24 24 24h48v48C520 309.3 530.8 320 544 320s24-10.75 24-24v-48h48C629.3 248 640 237.3 640 224S629.3 200 616 200z" />
          </svg>
          เพิ่มสิทธิ์ผู้ใช้งาน
-      </a>
+      </label>
+
+      <!-- Put this part before </body> tag -->
+      <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+      <div class="modal">
+      <div class="modal-box w-8/12 max-w-3xl relative bg-white">
+         <form action="{{route('manage.store')}}" method="post">
+            @csrf
+            <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+            <h3 class="text-lg font-bold">เพิ่มข้อมูลผู้ใช้งานที่ต้องการ (สามารถเพิ่มได้พร้อมกันสูงสุด 6 คน)</h3>
+            <p class="py-4 flex flex-col w-full lg:grid lg:grid-cols-2 gap4">
+               <div class="flex items-end justify-end cursor-pointer ml-3">
+                  <button name="del_icon" id="del_icon">
+                     <svg id="del_svg" xmlns="http://www.w3.org/2000/svg" class="fill-blue-500" weight="40" height="40" viewBox="0 0 24 24" name="delete_icon" id="delete_icon" >
+                        <path  d="M15.71,8.29a1,1,0,0,0-1.42,0L12,10.59,9.71,8.29A1,1,0,0,0,8.29,9.71L10.59,12l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L13.41,12l2.3-2.29A1,1,0,0,0,15.71,8.29Zm3.36-3.36A10,10,0,1,0,4.93,19.07,10,10,0,1,0,19.07,4.93ZM17.66,17.66A8,8,0,1,1,20,12,7.95,7.95,0,0,1,17.66,17.66Z"/>
+                     </svg>
+                  </button>
+                  <button name="plus_icon" id="plus_icon">
+                     <svg id="plas_svg" xmlns="http://www.w3.org/2000/svg" class="fill-teal-400" weight="40" height="40" viewBox="0 0 24 24">
+                        <path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z"/>
+                     </svg>
+                  </button>
+               </div>
+               <section id="user1" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
+                  <div class="form-control w-full pr-4">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>
+                     </label>
+                     <input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid1" id="sapid1" value="{{old('sapid1')}}" required 
+                        class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
+                     <input type="text" id="username1" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
+                  </div>
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน <b class="text-rose-600">*</b></span>
+                     </label>
+                     <select disabled required name="permission1" id="permission1" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">
+                        <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
+                        <option value="1" {{ (old("permission1") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
+                        <option value="0" {{ (old("permission1") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>
+                     </select>
+                     @if($errors->has('massage1'))
+                     <div class="alert alert-error shadow-lg mt-2">
+                        <div>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                           <span class="text-base">{{ $errors->first('massage1') }}</span>
+                        </div>
+                     </div>
+                     @endif
+                  </div>
+               </section>
+               
+               <section id="user2" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
+                     </label>
+                     <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid2" id="sapid2" value="{{old('sapid2')}}" class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
+                     <input type="text" id="username2" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
+                  </div>
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน</span>
+                     </label>
+                     <select disabled name="permission2" id="permission2" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">
+                        <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
+                        <option value="1" {{ (old("permission2") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
+                        <option value="0" {{ (old("permission2") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>
+                     </select>
+                     @if($errors->has('massage2'))
+                     <div class="alert alert-error shadow-lg mt-2">
+                        <div>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                           <span class="text-base">{{ $errors->first('massage2') }}</span>
+                        </div>
+                     </div>
+                     @endif
+                  </div>
+               </section>
+         
+               <section id="user3" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
+                     </label>
+                     <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid3" id="sapid3" value="{{old('sapid3')}}" class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
+                     <input type="text" id="username3" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
+                  </div>
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน</span>
+                     </label>
+                     <select disabled name="permission3" id="permission3" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">
+                        <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
+                        <option value="1" {{ (old("permission3") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
+                        <option value="0" {{ (old("permission3") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>
+                     </select>
+                     @if($errors->has('massage3'))
+                     <div class="alert alert-error shadow-lg mt-2">
+                        <div>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                           <span class="text-base">{{ $errors->first('massage3') }}</span>
+                        </div>
+                     </div>
+                     @endif
+                  </div>
+               </section>
+         
+               <section id="user4" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
+                     </label>
+                     <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid4" id="sapid4" value="{{old('sapid4')}}" class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
+                     <input type="text" id="username4" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
+                  </div>
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน</span>
+                     </label>
+                     <select disabled name="permission4" id="permission4" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">
+                        <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
+                        <option value="1" {{ (old("permission4") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
+                        <option value="0" {{ (old("permission4") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>
+                     </select>
+                     @if($errors->has('massage4'))
+                     <div class="alert alert-error shadow-lg mt-2">
+                        <div>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                           <span class="text-base">{{ $errors->first('massage4') }}</span>
+                        </div>
+                     </div>
+                     @endif
+                  </div>
+               </section>
+         
+               <section id="user5" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
+                     </label>
+                     <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid5" id="sapid5" value="{{old('sapid5')}}" class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
+                     <input type="text" id="username5" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
+                  </div>
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน</span>
+                     </label>
+                     <select disabled name="permission5" id="permission5" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">
+                        <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
+                        <option value="1" {{ (old("permission5") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
+                        <option value="0" {{ (old("permission5") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>
+                     </select>
+                     @if($errors->has('massage5'))
+                     <div class="alert alert-error shadow-lg mt-2">
+                        <div>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                           <span class="text-base">{{ $errors->first('massage5') }}</span>
+                        </div>
+                     </div>
+                     @endif
+                  </div>
+               </section>
+         
+               <section id="user6" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID</span>
+                     </label>
+                     <input type="text" placeholder="กรอกรหัสพนักงาน" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid6" id="sapid6" value="{{old('sapid6')}}" class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" />
+                     <input type="text" id="username6" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>
+                  </div>
+                  <div class="form-control w-full max-w-xs">
+                     <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน</span>
+                     </label>
+                     <select disabled name="permission6" id="permission6" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">
+                        <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
+                        <option value="1" {{ (old("permission6") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
+                        <option value="0" {{ (old("permission6") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>
+                     </select>
+                     @if($errors->has('massage6'))
+                     <div class="alert alert-error shadow-lg mt-2">
+                        <div>
+                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                           <span class="text-base">{{ $errors->first('massage6') }}</span>
+                        </div>
+                     </div>
+                     @endif
+                  </div>
+               </section>
+
+               <section id="buttonSubmit" class="flex md:col-span-2 lg:col-span-2 justify-end mt-2">
+                  <button type="submit" class="text-white bg-sky-600 hover:bg-sky-700 py-2 px-3 rounded-md">บันทึกข้อมูล</button>
+               </section>
+            </p>
+         </form>
+      </div>
+      </div>
    </section>
 
    <section id="dataUser">
@@ -188,7 +399,6 @@
                   @endif
                </div>
             </div>
-             
            </div>
            <div class="text-base text-gray-700 leading-loose">
             <p> ชื่อผู้ใช้งาน :  
@@ -227,5 +437,10 @@
        </div>
    </section>
 
+   <script type="text/javascript">
+      let sapidroute = "{{route('check.sapid.show')}}";
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+   </script>
    <script type="text/javascript" src="{{asset('js/manageuser.js')}}"></script>
+   <script type="text/javascript" src="{{asset('js/adduser.js')}}"></script>
 @endsection
