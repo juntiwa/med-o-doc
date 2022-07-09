@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\APIs\CheckAccountAPI;
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class CheckUserController extends Controller
@@ -38,9 +39,11 @@ class CheckUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CheckAccountAPI $api)
     {
-        //
+        $checkExistAcc = $api->checkexist($request->sapid);
+
+        return $checkExistAcc;
     }
 
     /**
@@ -54,6 +57,10 @@ class CheckUserController extends Controller
         $checkAcc = $api->checkuser($request->sapid);
 
         return $checkAcc;
+        /* return [
+           'Status' => 'Active',
+           'AcountName' => 'juntima.nuc'
+        ]; */
     }
 
     /**

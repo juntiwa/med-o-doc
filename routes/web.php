@@ -51,6 +51,7 @@ Route::controller(ManageController::class)->group(function () {
 });
 
 Route::controller(CheckUserController::class)->group(function () {
+    Route::post('exist-user', 'store')->name('exist.user');
     Route::post('check-sapid', 'show')->name('check.sapid.show');
 });
 
@@ -62,3 +63,5 @@ Route::controller(HistoryController::class)->group(function () {
 Route::controller(MemberImportContorller::class)->group(function () {
     Route::post('member-import', 'import')->name('member.import');
 });
+
+
