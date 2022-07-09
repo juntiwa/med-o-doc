@@ -1,8 +1,3 @@
-$.ajaxSetup({
-   headers: {
-     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-   }
- });
 function sap_click(clicked) {
    let sap_show = document.getElementById("sapShow" + clicked);
    sap_show.innerHTML = clicked;
