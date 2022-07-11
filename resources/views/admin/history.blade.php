@@ -92,5 +92,9 @@
          <p class="text-rose-600 text-2xl text-shadow-sm font-semibold flex justify-center pt-5">ไม่พบข้อมูล</p>
       @endforelse
     </div>
+
+    <div class="col-md-12 mt-6 mb-6">
+      {{$logAvtivitys->links('pagination::tailwind')}}
+   </div>
 </section>
 @endsection

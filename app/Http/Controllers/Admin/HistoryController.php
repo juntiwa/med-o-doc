@@ -27,7 +27,7 @@ class HistoryController extends Controller
      */
     public function index(Request $request)
     {
-        $logAvtivitys = LogActivity::orderby('date_time', 'desc')->get();
+        $logAvtivitys = LogActivity::orderby('date_time', 'desc')->paginate(50);
 
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
