@@ -13,7 +13,10 @@
 @section('content')
 {!! Toastr::message() !!}
    <section id="header" class="flex flex-col items-start lg:flex-row lg:justify-between mb-4">
-      <h1 class="text-xl font-semibold">ค้นหาเอกสาร <span class=" text-fuchsia-600">จากทั้งหมด  {{$documentCount}}  เรื่อง</span></h1>
+      <div class="flex flex-col">
+         <h1 class="text-xl font-semibold mb-2">ค้นหาเอกสาร</h1>
+         <h2 class=" text-fuchsia-600">จำนวนเอกสารทั้งหมด  {{$documentCount}}  เรื่อง</h2>
+      </div>
       @if(Route::is('document.search'))
          <label class="swap mt-3 lg:mt-0">
             <input type="checkbox" id="swapinputSearch"/>

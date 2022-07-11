@@ -27,13 +27,4 @@ class CheckAccountAPI implements CheckUserAPI
 
         return $result;
     }
-
-    public function checkexist($sapid)
-    {
-        if (Member::where('org_id', $sapid)->exists()) {
-            $errors = ['errors' => 'exist', 'message' => 'มีข้อมูลอยู่แล้ว'];
-        }
-
-        return $errors;
-    }
 }
