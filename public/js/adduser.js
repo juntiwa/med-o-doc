@@ -11,41 +11,61 @@ $(document).ready(function () {
 
    $(plus).click(function () {
       plus_count++
-      var html = ''
-      html += '<section id="user" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">'
-      html += '<div class="form-control w-full pr-4">'
-      html += '<label class="label">'
-      html += '<span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>'
-      html += '</label>'
-      html += '<input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid" id="sapid"  required '
-      html += 'class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium"/>'
-      html += '</div>'
-      html += '<div class="form-control w-full max-w-xs">'
-      html += '<label class="label">'
-      html += '<span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน <b class="text-rose-600">*</b></span>'
-      html += '</label>'
-      html += '<select disabled required name="permission" id="permission" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">'
-      html += '<option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>'
-      html += '<option value="1" {{ (old("permission1") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>'
-      html += '<option value="0" {{ (old("permission1") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>'
-      html += '</select>'
-      html += '</div>'
-      html += '<div class="col-span-2 mt-2">'
-      html += '<input type="text" id="username" class="input input-bordered w-full max-w-xs disabled:bg-white disabled:border-white text-lg font-medium" placeholder="ชื่อผู้ใช้งาน" disabled>'
-      html += '</div>'
       
-      html += '</section>'
+      console.log('plus ' + plus_count);
+      
+      if (plus_count === 2) {
+         $('#user2').show()
+         $('#del_icon').prop('disabled', false)
 
-      $('#newuser').append(html)
-      console.log(plus_count);
-      // remove row
-      $(del).click(function () {
-         $(this).closest('#user').remove();
-      });
+         $('#del_svg').addClass('cursor-pointer fill-red-500')
+         $('#del_svg').removeClass('cursor-not-allowed fill-slate-100')
+      }
+      if (plus_count === 3) {
+         $('#user3').show()
+      }
+      if (plus_count === 4) {
+         $('#user4').show()
+      }
+      if (plus_count === 5) {
+         $('#user5').show()
+      }
+      if (plus_count === 6) {
+         $('#user6').show()
+         $('#plus_icon').prop('disabled', true)
+         $('#plas_svg').removeClass('cursor-pointer fill-teal-400')
+         $('#plas_svg').addClass('cursor-not-allowed fill-slate-100')
+      }
    })
+   $(del).click(function () {
+      --plus_count
+      console.log('del ' + plus_count);
+      
+      if (plus_count === 5) {
+         $('#plas_svg').addClass('cursor-pointer fill-teal-400')
+         $('#plas_svg').removeClass('cursor-not-allowed fill-slate-100')
+         $('#plus_icon').prop('disabled', false)
+         $('#user6').hide()
+      }
+      if (plus_count === 4) {
+         $('#user5').hide()
+      }
+      if (plus_count === 3) {
+         $('#user4').hide()
+      }
+      if (plus_count === 2) {
+         $('#user3').hide()
+      }
+      if (plus_count === 1) {
+         $('#user2').hide()
+         console.log('ok');
+         $('#del_icon').prop('disabled', true)
+         // document.getElementById("del_icon").disabled = true;
+         $('#del_svg').removeClass('cursor-pointer fill-red-500')
+         $('#del_svg').addClass('cursor-not-allowed fill-slate-100')
+      }
 
-   // remove
-   
+   })
     
 
    // show username when input sapid
@@ -62,7 +82,7 @@ $(document).ready(function () {
                _token: CSRF_TOKEN
             },
             success: function (result) {
-               console.log(result);
+               // console.log(result);
 
                if (result.Status == 'Active') {
                   if (result.Exist == 'Yes') {
@@ -99,10 +119,15 @@ $(document).ready(function () {
             },
             success: function (result) {
                if (result.Status == 'Active') {
-                  $('#username2').val(result.AccountName);
-                  $('#username2').addClass('disabled:text-teal-500');
+                  if (result.Exist == 'Yes') {
+                     $('#username2').val(result.AccountName);
+                     $('#username2').addClass('disabled:text-red-500');
+                  } else {
+                     $('#username2').val(result.AccountName);
+                     $('#username2').addClass('disabled:text-teal-500');
+                  }
                } else {
-                  $('#username2').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username2').val(result.AccountName);
                   $('#username2').addClass('disabled:text-red-500');
                }
             }
@@ -128,10 +153,15 @@ $(document).ready(function () {
             },
             success: function (result) {
                if (result.Status == 'Active') {
-                  $('#username3').val(result.AccountName);
-                  $('#username3').addClass('disabled:text-teal-500');
+                  if (result.Exist == 'Yes') {
+                     $('#username3').val(result.AccountName);
+                     $('#username3').addClass('disabled:text-red-500');
+                  } else {
+                     $('#username3').val(result.AccountName);
+                     $('#username3').addClass('disabled:text-teal-500');
+                  }
                } else {
-                  $('#username3').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username3').val(result.AccountName);
                   $('#username3').addClass('disabled:text-red-500');
                }
             }
@@ -157,10 +187,15 @@ $(document).ready(function () {
             },
             success: function (result) {
                if (result.Status == 'Active') {
-                  $('#username4').val(result.AccountName);
-                  $('#username4').addClass('disabled:text-teal-500');
+                  if (result.Exist == 'Yes') {
+                     $('#username4').val(result.AccountName);
+                     $('#username4').addClass('disabled:text-red-500');
+                  } else {
+                     $('#username4').val(result.AccountName);
+                     $('#username4').addClass('disabled:text-teal-500');
+                  }
                } else {
-                  $('#username4').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username4').val(result.AccountName);
                   $('#username4').addClass('disabled:text-red-500');
                }
             }
@@ -186,10 +221,15 @@ $(document).ready(function () {
             },
             success: function (result) {
                if (result.Status == 'Active') {
-                  $('#username5').val(result.AccountName);
-                  $('#username5').addClass('disabled:text-teal-500');
+                  if (result.Exist == 'Yes') {
+                     $('#username5').val(result.AccountName);
+                     $('#username5').addClass('disabled:text-red-500');
+                  } else {
+                     $('#username5').val(result.AccountName);
+                     $('#username5').addClass('disabled:text-teal-500');
+                  }
                } else {
-                  $('#username5').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username5').val(result.AccountName);
                   $('#username5').addClass('disabled:text-red-500');
                }
             }
@@ -215,10 +255,15 @@ $(document).ready(function () {
             },
             success: function (result) {
                if (result.Status == 'Active') {
-                  $('#username6').val(result.AccountName);
-                  $('#username6').addClass('disabled:text-teal-500');
+                  if (result.Exist == 'Yes') {
+                     $('#username6').val(result.AccountName);
+                     $('#username6').addClass('disabled:text-red-500');
+                  } else {
+                     $('#username6').val(result.AccountName);
+                     $('#username6').addClass('disabled:text-teal-500');
+                  }
                } else {
-                  $('#username6').val(result.AccountName +' สถานะ '+ result.Status);
+                  $('#username6').val(result.AccountName);
                   $('#username6').addClass('disabled:text-red-500');
                }
             }
