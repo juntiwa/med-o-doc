@@ -17,14 +17,15 @@ class CheckAccountAPI implements CheckUserAPI
 
         if ($data['Status'] == 'Active') {
             if (Member::where('org_id', $sapid)->exists()) {
-               $result = ['Status'=> $data['Status'],'Exist' => 'Yes','AccountName' => $data['AccountName'].' มีอยู่แล้ว'];
+                $result = ['Status' => $data['Status'], 'Exist' => 'Yes', 'AccountName' => $data['AccountName'].' มีอยู่แล้ว'];
             } else {
-               $result = ['Status'=> $data['Status'],'Exist' => 'No','AccountName' => $data['AccountName']];
+                $result = ['Status' => $data['Status'], 'Exist' => 'No', 'AccountName' => $data['AccountName']];
             }
-         } else {
-            $result = ['Status'=> $data['Status'],'AccountName' => $data['AccountName'].' ไม่ได้เป็นพนักงาน'];
-         }
-         return $result;
+        } else {
+            $result = ['Status' => $data['Status'], 'AccountName' => $data['AccountName'].' ไม่ได้เป็นพนักงาน'];
+        }
+
+        return $result;
     }
 
     public function checkexist($sapid)

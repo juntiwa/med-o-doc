@@ -195,7 +195,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-      //  custom
+        //  custom
         App\Providers\AuthUserServiceProvider::class,
         App\Providers\CheckUserProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
@@ -218,17 +218,17 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(), */
     'aliases' => [
-      'Auth' => Illuminate\Support\Facades\Auth::class,
-      'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-      'Input' => Illuminate\Support\Facades\Request::class,
-      'Route' => Illuminate\Support\Facades\Route::class,
-      'Session' => Illuminate\Support\Facades\Session::class,
-      'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
-   ],
+        'Auth' => Illuminate\Support\Facades\Auth::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Input' => Illuminate\Support\Facades\Request::class,
+        'Route' => Illuminate\Support\Facades\Route::class,
+        'Session' => Illuminate\Support\Facades\Session::class,
+        'Toastr' => Brian2694\Toastr\Facades\Toastr::class,
+    ],
 
-   //api
-   'HAN_API_SERVICE_URL' => env('HAN_API_SERVICE_URL'),
-   'HAN_API_SERVICE_TOKEN' => env('HAN_API_SERVICE_TOKEN'),
-   'HAN_API_SERVICE_SECRET' => env('HAN_API_SERVICE_SECRET'),
+    //api
+    'HAN_API_SERVICE_URL' => env('HAN_API_SERVICE_URL'),
+    'HAN_API_SERVICE_TOKEN' => env('HAN_API_SERVICE_TOKEN'),
+    'HAN_API_SERVICE_SECRET' => env('HAN_API_SERVICE_SECRET'),
 
 ];

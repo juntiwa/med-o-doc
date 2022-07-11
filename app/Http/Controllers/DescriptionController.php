@@ -15,6 +15,7 @@ class DescriptionController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +73,7 @@ class DescriptionController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('decription', ['registerFound'=>$registerFound,'descriptions'=>$descriptions]);
+        return view('decription', ['registerFound' => $registerFound, 'descriptions' => $descriptions]);
     }
 
     /**

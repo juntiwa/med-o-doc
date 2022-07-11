@@ -10,8 +10,8 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = [
-      'org_id',
-      'is_admin',
-      'status',
-  ];
+        'org_id',
+        'is_admin',
+        'status',
+    ];
 }

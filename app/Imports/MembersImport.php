@@ -11,13 +11,13 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 class MembersImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param  array  $row
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         User::create($row);
+
         return new Member($row);
     }
 

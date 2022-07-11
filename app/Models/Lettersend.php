@@ -14,6 +14,7 @@ class Lettersend extends Model
     {
         return Carbon::parse($this->senddate)->thaidate();
     }
+
     public function getThaiRecDateAttribute()
     {
         return Carbon::parse($this->recdate)->thaidate();

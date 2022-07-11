@@ -19,6 +19,7 @@ class HistoryController extends Controller
     {
         $this->middleware(['auth', 'admin']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,8 +40,8 @@ class HistoryController extends Controller
         $log_activity->user_agent = $request->header('user-agent');
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
-        
-        return view('admin.history', ['logAvtivitys'=>$logAvtivitys]);
+
+        return view('admin.history', ['logAvtivitys' => $logAvtivitys]);
     }
 
     /**
@@ -110,8 +111,8 @@ class HistoryController extends Controller
     }
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function export(Request $request)
     {
         $time_now = Carbon::now()->format('Y_m_d_H:i:s');
