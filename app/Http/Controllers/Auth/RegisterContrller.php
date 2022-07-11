@@ -71,7 +71,7 @@ class RegisterContrller extends Controller
 
         //   toastr()->success('ลงทะเบียนใช้งานสำเร็จ', 'ลงทะเบียน');
         Toastr::success('ลงทะเบียนใช้งานสำเร็จ', 'Success!!');
-        Log::critical($full_name . ' register success');
+        Log::critical($full_name.' register success');
 
         return Redirect::route('documents');
     }

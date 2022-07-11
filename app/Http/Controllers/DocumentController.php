@@ -42,8 +42,8 @@ class DocumentController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('document', ['monthsSelectionForm'=>$monthsSelectionForm, 'yearsSelectionForm'=>$yearsSelectionForm,
-                                 'typesSelectionForm'=>$typesSelectionForm, 'documentCount'=>$documentCount]);
+        return view('document', ['monthsSelectionForm' => $monthsSelectionForm, 'yearsSelectionForm' => $yearsSelectionForm,
+            'typesSelectionForm' => $typesSelectionForm, 'documentCount' => $documentCount, ]);
     }
 
     public function create()
@@ -80,7 +80,7 @@ class DocumentController extends Controller
         if ($type != '') {
             foreach ($typesSelectionForm as $typelog) {
                 if ($type == $typelog->typeid) {
-                    $searchLog = ' ชนิดหนังสือ : ' . $typelog->typename;
+                    $searchLog = ' ชนิดหนังสือ : '.$typelog->typename;
                 }
             }
             // logger($searchLog);
@@ -90,13 +90,13 @@ class DocumentController extends Controller
         if ($unitInner != '') {
             $length = strlen($unitInner);
             if ($length != '') {
-                $zero = '0' . $unitInner;
+                $zero = '0'.$unitInner;
             } else {
                 $zero = $unitInner;
             }
             foreach ($jobunitsLog as $unitInnerlog) {
                 if ($unitInner == $unitInnerlog->unitis) {
-                    $searchLog = ' หน่วยงานที่ส่ง : ' . $unitInnerlog->unitname;
+                    $searchLog = ' หน่วยงานที่ส่ง : '.$unitInnerlog->unitname;
                 }
             }
             $resultDocument = $resultDocument->where('regfrom', $zero);
@@ -105,28 +105,28 @@ class DocumentController extends Controller
         if ($idunitOutter != '') {
             foreach ($letterunitsLog as $unitOutterlog) {
                 if ($idunitOutter == $unitOutterlog->unitis) {
-                    $searchLog = ' หน่วยงานที่ส่ง : ' . $unitOutterlog->unitname;
+                    $searchLog = ' หน่วยงานที่ส่ง : '.$unitOutterlog->unitname;
                 }
             }
             $resultDocument = $resultDocument->where('regfrom', $idunitOutter);
         }
 
         if ($title != '') {
-            $resultDocument = $resultDocument->where('regtitle', 'LIKE', '%' . $title . '%');
+            $resultDocument = $resultDocument->where('regtitle', 'LIKE', '%'.$title.'%');
             if ($type != '') {
-                $searchLog = $searchLog . ' หัวเรื่อง  : ' . $title;
+                $searchLog = $searchLog.' หัวเรื่อง  : '.$title;
             } else {
-                $searchLog = ' หัวเรื่อง  : ' . $title;
+                $searchLog = ' หัวเรื่อง  : '.$title;
             }
         }
 
         if ($startMonth != '' && $endMonth != '') {
             foreach ($monthsLog as $monthLog) {
                 if ($startMonth == $monthLog->id) {
-                    $searchLog = ' หน่วยงานที่ส่ง : ' . $monthLog->name_th;
+                    $searchLog = ' หน่วยงานที่ส่ง : '.$monthLog->name_th;
                 }
                 if ($endMonth == $monthLog->id) {
-                    $searchLog = ' ถึง ' . $monthLog->name_th;
+                    $searchLog = ' ถึง '.$monthLog->name_th;
                 }
             }
 
@@ -134,7 +134,7 @@ class DocumentController extends Controller
         }
 
         if ($startYear != '' && $endYear != '') {
-            $searchLog = ' ระหว่างปี : ' . $startYear + 543 . ' ถึง ' . $endYear + 543;
+            $searchLog = ' ระหว่างปี : '.$startYear + 543 .' ถึง '.$endYear + 543;
             $resultDocument = $resultDocument->whereBetween(DB::raw('Year(regdate)'), [$startYear, $endYear]);
         }
         $resultCount = $resultDocument->count();
@@ -146,7 +146,7 @@ class DocumentController extends Controller
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'ค้นหาเอกสาร ' . $searchLog;
+        $log_activity->action = 'ค้นหาเอกสาร '.$searchLog;
         $log_activity->type = 'search';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
@@ -154,9 +154,9 @@ class DocumentController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('document', ['monthsSelectionForm'=>$monthsSelectionForm, 'yearsSelectionForm'=>$yearsSelectionForm,
-                                 'typesSelectionForm'=>$typesSelectionForm, 'resultDocument'=>$resultDocument,
-                                  'resultCount'=>$resultCount, 'documentCount'=>$documentCount, ])->with($request->flash());
+        return view('document', ['monthsSelectionForm' => $monthsSelectionForm, 'yearsSelectionForm' => $yearsSelectionForm,
+            'typesSelectionForm' => $typesSelectionForm, 'resultDocument' => $resultDocument,
+            'resultCount' => $resultCount, 'documentCount' => $documentCount, ])->with($request->flash());
     }
 
     public function edit($id)
@@ -185,11 +185,11 @@ class DocumentController extends Controller
             // $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
 
             if ($unitinner == $list->unitid) {
-                $html .= '<option id="option" value="' . $list->unitid . '" selected>' . $list->unitname . '</option>';
+                $html .= '<option id="option" value="'.$list->unitid.'" selected>'.$list->unitname.'</option>';
             } else {
-                $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
+                $html .= '<option id="option" value="'.$list->unitid.'" >'.$list->unitname.'</option>';
             }
-            echo $list->unitid . '<br>';
+            echo $list->unitid.'<br>';
         }
         echo $html;
     }
@@ -198,7 +198,7 @@ class DocumentController extends Controller
     {
         $search = $request->get('search');
         $data = Letterunit::select('unitname as value', 'unitid as id')
-              ->where('unitname', 'LIKE', '%' . $search . '%')
+              ->where('unitname', 'LIKE', '%'.$search.'%')
               ->orderBy('unitname')
               ->limit(20)->get();
 
@@ -209,13 +209,13 @@ class DocumentController extends Controller
     {
         $doc = Letterreg::where('regrecid', $regdoc)->first();
         $filename = $doc->regdoc;
-        $path = 'files/' . $year . '/' . $filename;
+        $path = 'files/'.$year.'/'.$filename;
 
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เปิดไฟล์เอกสาร ' . $filename;
+        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
         $log_activity->type = 'search';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
@@ -238,13 +238,13 @@ class DocumentController extends Controller
     {
         $doc = Letterreg::where('regrecid', $regdoc)->first();
         $filename = $doc->regdoc2;
-        $path = 'files/' . $year . '/' . $filename;
+        $path = 'files/'.$year.'/'.$filename;
 
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เปิดไฟล์เอกสาร ' . $filename;
+        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
         $log_activity->type = 'search';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();

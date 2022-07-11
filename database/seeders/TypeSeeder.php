@@ -15,9 +15,9 @@ class TypeSeeder extends Seeder
     public function run()
     {
         $types = [
-         ['typeid' => '0', 'typename' => 'ในภาค'],
-         ['typeid' => '3', 'typename' => 'นอกภาค'],
-      ];
+            ['typeid' => '0', 'typename' => 'ในภาค'],
+            ['typeid' => '3', 'typename' => 'นอกภาค'],
+        ];
 
         foreach ($types as $type) {
             Type::create($type);
