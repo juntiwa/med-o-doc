@@ -20,6 +20,7 @@ class ManageController extends Controller
     {
         $this->middleware(['auth', 'admin']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +42,7 @@ class ManageController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('admin.manage.user', ['userPermission'=>$userPermission]);
+        return view('admin.manage.user', ['userPermission' => $userPermission]);
     }
 
     /**
@@ -83,28 +84,28 @@ class ManageController extends Controller
         $users = Member::where('org_id', $sapid1)->exists();
         if ($users == '') {
             $data = [
-               ['org_id' => $sapid1 ,'is_admin' => $permission1, 'status' => 'Active'],
+                ['org_id' => $sapid1, 'is_admin' => $permission1, 'status' => 'Active'],
             ];
             // return $data;
             $logdata = ' "'.$sapid1.' สิทธิ์ '.$permission.'"';
             if ($sapid2 != '') {
-                $data[] = [ 'org_id' => $sapid2 ,'is_admin' => $permission2, 'status' => 'Active', ];
+                $data[] = ['org_id' => $sapid2, 'is_admin' => $permission2, 'status' => 'Active'];
                 $logdata .= ' ,"'.$sapid2.' สิทธิ์ '.$permission.'"';
             }
             if ($sapid3 != '') {
-                $data[] = [ 'org_id' => $sapid3 ,'is_admin' => $permission3, 'status' => 'Active', ];
+                $data[] = ['org_id' => $sapid3, 'is_admin' => $permission3, 'status' => 'Active'];
                 $logdata .= ' ,"'.$sapid3.' สิทธิ์ '.$permission.'"';
             }
             if ($sapid4 != '') {
-                $data[] = [ 'org_id' => $sapid4 ,'is_admin' => $permission4, 'status' => 'Active', ];
+                $data[] = ['org_id' => $sapid4, 'is_admin' => $permission4, 'status' => 'Active'];
                 $logdata .= ' ,"'.$sapid4.' สิทธิ์ '.$permission.'"';
             }
             if ($sapid5 != '') {
-                $data[] = [ 'org_id' => $sapid5 ,'is_admin' => $permission5, 'status' => 'Active', ];
+                $data[] = ['org_id' => $sapid5, 'is_admin' => $permission5, 'status' => 'Active'];
                 $logdata .= ' ,"'.$sapid5.' สิทธิ์ '.$permission.'"';
             }
             if ($sapid6 != '') {
-                $data[] = [ 'org_id' => $sapid6 ,'is_admin' => $permission6, 'status' => 'Active', ];
+                $data[] = ['org_id' => $sapid6, 'is_admin' => $permission6, 'status' => 'Active'];
                 $logdata .= ' ,"'.$sapid6.' สิทธิ์ '.$permission.'"';
             }
             Member::insert($data);
@@ -117,7 +118,7 @@ class ManageController extends Controller
             $log_activity->username = Auth::user()->username;
             $log_activity->full_name = Auth::user()->full_name;
             $log_activity->office_name = Auth::user()->office_name;
-            $log_activity->action = 'เพิ่มสิทธิ์ผู้ใช้งาน ' . $logdata;
+            $log_activity->action = 'เพิ่มสิทธิ์ผู้ใช้งาน '.$logdata;
             $log_activity->type = 'create';
             $log_activity->url = URL::current();
             $log_activity->method = $request->method();
@@ -153,8 +154,10 @@ class ManageController extends Controller
                     $errors['massage6'] = ['massage6' => $sapid6.' มีรหัสพนักงานนี้อยู่แล้ว'];
                 }
             }
+
             return Redirect::back()->withErrors($errors)->withInput($request->all());
         }
+
         return Redirect::route('manages');
     }
 
@@ -171,7 +174,7 @@ class ManageController extends Controller
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'ดูข้อมูลรหัสพนักงาน ' .$sapid;
+        $log_activity->action = 'ดูข้อมูลรหัสพนักงาน '.$sapid;
         $log_activity->type = 'view';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
@@ -195,7 +198,7 @@ class ManageController extends Controller
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เข้าสู่หน้าแก้ไขข้อมูลของรหัสพนักงาน ' .$org_id;
+        $log_activity->action = 'เข้าสู่หน้าแก้ไขข้อมูลของรหัสพนักงาน '.$org_id;
         $log_activity->type = 'view';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();
@@ -203,7 +206,7 @@ class ManageController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('admin.manage.editUser', ['user'=>$user,'units'=>$units]);
+        return view('admin.manage.editUser', ['user' => $user, 'units' => $units]);
     }
 
     /**
@@ -220,7 +223,7 @@ class ManageController extends Controller
         $member->is_admin = $request->is_admin;
         $member->status = $request->status;
         $member->save();
-        
+
         $user = User::where('org_id', $org_id)->first();
         $unit = Unit::where('unitid', $request->office_name)->first();
         // Getting values from the blade template form
@@ -238,7 +241,7 @@ class ManageController extends Controller
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
         $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'แก้ไขข้อมูลของรหัสพนักงาน ' .$org_id;
+        $log_activity->action = 'แก้ไขข้อมูลของรหัสพนักงาน '.$org_id;
         $log_activity->type = 'update';
         $log_activity->url = URL::current();
         $log_activity->method = $request->method();

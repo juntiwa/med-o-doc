@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\APIs\CheckAccountAPI;
 use App\Http\Controllers\Controller;
-use App\Models\Member;
 use Illuminate\Http\Request;
 
 class CheckUserController extends Controller
@@ -13,6 +12,7 @@ class CheckUserController extends Controller
     {
         $this->middleware(['auth', 'admin']);
     }
+
     /**
      * Display a listing of the resource.
      *

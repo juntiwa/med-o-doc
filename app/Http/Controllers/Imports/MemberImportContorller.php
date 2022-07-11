@@ -19,20 +19,21 @@ class MemberImportContorller extends Controller
     {
         $this->middleware(['auth', 'admin']);
     }
+
     public function import(Request $request)
     {
         $validateRules = [
             'member_file' => 'required|mimes:csv',
-         ];
+        ];
 
         $message = [
-            'member_file.mimes' => 'กรุณาเลือกไฟล์ประเภท CSV เท่านั้น'
+            'member_file.mimes' => 'กรุณาเลือกไฟล์ประเภท CSV เท่านั้น',
         ];
 
         request()->validate($validateRules, $message);
         try {
             Excel::import(new MembersImport, request()->file('member_file'));
-            
+
             // toastr()->info('Import ข้อมูลเสร็จสิ้น', 'Import');
             Toastr::success('Import ข้อมูลเสร็จสิ้น', 'Success!!');
             Log::critical(Auth::user()->full_name.' Import file user permission');

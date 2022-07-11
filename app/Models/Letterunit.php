@@ -10,14 +10,16 @@ class Letterunit extends Model
     use HasFactory;
 
     protected $fillable = [
-      'unitid',
-      'unitname',
-   ];
+        'unitid',
+        'unitname',
+    ];
+
     public function document()
     {
         //letterunit belong to document
         return $this->belongsTo(Letterreg::class, 'unitid', 'regfrom');
     }
+
     public function description()
     {
         //letterunit belong to description

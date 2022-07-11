@@ -7,7 +7,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterContrller;
 use App\Http\Controllers\DescriptionController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\Imports\MemberContorller;
 use App\Http\Controllers\Imports\MemberImportContorller;
 use Illuminate\Support\Facades\Route;
 
@@ -63,5 +62,3 @@ Route::controller(HistoryController::class)->group(function () {
 Route::controller(MemberImportContorller::class)->group(function () {
     Route::post('member-import', 'import')->name('member.import');
 });
-
-

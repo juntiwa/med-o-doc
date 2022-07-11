@@ -46,10 +46,11 @@ class Letterreg extends Model
 
         return url("/open-files2/{$year}/{$this->regrecid}");
     }
-    
+
     public function getTitleDescriptionAttribute()
     {
         $idTitle = $this->regrecid;
+
         return url("description/{$idTitle}");
     }
 }

@@ -30,13 +30,15 @@ class LoginController extends Controller
             if (Auth::check()) {
                 //  toastr()->info('เข้าสู่ระบบอยู่แล้ว', 'การเข้าสู่ระบบ');
                 Toastr::info('เข้าสู่ระบบอยู่แล้ว', 'Success!!');
+
                 return Redirect::route('documents');
             } else {
                 return view('auth.login');
             }
         } else {
             $units = Unit::orderby('unitname', 'asc')->get();
-            return view('auth.startapp', ['units'=>$units]);
+
+            return view('auth.startapp', ['units' => $units]);
         }
     }
 
@@ -45,7 +47,7 @@ class LoginController extends Controller
         $sirirajUser = $api->authenticate($request->username, $request->password);
         if ($sirirajUser['reply_code'] != 0) {
             $errors = ['message' => $sirirajUser['reply_text']];
-            Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
+            Log::critical($request->username.' '.$sirirajUser['reply_text']);
             // toastr()->error('ตรวจสอบข้อมูล username หรือ password', 'แจ้งเตือน');
             Toastr::error('ตรวจสอบข้อมูล username หรือ password', 'Success!!');
 
@@ -53,8 +55,8 @@ class LoginController extends Controller
         }
 
         $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
-        if (!$checkMember) {
-            Log::critical($sirirajUser['full_name'] . ' No access rights');
+        if (! $checkMember) {
+            Log::critical($sirirajUser['full_name'].' No access rights');
             abort(403);
         } else {
             // dd('ok');
@@ -66,7 +68,7 @@ class LoginController extends Controller
                 //  toastr()->info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'ลงทะเบียนระบบ');
                 Toastr::info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'Register');
 
-                return view('auth.register', ['sirirajUser'=>$sirirajUser, 'units'=>$units]);
+                return view('auth.register', ['sirirajUser' => $sirirajUser, 'units' => $units]);
             } else {
                 if ($checkRegisterUser->username != $sirirajUser['login'] || $checkRegisterUser->full_name != $sirirajUser['full_name']) {
                     $updateUser = User::where('org_id', $checkMember->org_id)->first();
@@ -86,9 +88,10 @@ class LoginController extends Controller
                 $log_activity->date_time = date('d-m-Y H:i:s');
                 $log_activity->save();
 
-                Log::info($full_name . ' login success');
+                Log::info($full_name.' login success');
                 // toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
                 Toastr::success('เข้าสู่ระบบสำเร็จ', 'Success!!');
+
                 return Redirect::route('documents');
             }
         }
@@ -147,7 +150,7 @@ class LoginController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        Log::info($full_name . ' register start app success');
+        Log::info($full_name.' register start app success');
         //   toastr()->info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'แจ้งเตือน');
         Toastr::info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'Success!!');
 

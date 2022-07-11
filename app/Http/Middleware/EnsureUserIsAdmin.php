@@ -17,9 +17,10 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-       if(Auth::user()->is_admin != "1"){
-          abort(403);
-       }
+        if (Auth::user()->is_admin != '1') {
+            abort(403);
+        }
+
         return $next($request);
     }
 }
