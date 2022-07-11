@@ -59,7 +59,7 @@ class DescriptionController extends Controller
         $descriptions = Lettersend::leftJoin('letterrecs', 'lettersends.sendregid', '=', 'letterrecs.sendregid')
         ->where('lettersends.regrecid', $idTitle)
         ->orderby('letterrecs.recdate', 'desc')
-        ->get();
+        ->paginate(50);
         $title = $registerFound->regtitle;
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
