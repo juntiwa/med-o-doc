@@ -47,7 +47,6 @@
                         </a>
                         <ul class="p-2 bg-slate-100 text-lg">
                             <li class="@if (Route::is('manages')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                            <li class="@if (Route::is('manage.create')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                             <li class="@if (Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('logactivitys')}}">ประวัติการใช้งาน</a></li>
                         </ul>
                     </li>
@@ -69,7 +68,6 @@
                    </a>
                    <ul class="p-2 bg-slate-50 text-lg">
                    <li class="@if (Route::is('manages')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manages')}}">ข้อมูลสิทธิ์ผู้ใช้งาน</a></li>
-                   <li class="@if (Route::is('manage.create')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('manage.create')}}">เพิ่มสิทธิ์ผู้ใช้งาน</a></li>
                    <li class="@if (Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('logactivitys')}}">ประวัติการใช้งาน</a></li>
                    </ul>
                 </li>

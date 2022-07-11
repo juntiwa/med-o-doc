@@ -13,10 +13,10 @@
 @section('content')
 {!! Toastr::message() !!}
 <section id="formEdit">
-   <form class="space-y-6 mx-40" action="{{ route('manage.update',$user->org_id) }}" method="post">
+   <form class="space-y-6" action="{{ route('manage.update',$user->org_id) }}" method="post">
       @csrf
        <h5 class="text-xl font-medium text-gray-900">แก้ไขข้อมูลผู้ใช้งาน</h5>
-       <div class="grid grid-cols-2 gap-4">
+       <div class="grid grid-cols-1 gap-4">
          <div>
             <label for="org_id" class="block mb-2 text-base font-medium text-gray-900">รหัสพนักงาน <span class="text-rose-600">*</span></label>
             <input type="text" name="org_id" id="org_id" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 

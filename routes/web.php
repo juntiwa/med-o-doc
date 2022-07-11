@@ -42,7 +42,7 @@ Route::controller(DescriptionController::class)->group(function () {
 
 Route::controller(ManageController::class)->group(function () {
     Route::get('manages', 'index')->name('manages');
-    Route::get('manage-create', 'create')->name('manage.create');
+   //  Route::get('manage-create', 'create')->name('manage.create');
     Route::post('manage-store', 'store')->name('manage.store');
     Route::post('show-sapid', 'show')->name('manage.sapid');
     Route::get('manage-edit/{org_id}', 'edit')->name('manage.edit');
