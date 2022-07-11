@@ -29,7 +29,8 @@ class ManageController extends Controller
     public function index(Request $request)
     {
         $userPermission = User::rightJoin('members', 'users.org_id', '=', 'members.org_id')->paginate(50);
-
+      //   $user = User::where('org_id', $org_id)->first();
+        $units = Unit::orderby('unitname', 'asc')->get();
         $log_activity = new LogActivity;
         $log_activity->username = Auth::user()->username;
         $log_activity->full_name = Auth::user()->full_name;
@@ -42,7 +43,7 @@ class ManageController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        return view('admin.manage.user', ['userPermission' => $userPermission]);
+        return view('admin.manage.user', ['userPermission' => $userPermission,'units'=>$units]);
     }
 
     /**
