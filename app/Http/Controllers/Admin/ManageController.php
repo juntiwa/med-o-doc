@@ -66,19 +66,21 @@ class ManageController extends Controller
     {
         $sapids = $request->sapid;
         $permissions = $request->permission;
-        $data = [];
-        $logdata = [];
-        foreach ($sapids as $sapid) {
-            foreach ($permissions as $permission) {
-               $data[] = [
-                 'org_id' => $sapid,
-                 'is_admin' => $permission,
-               ];
-            }
-        }
-
         
-        return $data;
+        $data = [];  
+        $arrlength = count($sapids);
+        for ($i = 0; $i < $arrlength; $i++) {
+            $data[$i] = [
+               'org_id' => $sapids[$i],
+               'is_admin' => $permissions[$i],
+            ];
+            if($permissions[$i] == 1){
+               $role = "ผู้ดูแลระบบ";
+            }else{
+               $role = "ผู้ใช้งานทั่วไป";
+            }
+            $logdata = 'รหัสผู้ใช้งาน '.$sapids[$i] .' สิทธิ์ '.$role[$i];
+        }
         Member::insert($data);
         User::insert($data);
         Toastr::success('เพิ่มผู้ใช้งานสำเร็จ', 'Success!!');

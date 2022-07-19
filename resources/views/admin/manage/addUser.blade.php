@@ -1,4 +1,4 @@
-<!-- resources/views/child.blade.php -->
+
  
 @extends('layouts.app')
  
@@ -34,9 +34,9 @@
       @csrf 
       <section id="newuser" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
          <section id="user">
-            <div class="card w-full bg-base-100 drop-shadow-md bg-white">
+            <div class="card w-full bg-base-100 drop-shadow-lg bg-white">
               <div class="card-body">
-                <h2 class="card-title">เพิ่มผู้ใช้งาน</h2>
+                <h2 class="text-slate-900 text-xl font-semibold">เพิ่มผู้ใช้งาน</h2>
                 <div class="form-control w-full">
                      <label class="label">
                         <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>
@@ -58,7 +58,7 @@
                </div>
               
                 <div class="card-actions mt-5 justify-end">
-                  <button type="button" id="remove" class="btn btn-primary" disabled>ลบช่องกรอกข้อมูล</button>
+                  <button type="button" id="remove" class="btn bg-red-500 border-none hover:bg-red-700" disabled>ลบช่องกรอกข้อมูล</button>
                 </div>
               </div>
             </div>
@@ -79,6 +79,5 @@
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    </script>
    <script type="text/javascript" src="{{asset('js/manageuser.js')}}"></script>
-   {{-- <script type="text/javascript" src="{{asset('js/adduser.js')}}"></script> --}}
-   <script type="text/javascript" src="{{asset('js/newAddUser.js')}}"></script>
+   <script type="text/javascript" src="{{asset('js/adduser.js')}}"></script>
 @endsection

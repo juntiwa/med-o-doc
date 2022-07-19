@@ -1,29 +1,34 @@
 $(document).ready(function () { 
    var html = '';
-      html += '<section id="user" class="sm:flex sm:flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-2 gap4">';
-      html += '<div class="form-control w-full max-w-xs">';
-      html += '<label class="label">';
-      html += '<span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>';
-      html += '</label>';
-      html += '<input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid[]" id="sapid--index--" required class="input input-bordered w-full max-w-xs bg-white border-slate-400 text-lg font-medium" data-user-index="--index--"/>';
-      html += '</div>';
-      html += '<div class="flex w-full justify-between">';
-      html += '<div class="form-control w-full max-w-xs mr-4">';
-      html += '<label class="label">';
-      html += '<span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน <b class="text-rose-600">*</b></span>';
-      html += '</label>';
-      html += '<select disabled required name="permission[]" id="permission--index--" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal">';
-      html += '<option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>';
-      html += '<option value="1" {{ (old("permission") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>';
-      html += '<option value="0" {{ (old("permission") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>';
-      html += '</select>';
-      html += '</div>';
-      html += '<div class="flex justify-end items-end">';
-      html += '<button id="remove" type="button" class="btn btn-error">ลบช่อง</button>';
-      html += '</div>';
-      html += '</div>';
-      html += '<input id="username--index--" type="text" placeholder="ชื่อผู้ใช้งาน" class="mt-3 input w-full max-w-xs text-base disabled:border-none disabled:bg-white disabled:text-slate-900" disabled />';
-      html += '</section>';
+   html += '<section id="user">';
+   html += '<div class="card w-full bg-base-100 drop-shadow-md  bg-white">';
+   html += '<div class="card-body">';
+   html += '<h2 class="text-slate-900 text-xl font-semibold">เพิ่มผู้ใช้งาน</h2>';
+   html += '<div class="form-control w-full">';
+   html += '<label class="label">';
+   html += '<span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>';
+   html += '</label>';
+   html += '<input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid[]" id="sapid--index--" required class="input input-bordered w-full bg-white border-slate-400 text-lg font-medium" data-user-index="--index--" />';
+   html += '<input id="username--index--" type="text" placeholder="ชื่อผู้ใช้งาน" class="mt-3 input w-full max-w-lg text-base disabled:border-none disabled:bg-white disabled:text-slate-900" disabled />';
+   html += '</div>';
+   html += '<div class="form-control w-full mr-4">';
+   html += '<label class="label">';
+   html += '<span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน <b class="text-rose-600">*</b></span>';
+   html += '</label>';
+   html += '<select disabled required name="permission[]" id="permission--index--" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal w-full">';
+   html += '<option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>';
+   html += '<option value="1" {{ (old("permission") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>';
+   html += '<option value="0" {{ (old("permission") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>';
+   html += '</select>';
+   html += '</div>';
+   html += '<div class="card-actions mt-5 justify-end">';
+   html += '<button id="remove" type="button" class="btn bg-red-500 border-none hover:bg-red-700">ลบช่องกรอกข้อมูล</button>';
+   html += '</div>';
+   html += '</div>';
+   html += '</div>';
+   html += '</section>';
+
+
    var emptyUser = { sapid: null, username: null, permission: null, error: false }
    var users = [];
    users.push({...emptyUser})
@@ -39,32 +44,38 @@ $(document).ready(function () {
          },
          success: function (result) {
             console.log(result);
+            $('#username' + index).val(result.AccountName);
             if (result.Status == 'Active') {
                if (result.Exist == 'Yes') {
-                  $('#username' + index).val(result.AccountName);
+                  
                   $('#username' + index).removeClass('disabled:text-teal-500');
                   $('#username' + index).addClass('disabled:text-red-500');
-                  $('#message').removeClass('hidden');
+                  $('#permission' + index).prop('disabled', true);
+                  $('#saveButton').prop('disabled', true);
                   users[index].error = true;
                } else {
-                  $('#username' + index).val(result.AccountName);
                   $('#username' + index).removeClass('disabled:text-red-500');
                   $('#username' + index).addClass('disabled:text-teal-500');
-                  $('#message').addClass('hidden');
+                  $('#permission' + index).prop('disabled', false);
+                  $('#saveButton').prop('disabled', false);
+                  users[index].error = false;
                }
-            } else {
-               $('#username' + index).val(result.AccountName);
+            } else { // inactive
                $('#username' + index).removeClass('disabled:text-teal-500');
                $('#username' + index).addClass('disabled:text-red-500');
-               $('#message').removeClass('hidden');
+               $('#permission' + index).prop('disabled', true);
+               $('#saveButton').prop('disabled', true);
                users[index].error = true;
             }
 
             if (users.reduce((a, b) => a || b.error, false)) {
-               $('#test-error').removeClass('hidden');
+               $('#errors').removeClass('hidden');
+            } else {
+               $('#errors').addClass('hidden');
             }
          }
       })
+      
    }
    function sapidOnchange() {
       getUserbySapId($(this).data('user-index'));
@@ -76,16 +87,18 @@ $(document).ready(function () {
       var index = users.length - 1;
       var template = html.replaceAll('--index--', index)
       $('#newuser').append(template);
-      $('#sapid'+index).change(sapidOnchange)
-      if (users.length == 6) {
-         $('#plus_icon').prop('disabled', true)
-         $('#plas_svg').removeClass('cursor-pointer fill-teal-400')
-         $('#plas_svg').addClass('cursor-not-allowed fill-slate-100')
-      }      
+      $('#sapid' + index).change(sapidOnchange)
+      $('#remove').prop('disabled',false)
    });
 
    $(document).on('click', '#remove', function () {
-      --users.length
+      --users.length;
       $(this).closest('#user').remove();
+      if (users.length == 1) {
+         $('#remove').prop('disabled', true);
+      }
    });
+   
+
+   
 });
