@@ -1,280 +1,104 @@
 $(document).ready(function () { 
-   $('#user2').hide();
-   $('#user3').hide();
-   $('#user4').hide();
-   $('#user5').hide();
-   $('#user6').hide();
+   var html = '';
+   html += '<section id="user">';
+   html += '<div class="card w-full bg-base-100 drop-shadow-md  bg-white">';
+   html += '<div class="card-body">';
+   html += '<h2 class="text-slate-900 text-xl font-semibold">เพิ่มผู้ใช้งาน</h2>';
+   html += '<div class="form-control w-full">';
+   html += '<label class="label">';
+   html += '<span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>';
+   html += '</label>';
+   html += '<input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid[]" id="sapid--index--" required class="input input-bordered w-full bg-white border-slate-400 text-lg font-medium" data-user-index="--index--" />';
+   html += '<input id="username--index--" type="text" placeholder="ชื่อผู้ใช้งาน" class="mt-3 input w-full max-w-lg text-base disabled:border-none disabled:bg-white disabled:text-slate-900" disabled />';
+   html += '</div>';
+   html += '<div class="form-control w-full mr-4">';
+   html += '<label class="label">';
+   html += '<span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน <b class="text-rose-600">*</b></span>';
+   html += '</label>';
+   html += '<select disabled required name="permission[]" id="permission--index--" class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal w-full">';
+   html += '<option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>';
+   html += '<option value="1" {{ (old("permission") == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>';
+   html += '<option value="0" {{ (old("permission") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>';
+   html += '</select>';
+   html += '</div>';
+   html += '<div class="card-actions mt-5 justify-end">';
+   html += '<button id="remove" type="button" class="btn bg-red-500 border-none hover:bg-red-700">ลบช่องกรอกข้อมูล</button>';
+   html += '</div>';
+   html += '</div>';
+   html += '</div>';
+   html += '</section>';
 
-   var plus_count = 1
-   var plus = document.getElementById("plus_icon")
-   var del = document.getElementById("del_icon")
 
-   $(plus).click(function () {
-      plus_count++
+   var emptyUser = { sapid: null, username: null, permission: null, error: false }
+   var users = [];
+   users.push({...emptyUser})
+
+   function getUserbySapId(index) {
+      var sapid = $('#sapid'+index).val()
+      $.ajax({
+         url: sapidroute,
+         type: 'post',
+         data: {
+            sapid: sapid,
+            _token: CSRF_TOKEN
+         },
+         success: function (result) {
+            console.log(result);
+            $('#username' + index).val(result.AccountName);
+            if (result.Status == 'Active') {
+               if (result.Exist == 'Yes') {
+                  
+                  $('#username' + index).removeClass('disabled:text-teal-500');
+                  $('#username' + index).addClass('disabled:text-red-500');
+                  $('#permission' + index).prop('disabled', true);
+                  $('#saveButton').prop('disabled', true);
+                  users[index].error = true;
+               } else {
+                  $('#username' + index).removeClass('disabled:text-red-500');
+                  $('#username' + index).addClass('disabled:text-teal-500');
+                  $('#permission' + index).prop('disabled', false);
+                  $('#saveButton').prop('disabled', false);
+                  users[index].error = false;
+               }
+            } else { // inactive
+               $('#username' + index).removeClass('disabled:text-teal-500');
+               $('#username' + index).addClass('disabled:text-red-500');
+               $('#permission' + index).prop('disabled', true);
+               $('#saveButton').prop('disabled', true);
+               users[index].error = true;
+            }
+
+            if (users.reduce((a, b) => a || b.error, false)) {
+               $('#errors').removeClass('hidden');
+            } else {
+               $('#errors').addClass('hidden');
+            }
+         }
+      })
       
-      console.log('plus ' + plus_count);
-      
-      if (plus_count === 2) {
-         $('#user2').show()
-         $('#del_icon').prop('disabled', false)
+   }
+   function sapidOnchange() {
+      getUserbySapId($(this).data('user-index'));
+   }
+   $('#sapid0').change(sapidOnchange)
+   
+   $("#plus_icon").click(function () {
+      users.push({ ...emptyUser });
+      var index = users.length - 1;
+      var template = html.replaceAll('--index--', index)
+      $('#newuser').append(template);
+      $('#sapid' + index).change(sapidOnchange)
+      $('#remove').prop('disabled',false)
+   });
 
-         $('#del_svg').addClass('cursor-pointer fill-red-500')
-         $('#del_svg').removeClass('cursor-not-allowed fill-slate-100')
+   $(document).on('click', '#remove', function () {
+      --users.length;
+      $(this).closest('#user').remove();
+      if (users.length == 1) {
+         $('#remove').prop('disabled', true);
       }
-      if (plus_count === 3) {
-         $('#user3').show()
-      }
-      if (plus_count === 4) {
-         $('#user4').show()
-      }
-      if (plus_count === 5) {
-         $('#user5').show()
-      }
-      if (plus_count === 6) {
-         $('#user6').show()
-         $('#plus_icon').prop('disabled', true)
-         $('#plas_svg').removeClass('cursor-pointer fill-teal-400')
-         $('#plas_svg').addClass('cursor-not-allowed fill-slate-100')
-      }
-   })
-   $(del).click(function () {
-      --plus_count
-      console.log('del ' + plus_count);
-      
-      if (plus_count === 5) {
-         $('#plas_svg').addClass('cursor-pointer fill-teal-400')
-         $('#plas_svg').removeClass('cursor-not-allowed fill-slate-100')
-         $('#plus_icon').prop('disabled', false)
-         $('#user6').hide()
-      }
-      if (plus_count === 4) {
-         $('#user5').hide()
-      }
-      if (plus_count === 3) {
-         $('#user4').hide()
-      }
-      if (plus_count === 2) {
-         $('#user3').hide()
-      }
-      if (plus_count === 1) {
-         $('#user2').hide()
-         console.log('ok');
-         $('#del_icon').prop('disabled', true)
-         // document.getElementById("del_icon").disabled = true;
-         $('#del_svg').removeClass('cursor-pointer fill-red-500')
-         $('#del_svg').addClass('cursor-not-allowed fill-slate-100')
-      }
-
-   })
-    
-
-   // show username when input sapid
-   $('input[name=sapid1]').change(function () {
-      var sapid = $(this).val();
-      // console.log(sapid)
-      if (sapid !== '') {
-         $('#permission1').prop('disabled', false)
-         $.ajax({  
-            url: sapidroute,
-            type: 'post',
-            data: {
-               sapid: sapid,
-               _token: CSRF_TOKEN
-            },
-            success: function (result) {
-               // console.log(result);
-
-               if (result.Status == 'Active') {
-                  if (result.Exist == 'Yes') {
-                     $('#username1').val(result.AccountName);
-                     $('#username1').addClass('disabled:text-red-500');
-                  } else {
-                     $('#username1').val(result.AccountName);
-                     $('#username1').addClass('disabled:text-teal-500');
-                  }
-               } else {
-                  $('#username1').val(result.AccountName);
-                  $('#username1').addClass('disabled:text-red-500');
-               }
-            }
-         })
-         
-      } else {
-         $('#permission1').val('')
-         $('#permission1').prop('disabled', true)
-      }
-   })
-   $('input[name=sapid2]').change(function () {
-      var sapid = $(this).val();
-      // console.log(sapid)
-      if (sapid !== '') {
-         $('#permission2').prop('disabled', false)
-         $('#permission2').prop('required', true)
-         $.ajax({  
-         url: sapidroute,
-            type: 'post',
-            data: {
-               sapid: sapid,
-               _token: CSRF_TOKEN
-            },
-            success: function (result) {
-               if (result.Status == 'Active') {
-                  if (result.Exist == 'Yes') {
-                     $('#username2').val(result.AccountName);
-                     $('#username2').addClass('disabled:text-red-500');
-                  } else {
-                     $('#username2').val(result.AccountName);
-                     $('#username2').addClass('disabled:text-teal-500');
-                  }
-               } else {
-                  $('#username2').val(result.AccountName);
-                  $('#username2').addClass('disabled:text-red-500');
-               }
-            }
-         })
-      } else {
-         $('#permission2').val('')
-         $('#permission2').prop('disabled', true)
-         $('#permission2').prop('required', false)
-      }
-   })
-   $('input[name=sapid3]').change(function () {
-      var sapid = $(this).val();
-      // console.log(sapid)
-      if (sapid !== '') {
-         $('#permission3').prop('disabled', false)
-         $('#permission3').prop('required', true)
-         $.ajax({  
-         url: sapidroute,
-            type: 'post',
-            data: {
-               sapid: sapid,
-               _token: CSRF_TOKEN
-            },
-            success: function (result) {
-               if (result.Status == 'Active') {
-                  if (result.Exist == 'Yes') {
-                     $('#username3').val(result.AccountName);
-                     $('#username3').addClass('disabled:text-red-500');
-                  } else {
-                     $('#username3').val(result.AccountName);
-                     $('#username3').addClass('disabled:text-teal-500');
-                  }
-               } else {
-                  $('#username3').val(result.AccountName);
-                  $('#username3').addClass('disabled:text-red-500');
-               }
-            }
-         })
-      } else {
-         $('#permission3').val('')
-         $('#permission3').prop('disabled', true)
-         $('#permission3').prop('required', false)
-      }
-   })
-   $('input[name=sapid4]').change(function () {
-      var sapid = $(this).val();
-      // console.log(sapid)
-      if (sapid !== '') {
-         $('#permission4').prop('disabled', false)
-         $('#permission4').prop('required', true)
-         $.ajax({  
-         url: sapidroute,
-            type: 'post',
-            data: {
-               sapid: sapid,
-               _token: CSRF_TOKEN
-            },
-            success: function (result) {
-               if (result.Status == 'Active') {
-                  if (result.Exist == 'Yes') {
-                     $('#username4').val(result.AccountName);
-                     $('#username4').addClass('disabled:text-red-500');
-                  } else {
-                     $('#username4').val(result.AccountName);
-                     $('#username4').addClass('disabled:text-teal-500');
-                  }
-               } else {
-                  $('#username4').val(result.AccountName);
-                  $('#username4').addClass('disabled:text-red-500');
-               }
-            }
-         })
-      } else {
-         $('#permission4').val('')
-         $('#permission4').prop('disabled', true)
-         $('#permission4').prop('required', false)
-      }
-   })
-   $('input[name=sapid5]').change(function () {
-      var sapid = $(this).val();
-      // console.log(sapid)
-      if (sapid !== '') {
-         $('#permission5').prop('disabled', false)
-         $('#permission5').prop('required', true)
-         $.ajax({  
-         url: sapidroute,
-            type: 'post',
-            data: {
-               sapid: sapid,
-               _token: CSRF_TOKEN
-            },
-            success: function (result) {
-               if (result.Status == 'Active') {
-                  if (result.Exist == 'Yes') {
-                     $('#username5').val(result.AccountName);
-                     $('#username5').addClass('disabled:text-red-500');
-                  } else {
-                     $('#username5').val(result.AccountName);
-                     $('#username5').addClass('disabled:text-teal-500');
-                  }
-               } else {
-                  $('#username5').val(result.AccountName);
-                  $('#username5').addClass('disabled:text-red-500');
-               }
-            }
-         })
-      } else {
-         $('#permission5').val('')
-         $('#permission5').prop('disabled', true)
-         $('#permission5').prop('required', false)
-      }
-   })
-   $('input[name=sapid6]').change(function () {
-      var sapid = $(this).val();
-      // console.log(sapid)
-      if (sapid !== '') {
-         $('#permission6').prop('disabled', false)
-         $('#permission6').prop('required', true)
-         $.ajax({  
-            url: sapidroute,
-            type: 'post',
-            data: {
-               sapid: sapid,
-               _token: CSRF_TOKEN
-            },
-            success: function (result) {
-               if (result.Status == 'Active') {
-                  if (result.Exist == 'Yes') {
-                     $('#username6').val(result.AccountName);
-                     $('#username6').addClass('disabled:text-red-500');
-                  } else {
-                     $('#username6').val(result.AccountName);
-                     $('#username6').addClass('disabled:text-teal-500');
-                  }
-               } else {
-                  $('#username6').val(result.AccountName);
-                  $('#username6').addClass('disabled:text-red-500');
-               }
-            }
-         })
-      } else {
-         $('#permission6').val('')
-         $('#permission6').prop('disabled', true)
-         $('#permission6').prop('required', false)
-      }
-   })
+   });
+   
 
    
- })
-
+});

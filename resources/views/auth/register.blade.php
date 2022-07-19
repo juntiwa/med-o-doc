@@ -1,4 +1,4 @@
-<!-- resources/views/child.blade.php -->
+
  
 @extends('layouts.guest')
  
