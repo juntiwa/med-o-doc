@@ -66,36 +66,38 @@ class ManageController extends Controller
     {
         $sapids = $request->sapid;
         $permissions = $request->permission;
-        
-        $data = [];  
+
+        $data = [];
+        $log_activity = [];
         $arrlength = count($sapids);
+      //   return $log;
         for ($i = 0; $i < $arrlength; $i++) {
             $data[$i] = [
                'org_id' => $sapids[$i],
                'is_admin' => $permissions[$i],
             ];
-            if($permissions[$i] == 1){
-               $role = "ผู้ดูแลระบบ";
-            }else{
-               $role = "ผู้ใช้งานทั่วไป";
+            if ($permissions[$i] == 1) {
+                $role = 'ผู้ดูแลระบบ';
+                $roleConvert = mb_convert_encoding($role, 'UTF-8', 'UTF-8');
+            } else {
+                $role = 'ผู้ใช้งานทั่วไป';
+                $roleConvert = mb_convert_encoding($role, 'UTF-8', 'UTF-8');
             }
-            $logdata = 'รหัสผู้ใช้งาน '.$sapids[$i] .' สิทธิ์ '.$role[$i];
+            $log_activity[$i] = new LogActivity ([
+               'username' => Auth::user()->username,
+               'full_name' => Auth::user()->full_name,
+               'office_name' => Auth::user()->office_name,
+               'action' => 'เพิ่มรหัสรหัสผู้ใช้งาน '.$sapids[$i].' สิทธิ์ '.$roleConvert,
+               'type' => 'create',
+               'url' => URL::current(),
+               'method' => $request->method(),
+               'user_agent' => $request, header('user-agent'),
+               'date_time' => date('d-m-Y H:i:s'),
+           ]);
         }
         Member::insert($data);
         User::insert($data);
         Toastr::success('เพิ่มผู้ใช้งานสำเร็จ', 'Success!!');
-
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เพิ่มสิทธิ์ผู้ใช้งาน '.$logdata;
-        $log_activity->type = 'create';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
 
         return Redirect::route('manages');
     }
