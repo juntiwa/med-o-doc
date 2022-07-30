@@ -106,7 +106,7 @@
                            @endif
                         @endforeach
                      </select>
-                     <button type="submit" class="text-white bg-teal-600 hover:bg-teal-700 rounded-md text-lg font-medium">ค้นหา</button>
+                     <button type="submit" id="submitDoc" class="text-white bg-teal-600 hover:bg-teal-700 rounded-md text-lg font-medium">ค้นหา</button>
                </div>
                </div>
             </div>
@@ -407,6 +407,7 @@
       let outterURL = "{{route('document.unitoutter')}}";
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    </script>
-   <script src="{{asset('js/document.js')}}"></script>
+   <script type="text/javascript" src="{{asset('js/document.js')}}"></script>
+   <script type="text/javascript" src="{{asset('js/checkInvalidDoc.js')}}"></script>
   
 @endsection
