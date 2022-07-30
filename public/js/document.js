@@ -201,6 +201,4 @@ $(document).ready(function () {
       // console.log(startYear);
       $("#startYear").change(); //ให้ on change เพื่อ disabled false endYear
    }
-   
-   
 })
