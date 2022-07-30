@@ -98,7 +98,4 @@ $(document).ready(function () {
          $('#remove').prop('disabled', true);
       }
    });
-   
-
-   
 });

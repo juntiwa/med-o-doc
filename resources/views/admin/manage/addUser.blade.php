@@ -80,4 +80,5 @@
    </script>
    <script type="text/javascript" src="{{asset('js/manageuser.js')}}"></script>
    <script type="text/javascript" src="{{asset('js/adduser.js')}}"></script>
-@endsection
+   <script type="text/javascript" src="{{asset('js/checkInvalidUser.js')}}"></script>
+   @endsection
