@@ -1,15 +1,15 @@
 
- 
+
 @extends('layouts.app')
- 
+
 @section('title', 'ค้นหาเอกสาร')
- 
+
 @section('sidebar')
     @parent
- 
+
     <!-- <p>This is appended to the master sidebar.</p> -->
 @endsection
- 
+
 @section('content')
 {!! Toastr::message() !!}
 <div class="flex items-center justify-between ml-3">
@@ -31,7 +31,7 @@
 </div>
 <section id="formAddUser">
    <form action="{{route('manage.store')}}" method="post">
-      @csrf 
+      @csrf
       <section id="newuser" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
          <section id="user">
             <div class="card w-full bg-base-100 drop-shadow-lg bg-white">
@@ -41,7 +41,7 @@
                      <label class="label">
                         <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b class="text-rose-600">*</b></span>
                      </label>
-                     <input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid[]" id="sapid0" 
+                     <input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid[]" id="sapid0"
                         required class="input input-bordered w-full bg-white border-slate-400 text-lg font-medium"
                         data-user-index="0" />
                      <input id="username0" type="text" placeholder="ชื่อผู้ใช้งาน" class="mt-3 input w-full max-w-lg text-base disabled:border-none disabled:bg-white disabled:text-slate-900" disabled />
@@ -56,7 +56,7 @@
                      <option value="0" {{ (old("permission") == "0" ? "selected": "") }}>ผู้ใช้งานทั่วไป</option>
                   </select>
                </div>
-              
+
                 <div class="card-actions mt-5 justify-end">
                   <button type="button" id="remove" class="btn bg-red-500 border-none hover:bg-red-700" disabled>ลบช่องกรอกข้อมูล</button>
                 </div>
@@ -64,7 +64,7 @@
             </div>
          </section>
       </section>
-   
+
       <section id="newuser"></section>
 
       <section id="buttonSubmit" class="flex md:col-span-2 lg:col-span-2 justify-end mt-2">
