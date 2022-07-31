@@ -1,15 +1,15 @@
 
- 
+
 @extends('layouts.app')
- 
+
 @section('title', 'ค้นหาเอกสาร')
- 
+
 @section('sidebar')
     @parent
- 
+
     <!-- <p>This is appended to the master sidebar.</p> -->
 @endsection
- 
+
 @section('content')
 {!! Toastr::message() !!}
    <section id="header" class="flex flex-col items-start lg:flex-row lg:justify-between mb-4">
@@ -43,7 +43,7 @@
                      <input type="text" name="idtype" id="idtype" value="{{old('type')}}" hidden>
                </select>
             </div>
-      
+
             <!-- หน่วยงานที่ส่ง -->
             <div class="mb-3 xl:w-full">
                <label class="label">
@@ -53,12 +53,12 @@
                   <option value="" selected>หน่วยงานที่ส่ง</option>
                </select>
                <input type="text" name="idunitInner" id="idunitInner" value="{{old('unitInner')}}" hidden>
-               
+
                <input type="text" name="unitOutter" id="unitOutter" placeholder="ระบุหน่วยงานที่ต้องการ" value="{{old('unitOutter')}}"
                class="input input-bordered w-full bg-white border-slate-400 text-lg disabled:bg-gray-300" disabled hidden/>
-               <input type="text" name="idunitOutter" id="idunitOutter" value="{{old('idunitOutter')}}" hidden>       
+               <input type="text" name="idunitOutter" id="idunitOutter" value="{{old('idunitOutter')}}" hidden>
             </div>
-      
+
             <!-- หัวเรื่อง -->
             <div class="mb-3 xl:w-full md:col-span-2 lg:col-span-2">
                <label class="label">
@@ -67,7 +67,7 @@
                <input name="title" id="title" type="text" placeholder="ระบุหัวข้อที่ต้องการค้นหา" value="{{ old('title') }}"
                class="input input-bordered input-error w-full bg-white text-lg" required/>
             </div>
-      
+
             <!-- ระหว่างเดือน -->
             <div class="mb-3 xl:w-full md:col-span-2 lg:col-span-4">
                <div class="form-control xl:w-full col-span-4">
@@ -184,12 +184,12 @@
                                           </svg>
                                     @elseif (pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'docx' || pathinfo($result->regdoc,PATHINFO_EXTENSION) == 'doc')
                                           <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-blue-500" viewBox="0 0 384 512">
-                                             <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 
-                                             64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 
-                                             0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4 
-                                             202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05 
-                                             243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6 
-                                             229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36 
+                                             <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64
+                                             64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838
+                                             0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4
+                                             202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05
+                                             243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6
+                                             229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36
                                              15.19l-25.89 77.66L214.6 248z" />
                                           </svg>
                                     @elseif (pathinfo($result->regdoc, PATHINFO_EXTENSION) == 'xlsx' || pathinfo($result->regdoc,PATHINFO_EXTENSION) == 'xls' )
@@ -227,12 +227,12 @@
                                           </svg>
                                     @elseif (pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'docx' || pathinfo($result->regdoc2,PATHINFO_EXTENSION) == 'doc')
                                           <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-blue-500" viewBox="0 0 384 512">
-                                             <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 
-                                             64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 
-                                             0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4 
-                                             202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05 
-                                             243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6 
-                                             229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36 
+                                             <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64
+                                             64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838
+                                             0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4
+                                             202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05
+                                             243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6
+                                             229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36
                                              15.19l-25.89 77.66L214.6 248z" />
                                           </svg>
                                     @elseif (pathinfo($result->regdoc2, PATHINFO_EXTENSION) == 'xlsx' || pathinfo($result->regdoc2,PATHINFO_EXTENSION) == 'xls' )
@@ -264,11 +264,11 @@
                         </td>
                      </tr>
                      @endforelse
-                  
+
                   </tbody>
                </table>
             </div>
-         
+
             <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
                @forelse ($resultDocument as $result)
                <div class="bg-white space-y-3 p-4 rounded-lg shadow relative">
@@ -297,7 +297,7 @@
                      </div>
                   </div>
                   <div class="text-base text-gray-700">
-                     หน่วยงานที่ส่ง : 
+                     หน่วยงานที่ส่ง :
                      @if ($result->regtype == null)
                         ไม่ระบุ
                      @else
@@ -357,7 +357,7 @@
                      <div class="absolute left-16 bottom-3 min-h-max max-h-full ">
                         @if ($result->regdoc2 == null)
                         <p class="grid justify-items-center">
-                           
+
                         </p>
                         @else
                         <a href="/open-files/{{date('Y',strtotime($result->regdate))}}/{{ pathinfo( $result->regdoc2 , PATHINFO_EXTENSION ) }}/{{ pathinfo( $result->regdoc2 , PATHINFO_FILENAME ) }}" target=" _blank" class="grid justify-items-center">
@@ -409,5 +409,5 @@
    </script>
    <script type="text/javascript" src="{{asset('js/document.js')}}"></script>
    <script type="text/javascript" src="{{asset('js/checkInvalidDoc.js')}}"></script>
-  
+
 @endsection

@@ -1,15 +1,15 @@
 
- 
+
 @extends('layouts.app')
- 
+
 @section('title', 'ค้นหาเอกสาร')
- 
+
 @section('sidebar')
     @parent
- 
+
     <!-- <p>This is appended to the master sidebar.</p> -->
 @endsection
- 
+
 @section('content')
 {!! Toastr::message() !!}
    <section id="button" class="flex items-end justify-end w-full">
@@ -99,7 +99,7 @@
                             <!-- The button to open modal -->
                            <label for="my-modal-{{$user->id}}" class="modal-button">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400 hover:fill-blue-600 cursor-pointer">
-                                 <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 
+                                 <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0
                                     0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z">
                                  </path>
                               </svg>
@@ -118,27 +118,27 @@
                                            <div class="grid grid-cols-2 gap-4">
                                              <div>
                                                 <label for="org_id" class="block mb-2 text-base font-medium text-gray-900">รหัสพนักงาน <span class="text-rose-600">*</span></label>
-                                                <input type="text" name="org_id" id="org_id" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <input type="text" name="org_id" id="org_id" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="รหัสพนักงาน" value="{{$user->org_id}}" required>
                                             </div>
                                              <div>
                                                 <label for="login" class="block mb-2 text-base font-medium text-gray-900">ชื่อผู้ใช้งาน</label>
-                                                <input type="text" name="login" id="login" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <input type="text" name="login" id="login" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="ชื่อผู้ใช้งาน" readonly value="{{$user->username}}">
                                             </div>
                                            </div>
-                                           
+
                                            <div class="grid grid-cols-2 gap-4">
                                              <div>
                                                 <label for="full_name" class="block mb-2 text-base font-medium text-gray-900">ชื่อ สกุล </label>
-                                                <input type="text" name="full_name" id="full_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <input type="text" name="full_name" id="full_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="ชื่อ นามสกุล" readonly value="{{$user->full_name}}">
                                             </div>
                                             <div>
-                                             <label for="office_name" class="block mb-2 text-base font-medium text-gray-900">หน่วยงาน <span class="text-rose-600">*</span></label>
-                                             <select name="office_name" id="office_name" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
-                                             focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 " required>
-                                              <option selected value="">เลือกหน่วยงานของคุณ</option>
+                                             <label for="office_name" class="block mb-2 text-base font-medium text-gray-900">หน่วยงาน</label>
+                                             <select name="office_name" id="office_name" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
+                                             focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 ">
+                                              <option selected value="">---- เลือกหน่วยงานของคุณ ----</option>
                                               @foreach ($units as $unit)
                                                  <option value="{{$unit->unitid}}" {{ ($user->office_name == $unit->unitname ? "selected": "") }}> {{$unit->unitname}} </option>
                                               @endforeach
@@ -148,7 +148,7 @@
                                            <div class="grid grid-cols-2 gap-4">
                                              <div>
                                                 <label for="is_admin" class="block mb-2 text-base font-medium text-gray-900">สิทธิ์ผู้ใช้งาน <span class="text-rose-600">*</span></label>
-                                                <select name="is_admin" id="is_admin" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <select name="is_admin" id="is_admin" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" required>
                                                  <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
                                                  <option value="1" {{ ($user->is_admin == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
@@ -157,7 +157,7 @@
                                             </div>
                                             <div>
                                               <label for="status" class="block mb-2 text-base font-medium text-gray-900">สถานะการใช้งาน <span class="text-rose-600">*</span></label>
-                                              <select name="status" id="status" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
+                                              <select name="status" id="status" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" required>
                                                  <option value="" selected>---- เลือกสถานะการใช้งาน ----</option>
                                                  <option value="Active" {{ ($user->status == "Active" ? "selected": "") }}>Active</option>
@@ -166,10 +166,10 @@
                                             </div>
                                            </div>
                                            <div class="flex items-end justify-end w-fit">
-                                              <button type="submit" class="w-full text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none 
+                                              <button type="submit" class="w-full text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none
                                              focus:ring-teal-300 font-medium rounded-lg text-base px-5 py-2.5 text-center">บันทึกการแก้ไขข้อมูล</button>
                                            </div>
-                                           
+
                                        </form>
                                     </section>
                                  </p>
@@ -186,7 +186,7 @@
                            <!-- The button to open modal -->
                            <label for="my-modal-{{$user->id}}" class="modal-button">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400 hover:fill-blue-600 cursor-pointer">
-                                 <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 
+                                 <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0
                                     0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z">
                                  </path>
                               </svg>
@@ -205,27 +205,27 @@
                                            <div class="grid grid-cols-2 gap-4">
                                              <div>
                                                 <label for="org_id" class="block mb-2 text-base font-medium text-gray-900">รหัสพนักงาน <span class="text-rose-600">*</span></label>
-                                                <input type="text" name="org_id" id="org_id" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <input type="text" name="org_id" id="org_id" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="รหัสพนักงาน" value="{{$user->org_id}}" required>
                                             </div>
                                              <div>
                                                 <label for="login" class="block mb-2 text-base font-medium text-gray-900">ชื่อผู้ใช้งาน</label>
-                                                <input type="text" name="login" id="login" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <input type="text" name="login" id="login" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="ชื่อผู้ใช้งาน" readonly value="{{$user->username}}">
                                             </div>
                                            </div>
-                                           
+
                                            <div class="grid grid-cols-2 gap-4">
                                              <div>
                                                 <label for="full_name" class="block mb-2 text-base font-medium text-gray-900">ชื่อ สกุล </label>
-                                                <input type="text" name="full_name" id="full_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <input type="text" name="full_name" id="full_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" placeholder="ชื่อ นามสกุล" readonly value="{{$user->full_name}}">
                                             </div>
                                             <div>
-                                             <label for="office_name" class="block mb-2 text-base font-medium text-gray-900">หน่วยงาน <span class="text-rose-600">*</span></label>
-                                             <select name="office_name" id="office_name" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
-                                             focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 " required>
-                                              <option selected value="">เลือกหน่วยงานของคุณ</option>
+                                             <label for="office_name" class="block mb-2 text-base font-medium text-gray-900">หน่วยงาน</label>
+                                             <select name="office_name" id="office_name" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
+                                             focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5 ">
+                                              <option selected value="">---- เลือกหน่วยงานของคุณ ----</option>
                                               @foreach ($units as $unit)
                                                  <option value="{{$unit->unitid}}" {{ ($user->office_name == $unit->unitname ? "selected": "") }}> {{$unit->unitname}} </option>
                                               @endforeach
@@ -235,7 +235,7 @@
                                            <div class="grid grid-cols-2 gap-4">
                                              <div>
                                                 <label for="is_admin" class="block mb-2 text-base font-medium text-gray-900">สิทธิ์ผู้ใช้งาน <span class="text-rose-600">*</span></label>
-                                                <select name="is_admin" id="is_admin" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
+                                                <select name="is_admin" id="is_admin" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" required>
                                                  <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
                                                  <option value="1" {{ ($user->is_admin == "1" ? "selected": "") }}>ผู้ดูแลระบบ</option>
@@ -244,7 +244,7 @@
                                             </div>
                                             <div>
                                               <label for="status" class="block mb-2 text-base font-medium text-gray-900">สถานะการใช้งาน <span class="text-rose-600">*</span></label>
-                                              <select name="status" id="status" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg 
+                                              <select name="status" id="status" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" required>
                                                  <option value="" selected>---- เลือกสถานะการใช้งาน ----</option>
                                                  <option value="Active" {{ ($user->status == "Active" ? "selected": "") }}>Active</option>
@@ -253,10 +253,10 @@
                                             </div>
                                            </div>
                                            <div class="flex items-end justify-end w-fit">
-                                              <button type="submit" class="w-full text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none 
+                                              <button type="submit" class="w-full text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none
                                              focus:ring-teal-300 font-medium rounded-lg text-base px-5 py-2.5 text-center">บันทึกการแก้ไขข้อมูล</button>
                                            </div>
-                                           
+
                                        </form>
                                     </section>
                                  </p>
@@ -276,7 +276,7 @@
            </tbody>
          </table>
        </div>
-    
+
        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
          @forelse ($userPermission as $key => $user)
          <div class="bg-white space-y-3 p-4 rounded-lg shadow">
@@ -314,7 +314,7 @@
                      @else
                         <a href="{{route('manage.edit', $user->org_id)}}">
                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400">
-                              <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 
+                              <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0
                                  0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z">
                               </path>
                            </svg>
@@ -325,7 +325,7 @@
                      @else
                         <a href="{{route('manage.edit', $user->org_id)}}">
                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="fill-blue-400">
-                              <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0 
+                              <path d="M4 21a1 1 0 0 0 .24 0l4-1a1 1 0 0 0 .47-.26L21 7.41a2 2 0 0 0 0-2.82L19.42 3a2 2 0 0 0-2.83 0L4.3 15.29a1.06 1.06 0 0 0-.27.47l-1 4A1 1 0
                                  0 0 3.76 21 1 1 0 0 0 4 21zM18 4.41 19.59 6 18 7.59 16.42 6zM5.91 16.51 15 7.41 16.59 9l-9.1 9.1-2.11.52z">
                               </path>
                            </svg>
@@ -336,21 +336,21 @@
             </div>
            </div>
            <div class="text-base text-gray-700 leading-loose">
-            <p> ชื่อผู้ใช้งาน :  
+            <p> ชื่อผู้ใช้งาน :
                @if ($user->username == null)
                   <span class="text-rose-600">รอ update ข้อมูล</span>
                @else
                   {{$user->username}}
                @endif
             </p>
-            <p> ชื่อ สกุล : 
+            <p> ชื่อ สกุล :
                @if ($user->full_name == null)
                   <span class="text-rose-600">รอ update ข้อมูล</span>
                @else
                   {{$user->full_name}}
                @endif
             </p>
-            <p> หน่วยงาน : 
+            <p> หน่วยงาน :
                @if ($user->office_name == null)
                   <span class="text-rose-600">รอ update ข้อมูล</span>
                @else

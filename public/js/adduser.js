@@ -1,4 +1,4 @@
-$(document).ready(function () { 
+$(document).ready(function () {
    var html = '';
    html += '<section id="user">';
    html += '<div class="card w-full bg-base-100 drop-shadow-md  bg-white">';
@@ -47,7 +47,7 @@ $(document).ready(function () {
             $('#username' + index).val(result.AccountName);
             if (result.Status == 'Active') {
                if (result.Exist == 'Yes') {
-                  
+
                   $('#username' + index).removeClass('disabled:text-teal-500');
                   $('#username' + index).addClass('disabled:text-red-500');
                   $('#permission' + index).prop('disabled', true);
@@ -75,13 +75,13 @@ $(document).ready(function () {
             }
          }
       })
-      
+
    }
    function sapidOnchange() {
       getUserbySapId($(this).data('user-index'));
    }
    $('#sapid0').change(sapidOnchange)
-   
+
    $("#plus_icon").click(function () {
       users.push({ ...emptyUser });
       var index = users.length - 1;

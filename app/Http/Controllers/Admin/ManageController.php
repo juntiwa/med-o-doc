@@ -53,7 +53,9 @@ class ManageController extends Controller
      */
     public function create()
     {
-        return view('admin.manage.addUser');
+        $units = Unit::orderBy('unitname','asc')->get();
+
+        return view('admin.manage.addUser', ['units'=> $units]);
     }
 
     /**
@@ -66,16 +68,24 @@ class ManageController extends Controller
     {
         $sapids = $request->sapid;
         $permissions = $request->permission;
+        $office_name = $request->office_name;
 
-        $data = [];
+        $data_member = [];
+        $data_user = [];
         $log_activity = [];
         $arrlength = count($sapids);
-      //   return $log;
+        //   return $log;
         for ($i = 0; $i < $arrlength; $i++) {
-            $data[$i] = [
-               'org_id' => $sapids[$i],
-               'is_admin' => $permissions[$i],
-            ];
+            $data_member[$i] = [
+                'org_id' => $sapids[$i],
+                'is_admin' => $permissions[$i],
+             ];
+             $unitname = Unit::where('office_name',$office_name[$i])->first();
+             $data_user[$i] = [
+                'org_id' => $sapids[$i],
+                'is_admin' => $permissions[$i],
+                'office_name' => $unitname,
+             ];
             if ($permissions[$i] == 1) {
                 $role = 'ผู้ดูแลระบบ';
                 $roleConvert = mb_convert_encoding($role, 'UTF-8', 'UTF-8');
@@ -83,7 +93,7 @@ class ManageController extends Controller
                 $role = 'ผู้ใช้งานทั่วไป';
                 $roleConvert = mb_convert_encoding($role, 'UTF-8', 'UTF-8');
             }
-            $log_activity[$i] = new LogActivity ([
+            $log_activity[$i] = new LogActivity([
                'username' => Auth::user()->username,
                'full_name' => Auth::user()->full_name,
                'office_name' => Auth::user()->office_name,
@@ -95,8 +105,8 @@ class ManageController extends Controller
                'date_time' => date('d-m-Y H:i:s'),
            ]);
         }
-        Member::insert($data);
-        User::insert($data);
+        Member::insert($data_member);
+        User::insert($data_user);
         Toastr::success('เพิ่มผู้ใช้งานสำเร็จ', 'Success!!');
 
         return Redirect::route('manages');
@@ -159,6 +169,8 @@ class ManageController extends Controller
      */
     public function update(Request $request, $org_id)
     {
+
+        // return $request->office_name;
         $member = Member::where('org_id', $org_id)->first();
         $member->org_id = $request->org_id;
         $member->is_admin = $request->is_admin;
@@ -166,10 +178,14 @@ class ManageController extends Controller
         $member->save();
 
         $user = User::where('org_id', $org_id)->first();
-        $unit = Unit::where('unitid', $request->office_name)->first();
         // Getting values from the blade template form
         $user->org_id = $request->org_id;
-        $user->office_name = $unit->unitname;
+        if($request->office_name != ''){
+            $unit = Unit::where('unitid', $request->office_name)->first();
+            $user->office_name = $unit->unitname;
+        }else{
+            $user->office_name = null;
+        }
         $user->is_admin = $request->is_admin;
         $user->status = $request->status;
         $user->save();

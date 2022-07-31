@@ -155,8 +155,8 @@ class DocumentController extends Controller
         $log_activity->save();
 
         return view('document', ['monthsSelectionForm' => $monthsSelectionForm, 'yearsSelectionForm' => $yearsSelectionForm,
-            'typesSelectionForm' => $typesSelectionForm, 'resultDocument' => $resultDocument,
-            'resultCount' => $resultCount, 'documentCount' => $documentCount, ])->with($request->flash());
+           'typesSelectionForm' => $typesSelectionForm, 'resultDocument' => $resultDocument,
+           'resultCount' => $resultCount, 'documentCount' => $documentCount, ])->with($request->flash());
     }
 
     public function edit($id)

@@ -14,7 +14,7 @@ $(document).ready(function () {
     $("#type").change(function () {
       let typeid = parseInt($(this).val())
       // console.log(typeid)
-      
+
       if (typeid === 0) {
          // console.log(typeid)
          $("#unitInner").removeClass('hidden')
@@ -22,7 +22,7 @@ $(document).ready(function () {
          $("#unitInner").prop('disabled', false)
          $("#unitOutter").val('')
          $("#idunitOutter").val('')
-         let unitinner = $('#idunitInner').val(); 
+         let unitinner = $('#idunitInner').val();
          // console.log(unitinner)
          $("#unitInner").html('<option value="">เลือกหน่วยงานที่รับ</option>')
          $.ajax({
@@ -38,35 +38,35 @@ $(document).ready(function () {
                // console.log(unitinner)
             }
          })
-         
+
       } else if(typeid === 3){
          $("#unitInner").addClass('hidden')
          $("#unitOutter").prop('hidden', false)
          $("#unitOutter").prop('disabled', false)
          $("#unitInner").val('')
-         // console.log('ok')
-            $("#unitOutter").autocomplete({
-               source: function (request, response) {
-                  $.ajax({
-                     url: outterURL,
-                     type: 'POST',
-                     dataType: "json",
-                     data: {
-                        search: request.term,
-                        _token: CSRF_TOKEN
-                     },
-                     success: function (data) {
-                        response(data);
-                     }
-                  });
-               },
-               select: function (event, ui) {
-                  $('#unitOutter').val(ui.item.label);
-                  $('#idunitOutter').val(ui.item.unitid);
-                  // console.log(ui.item);
-                  return false;
-               }
-            });
+        //  console.log(outterURL);
+         $("#unitOutter").autocomplete({
+           source: function (request, response) {
+              $.ajax({
+                 url: outterURL,
+                 type: 'POST',
+                 dataType: "json",
+                 data: {
+                    search: request.term,
+                    _token: CSRF_TOKEN
+                 },
+                 success: function (data) {
+                    response(data);
+                 }
+              });
+           },
+           select: function (event, ui) {
+              $('#unitOutter').val(ui.item.label);
+              $('#idunitOutter').val(ui.item.id);
+              console.log(ui.item);
+              return false;
+           }
+        });
       } else {
          $("#unitInner").prop('disabled', true)
          $("#unitOutter").prop('disabled', true)
@@ -81,9 +81,7 @@ $(document).ready(function () {
    $("#startMonth").change(function () {
       let startMonth = parseInt($(this).val())
       let endMonth = parseInt($('#endMonth option:selected').val())
-      if (endMonth < startMonth) {
-         $('#endMonth').val('')
-      }
+
       // console.log(startMonth)
       $("#endMonth").prop('required', true) //required true
       $("#endMonth").prop('disabled', false) //disabled false
@@ -100,13 +98,13 @@ $(document).ready(function () {
       $("#endMonth > option").filter(function () {
          return $(this).attr("value") >= startMonth
       }).prop('disabled', false)
-      
+
       let startYear = parseInt($("#startYear option:selected").val())
       let endYear = parseInt($("#endYear option:selected").val())
       if (endYear > startYear) {
          $("#endMonth > option").prop('disabled',false)
       }
-   }) 
+   })
 
    // start year
    $("#startYear").change(function () {
@@ -131,7 +129,7 @@ $(document).ready(function () {
       $("#endYear > option").filter(function () {
          return $(this).attr("value") >= startYear
       }).prop('disabled', false)
-      
+
       if (endYear > startYear) {
          $("#endYear > option").prop('disabled',false)
       } else {
@@ -184,7 +182,7 @@ $(document).ready(function () {
    })
 
    // old input
-   var type = $('#idtype').val(); 
+   var type = $('#idtype').val();
    var startMonth = $('#startMonth').val();
    var startYear = $('#startYear').val();
    // console.log(type);
