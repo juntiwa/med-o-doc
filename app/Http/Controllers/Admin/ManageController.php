@@ -53,7 +53,7 @@ class ManageController extends Controller
      */
     public function create()
     {
-        $units = Unit::orderBy('unitname','asc')->get();
+        $units = Unit::orderBy('unitname', 'asc')->get();
 
         return view('admin.manage.addUser', ['units'=> $units]);
     }
@@ -68,23 +68,15 @@ class ManageController extends Controller
     {
         $sapids = $request->sapid;
         $permissions = $request->permission;
-        $office_name = $request->office_name;
-
         $data_member = [];
         $data_user = [];
         $log_activity = [];
         $arrlength = count($sapids);
         //   return $log;
         for ($i = 0; $i < $arrlength; $i++) {
-            $data_member[$i] = [
+            $data[$i] = [
                 'org_id' => $sapids[$i],
                 'is_admin' => $permissions[$i],
-             ];
-             $unitname = Unit::where('office_name',$office_name[$i])->first();
-             $data_user[$i] = [
-                'org_id' => $sapids[$i],
-                'is_admin' => $permissions[$i],
-                'office_name' => $unitname,
              ];
             if ($permissions[$i] == 1) {
                 $role = 'ผู้ดูแลระบบ';
@@ -105,8 +97,8 @@ class ManageController extends Controller
                'date_time' => date('d-m-Y H:i:s'),
            ]);
         }
-        Member::insert($data_member);
-        User::insert($data_user);
+        Member::insert($data);
+        User::insert($data);
         Toastr::success('เพิ่มผู้ใช้งานสำเร็จ', 'Success!!');
 
         return Redirect::route('manages');
@@ -180,10 +172,10 @@ class ManageController extends Controller
         $user = User::where('org_id', $org_id)->first();
         // Getting values from the blade template form
         $user->org_id = $request->org_id;
-        if($request->office_name != ''){
+        if ($request->office_name != '') {
             $unit = Unit::where('unitid', $request->office_name)->first();
             $user->office_name = $unit->unitname;
-        }else{
+        } else {
             $user->office_name = null;
         }
         $user->is_admin = $request->is_admin;
