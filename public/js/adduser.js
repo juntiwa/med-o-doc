@@ -43,11 +43,10 @@ $(document).ready(function () {
             _token: CSRF_TOKEN
          },
          success: function (result) {
-            console.log(result);
+            // console.log(result);
             $('#username' + index).val(result.AccountName);
             if (result.Status == 'Active') {
                if (result.Exist == 'Yes') {
-
                   $('#username' + index).removeClass('disabled:text-teal-500');
                   $('#username' + index).addClass('disabled:text-red-500');
                   $('#permission' + index).prop('disabled', true);
@@ -67,6 +66,10 @@ $(document).ready(function () {
                $('#saveButton').prop('disabled', true);
                users[index].error = true;
             }
+
+             if (result === '') {
+               $('#saveButton').prop('disabled', true);
+             }
 
             if (users.reduce((a, b) => a || b.error, false)) {
                $('#errors').removeClass('hidden');
