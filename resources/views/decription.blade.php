@@ -35,13 +35,13 @@
          เอกสารแนบ :
          <span class="mx-3">
             @if ($registerFound->regdoc == null)
-            @if ($description->regdoc == null && $description->regdoc2 == null)
-            <p>
+
                ไม่มีเอกสารแนบ
-            </p>
+
+           {{--  @if ($description->regdoc == null && $description->regdoc2 == null)
             @else
 
-            @endif
+            @endif --}}
             @else
                <a href="{{$registerFound->regdoc_url}}" target="_blank">
                   @if (pathinfo($registerFound->regdoc, PATHINFO_EXTENSION) == 'pdf')

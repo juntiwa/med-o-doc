@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('reground')->nullable();
             $table->string('regtype', 1);
             $table->string('regtype2', 1);
-            $table->date('regdate');
+            $table->date('regdate')->nullable();
             $table->string('regfrom', 5);
             $table->string('regto', 5);
             $table->string('regtitle', 500);
