@@ -15,9 +15,10 @@ class CheckAccountAPI implements CheckUserAPI
 
         $data = $response->json();
 
+        // return $data;
         $count = count($data);
         if ($count === 2) {
-            $result = ['Status' => 'Null', 'AccountName' => ' ไม่ได้เป็นพนักงาน'];
+            $result = ['Status' => 'Null', 'AccountName' => 'ไม่มีข้อมูลพนักงาน'];
         } else {
             if ($data['Status'] == 'Active') {
                 if (Member::where('org_id', $sapid)->exists()) {
