@@ -13,13 +13,14 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('jobunits', function (Blueprint $table) {
-            $table->id('unitid');
+            $table->id('id');
+            $table->integer('unitid');
             $table->string('unitname', 255);
-            $table->bigInteger('unitlevel');
+            $table->bigInteger('unitlevel')->default(0);
             $table->string('unitengname', 255);
             $table->string('shotunitname', 255);
             $table->timestamp('datein');
-            $table->smallInteger('userin');
+            $table->integer('userin');
             $table->string('status', 1);
             $table->timestamps();
         });

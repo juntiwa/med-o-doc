@@ -161,9 +161,9 @@
                                  ไม่ระบุ
                               @else
                                  @if ($result->regtype == 0)
-                                    {{$result->jobunit['unitname']}}
+                                    {{$result->jobunit?->unitname ?? "ไม่มีข้อมูลหน่วยงาน"}}
                                  @else
-                                    {{$result->letterunit['unitname']}}
+                                    {{$result->letterunit?->unitname ?? "ไม่มีข้อมูลหน่วยงาน"}}
                                  @endif
                               @endif
                            </td>
@@ -302,9 +302,9 @@
                         ไม่ระบุ
                      @else
                         @if ($result->regtype == 0)
-                           {{$result->jobunit['unitname']}}
+                           {{$result->jobunit?->unitname ?? "ไม่มีข้อมูลหน่วยงาน"}}
                         @else
-                           {{$result->letterunit['unitname']}}
+                           {{$result->letterunit?->unitname ?? "ไม่มีข้อมูลหน่วยงาน"}}
                         @endif
                      @endif
                   </div>

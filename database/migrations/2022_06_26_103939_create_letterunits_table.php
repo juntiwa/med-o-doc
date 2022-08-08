@@ -13,15 +13,15 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('letterunits', function (Blueprint $table) {
-            $table->id('unitid');
+            $table->id('id');
+            $table->integer('unitid');
             $table->unsignedBigInteger('unitlevel');
             $table->string('unitname', 255);
             $table->timestamp('datein');
-            $table->unsignedSmallInteger('userin');
-            $table->string('status', 1);
-            $table->string('unitengname', 255);
-            $table->string('level', 1);
-            $table->tinyInteger('unittype');
+            $table->unsignedSmallInteger('userin')->nullable();
+            $table->string('status', 1)->nullable();
+            $table->string('level', 1)->nullable();
+            $table->tinyInteger('unittype')->nullable();
             $table->timestamps();
         });
     }

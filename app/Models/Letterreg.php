@@ -10,6 +10,8 @@ class Letterreg extends Model
 {
     use HasFactory;
 
+
+
     public function type()
     {
         // document has one type

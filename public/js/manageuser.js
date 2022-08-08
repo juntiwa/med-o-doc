@@ -8,16 +8,16 @@ function sap_click(clicked) {
    let sap_showCard = document.getElementById("sapShow_" + clicked);
    sap_showCard.innerHTML = clicked;
    $('#sapHidden_' + clicked).addClass('hidden');
-   console.log(clicked);
+//    console.log(clicked);
    // console.log(sap_show);
-   $.ajax({  
+   $.ajax({
       url: "/show-sapid",
       type: 'post',
       data: {
          sapid: clicked
       },
       success: function (result) {
-         console.log(result);
+        //  console.log(result);
       }
    });
 }

@@ -36,7 +36,7 @@
                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-50 rounded-box w-52 ">
-               <li class="@if (Route::is('documents') || Route::is('document.search')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
+               <li class="@if (Route::is('documents') || Route::is('document.search') || Route::is('descriptions')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
                 @if(Auth::user()->is_admin == 1)
                     <li class="@if (Route::is('manages') || Route::is('manage.create') || Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 " tabindex="0">
                         <a class="justify-between">
@@ -58,7 +58,7 @@
       </div>
       <div class="navbar-center hidden lg:flex">
          <ul class="menu menu-horizontal p-0">
-            <li class="@if (Route::is('documents') || Route::is('document.search')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
+            <li class="@if (Route::is('documents') || Route::is('document.search') || Route::is('descriptions')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "><a href="{{route('documents')}}">ค้นหาเอกสาร</a></li>
              @if(Auth::user()->is_admin == 1)
                 <li class="@if (Route::is('manages') || Route::is('manage.create') || Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 " tabindex="0">
                    <a>

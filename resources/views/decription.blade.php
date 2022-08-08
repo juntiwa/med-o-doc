@@ -1,15 +1,15 @@
 
- 
+
 @extends('layouts.app')
- 
+
 @section('title', 'ค้นหาเอกสาร')
- 
+
 @section('sidebar')
     @parent
- 
+
     <!-- <p>This is appended to the master sidebar.</p> -->
 @endsection
- 
+
 @section('content')
 {!! Toastr::message() !!}
    <section id="header" class="mb-4 leading-loose">
@@ -20,19 +20,19 @@
          ลงวันที่ : {{$registerFound->thai_register_date}}
       </p>
       <p>
-         หน่วยงานที่ส่ง : 
+         หน่วยงานที่ส่ง :
          @if ($registerFound->regtype == null)
             ไม่ระบุ
          @else
             @if ($registerFound->regtype == 0)
-               {{$registerFound->jobunit['unitname']}}
+               {{$registerFound->jobunit?->unitname ?? "ไม่มีข้อมูลหน่วยงาน"}}
             @else
-               {{$registerFound->letterunit['unitname']}}
+               {{$registerFound->letterunit?->unitname ?? "ไม่มีข้อมูลหน่วยงาน"}}
             @endif
          @endif
       </p>
       <p class="flex flex-row">
-         เอกสารแนบ : 
+         เอกสารแนบ :
          <span class="mx-3">
             @if ($registerFound->regdoc == null)
             @if ($description->regdoc == null && $description->regdoc2 == null)
@@ -40,7 +40,7 @@
                ไม่มีเอกสารแนบ
             </p>
             @else
-            
+
             @endif
             @else
                <a href="{{$registerFound->regdoc_url}}" target="_blank">
@@ -51,12 +51,12 @@
                         </svg>
                   @elseif (pathinfo($registerFound->regdoc, PATHINFO_EXTENSION) == 'docx' || pathinfo($registerFound->regdoc,PATHINFO_EXTENSION) == 'doc')
                         <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-blue-500" viewBox="0 0 384 512">
-                           <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 
-                           64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 
-                           0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4 
-                           202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05 
-                           243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6 
-                           229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36 
+                           <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64
+                           64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838
+                           0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4
+                           202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05
+                           243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6
+                           229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36
                            15.19l-25.89 77.66L214.6 248z" />
                         </svg>
                   @elseif (pathinfo($registerFound->regdoc, PATHINFO_EXTENSION) == 'xlsx' || pathinfo($registerFound->regdoc,PATHINFO_EXTENSION) == 'xls' )
@@ -80,7 +80,7 @@
                </a>
             @endif
          </span>
-         
+
          <span class="mx-3">
             @if ($registerFound->regdoc2 == null)
                <p>
@@ -94,12 +94,12 @@
                         </svg>
                   @elseif (pathinfo($registerFound->regdoc2, PATHINFO_EXTENSION) == 'docx' || pathinfo($registerFound->regdoc2,PATHINFO_EXTENSION) == 'doc')
                         <svg xmlns="http://www.w3.org/2000/svg" class=" w-8 fill-blue-500" viewBox="0 0 384 512">
-                           <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64 
-                           64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 
-                           0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4 
-                           202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05 
-                           243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6 
-                           229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36 
+                           <path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0H64C28.65 0 0 28.65 0 64l.0065 384c0 35.34 28.65 64 64
+                           64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838
+                           0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM214.6 248C211.3 238.4
+                           202.2 232 192 232s-19.25 6.406-22.62 16L144.7 318.1l-25.89-77.66C114.6 227.8 101 221.2 88.41 225.2C75.83 229.4 69.05
+                           243 73.23 255.6l48 144C124.5 409.3 133.5 415.9 143.8 416c10.17 0 19.45-6.406 22.83-16L192 328.1L217.4 400C220.8 409.6
+                           229.8 416 240 416c10.27-.0938 19.53-6.688 22.77-16.41l48-144c4.188-12.59-2.594-26.16-15.17-30.38c-12.61-4.125-26.2 2.594-30.36
                            15.19l-25.89 77.66L214.6 248z" />
                         </svg>
                   @elseif (pathinfo($registerFound->regdoc2, PATHINFO_EXTENSION) == 'xlsx' || pathinfo($registerFound->regdoc2,PATHINFO_EXTENSION) == 'xls' )
@@ -155,7 +155,7 @@
                               ไม่พบข้อมูลชื่อหน่วยงาน
                            @else
                               @foreach($description->jobunit as $jobunit)
-                                 {{$jobunit->unitname}} 
+                                 {{$jobunit->unitname}}
                               @endforeach
                            @endif
                         @else
@@ -163,7 +163,7 @@
                               ไม่พบข้อมูลชื่อหน่วยงาน
                            @else
                               @foreach($description->letterunit as $letterunit)
-                                 {{$letterunit->unitname}} 
+                                 {{$letterunit->unitname}}
                               @endforeach
                            @endif
                         @endif
@@ -173,7 +173,7 @@
                      @if ($description->recdate == null )
                      <p class=" text-red-500">ยังไม่มีการรับ</p>
                      @else
-                     รับเมื่อ 
+                     รับเมื่อ
                      {{$description->thai_rec_date}}
                      @endif
                   </td>
@@ -185,11 +185,11 @@
                </td>
             </tr>
             @endforelse
-         
+
          </tbody>
       </table>
     </div>
- 
+
     <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:hidden mt-4">
       @forelse ($descriptions as $key =>$description)
       <div class="bg-white space-y-3 p-4 rounded-lg shadow relative">
@@ -219,7 +219,7 @@
                      ไม่พบข้อมูลชื่อหน่วยงาน
                   @else
                      @foreach($description->jobunit as $jobunit)
-                        {{$jobunit->unitname}} 
+                        {{$jobunit->unitname}}
                      @endforeach
                   @endif
                @else
@@ -227,7 +227,7 @@
                      ไม่พบข้อมูลชื่อหน่วยงาน
                   @else
                      @foreach($description->letterunit as $letterunit)
-                        {{$letterunit->unitname}} 
+                        {{$letterunit->unitname}}
                      @endforeach
                   @endif
                @endif
@@ -237,7 +237,7 @@
             @if ($description->recdate == null )
             {{-- <p class=" text-red-500">ยังไม่มีการรับ</p> --}}
             @else
-            รับเมื่อ 
+            รับเมื่อ
             {{$description->thai_rec_date}}
             @endif
         </div>
