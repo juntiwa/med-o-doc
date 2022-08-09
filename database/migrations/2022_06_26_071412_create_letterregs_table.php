@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -31,7 +30,7 @@ return new class extends Migration
             $table->string('filename1', 100)->nullable();
             $table->string('filename2', 100)->nullable();
             $table->date('recdate');
-            $table->char('regstatus', 1);
+            $table->char('regstatus', 1)->nullable();
             $table->char('regaction', 1);
             $table->unsignedTinyInteger('regunitid')->nullable();
             $table->string('regempid', 20);
