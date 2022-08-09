@@ -76,6 +76,7 @@ class DocumentController extends Controller
         $endMonth = $request->get('endMonth');
         $endYear = $request->get('endYear');
 
+        // return $unitInner;
         $resultDocument = Letterreg::orderBy('regdate', 'desc');
         if ($type != '') {
             foreach ($typesSelectionForm as $typelog) {
@@ -89,7 +90,7 @@ class DocumentController extends Controller
 
         if ($unitInner != '') {
             $length = strlen($unitInner);
-            if ($length != '') {
+            if ($length === 1) {
                 $zero = '0'.$unitInner;
             } else {
                 $zero = $unitInner;
@@ -99,6 +100,7 @@ class DocumentController extends Controller
                     $searchLog = ' หน่วยงานที่ส่ง : '.$unitInnerlog->unitname;
                 }
             }
+            // return $zero;
             $resultDocument = $resultDocument->where('regfrom', $zero);
         }
 
