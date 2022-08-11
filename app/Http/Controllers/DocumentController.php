@@ -20,7 +20,7 @@ class DocumentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'abilities']);
     }
 
     public function index(Request $request)
@@ -232,7 +232,9 @@ class DocumentController extends Controller
             return Storage::response($path);
         } else {
             // dd('File is Not Exists');
-            abort(404);
+            // abort(404);
+            return view('contact-for-document');
+
         }
     }
 
@@ -254,13 +256,13 @@ class DocumentController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        $full_name = Auth::user()->full_name;
         //   Log::info($full_name . 'เปิดไฟล์เอกสาร ' . $regdoc . ' ' . $filename);
         if (Storage::exists($path)) {
             return Storage::response($path);
         } else {
             // dd('File is Not Exists');
-            abort(404);
+            // abort(404);
+            return view('contact-for-document');
         }
     }
 }

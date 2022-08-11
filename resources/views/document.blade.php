@@ -15,7 +15,7 @@
    <section id="header" class="flex flex-col items-start lg:flex-row lg:justify-between mb-4">
       <div class="flex flex-col">
          <h1 class="text-xl font-semibold mb-2">ค้นหาเอกสาร</h1>
-         <h2 class=" text-fuchsia-600">จำนวนเอกสารทั้งหมด  {{$documentCount}}  เรื่อง</h2>
+         <h2 class=" text-fuchsia-600">จำนวนเอกสารทั้งหมด  {{number_format($documentCount)}}  เรื่อง</h2>
       </div>
       @if(Route::is('document.search'))
          <label class="swap mt-3 lg:mt-0">
@@ -33,10 +33,10 @@
             <!-- ประเภท -->
             <div class="mb-3 xl:w-full">
                <label class="label">
-                  <span class="label-text text-slate-900 text-lg font-medium">ประเภทหนังสือ</span>
+                  <span class="label-text text-slate-900 text-lg font-medium">ประเภทเอกสาร</span>
                </label>
                <select name="type" id="type" class="select select-bordered bg-white border-slate-400 text-lg font-medium w-full">
-                  <option value="" selected>ประเภทหนังสือ</option>
+                  <option value="" selected>ประเภทเอกสาร</option>
                   @foreach ($typesSelectionForm as $type)
                      <option value="{{$type->typeid}}"> {{$type->typename}} </option>
                   @endforeach
@@ -123,7 +123,7 @@
    @if(Route::is('document.search'))
       <section id="tableSearch">
          <div class="pt-5">
-            <h1 class="text-lg font-medium mb-2">ผลลัพธ์ การค้นหา <span>{{$resultCount}}</span> เรื่อง</h1>
+            <h1 class="text-lg font-medium mb-2">ผลลัพธ์ การค้นหา <span>{{number_format($resultCount)}}</span> เรื่อง</h1>
             <div class="overflow-auto rounded-lg shadow-md hidden mt-6 lg:block">
                <table class="w-full">
                   <thead class="bg-gray-100 border-b-2 border-gray-200">
@@ -273,7 +273,7 @@
                @forelse ($resultDocument as $result)
                <div class="bg-white space-y-3 p-4 rounded-lg shadow relative">
                   <div class="text-base text-gray-700">
-                     เลขที่หนังสือ :
+                     เลขที่เอกสาร :
                      {{$result->regid}}
                   </div>
                   <div class="flex justify-between space-x-2 text-base">

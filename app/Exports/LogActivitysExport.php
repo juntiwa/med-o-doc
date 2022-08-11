@@ -23,6 +23,6 @@ class LogActivitysExport implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return ['ลำดับ', 'ชื่อผู้ใช้งาน', 'ชื่อ สกุล', 'Action', 'ประเภทของ Action', 'ช่วงเวลา'];
+        return ['ลำดับ', 'ชื่อผู้ใช้งาน', 'ชื่อ สกุล','หน่วยงาน', 'การใช้งาน', 'ประเภทของการใช้งาน', 'ช่วงเวลา'];
     }
 }

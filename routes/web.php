@@ -59,6 +59,7 @@ Route::controller(HistoryController::class)->group(function () {
     Route::get('export-activity-log', 'export')->name('logactivity.export');
 });
 
-Route::controller(MemberImportContorller::class)->group(function () {
-    Route::post('member-import', 'import')->name('member.import');
+
+Route::get('navbar-demo',function(){
+    return view('nav-demo');
 });

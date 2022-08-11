@@ -45,54 +45,56 @@ class LoginController extends Controller
     public function authenticate(Request $request, AuthUserAPI $api)
     {
         $sirirajUser = $api->authenticate($request->username, $request->password);
+        // return $sirirajUser;
         if ($sirirajUser['reply_code'] != 0) {
             $errors = ['message' => $sirirajUser['reply_text']];
-            Log::critical($request->username.' '.$sirirajUser['reply_text']);
+            Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
             // toastr()->error('ตรวจสอบข้อมูล username หรือ password', 'แจ้งเตือน');
             Toastr::error('ตรวจสอบข้อมูล username หรือ password', 'Success!!');
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
-        }
-
-        $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
-        if (! $checkMember) {
-            Log::critical($sirirajUser['full_name'].' No access rights');
-            abort(403);
         } else {
-            // dd('ok');
-            $checkRegisterUser = User::where('org_id', $sirirajUser['org_id'])->first();
-            Auth::login($checkRegisterUser);
-            $full_name = Auth::user()->full_name;
-            if ($checkRegisterUser->username == null) {
-                $units = Unit::orderBy('unitname', 'asc')->get();
-                //  toastr()->info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'ลงทะเบียนระบบ');
-                Toastr::info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'Register');
 
-                return view('auth.register', ['sirirajUser' => $sirirajUser, 'units' => $units]);
+            $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
+            if (!$checkMember) {
+                Log::critical($sirirajUser['full_name'] . ' No access rights');
+                abort(403);
             } else {
-                if ($checkRegisterUser->username != $sirirajUser['login'] || $checkRegisterUser->full_name != $sirirajUser['full_name']) {
-                    $updateUser = User::where('org_id', $checkMember->org_id)->first();
-                    $updateUser->username = $sirirajUser['login'];
-                    $updateUser->full_name = $sirirajUser['full_name'];
-                    $updateUser->save();
+                // dd('ok');
+                $checkRegisterUser = User::where('org_id', $sirirajUser['org_id'])->first();
+                Auth::login($checkRegisterUser);
+                $full_name = Auth::user()->full_name;
+                if ($checkRegisterUser->username == null) {
+                    $units = Unit::orderBy('unitname', 'asc')->get();
+                    //  toastr()->info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'ลงทะเบียนระบบ');
+                    Toastr::info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'Register');
+
+                    return view('auth.register', ['sirirajUser' => $sirirajUser, 'units' => $units]);
+                } else {
+                    if ($checkRegisterUser->username != $sirirajUser['login'] || $checkRegisterUser->full_name != $sirirajUser['full_name']) {
+                        $updateUser = User::where('org_id', $checkMember->org_id)->first();
+                        $updateUser->username = $sirirajUser['login'];
+                        $updateUser->full_name = $sirirajUser['full_name'];
+                        $updateUser->save();
+                    }
+                    $log_activity = new LogActivity;
+                    $log_activity->username = Auth::user()->username;
+                    $log_activity->full_name = Auth::user()->full_name;
+                    $log_activity->office_name = Auth::user()->office_name;
+                    $log_activity->action = 'เข้าสู่ระบบ';
+                    $log_activity->type = 'login';
+                    $log_activity->url = URL::current();
+                    $log_activity->method = $request->method();
+                    $log_activity->user_agent = $request->header('user-agent');
+                    $log_activity->date_time = date('d-m-Y H:i:s');
+                    $log_activity->save();
+
+                    Log::info($full_name . ' login success');
+                    // toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
+                    Toastr::success('เข้าสู่ระบบสำเร็จ', 'Success!!');
+
+                    return Redirect::route('documents');
                 }
-                $log_activity = new LogActivity;
-                $log_activity->username = Auth::user()->username;
-                $log_activity->full_name = Auth::user()->full_name;
-                $log_activity->office_name = Auth::user()->office_name;
-                $log_activity->action = 'เข้าสู่ระบบ';
-                $log_activity->type = 'login';
-                $log_activity->url = URL::current();
-                $log_activity->method = $request->method();
-                $log_activity->user_agent = $request->header('user-agent');
-                $log_activity->date_time = date('d-m-Y H:i:s');
-                $log_activity->save();
-
-                Log::info($full_name.' login success');
-                // toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
-                Toastr::success('เข้าสู่ระบบสำเร็จ', 'Success!!');
-
-                return Redirect::route('documents');
             }
         }
     }
@@ -150,7 +152,7 @@ class LoginController extends Controller
         $log_activity->date_time = date('d-m-Y H:i:s');
         $log_activity->save();
 
-        Log::info($full_name.' register start app success');
+        Log::info($full_name . ' register start app success');
         //   toastr()->info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'แจ้งเตือน');
         Toastr::info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'Success!!');
 
