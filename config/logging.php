@@ -74,8 +74,8 @@ return [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
-            'emoji' => ':boom:',
-            'level' => 'critical', 'error',
+            'emoji' => ':imp:',
+            'level' => env('LOG_LEVEL', 'critical'),
         ],
 
         'discord' => [

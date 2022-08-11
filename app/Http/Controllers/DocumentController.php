@@ -181,7 +181,7 @@ class DocumentController extends Controller
         $typeid = $request->post('typeid');
         $unitinner = $request->post('unitinner');
         $unit = Jobunit::where('unitlevel', $typeid)->orderBy('unitname', 'asc')->get();
-        logger($unitinner);
+        // logger($unitinner);
         $html = '<option id="option" value="">--เลือกหน่วยงานที่ต้องการ--</option>';
         foreach ($unit as $list) {
             // $html .= '<option id="option" value="' . $list->unitid . '" >' . $list->unitname . '</option>';
