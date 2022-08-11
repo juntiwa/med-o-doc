@@ -11,7 +11,7 @@ class FakeUserAPI implements AuthUserAPI
     {
         // Auth::attempt(['username' => $username, 'password' => $password])
         if ($username === $password) {
-            return [
+            /* return [
                 'ok' => true,
                 'found' => true,
                 'login' => 'admin.sys',
@@ -28,8 +28,8 @@ class FakeUserAPI implements AuthUserAPI
                 'name' => 'น.ส. ผู้ดูแล ระบบ',
                 'name_en' => 'Miss Admin System',
                 'reply_code' => 0,
-            ];
-            /* return [
+            ]; */
+            return [
                'ok' => true,
                'found' => true,
                'login' => 'test.sys',
@@ -46,7 +46,7 @@ class FakeUserAPI implements AuthUserAPI
                'name' => 'นาย ทดสอบ ระบบ',
                'name_en' => 'Mr. Test System',
                'reply_code' => 0,
-            ]; */
+            ];
         } else {
             return [
                 'reply_code' => 1,
