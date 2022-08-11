@@ -1,3 +1,4 @@
+// .php-cs-fixer.php
 <?php
 
 use PhpCsFixer\Config;
