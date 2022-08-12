@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-{!! Toastr::message() !!}
+{{-- {!! Toastr::message() !!} --}}
    <section id="header" class="flex flex-col items-start lg:flex-row lg:justify-between mb-4">
       <div class="flex flex-col">
          <h1 class="text-xl font-semibold mb-2">ค้นหาเอกสาร</h1>

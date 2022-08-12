@@ -62,4 +62,4 @@ Route::controller(HistoryController::class)->group(function () {
 
 Route::get('navbar-demo',function(){
     return view('nav-demo');
-});
+})->middleware('auth');

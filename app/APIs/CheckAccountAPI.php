@@ -16,10 +16,15 @@ class CheckAccountAPI implements CheckUserAPI
         $data = $response->json();
 
         // return $data;
+        // logger($data);
         $count = count($data);
+        /* if($data->in_array('Status')){
+            logger($data);
+        } */
+        // logger($count);
         if ($count === 2) {
             $result = ['Status' => 'Null', 'AccountName' => 'ไม่มีข้อมูลพนักงาน'];
-        } else {
+        } elseif ($count === 3) {
             if ($data['Status'] == 'Active') {
                 if (Member::where('org_id', $sapid)->exists()) {
                     $result = ['Status' => $data['Status'], 'Exist' => 'Yes', 'AccountName' => $data['AccountName'].' มีอยู่แล้ว'];
@@ -29,6 +34,9 @@ class CheckAccountAPI implements CheckUserAPI
             } else {
                 $result = ['Status' => $data['Status'], 'AccountName' => $data['AccountName'].' ไม่ได้เป็นพนักงาน'];
             }
+        }else{
+            $result = ['Status' => 'Null', 'AccountName' => 'ไม่มีข้อมูลพนักงาน'];
+
         }
 
         return $result;
