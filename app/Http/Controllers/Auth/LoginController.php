@@ -54,7 +54,6 @@ class LoginController extends Controller
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
         } else {
-
             $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
             if (!$checkMember) {
                 Log::critical($sirirajUser['full_name'] . ' No access rights');
