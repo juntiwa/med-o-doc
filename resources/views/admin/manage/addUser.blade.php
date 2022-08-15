@@ -34,14 +34,14 @@
       @csrf
       {{-- <section id="newuser" class="grid grid-cols-1 lg:grid-cols-2 gap-8"> --}}
 
-      <section id="newuser" class="flex justify-center ">
-         <section id="user" class=" w-3/6">
+      <section id="newuser" class="flex justify-center">
+         <section id="user" class="lg:w-3/6 w-full">
             <div class="card-body">
                 <h2 class="text-slate-900 text-xl font-semibold">เพิ่มผู้ใช้งาน</h2>
                 <div class="form-control w-full">
                     <label class="label">
                         <span class="label-text text-slate-900 text-lg font-medium">รหัสพนักงาน SAPID <b
-                                class="text-rose-600">*</b></span>
+                              class="text-rose-600">*</b></span>
                     </label>
                     <input type="text" placeholder="99999999" pattern="[0-9]+" minlength="8" maxlength="8" name="sapid[]"
                         id="sapid0" required class="input input-bordered w-full bg-white border-slate-400 text-lg font-medium"
