@@ -1,3 +1,4 @@
+// version 1.1
 $(document).ready(function () {
     var html = "";
     html += '<section id="user">';
