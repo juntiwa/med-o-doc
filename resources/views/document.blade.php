@@ -407,7 +407,7 @@
       let outterURL = "{{route('document.unitoutter')}}";
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    </script>
-   <script type="text/javascript" src="{{asset('js/document.js')}}"></script>
-   <script type="text/javascript" src="{{asset('js/checkInvalidDoc.js')}}"></script>
+   <script type="text/javascript" src="{{asset(mix('js/document.js'))}}"></script>
+   <script type="text/javascript" src="{{asset(mix('js/checkInvalidDoc.js'))}}"></script>
 
 @endsection

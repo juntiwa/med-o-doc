@@ -9,12 +9,7 @@
    <link rel="icon" href="{{asset('images/search.png')}}" type="image/x-icon">
 
    <!-- css -->
-   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/status.css') }}" rel="stylesheet">
-
-   <!-- daisyui -->
-   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.17.0/dist/full.css" rel="stylesheet" type="text/css" />
-   <script src="https://cdn.tailwindcss.com"></script>
+   <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 
    <!--  ajax -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />

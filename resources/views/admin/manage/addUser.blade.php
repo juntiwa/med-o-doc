@@ -114,7 +114,7 @@
       let existuser = "{{route('exist.user')}}"
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    </script>
-   <script type="text/javascript" src="{{asset('js/manageuser.js')}}"></script>
-   <script type="text/javascript" src="{{asset('js/adduser.js')}}"></script>
-   <script type="text/javascript" src="{{asset('js/checkInvalidUser.js')}}"></script>
+   <script type="text/javascript" src="{{asset(mix('js/manageuser.js'))}}"></script>
+   <script type="text/javascript" src="{{asset(mix('js/adduser.js'))}}"></script>
+   <script type="text/javascript" src="{{asset(mix('js/checkInvalidUser.js'))}}"></script>
    @endsection
