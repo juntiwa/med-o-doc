@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-    $("#inputSearch").css({"display": "none","opacity":"0"});
+    $("#inputSearch").css({"display": "none"});
     if (window.localStorage.getItem("tt") == 0) {
         $("#inputSearch").slideDown();
     }
