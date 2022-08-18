@@ -231,4 +231,6 @@ return [
     'HAN_API_SERVICE_TOKEN' => env('HAN_API_SERVICE_TOKEN'),
     'HAN_API_SERVICE_SECRET' => env('HAN_API_SERVICE_SECRET'),
 
+    // change password URL
+    'sirirajADurl' => 'https://si-eservice3.si.mahidol.ac.th/selfservice/',
 ];

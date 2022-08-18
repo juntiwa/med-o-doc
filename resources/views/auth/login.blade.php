@@ -1,15 +1,15 @@
 
- 
+
 @extends('layouts.guest')
- 
+
 @section('title', 'เข้าสู่ระบบ')
- 
+
 @section('sidebar')
     @parent
- 
+
     <!-- <p>This is appended to the master sidebar.</p> -->
 @endsection
- 
+
 @section('content')
 {!! Toastr::message() !!}
 <!-- Section 1 -->
@@ -37,15 +37,13 @@
                      {{ $message }}
                   </p>
                   @enderror
-                  <input type="text" name="username" id="username" class="block w-full px-4 py-3 mb-4 border-2 border-gray-200 
+                  <input type="text" name="username" id="username" class="block w-full px-4 py-3 mb-4 border-2 border-gray-200
                      focus:ring focus:ring-green-400 focus:outline-none rounded" placeholder="ชื่อ . นามสกุล 3 ตัว" value="{{ old('username') }}" required>
-                  <input type="password" name="password" id="password" class="block w-full px-4 py-3 mb-4 border-2 border-gray-200 
+                  <input type="password" name="password" id="password" class="block w-full px-4 py-3 mb-4 border-2 border-gray-200
                      focus:ring focus:ring-green-400 focus:outline-none rounded" placeholder="Password" required>
                   <div class="flex justify-start items-start mb-3">
-                     <a href="https://si-eservice3.si.mahidol.ac.th/selfservice/" target="_blank" class="text-blue-500 hover:text-red-500">ลืมรหัสผ่าน ?</a>
-
+                     <a href="{{config('app.sirirajADurl')}}" target="_blank" class="text-blue-500 hover:text-red-500">ลืมรหัสผ่าน ?</a>
                   </div>
-
                   <button type="submit" class="w-full px-4 py-3 font-medium text-white bg-green-500 hover:bg-green-700 rounded">เข้าสู่ระบบ</button>
                </div>
             </form>
