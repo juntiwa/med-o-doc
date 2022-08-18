@@ -32,6 +32,7 @@
                         flex flex-col justify-center items-center">
                   <img src="{{asset('images\search.png')}}" class="w-20" alt="">
                   <h3 class="mb-6 text-2xl font-medium text-center">ระบบค้นหาเอกสารเก่า</h3>
+                  <h3 class="mb-6 text-base text-teal-700 font-medium text-center leading-loose">Login ด้วย Siriraj AD ใช้ Username และ Password เดียวกับ SiIT Enterprise ปัจจุบัน</h3>
                   @error('message')
                   <p class="text-base text-red-500 text-center w-5/6 mb-3">
                      {{ $message }}
