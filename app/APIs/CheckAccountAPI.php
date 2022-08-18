@@ -15,13 +15,7 @@ class CheckAccountAPI implements CheckUserAPI
 
         $data = $response->json();
 
-        // return $data;
-        // logger($data);
         $count = count($data);
-        /* if($data->in_array('Status')){
-            logger($data);
-        } */
-        // logger($count);
         if ($count === 2) {
             $result = ['Status' => 'Null', 'AccountName' => 'ไม่มีข้อมูลพนักงาน'];
         } elseif ($count === 3) {
