@@ -72,12 +72,12 @@
                 </ul>
             </div>
             <a href="{{route('documents')}}" class="btn btn-ghost normal-case text-xl">MED O-Doc</a>
+            @if(Auth::user()->is_admin == 1)
             <ul class="menu menu-horizontal hidden lg:flex p-0 text-lg">
                 <li
                     class="@if (Route::is('documents') || Route::is('document.search') || Route::is('descriptions')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 ">
                     <a href="{{route('documents')}}">ค้นหาเอกสาร</a>
                 </li>
-                @if(Auth::user()->is_admin == 1)
                 <li class="@if (Route::is('manages') || Route::is('manage.create') || Route::is('logactivitys')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 "
                     tabindex="0">
                     <a>
@@ -102,8 +102,8 @@
                         </li>
                     </ul>
                 </li>
-                @endif
             </ul>
+            @endif
         </div>
         {{-- <div class="navbar-center hidden lg:flex">
 
