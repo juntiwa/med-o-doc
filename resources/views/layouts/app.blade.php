@@ -117,7 +117,7 @@
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button id="logout" type="submit">
+                <button id="logout" type="submit" class="flex">
                     <span class="text-red-600 hover:text-teal-600">
                         {{-- {{ __('[ออกจากระบบ]') }} --}}
                         <svg xmlns="http://www.w3.org/2000/svg" class=" w-6 fill-red-400 hover:fill-teal-400"
