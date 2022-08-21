@@ -1,31 +1,42 @@
 
-$(document).ready(function () {
-    $("#inputSearch").css({"display": "none"});
+$("#inputSearch").css({ display: "none" });
+// เก็บค่าไว้ใน localStorage และตรวจสอบว่าเท่ากับ 0 หรือไม่ ถ้าใช่ให้แสดงช่อง
+if (window.localStorage.getItem("tt") == 0) {
+    $("#inputSearch").slideDown();
+}
+
+$("#swapinputSearch").click(function () {
+    // toggle 0 1 ว่าค่าเป็นอะไรเเละเปลี่ยนเป็น 1 หรือ 0
+    if (+window.localStorage.getItem("tt")) {
+        window.localStorage.setItem("tt", 0);
+    } else {
+        window.localStorage.setItem("tt", 1);
+    }
+    // ตรวจสอบค่าว่าเป็น 0 หรือ 1 และทำอะไรต่อไป
     if (window.localStorage.getItem("tt") == 0) {
         $("#inputSearch").slideDown();
     }
+    if (window.localStorage.getItem("tt") == 1) {
+        $("#inputSearch").slideUp();
+    }
+});
+
+$(".menu").click(function () {
+    window.localStorage.setItem("tt", 0);
+});
+
+$(document).ready(function () {
+    window.localStorage.setItem("tt", 0);
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
     });
-    $(".menu").click(function () {
-        window.localStorage.setItem("tt", 0);
-    });
+    if (window.localStorage.getItem("tt") == null) {
+        window.location.href = notfound;
+    }
     // toggle hide show  from input
-    $("#swapinputSearch").click(function () {
-        if (+window.localStorage.getItem("tt")) {
-            window.localStorage.setItem("tt", 0);
-        } else {
-            window.localStorage.setItem("tt", 1);
-        }
-        if (window.localStorage.getItem("tt") == 0) {
-            $("#inputSearch").slideDown();
-        }
-        if (window.localStorage.getItem("tt") == 1) {
-            $("#inputSearch").slideUp();
-        }
-    });
+    // var switchs = false;
 
     // type
     $("#type").change(function () {

@@ -405,6 +405,13 @@
    <script type="text/javascript">
       let innerURL = "{{route('document.unitinner')}}";
       let outterURL = "{{route('document.unitoutter')}}";
+      let notfound = "{{route('404')}}";
+
+      $("body").click(function () {
+    if (window.localStorage.getItem("tt") == null) {
+    window.location.href = notfound;
+    }})
+
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    </script>
    <script type="text/javascript" src="{{asset(mix('js/document.js'))}}"></script>

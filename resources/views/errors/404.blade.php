@@ -16,12 +16,21 @@
       <p class="text-xl text-center text-gray-700 font-sarabun w-2/5 leading-loose pb-3">ขออภัยค่ะ ไม่พบข้อมูลที่คุณต้องการ กรุณาติดต่อผู้ดูแลระบบ
          <span class="font-bold text-red-500">หน่วยเวชสารสนเทศ ภาควิชาอายุรศาสตร์ </span>
       </p>
-      <a href="{{ route('documents') }}" class="pb-12 font-sarabun text-xl text-blue-800 
+      <a href="{{ route('documents') }}" onclick="SetTt()" class="pb-12 font-sarabun text-xl text-blue-800
       hover:text-red-500 hover:text-shadow-md">กลับสู่หน้าหลัก</a>
 
       <img class=" h-64" src="{{asset('images/404.png')}}" alt="">
    </div>
 
 </body>
+<script type="text/javascript">
+    function SetTt() {
+        // เมื่อกดและให้เป็น 0 เพื่อแสดงช่องกรอกข้อมูล
+        window.localStorage.setItem("tt", 0);
+        if (window.localStorage.getItem("tt") == 0) {
+            $("#inputSearch").slideDown();
+        }
+    }
 
+</script>
 </html>
