@@ -27,8 +27,8 @@
 
 <body class="font-sarabun bg-white min-h-screen max-h-full text-lg text-slate-900">
     @section('sidebar')
-    <div class="navbar bg-slate-100 sticky top-0 z-50">
-        <div class="navbar-start  text-xl ">
+    <div class="navbar bg-slate-100 sticky top-0 z-50 text-base">
+        <div class="navbar-start text-lg">
             <div class="dropdown">
                 <label tabindex="0" class="btn btn-ghost lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -38,7 +38,7 @@
                     </svg>
                 </label>
                 <ul tabindex="0"
-                    class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-50 rounded-box w-52 ">
+                    class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-50 rounded-box w-52 text-lg">
                     <li
                         class="@if (Route::is('documents') || Route::is('document.search') || Route::is('descriptions')) text-sky-600 @else text-slate-700 @endif hover:text-rose-600 ">
                         <a href="{{route('documents')}}">ค้นหาเอกสาร</a>
@@ -71,7 +71,7 @@
                     @endif
                 </ul>
             </div>
-            <a href="{{route('documents')}}" class="btn btn-ghost normal-case text-xl">MED O-Doc</a>
+            <a href="{{route('documents')}}" class="btn btn-ghost normal-case text-lg">MED O-Doc</a>
             @if(Auth::user()->is_admin == 1)
             <ul class="menu menu-horizontal hidden lg:flex p-0 text-lg">
                 <li
@@ -144,7 +144,7 @@
             event.preventDefault();
             swal({
               title: `คุณต้องการออกจากระบบหรือไม่ ?`,
-              text: "กรุณากดตกลง หากต้องการออกจากระบบ",
+              text: "กดปุ่มตกลง หากต้องการออกจากระบบ",
               icon: "warning",
               buttons: {
                   confirm: "ตกลง",
