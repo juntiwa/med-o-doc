@@ -59,7 +59,6 @@ Route::controller(HistoryController::class)->group(function () {
     Route::get('export-activity-log', 'export')->name('logactivity.export');
 });
 
-
-Route::get('navbar-demo',function(){
-    return view('nav-demo');
-})->middleware('auth');
+Route::get('404',function(){
+    return view('errors.404');
+})->name('404');

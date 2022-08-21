@@ -108,7 +108,7 @@
         {{-- <div class="navbar-center hidden lg:flex">
 
         </div> --}}
-        <div class="navbar-end text-lg flex flex-col lg:flex-row items-center">
+        <div class="navbar-end text-lg flex flex-row items-center ">
 
             <span class="lg:mr-2 md:mr-2 ">
                 <!-- ชื่อเข้าสู่ระบบ -->
@@ -120,7 +120,7 @@
                 <button id="logout" type="submit" class="flex">
                     <span class="text-red-600 hover:text-teal-600">
                         {{-- {{ __('[ออกจากระบบ]') }} --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class=" w-6 fill-red-400 hover:fill-teal-400"
+                        <svg xmlns="http://www.w3.org/2000/svg" class=" w-6 fill-red-400 hover:fill-teal-400 ml-1"
                             viewBox="0 0 512 512">
                             <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
                             <path
@@ -157,7 +157,6 @@
                 }
             });
         });
-
     </script>
 </body>
 

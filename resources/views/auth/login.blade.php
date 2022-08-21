@@ -55,10 +55,14 @@
         </div>
     </div>
 </section>
-<script src="text/javascript">
+<script type="text/javascript">
     function SetTt() {
-window.localStorage.setItem("tt", 0);
-}
+        // เมื่อกดและให้เป็น 0 เพื่อแสดงช่องกรอกข้อมูล
+        window.localStorage.setItem("tt", 0);
+        if (window.localStorage.getItem("tt") == 0) {
+            $("#inputSearch").slideDown();
+        }
+    }
 
 </script>
 @endsection
