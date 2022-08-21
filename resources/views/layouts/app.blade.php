@@ -135,6 +135,7 @@
     <div class="lg:p-6 p-3 max-h-full">
         @yield('content')
     </div>
+   <script type="text/javascript" src="{{asset(mix('js/setformdoc.js'))}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script type="text/javascript">
         $('#logout').click(function(event) {
