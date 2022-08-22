@@ -441,6 +441,7 @@
 <script type="text/javascript">
     let sapidroute = "{{route('check.sapid.show')}}";
     let existuser = "{{route('exist.user')}}"
+    let showsap = "{{route('manage.sapid')}}"
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     function sap_click(clicked) {
         let sap_show = document.getElementById("sapShow" + clicked);
@@ -453,7 +454,7 @@
         sap_showCard.innerHTML = clicked;
         $('#sapHidden_' + clicked).addClass('hidden');
         $.ajax({
-            url: "/show-sapid",
+            url: showsap,
             type: 'post',
             data: {
                 sapid: clicked,
