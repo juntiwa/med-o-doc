@@ -2,7 +2,9 @@ $("#inputSearch").css({ display: "none" });
 // เก็บค่าไว้ใน localStorage และตรวจสอบว่าเท่ากับ 0 หรือไม่ ถ้าใช่ให้แสดงช่อง
 if (window.localStorage.getItem("tt") == 0) {
     $("#inputSearch").slideDown();
+    $("#swapinputSearch").prop("checked", true);
 } else {
+    $("#swapinputSearch").prop("checked", false);
     $("#inputSearch").slideUp();
 }
 
@@ -16,9 +18,9 @@ $("#swapinputSearch").click(function () {
     // ตรวจสอบค่าว่าเป็น 0 หรือ 1 และทำอะไรต่อไป
     if (window.localStorage.getItem("tt") == 0) {
         $("#inputSearch").slideDown();
-    }
-    if (window.localStorage.getItem("tt") == 1) {
+    } else {
         $("#inputSearch").slideUp();
+        $("#swapinputSearch").prop("checked", false);
     }
 });
 
