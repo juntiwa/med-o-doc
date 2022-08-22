@@ -481,8 +481,9 @@
 
       $("body").click(function () {
         if (window.localStorage.getItem("tt") == null) {
-        window.location.href = notfound;
-      }})
+            window.location.href = notfound;
+        }
+      })
 
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 </script>

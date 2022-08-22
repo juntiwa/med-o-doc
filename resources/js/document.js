@@ -1,8 +1,9 @@
-
 $("#inputSearch").css({ display: "none" });
 // เก็บค่าไว้ใน localStorage และตรวจสอบว่าเท่ากับ 0 หรือไม่ ถ้าใช่ให้แสดงช่อง
 if (window.localStorage.getItem("tt") == 0) {
     $("#inputSearch").slideDown();
+} else {
+    $("#inputSearch").slideUp();
 }
 
 $("#swapinputSearch").click(function () {
@@ -26,7 +27,7 @@ $(".menu").click(function () {
 });
 
 $(document).ready(function () {
-    window.localStorage.setItem("tt", 0);
+    // window.localStorage.setItem("tt", 0);
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
