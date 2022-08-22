@@ -108,34 +108,35 @@
         {{-- <div class="navbar-center hidden lg:flex">
 
         </div> --}}
-        <div class="navbar-end text-lg flex flex-row items-center ">
+        <div class="navbar-end text-lg flex flex-col items-end ">
 
-            <span class="lg:mr-2 md:mr-2 ">
-                <!-- ชื่อเข้าสู่ระบบ -->
-                {{Auth::user()->full_name}}
-            </span>
-            <!-- Authentication -->
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button id="logout" type="submit" class="flex">
-                    <span class="text-red-600 hover:text-teal-600">
-                        {{-- {{ __('[ออกจากระบบ]') }} --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class=" w-6 fill-red-400 hover:fill-teal-400 ml-1"
-                            viewBox="0 0 512 512">
-                            <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
-                            <path
-                                d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z" />
-                        </svg>
-                    </span>
-                </button>
-            </form>
+            <div class="flex flex-row">
+                <span class="lg:mr-2 md:mr-2 ">
+                    <!-- ชื่อเข้าสู่ระบบ -->
+                    {{Auth::user()->full_name}}
+                </span>
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button id="logout" type="submit" class="flex">
+                        <span class="text-red-600 hover:text-teal-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class=" w-6 fill-red-400 hover:fill-teal-400 ml-1"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z" />
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+            </div>
+            {{-- รหัสผ่านจะหมดอีกใน {{session()->get('expires')}} วัน --}}
         </div>
     </div>
     @show
     <div class="lg:p-6 p-3 max-h-full">
         @yield('content')
     </div>
-   <script type="text/javascript" src="{{asset(mix('js/setformdoc.js'))}}"></script>
+    <script type="text/javascript" src="{{asset(mix('js/setformdoc.js'))}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script type="text/javascript">
         $('#logout').click(function(event) {

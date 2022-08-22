@@ -15,9 +15,11 @@
         <h1 class="text-xl font-semibold mb-2">ค้นหาเอกสาร</h1>
         <h2 class=" text-fuchsia-600">จำนวนเอกสารทั้งหมด {{number_format($documentCount)}} เรื่อง</h2>
     </div>
-    @if(Route::is('document.search'))
-    <input type="checkbox" class="toggle" id="swapinputSearch"/>
-    @endif
+    <div class="flex flex-col items-start md:items-end lg:items-end">
+        @if(Route::is('document.search'))
+        <input type="checkbox" class="toggle" id="swapinputSearch"/>
+        @endif
+    </div>
 </section>
 <hr>
 

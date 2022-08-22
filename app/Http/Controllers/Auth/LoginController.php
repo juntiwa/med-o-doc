@@ -76,6 +76,9 @@ class LoginController extends Controller
                         $updateUser->full_name = $sirirajUser['full_name'];
                         $updateUser->save();
                     }
+
+                    $expires = $sirirajUser['password_expires_in_days'];
+                    session()->put('expires', $expires);
                     $log_activity = new LogActivity;
                     $log_activity->username = Auth::user()->username;
                     $log_activity->full_name = Auth::user()->full_name;
@@ -219,6 +222,8 @@ class LoginController extends Controller
 
         Auth::logout();
         Session::forget('user');
+        session()->forget('expires');
+
         //   toastr()->success('ออกจากระบบสำเร็จ', 'แจ้งเตือน');
         Toastr::success('ออกจากระบบสำเร็จ', 'Success!!');
 
