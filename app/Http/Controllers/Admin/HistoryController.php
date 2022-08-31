@@ -24,17 +24,18 @@ class HistoryController extends Controller
     {
         $logAvtivitys = LogActivity::orderby('date_time', 'desc')->paginate(50);
 
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เข้าดูประวัติการใช้งาน';
-        $log_activity->type = 'view';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'เข้าดูประวัติการใช้งาน';
+        $validated['type'] = 'view';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
+
 
         return view('admin.history', ['logAvtivitys' => $logAvtivitys]);
     }
@@ -74,20 +75,18 @@ class HistoryController extends Controller
         $time_now = Carbon::now()->format('Y_m_d_H:i:s');
         $filename = 'Log_MED_O_Doc_'.$time_now.'.xlsx';
         Log::critical(Auth::user()->full_name.' Export file '.$filename);
-        //   toastr()->info('Export file '.$filename.' เสร็จแล้ว', 'ผลการร้องขอ');
-        //   Toastr::success('Export file '.$filename.' เสร็จแล้ว', 'Success!!');
 
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'Export file activity log';
-        $log_activity->type = 'export file';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'Export file activity log';
+        $validated['type'] = 'export file';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
+
 
         return Excel::download(new LogActivitysExport, $filename);
     }

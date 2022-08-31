@@ -45,7 +45,7 @@
                             <a href="{{config('app.sirirajADurl')}}" target="_blank"
                                 class="text-blue-500 hover:text-red-500">ลืมรหัสผ่าน ?</a>
                         </div>
-                        <button type="submit" onclick="SetTt()"
+                        <button type="submit" onclick="SetTt()" id="btnlogin"
                             class="w-full px-4 py-3 font-medium text-white bg-green-500 hover:bg-green-700 rounded">เข้าสู่ระบบ</button>
                     </div>
                 </form>
@@ -62,6 +62,21 @@ function SetTt() {
         $("#inputSearch").slideDown();
     }
 }
+var username = document.querySelector('#username');
+var password = document.querySelector('#password');
+var btnlogin = document.querySelector('#btnlogin');
+btnlogin.addEventListener('click', function () {
+    if (username.validity.valueMissing) {
+        username.setCustomValidity('กรุณากรอกชื่อ . นามสกุล 3 ตัว (Username)');
+    } else {
+        username.setCustomValidity('');
+    }
+    if (password.validity.valueMissing) {
+        password.setCustomValidity('กรุณากรอกรหัสผ่าน (Password)');
+    } else {
+        password.setCustomValidity('');
+    }
+});
 </script>
 
 @endsection

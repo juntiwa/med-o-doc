@@ -57,21 +57,20 @@ class RegisterContrller extends Controller
         $users->office_name = $unit->unitname;
         $users->save();
 
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เริ่มใช้งานระบบ';
-        $log_activity->type = 'register';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'เริ่มใช้งานระบบ';
+        $validated['type'] = 'register';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
+
 
         //   toastr()->success('ลงทะเบียนใช้งานสำเร็จ', 'ลงทะเบียน');
-        Toastr::success('ลงทะเบียนใช้งานสำเร็จ', 'Success!!');
-        Log::critical($full_name.' register success');
+        Log::critical($full_name.' ลงทะเบียนใช้งานสำเร็จ');
 
         return Redirect::route('documents');
     }

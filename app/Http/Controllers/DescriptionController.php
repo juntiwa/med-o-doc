@@ -60,18 +60,20 @@ class DescriptionController extends Controller
         ->where('lettersends.regrecid', $idTitle)
         ->orderby('letterrecs.recdate', 'desc')
         ->paginate(50);
+
         $title = $registerFound->regtitle;
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'ดูข้อมูลเพิ่มเติม เรื่อง '.$title;
-        $log_activity->type = 'view';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'ดูข้อมูลเพิ่มเติม เรื่อง '.$title;
+        $validated['type'] = 'view';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+
+        LogActivity::insert($validated);
+
 
         return view('decription', ['registerFound' => $registerFound, 'descriptions' => $descriptions]);
     }

@@ -49,14 +49,12 @@ class LoginController extends Controller
         if ($sirirajUser['reply_code'] != 0) {
             $errors = ['message' => $sirirajUser['reply_text']];
             Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
-            // toastr()->error('ตรวจสอบข้อมูล username หรือ password', 'แจ้งเตือน');
-            Toastr::error('ตรวจสอบข้อมูล username หรือ password', 'Success!!');
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
         } else {
             $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
             if (!$checkMember) {
-                Log::critical($sirirajUser['full_name'] . ' No access rights');
+                Log::critical($sirirajUser['full_name'] . ' ไม่มีสิทธิ์เข้าถึงระบบ');
                 abort(403);
             } else {
                 // dd('ok');
@@ -79,21 +77,19 @@ class LoginController extends Controller
 
                     $expires = $sirirajUser['password_expires_in_days'];
                     session()->put('expires', $expires);
-                    $log_activity = new LogActivity;
-                    $log_activity->username = Auth::user()->username;
-                    $log_activity->full_name = Auth::user()->full_name;
-                    $log_activity->office_name = Auth::user()->office_name;
-                    $log_activity->action = 'เข้าสู่ระบบ';
-                    $log_activity->type = 'login';
-                    $log_activity->url = URL::current();
-                    $log_activity->method = $request->method();
-                    $log_activity->user_agent = $request->header('user-agent');
-                    $log_activity->date_time = date('d-m-Y H:i:s');
-                    $log_activity->save();
 
-                    Log::info($full_name . ' login success');
-                    // toastr()->success('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน');
-                    Toastr::success('เข้าสู่ระบบสำเร็จ', 'Success!!');
+                    $validated['username'] = Auth::user()->username;
+                    $validated['full_name'] = Auth::user()->full_name;
+                    $validated['office_name'] = Auth::user()->office_name;
+                    $validated['action'] = 'เข้าสู่ระบบ';
+                    $validated['type'] = 'view';
+                    $validated['url'] = URL::current();
+                    $validated['method'] = $request->method();
+                    $validated['user_agent'] = $request->header('user-agent');
+                    $validated['date_time'] = date('d-m-Y H:i:s');
+                    LogActivity::insert($validated);
+
+                    Log::info($full_name . ' เข้าสู่ระบบสำเร็จ');
 
                     return Redirect::route('documents');
                 }
@@ -142,21 +138,18 @@ class LoginController extends Controller
         $users->status = 'Active';
         $users->save();
 
-        $log_activity = new LogActivity;
-        $log_activity->username = $username;
-        $log_activity->full_name = $full_name;
-        $log_activity->office_name = $unit->unitname;
-        $log_activity->action = 'เริ่มใช้งานระบบ';
-        $log_activity->type = 'register';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'เริ่มใช้งานระบบ';
+        $validated['type'] = 'view';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
 
-        Log::info($full_name . ' register start app success');
-        //   toastr()->info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'แจ้งเตือน');
-        Toastr::info('ลงทะเบียนเริ่มต้นใช้งานสำเร็จ เข้าสู่ระบบเพื่อเริ่มใช้งาน', 'Success!!');
+        Log::info($full_name . ' ลงทะเบียนเริ่มต้นใช้งานสำเร็จ');
 
         return Redirect::route('login');
     }
@@ -208,17 +201,16 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'ออกจากระบบ';
-        $log_activity->type = 'logout';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'ออกจากระบบ';
+        $validated['type'] = 'view';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
 
         Auth::logout();
         Session::forget('user');

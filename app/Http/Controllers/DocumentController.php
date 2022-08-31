@@ -30,17 +30,17 @@ class DocumentController extends Controller
         $typesSelectionForm = Type::all();
         $documentCount = Letterreg::count();
 
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เข้าสู่หน้าค้นหาเอกสาร';
-        $log_activity->type = 'view';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'เข้าสู่หน้าค้นหาเอกสาร';
+        $validated['type'] = 'view';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+
+        LogActivity::insert($validated);
 
         return view('document', ['monthsSelectionForm' => $monthsSelectionForm, 'yearsSelectionForm' => $yearsSelectionForm,
             'typesSelectionForm' => $typesSelectionForm, 'documentCount' => $documentCount, ]);
@@ -144,17 +144,16 @@ class DocumentController extends Controller
         //   toastr()->info('ค้นหาสำเร็จ ผลลัพท์ข้อมูล '.$resultCount.' เรื่อง', 'Import');
         //   Toastr::info('ค้นหาสำเร็จ ผลลัพท์ข้อมูล ค้นหาสำเร็จ'.$resultCount.' เรื่อง', 'Success!!');
 
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'ค้นหาเอกสาร '.$searchLog;
-        $log_activity->type = 'search';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'ค้นหาเอกสาร '.$searchLog;
+        $validated['type'] = 'search';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
 
         return view('document', ['monthsSelectionForm' => $monthsSelectionForm, 'yearsSelectionForm' => $yearsSelectionForm,
            'typesSelectionForm' => $typesSelectionForm, 'resultDocument' => $resultDocument,
@@ -213,17 +212,18 @@ class DocumentController extends Controller
         $filename = $doc->regdoc;
         $path = 'files/'.$year.'/'.$filename;
 
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
-        $log_activity->type = 'search';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'เปิดไฟล์เอกสาร '.$filename;
+        $validated['type'] = 'search';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
+
 
         $full_name = Auth::user()->full_name;
         //   Log::info($full_name . ' เปิดไฟล์เอกสาร รหัส ' . $regdoc . ' ชื่อไฟล์ ' . $filename);
@@ -244,17 +244,17 @@ class DocumentController extends Controller
         $filename = $doc->regdoc2;
         $path = 'files/'.$year.'/'.$filename;
 
-        $log_activity = new LogActivity;
-        $log_activity->username = Auth::user()->username;
-        $log_activity->full_name = Auth::user()->full_name;
-        $log_activity->office_name = Auth::user()->office_name;
-        $log_activity->action = 'เปิดไฟล์เอกสาร '.$filename;
-        $log_activity->type = 'search';
-        $log_activity->url = URL::current();
-        $log_activity->method = $request->method();
-        $log_activity->user_agent = $request->header('user-agent');
-        $log_activity->date_time = date('d-m-Y H:i:s');
-        $log_activity->save();
+        $validated['username'] = Auth::user()->username;
+        $validated['full_name'] = Auth::user()->full_name;
+        $validated['office_name'] = Auth::user()->office_name;
+        $validated['action'] = 'เปิดไฟล์เอกสาร '.$filename;
+        $validated['type'] = 'search';
+        $validated['url'] = URL::current();
+        $validated['method'] = $request->method();
+        $validated['user_agent'] = $request->header('user-agent');
+        $validated['date_time'] = date('d-m-Y H:i:s');
+        LogActivity::insert($validated);
+
 
         //   Log::info($full_name . 'เปิดไฟล์เอกสาร ' . $regdoc . ' ' . $filename);
         if (Storage::exists($path)) {
