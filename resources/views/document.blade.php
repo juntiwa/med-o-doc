@@ -55,7 +55,7 @@
 
                 <input type="text" name="unitOutter" id="unitOutter" placeholder="ระบุหน่วยงานที่ต้องการ"
                     value="{{old('unitOutter')}}"
-                    class="input input-bordered w-full bg-white border-slate-400 text-lg disabled:bg-gray-300" disabled
+                    class="input input-bordered w-full  bg-white border-slate-400 text-lg disabled:bg-gray-300" disabled
                     hidden />
                 <input type="text" name="idunitOutter" id="idunitOutter" value="{{old('idunitOutter')}}" hidden>
             </div>
@@ -66,6 +66,7 @@
                     <span class="label-text text-slate-900 text-lg font-medium">หัวเรื่อง <b class="text-rose-600">*</b>
                     </span>
                 </label>
+
                 <input name="title" id="title" type="text" placeholder="ระบุหัวข้อที่ต้องการค้นหา"
                     value="{{ old('title') }}" class="input input-bordered input-error w-full bg-white text-lg"
                     required />

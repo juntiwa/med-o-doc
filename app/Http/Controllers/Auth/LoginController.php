@@ -28,9 +28,6 @@ class LoginController extends Controller
         $checkRecordMember = Member::count();
         if ($checkRecordMember != 0) {
             if (Auth::check()) {
-                //  toastr()->info('เข้าสู่ระบบอยู่แล้ว', 'การเข้าสู่ระบบ');
-                Toastr::info('เข้าสู่ระบบอยู่แล้ว', 'Success!!');
-
                 return Redirect::route('documents');
             } else {
                 return view('auth.login');
@@ -45,14 +42,14 @@ class LoginController extends Controller
     public function authenticate(Request $request, AuthUserAPI $api)
     {
         $sirirajUser = $api->authenticate($request->username, $request->password);
-        // return $sirirajUser;
         if ($sirirajUser['reply_code'] != 0) {
-            $errors = ['message' => $sirirajUser['reply_text']];
+            $errors = ['message' => 'ตรวจสอบ username หรือ password อีกครั้ง'];
             Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
-        } else {
-            $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 'Active')->first();
+        }  else {
+            // return $sirirajUser;
+            $checkMember = Member::where('org_id', $sirirajUser['org_id'])->where('status', 1)->first();
             if (!$checkMember) {
                 Log::critical($sirirajUser['full_name'] . ' ไม่มีสิทธิ์เข้าถึงระบบ');
                 abort(403);
@@ -63,8 +60,6 @@ class LoginController extends Controller
                 $full_name = Auth::user()->full_name;
                 if ($checkRegisterUser->username == null) {
                     $units = Unit::orderBy('unitname', 'asc')->get();
-                    //  toastr()->info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'ลงทะเบียนระบบ');
-                    Toastr::info('ลงทะเบียนเพื่อเข้าใช้งานระบบ', 'Register');
 
                     return view('auth.register', ['sirirajUser' => $sirirajUser, 'units' => $units]);
                 } else {
@@ -97,22 +92,7 @@ class LoginController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //   dd('ok');
@@ -125,7 +105,7 @@ class LoginController extends Controller
         $members = new Member;
         $members->org_id = $org_id;
         $members->is_admin = 1;
-        $members->status = 'Active';
+        $members->status = 1;
         $members->save();
 
         $users = new User;
@@ -135,12 +115,12 @@ class LoginController extends Controller
         $users->office_name = $office_name;
         $users->office_name = $unit->unitname;
         $users->is_admin = 1;
-        $users->status = 'Active';
+        $users->status = 1;
         $users->save();
 
-        $validated['username'] = Auth::user()->username;
-        $validated['full_name'] = Auth::user()->full_name;
-        $validated['office_name'] = Auth::user()->office_name;
+        $validated['username'] = $username;
+        $validated['full_name'] = $full_name;
+        $validated['office_name'] = $office_name;
         $validated['action'] = 'เริ่มใช้งานระบบ';
         $validated['type'] = 'view';
         $validated['url'] = URL::current();
@@ -152,51 +132,6 @@ class LoginController extends Controller
         Log::info($full_name . ' ลงทะเบียนเริ่มต้นใช้งานสำเร็จ');
 
         return Redirect::route('login');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function logout(Request $request)

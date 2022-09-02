@@ -32,7 +32,7 @@ class HannahAPI implements AuthUserAPI
         $data['name_en'] = $data['full_name_en'];
         $data['reply_code'] = 0;
 
-        // Log::info($data);
+//         Log::info($data);
 
         return $data;
     }

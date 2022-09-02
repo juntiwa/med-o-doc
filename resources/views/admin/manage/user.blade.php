@@ -81,16 +81,16 @@
                     </td>
                     <td class="p-3 text-base text-gray-700 whitespace-nowrap">
                         @if ($user->is_admin == "1" )
-                        <p class="table-row__p-status status--red status text-base">Admin</p>
+                        <p class="table-row__p-status status--red status text-base">ผู้ดูแลระบบ</p>
                         @else
-                        <p class="table-row__p-status status--yellow status text-base">User</p>
+                        <p class="table-row__p-status status--yellow status text-base">ผู้ใช้งานทั่วไป</p>
                         @endif
                     </td>
                     <td class="p-3 text-base text-gray-700 whitespace-nowrap">
-                        @if ($user->status == "Active" )
-                        <p class="table-row__status status--green status text-base">{{$user->status}}</p>
+                        @if ($user->status == "1" )
+                        <p class="table-row__status status--green status text-base">เปิดการใช้งาน</p>
                         @else
-                        <p class="table-row__status text-base">{{$user->status}}</p>
+                        <p class="table-row__status text-base">ปิดการใช้งาน</p>
                         @endif
                     </td>
                     <td class="p-3 text-base text-gray-700 whitespace-nowrap">
@@ -188,10 +188,10 @@
                                                 <select name="status" id="status" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" required>
                                                     <option value="" selected>---- เลือกสถานะการใช้งาน ----</option>
-                                                    <option value="Active" {{ ($user->status == "Active" ? "selected":
-                                                        "") }}>Active</option>
-                                                    <option value="Disable" {{ ($user->status == "Disable" ? "selected":
-                                                        "") }}>Disable</option>
+                                                    <option value="1" {{ ($user->status == "1" ? "selected":
+                                                        "") }}>เปิดการใช้งาน</option>
+                                                    <option value="0" {{ ($user->status == "0" ? "selected":
+                                                        "") }}>ปิดการใช้งาน</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -302,10 +302,10 @@
                                                 <select name="status" id="status" class="bg-white border border-gray-300 text-gray-900 text-base rounded-lg
                                                 focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5" required>
                                                     <option value="" selected>---- เลือกสถานะการใช้งาน ----</option>
-                                                    <option value="Active" {{ ($user->status == "Active" ? "selected":
-                                                        "") }}>Active</option>
-                                                    <option value="Disable" {{ ($user->status == "Disable" ? "selected":
-                                                        "") }}>Disable</option>
+                                                    <option value="1" {{ ($user->status == "1" ? "selected":
+                                                        "") }}>เปิดการใช้งาน</option>
+                                                    <option value="0" {{ ($user->status == "0" ? "selected":
+                                                        "") }}>ปิดการใช้งาน</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -366,9 +366,9 @@
                 <div class="flex">
                     <div>
                         @if ($user->is_admin == "1" )
-                        <p class="table-row__p-status status--red status text-base">Admin</p>
+                        <p class="table-row__p-status status--red status text-base">ผู้ดูแลระบบ</p>
                         @else
-                        <p class="table-row__p-status status--yellow status text-base">User</p>
+                        <p class="table-row__p-status status--yellow status text-base">ผู้ใช้งานทั่วไป</p>
                         @endif
                     </div>
                     <div class="pl-3">
@@ -385,7 +385,7 @@
                         </a>
                         @endif
                         @else
-                        @if ($user->office_name == Auth::user()->office_name || $user->office_name==
+                        @if ($user->office_name == Auth::user()->office_name || $user->office_name ==
                         "หน่วยเวชสารสนเทศและบริหารข้อมูล")
                         @else
                         <a href="{{route('manage.edit', $user->org_id)}}">
@@ -425,10 +425,10 @@
                 </p>
             </div>
             <div class="text-base font-medium text-black">
-                @if ($user->status == "Active" )
-                <p class="table-row__status status--green status text-base">{{$user->status}}</p>
+                @if ($user->status == "1" )
+                <p class="table-row__status status--green status text-base">เปิดการใช้งาน</p>
                 @else
-                <p class="table-row__status text-base">{{$user->status}}</p>
+                <p class="table-row__status text-base">ปิดการใช้งาน</p>
                 @endif
             </div>
         </div>

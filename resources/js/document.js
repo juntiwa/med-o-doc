@@ -112,7 +112,8 @@ $(document).ready(function () {
     $("#startMonth").change(function () {
         let startMonth = parseInt($(this).val());
         let endMonth = parseInt($("#endMonth option:selected").val());
-
+        console.log(startMonth);
+        console.log(endMonth);
         // console.log(startMonth)
         $("#endMonth").prop("required", true); //required true
         $("#endMonth").prop("disabled", false); //disabled false
@@ -121,6 +122,9 @@ $(document).ready(function () {
         if (startMonthID == "") {
             $("#endMonth").val(""); //set valur endMonth = null
             $("#endMonth").prop("disabled", true); //disabled true
+        }
+        if (endMonth < startMonthID) {
+            $("#endMonth").val("");
         }
         $("#endMonth > option")
             .filter(function () {
@@ -134,11 +138,14 @@ $(document).ready(function () {
             })
             .prop("disabled", false);
 
+
         let startYear = parseInt($("#startYear option:selected").val());
         let endYear = parseInt($("#endYear option:selected").val());
         if (endYear > startYear) {
             $("#endMonth > option").prop("disabled", false);
         }
+
+
     });
 
     // start year

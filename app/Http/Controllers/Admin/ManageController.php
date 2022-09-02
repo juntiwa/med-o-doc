@@ -69,15 +69,21 @@ class ManageController extends Controller
     {
         $sapids = $request->sapid;
         $permissions = $request->permission;
+        $office_names = $request->office_name;
 
         $log_activity = [];
         $arrlength = count($sapids);
         //   return $log;
         for ($i = 0; $i < $arrlength; $i++) {
-            $data[$i] = [
+            $datauser[$i] = [
                 'org_id' => $sapids[$i],
                 'is_admin' => $permissions[$i],
+                'office_name' => $office_names[$i]
              ];
+            $datamember[$i] = [
+                'org_id' => $sapids[$i],
+                'is_admin' => $permissions[$i]
+            ];
             if ($permissions[$i] == 1) {
                 $role = 'ผู้ดูแลระบบ';
                 $roleConvert = mb_convert_encoding($role, 'UTF-8', 'UTF-8');
@@ -89,17 +95,17 @@ class ManageController extends Controller
                'username' => Auth::user()->username,
                'full_name' => Auth::user()->full_name,
                'office_name' => Auth::user()->office_name,
-               'action' => 'เพิ่มรหัสรหัสผู้ใช้งาน '.$sapids[$i].' สิทธิ์ '.$roleConvert,
+               'action' => 'เพิ่มรหัสรหัสผู้ใช้งาน '.$sapids[$i].' สิทธิ์ '.$roleConvert.' หน่วยงาน '.$office_names[$i],
                'type' => 'create',
                'url' => URL::current(),
                'method' => $request->method(),
                'user_agent' => $request, header('user-agent'),
                'date_time' => date('d-m-Y H:i:s'),
            ]);
-        Log::info('เพิ่มรหัสรหัสผู้ใช้งาน '.$sapids[$i].' สิทธิ์ '.$roleConvert.' สำเร็จ');
+        Log::info(Auth::user()->full_name.'เพิ่มรหัสรหัสผู้ใช้งาน '.$sapids[$i].' สิทธิ์ '.$roleConvert . ' หน่วยงาน ' . $office_names[$i].' สำเร็จ');
         }
-        Member::insert($data);
-        User::insert($data);
+        Member::insert($datamember);
+        User::insert($datauser);
 //        Toastr::success('เพิ่มผู้ใช้งานสำเร็จ', 'Success!!');
         return Redirect::route('manages');
     }

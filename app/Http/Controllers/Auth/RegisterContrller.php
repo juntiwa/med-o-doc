@@ -47,14 +47,14 @@ class RegisterContrller extends Controller
         $org_id = $request->get('org_id');
         $username = $request->get('login');
         $full_name = $request->get('full_name');
-        $office_name = $request->get('office_name');
-        $unit = Unit::where('unitid', $office_name)->first();
+        // $office_name = $request->get('office_name');
+        // $unit = Unit::where('unitid', $office_name)->first();
         //   dd($username);
 
         $users = User::where('org_id', $org_id)->first();
         $users->username = $username;
         $users->full_name = $full_name;
-        $users->office_name = $unit->unitname;
+        // $users->office_name = $unit->unitname;
         $users->save();
 
         $validated['username'] = Auth::user()->username;
@@ -68,8 +68,6 @@ class RegisterContrller extends Controller
         $validated['date_time'] = date('d-m-Y H:i:s');
         LogActivity::insert($validated);
 
-
-        //   toastr()->success('ลงทะเบียนใช้งานสำเร็จ', 'ลงทะเบียน');
         Log::critical($full_name.' ลงทะเบียนใช้งานสำเร็จ');
 
         return Redirect::route('documents');
