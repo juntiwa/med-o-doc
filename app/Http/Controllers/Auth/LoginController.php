@@ -43,7 +43,7 @@ class LoginController extends Controller
     {
         $sirirajUser = $api->authenticate($request->username, $request->password);
         if ($sirirajUser['reply_code'] != 0) {
-            $errors = ['message' => 'ตรวจสอบ username หรือ password อีกครั้ง'];
+            $errors = ['message' => $sirirajUser['reply_text']];
             Log::critical($request->username . ' ' . $sirirajUser['reply_text']);
 
             return Redirect::back()->withErrors($errors)->withInput($request->all());
@@ -57,10 +57,8 @@ class LoginController extends Controller
                 // dd('ok');
                 $checkRegisterUser = User::where('org_id', $sirirajUser['org_id'])->first();
                 Auth::login($checkRegisterUser);
-                $full_name = Auth::user()->full_name;
                 if ($checkRegisterUser->username == null) {
                     $units = Unit::orderBy('unitname', 'asc')->get();
-
                     return view('auth.register', ['sirirajUser' => $sirirajUser, 'units' => $units]);
                 } else {
                     if ($checkRegisterUser->username != $sirirajUser['login'] || $checkRegisterUser->full_name != $sirirajUser['full_name']) {
@@ -84,7 +82,7 @@ class LoginController extends Controller
                     $validated['date_time'] = date('d-m-Y H:i:s');
                     LogActivity::insert($validated);
 
-                    Log::info($full_name . ' เข้าสู่ระบบสำเร็จ');
+                    Log::info(Auth::user()->full_name . ' เข้าสู่ระบบสำเร็จ');
 
                     return Redirect::route('documents');
                 }

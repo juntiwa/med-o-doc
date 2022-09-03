@@ -15,7 +15,7 @@ class FakeUserAPI implements AuthUserAPI
                 'ok' => true,
                 'found' => true,
                 'login' => 'admin.sys',
-                'org_id' => '10041336',
+                'org_id' => '10041234',
                 'full_name' => 'น.ส. ผู้ใช้งาน ทั่วไป',
                 'full_name_en' => 'Miss User System',
                 'position_name' => 'นักวิชาการคอมพิวเตอร์',

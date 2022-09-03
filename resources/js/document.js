@@ -44,17 +44,14 @@ $(document).ready(function () {
     // type
     $("#type").change(function () {
         let typeid = parseInt($(this).val());
-        // console.log(typeid)
 
         if (typeid === 0) {
-            // console.log(typeid)
             $("#unitInner").removeClass("hidden");
             $("#unitOutter").prop("hidden", true);
             $("#unitInner").prop("disabled", false);
             $("#unitOutter").val("");
             $("#idunitOutter").val("");
             let unitinner = $("#idunitInner").val();
-            // console.log(unitinner)
             $("#unitInner").html(
                 '<option value="">เลือกหน่วยงานที่รับ</option>'
             );
@@ -68,7 +65,6 @@ $(document).ready(function () {
                 },
                 success: function (result) {
                     $("#unitInner").html(result);
-                    // console.log(unitinner)
                 },
             });
         } else if (typeid === 3) {
@@ -76,7 +72,6 @@ $(document).ready(function () {
             $("#unitOutter").prop("hidden", false);
             $("#unitOutter").prop("disabled", false);
             $("#unitInner").val("");
-            //  console.log(outterURL);
             $("#unitOutter").autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -95,7 +90,6 @@ $(document).ready(function () {
                 select: function (event, ui) {
                     $("#unitOutter").val(ui.item.label);
                     $("#idunitOutter").val(ui.item.id);
-                    console.log(ui.item);
                     return false;
                 },
             });
@@ -112,9 +106,7 @@ $(document).ready(function () {
     $("#startMonth").change(function () {
         let startMonth = parseInt($(this).val());
         let endMonth = parseInt($("#endMonth option:selected").val());
-        console.log(startMonth);
-        console.log(endMonth);
-        // console.log(startMonth)
+
         $("#endMonth").prop("required", true); //required true
         $("#endMonth").prop("disabled", false); //disabled false
 
@@ -123,9 +115,7 @@ $(document).ready(function () {
             $("#endMonth").val(""); //set valur endMonth = null
             $("#endMonth").prop("disabled", true); //disabled true
         }
-        if (endMonth < startMonthID) {
-            $("#endMonth").val("");
-        }
+
         $("#endMonth > option")
             .filter(function () {
                 return $(this).attr("value") < startMonth;
@@ -138,14 +128,22 @@ $(document).ready(function () {
             })
             .prop("disabled", false);
 
-
         let startYear = parseInt($("#startYear option:selected").val());
         let endYear = parseInt($("#endYear option:selected").val());
+        // var startYear = $("#startYear").val();
+
         if (endYear > startYear) {
             $("#endMonth > option").prop("disabled", false);
+        } else {
+            if (endMonth < startMonthID) {
+                $("#endMonth").val("");
+            }
+            $("#endMonth > option")
+                .filter(function () {
+                    return $(this).attr("value") < startMonth;
+                })
+                .prop("disabled", true);
         }
-
-
     });
 
     // start year
@@ -241,18 +239,14 @@ $(document).ready(function () {
     var type = $("#idtype").val();
     var startMonth = $("#startMonth").val();
     var startYear = $("#startYear").val();
-    // console.log(type);
     if (type != "") {
-        // console.log(type);
         $("#type").val(type);
         $("#type").change(); //ให้ on change เพื่อ get value หน่วยงานที่ส่ง
     }
     if (startMonth != "") {
-        // console.log(startMonth);
         $("#startMonth").change(); //ให้ on change เพื่อ disabled false endMonth
     }
     if (startYear != "") {
-        // console.log(startYear);
         $("#startYear").change(); //ให้ on change เพื่อ disabled false endYear
     }
 });
