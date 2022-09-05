@@ -12,7 +12,7 @@ class HannahAPI implements AuthUserAPI
     {
         $headers = ['app' => config('app.HAN_API_SERVICE_SECRET'), 'token' => config('app.HAN_API_SERVICE_TOKEN')];
         $options = ['timeout' => 8.0, 'verify' => false];
-        return $options;
+//        return $options;
         $url = config('app.HAN_API_SERVICE_URL').'auth';
         $response = Http::withHeaders($headers)->withOptions($options)
          ->post($url, ['login' => $username, 'password' => $password]);
