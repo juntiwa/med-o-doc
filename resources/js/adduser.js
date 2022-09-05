@@ -117,9 +117,9 @@ $(document).ready(function () {
         let index = $(this)[0].id.slice(5);
         // console.log(index)
         let val = $(this).val();
-        console.log(val);
+        // console.log(val);
         if (val === "") {
-            console.log("ok");
+            // console.log("ok");
             $(`#username${index}`).val("");
             // $(`#permission${index}`).val('');
             $("#permission0").val("");
