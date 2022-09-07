@@ -68,6 +68,7 @@ $(document).ready(function () {
                             "disabled:text-red-500"
                         );
                         $("#permission" + index).prop("disabled", true);
+                        $("#office_name" + index).prop("disabled", true);
                         $("#saveButton").prop("disabled", true);
                         users[index].error = true;
                     } else {
@@ -78,6 +79,7 @@ $(document).ready(function () {
                             "disabled:text-teal-500"
                         );
                         $("#permission" + index).prop("disabled", false);
+                        $("#office_name" + index).prop("disabled", false);
                         $("#saveButton").prop("disabled", false);
                         users[index].error = false;
                     }
@@ -87,6 +89,7 @@ $(document).ready(function () {
                     );
                     $("#username" + index).addClass("disabled:text-red-500");
                     $("#permission" + index).prop("disabled", true);
+                    $("#office_name" + index).prop("disabled", true);
                     $("#saveButton").prop("disabled", true);
                     users[index].error = true;
                 } else {
@@ -96,6 +99,7 @@ $(document).ready(function () {
                     );
                     $("#username" + index).addClass("disabled:text-red-500");
                     $("#permission" + index).prop("disabled", true);
+                    $("#office_name" + index).prop("disabled", true);
                     $("#saveButton").prop("disabled", true);
                     users[index].error = true;
                 }
@@ -108,17 +112,20 @@ $(document).ready(function () {
             },
         });
     }
+
     function sapidOnchange() {
         let index = $(this)[0].id.slice(5);
         // console.log(index)
         let val = $(this).val();
-        console.log(val);
+        // console.log(val);
         if (val === "") {
-            console.log("ok");
+            // console.log("ok");
             $(`#username${index}`).val("");
             // $(`#permission${index}`).val('');
             $("#permission0").val("");
+            $("#office_name0").val("");
             $("#permission0").prop("disabled", true);
+            $("#office_name0").prop("disabled", true);
 
             users[index].error = false;
 
@@ -131,6 +138,7 @@ $(document).ready(function () {
             getUserbySapId($(this).data("user-index"));
         }
     }
+
     $("#sapid0").change(sapidOnchange);
 
     $("#plus_icon").click(function () {

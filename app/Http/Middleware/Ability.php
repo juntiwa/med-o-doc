@@ -17,7 +17,7 @@ class Ability
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->status != 'Active') {
+        if (Auth::user()->status != 1) {
             Auth::logout();
             abort(403);
         }

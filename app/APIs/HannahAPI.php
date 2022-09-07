@@ -12,6 +12,7 @@ class HannahAPI implements AuthUserAPI
     {
         $headers = ['app' => config('app.HAN_API_SERVICE_SECRET'), 'token' => config('app.HAN_API_SERVICE_TOKEN')];
         $options = ['timeout' => 8.0, 'verify' => false];
+//        return $options;
         $url = config('app.HAN_API_SERVICE_URL').'auth';
         $response = Http::withHeaders($headers)->withOptions($options)
          ->post($url, ['login' => $username, 'password' => $password]);
@@ -22,7 +23,7 @@ class HannahAPI implements AuthUserAPI
             return ['reply_code' => '1', 'reply_text' => 'request failed', 'found' => 'false'];
         }
         if (! $data['ok']) {
-            return ['reply_code' => '1', 'reply_text' => 'Username or Password is incorrect', 'found' => 'false'];
+            return ['reply_code' => '1', 'reply_text' => 'ตรวจสอบ username หรือ password อีกครั้ง', 'found' => 'false'];
         }
         if (! $data['found']) {
             return ['reply_code' => '1', 'reply_text' => $data['body'], 'found' => 'false'];
@@ -32,7 +33,7 @@ class HannahAPI implements AuthUserAPI
         $data['name_en'] = $data['full_name_en'];
         $data['reply_code'] = 0;
 
-        // Log::info($data);
+//         Log::info($data);
 
         return $data;
     }

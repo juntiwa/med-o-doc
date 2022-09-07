@@ -47,7 +47,7 @@
                         id="sapid0" required class="input input-bordered w-full bg-white border-slate-400 text-lg font-medium"
                         data-user-index="0" />
                     <input id="username0" type="text" placeholder="ชื่อผู้ใช้งาน"
-                        class="mt-3 input w-full max-w-lg text-base disabled:border-none disabled:bg-white disabled:text-slate-900"
+                        class="mt-3 input w-full h-auto max-w-lg text-base disabled:border-none disabled:bg-white disabled:text-slate-900"
                         disabled />
                 </div>
                 <div class="form-control w-full mr-4">
@@ -58,14 +58,25 @@
                     <select disabled required name="permission[]" id="permission0"
                         class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal w-full">
                         <option value="" selected>---- เลือกสิทธิ์ผู้ใช้งาน ----</option>
-                        <option value="1" {{ (old("permission")=="1" ? "selected" : "" ) }}>ผู้ดูแลระบบ</option>
-                        <option value="0" {{ (old("permission")=="0" ? "selected" : "" ) }}>ผู้ใช้งานทั่วไป</option>
+                        <option value="1">ผู้ดูแลระบบ</option>
+                        <option value="0">ผู้ใช้งานทั่วไป</option>
+                    </select>
+                </div>
+                <div class="form-control w-full mr-4">
+                    <label class="label">
+                        <span class="label-text text-slate-900 text-lg font-medium">สิทธิ์ผู้ใช้งาน <b class="text-rose-600">*</b></span>
+                    </label>
+                    <select disabled required name="office_name[]" id="office_name0"
+                        class="select select-bordered disabled:bg-slate-200 bg-white border-slate-400 text-lg font-normal w-full">
+                        <option value="" selected>---- เลือกหน่วยงาน ----</option>
+                       @foreach ($units as $unit)
+                       <option value="{{$unit->unitname}}">{{$unit->unitname}}</option>
+                       @endforeach
+
                     </select>
                 </div>
 
                 <div class="card-actions mt-5 justify-end">
-                    {{-- <button type="button" id="remove" class="btn bg-red-500 border-none hover:bg-red-700"
-                        disabled>ลบช่องกรอกข้อมูล</button> --}}
                     <input type="submit" id="saveButton" value="บันทึกข้อมูล"
                         class="text-white bg-sky-600 hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed py-2 px-3 rounded-md">
                 </div>
@@ -103,9 +114,6 @@
 
       <section id="newuser"></section>
 
-     {{--  <section id="buttonSubmit" class="flex md:col-span-2 lg:col-span-2 justify-end mt-2">
-         <input type="submit" id="saveButton" value="บันทึกข้อมูล" class="text-white bg-sky-600 hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed py-2 px-3 rounded-md">
-      </section> --}}
    </form>
 </section>
 
