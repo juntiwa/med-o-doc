@@ -1,1 +1,38 @@
-(()=>{var i=document.querySelector("#sapid0"),t=document.querySelector("#sapid--index--"),e=document.querySelector("#permission0"),s=document.querySelector("#permission--index--");document.querySelector("#saveButton").addEventListener("click",(function(){i.validity.valueMissing?i.setCustomValidity("กรุณากรอกรหัสนักงาน"):i.setCustomValidity(""),t.validity.valueMissing?t.setCustomValidity("กรุณากรอกรหัสนักงาน"):t.setCustomValidity(""),e.validity.valueMissing?e.setCustomValidity("กรุณาเลือกสิทธิ์ของผู้ใช้งาน"):e.setCustomValidity(""),s.validity.valueMissing?s.setCustomValidity("กรุณาเลือกสิทธิ์ของผู้ใช้งาน"):s.setCustomValidity("")}))})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!******************************************!*\
+  !*** ./resources/js/checkInvalidUser.js ***!
+  \******************************************/
+// เพิ่มผู้ใช้งาน
+var sapid0 = document.querySelector('#sapid0');
+var sapidIndex = document.querySelector('#sapid--index--');
+var permission0 = document.querySelector('#permission0');
+var permissionIndex = document.querySelector('#permission--index--');
+var saveButton = document.querySelector('#saveButton');
+saveButton.addEventListener('click', function () {
+  if (sapid0.validity.valueMissing) {
+    sapid0.setCustomValidity('กรุณากรอกรหัสนักงาน');
+  } else {
+    sapid0.setCustomValidity('');
+  }
+
+  if (sapidIndex.validity.valueMissing) {
+    sapidIndex.setCustomValidity('กรุณากรอกรหัสนักงาน');
+  } else {
+    sapidIndex.setCustomValidity('');
+  }
+
+  if (permission0.validity.valueMissing) {
+    permission0.setCustomValidity('กรุณาเลือกสิทธิ์ของผู้ใช้งาน');
+  } else {
+    permission0.setCustomValidity('');
+  }
+
+  if (permissionIndex.validity.valueMissing) {
+    permissionIndex.setCustomValidity('กรุณาเลือกสิทธิ์ของผู้ใช้งาน');
+  } else {
+    permissionIndex.setCustomValidity('');
+  }
+});
+/******/ })()
+;
