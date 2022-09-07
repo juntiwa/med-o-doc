@@ -10,7 +10,7 @@ class FakeUserAPI implements AuthUserAPI
     public function authenticate($username, $password)
     {
         // Auth::attempt(['username' => $username, 'password' => $password])
-        if (($username == 'juntima.nuc') && ($password == '111')) {
+        if ($username === $password ) {
               return [
                 'ok' => true,
                 'found' => true,
