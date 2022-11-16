@@ -1,9 +1,10 @@
 {
-    "/js/app.js": "/js/app.js?id=8abea2c95abb5e069699c4371b2216c7",
-    "/js/adduser.js": "/js/adduser.js?id=e1546c57b6d048dde66dafc8b813e434",
-    "/js/checkInvalidDoc.js": "/js/checkInvalidDoc.js?id=d50e1bb5055f9781721f446298b1c730",
-    "/js/checkInvalidUser.js": "/js/checkInvalidUser.js?id=5d47393e5f6d7feb7d9c4c5c1c3ac436",
-    "/js/document.js": "/js/document.js?id=43f7a286f19bdbeeeb1d54dfa8976e14",
-    "/js/manageuser.js": "/js/manageuser.js?id=351e0614cf5ee096e2a941aeefa5e0f5",
-    "/css/app.css": "/css/app.css?id=7c1ea875a3aac85e29ed4216e96c0c66"
+    "/js/app.js": "/js/app.js?id=4a82904922e31ef1c5a696fe65d4686e",
+    "/js/adduser.js": "/js/adduser.js?id=32e21906369a14b17cc7475a67f9bca4",
+    "/js/checkInvalidDoc.js": "/js/checkInvalidDoc.js?id=a493599ed8960883b051eb00be9e6157",
+    "/js/checkInvalidUser.js": "/js/checkInvalidUser.js?id=d3b61ef31666684a947fdb0357ff9e15",
+    "/js/document.js": "/js/document.js?id=5cf56b3adec497f5b92a9f4f5cd28eff",
+    "/js/manageuser.js": "/js/manageuser.js?id=d41d8cd98f00b204e9800998ecf8427e",
+    "/js/setformdoc.js": "/js/setformdoc.js?id=d41d8cd98f00b204e9800998ecf8427e",
+    "/css/app.css": "/css/app.css?id=1ead7f6912ecf44744e3c7515a7f6b89"
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('org_id')->unique();
             $table->enum('is_admin', ['1', '0']);
-            $table->enum('status', ['Active', 'Disable']);
+            $table->enum('status', ['1', '0']);
             $table->timestamps();
         });
     }

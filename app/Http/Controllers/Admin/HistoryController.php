@@ -24,7 +24,6 @@ class HistoryController extends Controller
     {
         $logAvtivitys = LogActivity::orderby('date_time', 'desc')->paginate(50);
 
-
         $validated['username'] = Auth::user()->username;
         $validated['full_name'] = Auth::user()->full_name;
         $validated['office_name'] = Auth::user()->office_name;
@@ -33,7 +32,7 @@ class HistoryController extends Controller
         $validated['url'] = URL::current();
         $validated['method'] = $request->method();
         $validated['user_agent'] = $request->header('user-agent');
-        $validated['date_time'] = date('d-m-Y H:i:s');
+        $validated['date_time'] = date('Y-m-d H:i:s');
         LogActivity::insert($validated);
 
 
@@ -84,7 +83,7 @@ class HistoryController extends Controller
         $validated['url'] = URL::current();
         $validated['method'] = $request->method();
         $validated['user_agent'] = $request->header('user-agent');
-        $validated['date_time'] = date('d-m-Y H:i:s');
+        $validated['date_time'] = date('Y-m-d H:i:s');
         LogActivity::insert($validated);
 
 

@@ -40,7 +40,7 @@ class ManageController extends Controller
         $validated['url'] = URL::current();
         $validated['method'] = $request->method();
         $validated['user_agent'] = $request->header('user-agent');
-        $validated['date_time'] = date('d-m-Y H:i:s');
+        $validated['date_time'] = date('Y-m-d H:i:s');
         LogActivity::insert($validated);
 
 
@@ -128,7 +128,7 @@ class ManageController extends Controller
         $validated['url'] = URL::current();
         $validated['method'] = $request->method();
         $validated['user_agent'] = $request->header('user-agent');
-        $validated['date_time'] = date('d-m-Y H:i:s');
+        $validated['date_time'] = date('Y-m-d H:i:s');
         LogActivity::insert($validated);
 
     }
@@ -153,7 +153,7 @@ class ManageController extends Controller
         $validated['url'] = URL::current();
         $validated['method'] = $request->method();
         $validated['user_agent'] = $request->header('user-agent');
-        $validated['date_time'] = date('d-m-Y H:i:s');
+        $validated['date_time'] = date('Y-m-d H:i:s');
         LogActivity::insert($validated);
 
 
@@ -202,7 +202,7 @@ class ManageController extends Controller
         $validated['url'] = URL::current();
         $validated['method'] = $request->method();
         $validated['user_agent'] = $request->header('user-agent');
-        $validated['date_time'] = date('d-m-Y H:i:s');
+        $validated['date_time'] = date('Y-m-d H:i:s');
         LogActivity::insert($validated);
 
         return Redirect::route('manages');

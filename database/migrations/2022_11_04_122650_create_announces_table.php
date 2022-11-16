@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('announces', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('org_id');
-            $table->string('username')->nullable();
-            $table->string('full_name')->nullable();
-            $table->string('office_name')->nullable();
-            $table->enum('is_admin', ['1', '0']);
-            $table->enum('status', ['1', '0']);
+            $table->text('topic_announces');
+            $table->string('statuses');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('announces');
     }
 };
